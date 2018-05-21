@@ -21,7 +21,7 @@ public class Game : MonoBehaviour {
 
     void Update()
     {
-        if (state == State.Prestart && Input.GetKeyDown(KeyCode.Mouse0))
+        if (state == State.Prestart && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
         {
             StartCoroutine(FadeSpawnText(false));
             Game.state = Game.State.Playing;

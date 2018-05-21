@@ -52,22 +52,22 @@ public class Player : MonoBehaviour {
     void Update()
     {
         // Key Down
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             SpawnDot(true);                                   
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             SpawnDot(false);
         }
 
         // Key Up
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyUp(KeyCode.A))
         {
             RemoveDot(true);
         }
         // Key Up
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        else if (Input.GetKeyUp(KeyCode.D))
         {
             RemoveDot(false);
         }
