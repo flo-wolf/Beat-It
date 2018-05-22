@@ -36,7 +36,7 @@ public class Player : MonoBehaviour {
     public SpriteRenderer lookHandleInnerSr;
 
     // aiming
-    private Vector2 lookDirection = new Vector2(); //
+    private Vector2 lookDirection = new Vector2();
 
     /// initialization
     void Start()
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour {
     /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
     IEnumerator FadeRadiusCoroutine(bool fadeIn, Action onStart = null, Action onComplete = null)
     {
-        Debug.Log("Radius FadeIn " + fadeIn);
+        //Debug.Log("Radius FadeIn " + fadeIn);
 
         if (onStart != null)
         {
@@ -96,23 +96,32 @@ public class Player : MonoBehaviour {
     }
 
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
-    public void SpawnDot(Vector2 spawnPos, char pressedChar)
+    public void SpawnDot(Vector2 spawnPos, KeyCode pressedKey)
     {
+        Debug.Log("SpawnDot ---- oldDot: " + oldDot + " newDot: " + newDot);
+
         // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
-        if(oldDot != null && newDot != null)
+        if (oldDot != null && newDot != null)
             return;
 
 
         // spawn the new dot
         GameObject newDotGo = GameObject.Instantiate(playerDotPrefab, spawnPos, Quaternion.identity);
         PlayerDot newPlayerDot = newDotGo.GetComponent<PlayerDot>();
-        newPlayerDot.associatedKey = pressedChar;
+        newPlayerDot.associatedKey = pressedKey;
 
         // there are now two dots remove the radius
         if (newDot != null && oldDot == null)
         {
             FadeRadius(false);
-            oldDot = newDot;
+            oldDot = newDot.gameObject.GetComponent<PlayerDot>();
+            newDot = newPlayerDot;
+            
+        }
+        // there are now two dots remove the radius
+        else if (newDot == null && oldDot != null)
+        {
+            FadeRadius(false);
             newDot = newPlayerDot;
         }
         // there are no dots, spawn the first dot and show the radius
@@ -124,7 +133,6 @@ public class Player : MonoBehaviour {
         }
 
         
-
         // fill the segment in between two dots
         if (oldDot != null && newDot != null)
         {
@@ -133,10 +141,8 @@ public class Player : MonoBehaviour {
     }
 
     /// Retracts the segment towards the new player dot and removes the old one
-    public void RemoveDot(char removeKey)
+    public void RemoveDot(KeyCode removeKey)
     {
-
-        
         //StartCoroutine(RadiusFade(true));
 
         bool switchSegmentDirection = false;
@@ -147,18 +153,23 @@ public class Player : MonoBehaviour {
             removeDot = DotType.OldDot;
         else if (newDot != null && newDot.associatedKey == removeKey)
             removeDot = DotType.NewDot;
+        else
+            return;
 
         //Debug.Log("oldDot.associatedKey: " + oldDot.associatedKey);
         //Debug.Log("newDot.associatedKey: " + newDot.associatedKey);
-        Debug.Log("removeDot: " + removeDot);
+        //Debug.Log("RemoveDot ---- oldDot: " + oldDot + " newDot: " + newDot + " removeDot: " + removeDot);
 
         // oldDot gets removed
         if (removeDot == DotType.OldDot && oldDot != null)
         {
+            
             oldDot.Remove();
             oldDot = null;
 
-            if(newDot != null)
+            Debug.Log("we remove the old one! ---- oldDot: " + oldDot + " newDot: " + newDot + " removeDot: " + removeDot);
+
+            if (newDot != null)
             {
                 switchSegmentDirection = true;
                 FadeRadius(true);
@@ -170,15 +181,21 @@ public class Player : MonoBehaviour {
         else if (removeDot == DotType.NewDot && newDot != null)
         {
             newDot.Remove();
-            newDot = null;
 
             if (oldDot != null)
             {
-                switchSegmentDirection = true;
+                newDot = oldDot.gameObject.GetComponent<PlayerDot>();
+                oldDot = null;
+                switchSegmentDirection = false;
                 FadeRadius(true);
             }
             else
+            {
                 FadeRadius(false);
+                newDot = null;
+            }
+
+            Debug.Log("we remove the new one! ---- oldDot: " + oldDot + " newDot: " + newDot + " removeDot: " + removeDot);
         }
 
         // both dots are gone => Death/Restart

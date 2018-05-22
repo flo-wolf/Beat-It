@@ -6,7 +6,7 @@ public class PlayerDot : MonoBehaviour{
 
     [Header("Settings")]
     public float fadeDuration = 0.5f;
-    public char associatedKey;
+    public KeyCode associatedKey;
 
     [Header("Components")]
     public Rigidbody2D rb;

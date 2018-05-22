@@ -89,6 +89,9 @@ public class PlayerSegment : MonoBehaviour {
     {
 		if(state != State.NoDraw)
         {
+            if (state == State.Filled)
+                fillProgress = 1;
+
             lineRenderer.positionCount = 2;
             Vector2 toEnd = endPoint - startPoint;
 

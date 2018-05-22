@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4200125621376782}
   - component: {fileID: 212090538057330824}
+  - component: {fileID: 114096199991673750}
   - component: {fileID: 50537806965623472}
   - component: {fileID: 58319640822679914}
-  - component: {fileID: 114096199991673750}
   m_Layer: 0
   m_Name: PlayerDot
   m_TagString: Untagged
@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc5b1654f4c5904bbf6f55eb4e43eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 0.3
+  fadeDuration: 0.125
+  associatedKey: 0
   rb: {fileID: 50537806965623472}
   sr: {fileID: 212090538057330824}
   emptyFillSr: {fileID: 212915313867511076}

@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fa36c554cd0324f86acf4d0c32cf82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillTime: 0.25
-  emptyTime: 0.25
+  fillTime: 0.125
+  emptyTime: 0.125
   lineRenderer: {fileID: 120677413721128484}
 --- !u!120 &120677413721128484
 LineRenderer:
