@@ -38,6 +38,7 @@ public class Player : MonoBehaviour {
 
     // aiming
     private Vector2 lookDirection = new Vector2(); //
+    private bool lookingRight = false;
 
     /// initialization
     void Start()
@@ -46,11 +47,14 @@ public class Player : MonoBehaviour {
         //GameObject newDotGo = GameObject.Instantiate(playerDotPrefab, transform.position, Quaternion.identity);
         //_playerDots.Add(newDotGo.GetComponent<PlayerDot>());
         //StartCoroutine(RadiusFade(true));
+
+        Game.onTimeStepChange.AddListener(TimeStepMove);
     }
 
     /// Input Handling and Radius Drawing
     void Update()
     {
+        /*
         // Key Down
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -71,9 +75,49 @@ public class Player : MonoBehaviour {
         {
             RemoveDot(false);
         }
+        */
 
         UpdateRadius();
         UpdateRadiusHandle();
+    }
+
+    // the timestep has reached its end, move the player
+    void TimeStepMove(float timestep)
+    {
+        
+
+        // if there are two dots
+        if (dot1 != null && dot0 != null)
+        {
+            
+            // get the world mouse position 
+            Vector2 mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            // check which point is closest to the lookdirection
+            float dot0LookLength = (mousePos - (Vector2)dot0.transform.position).magnitude;
+            float dot1LookLength = (mousePos - (Vector2)dot1.transform.position).magnitude;
+
+            Debug.Log("dot0LookLength: " + dot0LookLength + "   dot1LookLength: " + dot1LookLength);
+
+            // dot 0 is closer to the direction we are aiming at => remove dot1
+            if (dot0LookLength <= dot1LookLength)
+            {
+                RemoveDot(false);
+            }
+            // dot 1 is closer to the direction we are aiming at => remove dot0
+            else
+            {
+                RemoveDot(true);
+            }
+        }
+
+        // if there is only one dot
+        else
+        {
+            SpawnDot();
+        }
+            // spawn the new dot at the aimed at position
     }
 
     /// Updates the radius size, opacity and Position
@@ -130,15 +174,27 @@ public class Player : MonoBehaviour {
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
         // calculate the destination position
-        Vector2 activePosition;
+        Vector2 activePosition = Vector2.zero;
+        
+
 
         // check which dot is "alone", and if one is alone, get its position to display the radius handle
         if (dot0 != null && dot1 == null)
             activePosition = dot0.transform.position;
         else if (dot1 != null && dot0 == null)
             activePosition = dot1.transform.position;
-        else // both dots are alive, don't draw a radius
-            return;
+        else if(dot0 != null && dot1 != null){
+            // both dots are alive, don't draw a radius
+            activePosition = Vector2.Lerp(dot0.transform.position, dot1.transform.position, 1 / 2);
+
+            /*
+            Vector2 dotDistance = dot1.transform.position - dot0.transform.position;
+            Vector2 dotDistancePerp = -dotDistance;
+            Vector2 dotMiddle = dotDistance / 2;
+            Vector2 diagonalStart = new Vector2(dotMiddle.x, );
+            Vector2 diagonalEnd = Vector2.zero;
+            */
+        }
 
         lookDirection = mousePos - activePosition;
         lookDirection = lookDirection.normalized;
@@ -156,7 +212,7 @@ public class Player : MonoBehaviour {
     /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
     IEnumerator FadeRadiusCoroutine(bool fadeIn, Action onStart = null, Action onComplete = null)
     {
-        Debug.Log("Radius FadeIn " + fadeIn);
+        //Debug.Log("Radius FadeIn " + fadeIn);
 
         if (onStart != null)
         {
@@ -191,30 +247,35 @@ public class Player : MonoBehaviour {
     }
 
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
-    void SpawnDot(bool mouse0)
+    void SpawnDot()
     {
         // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
         if(dot0 != null && dot1 != null)
             return;
 
         //Debug.Log("Dot0: " + dot0 + " ---- Dot1: " + dot1);
+        int dotWasSpawned = -1; // -1 = no dot spawned, 0 = dot0 spawndd, 1 = dot1 spawned
 
         Vector2 activePosition = new Vector2();
         Vector2 spawnPosition;
 
-        // there is a dot on mouse1 and we want to spawn one with mouse0
-        if (mouse0 && dot1 != null)
+        // dot1 exists, dot0 doesnt => spawn dot0
+        if (dot1 != null && dot0 == null)
         {
             activePosition = dot1.transform.position;
             spawnPosition = activePosition + lookDirection;
 
+            dotWasSpawned = 0;
+
             FadeRadius(false);
         }
-        // there is a dot on mouse0 and we want to spawn one with mouse1
-        else if (!mouse0 && dot0 != null)
+        // dot0 exists, dot1 doesnt => spawn dot1
+        else if (dot0 != null && dot1 == null)
         {
             activePosition = dot0.transform.position;
             spawnPosition = activePosition + lookDirection;
+
+            dotWasSpawned = 1;
 
             FadeRadius(false);
         }
@@ -226,6 +287,8 @@ public class Player : MonoBehaviour {
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             spawnPosition = mousePos;
 
+            dotWasSpawned = 0;
+
             FadeRadius(true);
         }
 
@@ -233,19 +296,22 @@ public class Player : MonoBehaviour {
         GameObject newDotGo = GameObject.Instantiate(playerDotPrefab, spawnPosition, Quaternion.identity);
         PlayerDot newPlayerDot = newDotGo.GetComponent<PlayerDot>();
 
-        if (mouse0)
+        // set the newest dot information
+        if (dotWasSpawned == 0)
         {
+            newDotGo.name = "dot0";
             dot0 = newPlayerDot;
             newestDot = DotType.Dot0;
         }
-        else
+        else if(dotWasSpawned == 1)
         {
+            newDotGo.name = "dot1";
             dot1 = newPlayerDot;
             newestDot = DotType.Dot1;
         }
             
 
-        Debug.Log("activePosition: " + activePosition + " spawnPosition: " + spawnPosition);
+        //Debug.Log("activePosition: " + activePosition + " spawnPosition: " + spawnPosition);
 
         // fill the segment in between two dots
         if (dot0 != null && dot1 != null)
@@ -258,13 +324,13 @@ public class Player : MonoBehaviour {
     }
 
     /// Retracts the segment towards the new player dot and removes the old one
-    void RemoveDot(bool mouse0)
+    void RemoveDot(bool removeDot0)
     {
         //StartCoroutine(RadiusFade(true));
 
         bool switchSegmentDirection = false;
 
-        if (mouse0 && dot0 != null)
+        if (removeDot0 && dot0 != null)
         {
             dot0.Remove();
             dot0 = null;
@@ -279,7 +345,7 @@ public class Player : MonoBehaviour {
             else
                 FadeRadius(false);
         }
-        else if (!mouse0 && dot1 != null)
+        else if (!removeDot0 && dot1 != null)
         {
             dot1.Remove();
             dot1 = null;

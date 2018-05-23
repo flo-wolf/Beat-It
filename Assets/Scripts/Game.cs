@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
@@ -9,12 +10,22 @@ public class Game : MonoBehaviour {
     public static Game _game;
 
     public Text spawnText;
-    public float prespawnInfoDespawnTime = 0.5f;
+    public Slider timeSlider;
 
+
+    public float respawnInfoDespawnTime = 0.5f;
+    public float timeStepDuration = 0.5f;
+
+    private static float timestep = 0f;
+
+    // gamestate
     public enum State { Prestart, Playing, Death, Respawn }
     public static State state = State.Prestart;
+    
+    public static GameStateChangeEvent onGameStateChange = new GameStateChangeEvent();
+    public static TimeStepEvent onTimeStepChange = new TimeStepEvent();
 
-	void Awake ()
+    void Awake ()
     {
         _game = this;
 	}
@@ -25,6 +36,26 @@ public class Game : MonoBehaviour {
         {
             StartCoroutine(FadeSpawnText(false));
             Game.state = Game.State.Playing;
+        }
+
+        UpdateTimeStep();
+    }
+
+    private void UpdateTimeStep()
+    {
+        if (timestep + Time.deltaTime < timeStepDuration)
+        {
+            timestep += Time.deltaTime;
+            timeSlider.value = Map(timestep, 0, timeStepDuration, 0, 1);
+        }
+
+        else if (timestep + Time.deltaTime >= timeStepDuration)
+        {
+            timestep = timeStepDuration;
+            timeSlider.value = Map(timestep, 0, timeStepDuration, 0, 1);
+            // the timestep has reached its end => move player
+            onTimeStepChange.Invoke(timestep);
+            timestep = 0f;
         }
     }
 
@@ -40,6 +71,7 @@ public class Game : MonoBehaviour {
         }
 
         state = newState;
+        onGameStateChange.Invoke(state);
     }
 
     public static void Restart()
@@ -53,16 +85,16 @@ public class Game : MonoBehaviour {
 
         Color c = spawnText.color;
 
-        while (elapsedTime <= prespawnInfoDespawnTime)
+        while (elapsedTime <= respawnInfoDespawnTime)
         {
             elapsedTime += Time.deltaTime;
             if (!fadeIn)
             {
-                c.a = Mathf.Lerp(1, 0, (elapsedTime / prespawnInfoDespawnTime));
+                c.a = Mathf.Lerp(1, 0, (elapsedTime / respawnInfoDespawnTime));
             }
             else
             {
-                c.a = Mathf.Lerp(0, 1, (elapsedTime / prespawnInfoDespawnTime));
+                c.a = Mathf.Lerp(0, 1, (elapsedTime / respawnInfoDespawnTime));
             }
             spawnText.color = c;
 
@@ -73,4 +105,16 @@ public class Game : MonoBehaviour {
 
         yield return null;
     }
+
+
+    // events
+    public class GameStateChangeEvent : UnityEvent<State> { }
+    public class TimeStepEvent : UnityEvent<float> { }
+
+    float Map(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+    }
 }
+
+
