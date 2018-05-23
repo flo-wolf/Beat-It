@@ -61,14 +61,36 @@ public class Player : MonoBehaviour {
         // if there are two dots
         if (dot1 != null && dot0 != null)
         {
-            
-            // get the world mouse position 
-            Vector2 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector2 aimPos;
+            float dot0LookLength;
+            float dot1LookLength;
 
-            // check which point is closest to the lookdirection
-            float dot0LookLength = (mousePos - (Vector2)dot0.transform.position).magnitude;
-            float dot1LookLength = (mousePos - (Vector2)dot1.transform.position).magnitude;
+            // mouse input
+            if (InputControl.inputType == InputControl.InputType.MouseKeyboard)
+            {
+                // get the world mouse position 
+                Vector2 mousePos = Input.mousePosition;
+                aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                // check which point is closest to the lookdirection
+                dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
+                dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
+            }
+
+            // controller input
+            else
+            {
+                Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+                aimPos = controllerInput;
+
+                // check which point is closest to the lookdirection
+                dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
+                dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
+            }
+
+            Debug.Log(aimPos);
+            
 
             Debug.Log("dot0LookLength: " + dot0LookLength + "   dot1LookLength: " + dot1LookLength);
 
@@ -158,19 +180,20 @@ public class Player : MonoBehaviour {
         else if(dot0 != null && dot1 != null){
             // both dots are alive, don't draw a radius
             activePosition = radiusCenter;
-
-            /*
-            Vector2 dotDistance = dot1.transform.position - dot0.transform.position;
-            Vector2 dotDistancePerp = -dotDistance;
-            Vector2 dotMiddle = dotDistance / 2;
-            Vector2 diagonalStart = new Vector2(dotMiddle.x, );
-            Vector2 diagonalEnd = Vector2.zero;
-            */
         }
 
         lookDirection = mousePos - activePosition;
         lookDirection = lookDirection.normalized;
         lookDirection = lookDirection * maxRadius;
+
+        // in case we use a controller
+        Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+        if (InputControl.inputType == InputControl.InputType.Controler)
+        {
+            lookDirection = controllerInput;
+            lookDirection = lookDirection.normalized;
+            lookDirection = lookDirection * maxRadius;
+        }
 
         lookHandleSr.gameObject.transform.position = activePosition + lookDirection;
     }
@@ -231,12 +254,16 @@ public class Player : MonoBehaviour {
         Vector2 activePosition = new Vector2();
         Vector2 spawnPosition;
 
+        Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+
         // dot1 exists, dot0 doesnt => spawn dot0
         if (dot1 != null && dot0 == null)
         {
             activePosition = dot1.transform.position;
-            spawnPosition = activePosition + lookDirection;
 
+            spawnPosition = activePosition + lookDirection;
+            
             dotWasSpawned = 0;
 
             FadeRadius(false);
@@ -245,6 +272,7 @@ public class Player : MonoBehaviour {
         else if (dot0 != null && dot1 == null)
         {
             activePosition = dot0.transform.position;
+
             spawnPosition = activePosition + lookDirection;
 
             dotWasSpawned = 1;
