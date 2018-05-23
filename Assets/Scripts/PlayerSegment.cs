@@ -14,7 +14,7 @@ public class PlayerSegment : MonoBehaviour {
     // Segment drawing information provided by the Player Class on PlayerDot creation
     private Vector2 startPoint = new Vector2();
     private Vector2 endPoint = new Vector2();
-    private float fillProgress = 0f;
+    public static float fillProgress = 0f;
 
     // the state of this segment
     public enum State { NoDraw, Filling, Filled, Emptying };

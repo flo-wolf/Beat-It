@@ -36,6 +36,13 @@ public class PlayerDot : MonoBehaviour{
         StartCoroutine(Fade(false));
     }
 
+    void Update()
+    {
+        // update fill amount
+        float fillScale = Mathf.Lerp(0, defaultFillCircleSize, PlayerSegment.fillProgress);
+        fillCircleGo.transform.localScale = new Vector3(fillScale, fillScale, 1);
+    }
+
     /// interpolates the dots opacity as well as its size
     IEnumerator Fade(bool fadeIn)
     {
@@ -51,6 +58,7 @@ public class PlayerDot : MonoBehaviour{
             {
                 scale = Mathf.SmoothStep(startScale, defaultLocalScale, (elapsedTime / fadeDuration));
                 transform.localScale = new Vector3(scale,scale,1);
+
                 opacity = Mathf.SmoothStep(startOpacity, 1, (elapsedTime / fadeDuration));
             }
             else

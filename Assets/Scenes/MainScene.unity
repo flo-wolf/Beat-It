@@ -700,7 +700,7 @@ MonoBehaviour:
   spawnText: {fileID: 1877671105}
   timeSlider: {fileID: 1379718442}
   respawnInfoDespawnTime: 0.5
-  timeStepDuration: 1
+  timeStepDuration: 0.5
 --- !u!4 &1573733252
 Transform:
   m_ObjectHideFlags: 0

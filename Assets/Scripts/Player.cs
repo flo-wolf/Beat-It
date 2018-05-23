@@ -44,9 +44,6 @@ public class Player : MonoBehaviour {
     void Start()
     {
         _player = this;
-        //GameObject newDotGo = GameObject.Instantiate(playerDotPrefab, transform.position, Quaternion.identity);
-        //_playerDots.Add(newDotGo.GetComponent<PlayerDot>());
-        //StartCoroutine(RadiusFade(true));
 
         Game.onTimeStepChange.AddListener(TimeStepMove);
     }
@@ -54,29 +51,6 @@ public class Player : MonoBehaviour {
     /// Input Handling and Radius Drawing
     void Update()
     {
-        /*
-        // Key Down
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SpawnDot(true);                                   
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            SpawnDot(false);
-        }
-
-        // Key Up
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            RemoveDot(true);
-        }
-        // Key Up
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            RemoveDot(false);
-        }
-        */
-
         UpdateRadius();
         UpdateRadiusHandle();
     }
@@ -84,8 +58,6 @@ public class Player : MonoBehaviour {
     // the timestep has reached its end, move the player
     void TimeStepMove(float timestep)
     {
-        
-
         // if there are two dots
         if (dot1 != null && dot0 != null)
         {
@@ -185,7 +157,7 @@ public class Player : MonoBehaviour {
             activePosition = dot1.transform.position;
         else if(dot0 != null && dot1 != null){
             // both dots are alive, don't draw a radius
-            activePosition = Vector2.Lerp(dot0.transform.position, dot1.transform.position, 1 / 2);
+            activePosition = radiusCenter;
 
             /*
             Vector2 dotDistance = dot1.transform.position - dot0.transform.position;

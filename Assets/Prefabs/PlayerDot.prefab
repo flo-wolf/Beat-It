@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4200125621376782}
   - component: {fileID: 212090538057330824}
+  - component: {fileID: 114096199991673750}
   - component: {fileID: 50537806965623472}
   - component: {fileID: 58319640822679914}
-  - component: {fileID: 114096199991673750}
   m_Layer: 0
   m_Name: PlayerDot
   m_TagString: Untagged
