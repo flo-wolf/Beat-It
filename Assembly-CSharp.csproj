@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AudioManager.cs" />
      <Compile Include="Assets\Scripts\ExtensionMethods.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\InputDeviceDetector.cs" />
@@ -59,6 +60,7 @@
      <Compile Include="Assets\Scripts\PlayerSegment.cs" />
      <Compile Include="Assets\Scripts\RythmClock.cs" />
      <Compile Include="Assets\Scripts\RythmManager.cs" />
+     <Compile Include="Assets\Scripts\Sound.cs" />
  <Reference Include="com.unity.package-manager-ui.Editor">
  <HintPath>C:/Users/Flo/Google Drive/Studium/Spieltechnik/Semester 2/Loop/Library/ScriptAssemblies/com.unity.package-manager-ui.Editor.dll</HintPath>
  </Reference>
