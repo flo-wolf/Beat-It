@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerDot.cs" />
      <Compile Include="Assets\Scripts\PlayerSegment.cs" />
+     <Compile Include="Assets\Scripts\RythmClock.cs" />
      <Compile Include="Assets\Scripts\RythmManager.cs" />
  <Reference Include="com.unity.package-manager-ui.Editor">
  <HintPath>C:/Users/Flo/Google Drive/Studium/Spieltechnik/Semester 2/Loop/Library/ScriptAssemblies/com.unity.package-manager-ui.Editor.dll</HintPath>
