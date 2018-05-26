@@ -19,43 +19,22 @@ public class Game : MonoBehaviour {
     private static float timestep = 0f;
 
     // gamestate
-    public enum State { Prestart, Playing, Death, Respawn }
-    public static State state = State.Prestart;
-    
-    public static GameStateChangeEvent onGameStateChange = new GameStateChangeEvent();
-    public static TimeStepEvent onTimeStepChange = new TimeStepEvent();
+    public enum State { Restart, Playing, Death, Respawn }
+    public static State state = State.Restart;
 
-    void Awake ()
+    public static GameStateChangeEvent onGameStateChange = new GameStateChangeEvent();
+
+    void Awake()
     {
         _game = this;
-	}
+    }
 
     void Update()
     {
-        if (state == State.Prestart && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
+        if (state == State.Restart && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
         {
             StartCoroutine(FadeSpawnText(false));
             Game.state = Game.State.Playing;
-        }
-
-        UpdateTimeStep();
-    }
-
-    private void UpdateTimeStep()
-    {
-        if (timestep + Time.deltaTime < timeStepDuration)
-        {
-            timestep += Time.deltaTime;
-            timeSlider.value = Map(timestep, 0, timeStepDuration, 0, 1);
-        }
-
-        else if (timestep + Time.deltaTime >= timeStepDuration)
-        {
-            timestep = timeStepDuration;
-            timeSlider.value = Map(timestep, 0, timeStepDuration, 0, 1);
-            // the timestep has reached its end => move player
-            onTimeStepChange.Invoke(timestep);
-            timestep = 0f;
         }
     }
 
@@ -66,7 +45,7 @@ public class Game : MonoBehaviour {
             state = State.Death;
             _game.StartCoroutine(_game.FadeSpawnText(true, Restart));
         }
-        else if(newState == State.Prestart)
+        else if (newState == State.Restart)
         {
         }
 
@@ -76,7 +55,7 @@ public class Game : MonoBehaviour {
 
     public static void Restart()
     {
-        SetState(State.Prestart);
+        SetState(State.Restart);
     }
 
     IEnumerator FadeSpawnText(bool fadeIn, Action onComplete = null)
@@ -109,12 +88,6 @@ public class Game : MonoBehaviour {
 
     // events
     public class GameStateChangeEvent : UnityEvent<State> { }
-    public class TimeStepEvent : UnityEvent<float> { }
-
-    float Map(float s, float a1, float a2, float b1, float b2)
-    {
-        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
-    }
 }
 
 

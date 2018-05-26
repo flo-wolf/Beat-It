@@ -45,7 +45,7 @@ public class Player : MonoBehaviour {
     {
         _player = this;
 
-        Game.onTimeStepChange.AddListener(TimeStepMove);
+        RythmManager.onRythm.AddListener(OnRythmMove);
     }
 
     /// Input Handling and Radius Drawing
@@ -55,8 +55,8 @@ public class Player : MonoBehaviour {
         UpdateRadiusHandle();
     }
 
-    // the timestep has reached its end, move the player
-    void TimeStepMove(float timestep)
+    // the clock has reached its end, move the player
+    void OnRythmMove(float timestep)
     {
         // if there are two dots
         if (dot1 != null && dot0 != null)
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour {
             float dot1LookLength;
 
             // mouse input
-            if (InputControl.inputType == InputControl.InputType.MouseKeyboard)
+            if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
             {
                 // get the world mouse position 
                 Vector2 mousePos = Input.mousePosition;
@@ -89,10 +89,6 @@ public class Player : MonoBehaviour {
                 dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
             }
 
-            Debug.Log(aimPos);
-            
-
-            Debug.Log("dot0LookLength: " + dot0LookLength + "   dot1LookLength: " + dot1LookLength);
 
             // dot 0 is closer to the direction we are aiming at => remove dot1
             if (dot0LookLength <= dot1LookLength)
@@ -188,7 +184,7 @@ public class Player : MonoBehaviour {
 
         // in case we use a controller
         Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-        if (InputControl.inputType == InputControl.InputType.Controler)
+        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.Controler)
         {
             lookDirection = controllerInput;
             lookDirection = lookDirection.normalized;

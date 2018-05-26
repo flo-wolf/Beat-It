@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine;
 using System.Collections;
 
-public class InputControl : MonoBehaviour
+public class InputDeviceDetector : MonoBehaviour
 {
     public enum InputType
     {
