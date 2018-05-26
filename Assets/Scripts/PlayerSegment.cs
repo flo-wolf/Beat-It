@@ -45,6 +45,8 @@ public class PlayerSegment : MonoBehaviour {
 
             StopCoroutine("FillCoroutine");
             StartCoroutine(EmptyCoroutine());
+
+            FindObjectOfType<AudioManager>().Play("Snare");
         }
     }
 
