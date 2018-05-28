@@ -587,26 +587,26 @@ MonoBehaviour:
   sounds:
   - name: Bass
     clip: {fileID: 8300000, guid: 7bb89494a17c3ed47a76a008def26204, type: 3}
-    volume: 1
-    pitch: 1
+    volume: 0
+    pitch: 0
     loop: 0
     source: {fileID: 0}
   - name: Kick
     clip: {fileID: 8300000, guid: 640b8db7b1658fc43922a28f16b1fa0f, type: 3}
-    volume: 1
-    pitch: 1
+    volume: 0
+    pitch: 0
     loop: 0
     source: {fileID: 0}
   - name: Loop
     clip: {fileID: 8300000, guid: a16e5e94a86230d42bed1d093e7ec1f2, type: 3}
-    volume: 1
-    pitch: 1
+    volume: 0
+    pitch: 0
     loop: 0
     source: {fileID: 0}
   - name: Snare
     clip: {fileID: 8300000, guid: fc31a99d91a426a4c9dbbfb4e73c30d3, type: 3}
-    volume: 1
-    pitch: 1
+    volume: 0
+    pitch: 0
     loop: 0
     source: {fileID: 0}
 --- !u!4 &651342659
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 1289733812}
-  radius: 0.5
+  radius: 3
 --- !u!212 &1289733814
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1100,7 +1100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnText: {fileID: 0}
-  timeSlider: {fileID: 1379718442}
+  timeSlider: {fileID: 0}
   respawnInfoDespawnTime: 0.5
   timeStepDuration: 0.5
 --- !u!4 &1573733252
