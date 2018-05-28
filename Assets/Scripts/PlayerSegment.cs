@@ -46,7 +46,7 @@ public class PlayerSegment : MonoBehaviour {
             StopCoroutine("FillCoroutine");
             StartCoroutine(EmptyCoroutine());
 
-            AudioManager.instance.Play("Snare");
+            FindObjectOfType<AudioManager>().Play("Snare");
         }
     }
 
