@@ -587,26 +587,26 @@ MonoBehaviour:
   sounds:
   - name: Bass
     clip: {fileID: 8300000, guid: 7bb89494a17c3ed47a76a008def26204, type: 3}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Kick
     clip: {fileID: 8300000, guid: 640b8db7b1658fc43922a28f16b1fa0f, type: 3}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Loop
     clip: {fileID: 8300000, guid: a16e5e94a86230d42bed1d093e7ec1f2, type: 3}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Snare
     clip: {fileID: 8300000, guid: fc31a99d91a426a4c9dbbfb4e73c30d3, type: 3}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
 --- !u!4 &651342659

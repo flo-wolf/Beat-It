@@ -240,7 +240,7 @@ public class Player : MonoBehaviour {
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
     void SpawnDot()
     {
-        FindObjectOfType<AudioManager>().Play("Kick");
+        AudioManager.instance.Play("Kick");
 
         // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
         if (dot0 != null && dot1 != null)
