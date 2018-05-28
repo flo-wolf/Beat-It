@@ -588,7 +588,7 @@ MonoBehaviour:
   - name: Bass
     clip: {fileID: 8300000, guid: 7bb89494a17c3ed47a76a008def26204, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 0.99
     loop: 0
     source: {fileID: 0}
   - name: Kick
