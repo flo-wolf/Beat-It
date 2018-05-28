@@ -1142,7 +1142,8 @@ MonoBehaviour:
   radiusFadeDuration: 0.25
   maxRadius: 5
   maxIncreasedRadius: 10
-  RadiusIncreaseSpeed: 25
+  radiusIncreaseSpeed: 50
+  increaseTempoSpeed: 1
   playerDotPrefab: {fileID: 1371461933542696, guid: b87071e003593024b9f9ee071fe7e6c5,
     type: 2}
   playerSegment: {fileID: 204892949}

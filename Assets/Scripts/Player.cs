@@ -26,7 +26,8 @@ public class Player : MonoBehaviour {
     public float radiusFadeDuration = 1f;
     public float maxRadius = 5;            // default max radius
     public float maxIncreasedRadius = 10;
-    public float RadiusIncreaseSpeed;
+    public float radiusIncreaseSpeed;
+    public float increaseTempoSpeed;
     private float radius = 0;              // current radius, gets interpolated to and from maxRadius via fading coroutine
     private float radiusOpacity = 0f;       // current opacity, gets interpolated to and from 1 via fading coroutine
     private Vector2 radiusCenter;
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour {
         UpdateRadius();
         UpdateRadiusHandle();
         IncreaseRadius();
+        TempoControls();
     }
 
     void IncreaseRadius()
@@ -75,7 +77,7 @@ public class Player : MonoBehaviour {
 
         if(holdKey)
         {
-            maxRadius += RadiusIncreaseSpeed * Time.deltaTime;
+            maxRadius += radiusIncreaseSpeed * Time.deltaTime;
             if(maxRadius >= maxIncreasedRadius)
             {
                 maxRadius = maxIncreasedRadius;
@@ -84,11 +86,26 @@ public class Player : MonoBehaviour {
 
         else if(!holdKey)
         {
-            maxRadius -= RadiusIncreaseSpeed * Time.deltaTime;
+            maxRadius -= radiusIncreaseSpeed * Time.deltaTime;
             if (maxRadius <= originalSize)
             {
                 maxRadius = originalSize;
             }
+        }
+    }
+
+    void TempoControls()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            Game._game.timeStepDuration += increaseTempoSpeed * Time.deltaTime;
+            Debug.Log("Left M.button pressed");
+        }
+
+        else if (Input.GetMouseButton(1))
+        {
+            Game._game.timeStepDuration -= increaseTempoSpeed * Time.deltaTime;
+            Debug.Log("Left M.button pressed");
         }
     }
 
