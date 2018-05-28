@@ -24,10 +24,16 @@ public class Player : MonoBehaviour {
     [Header("Radius Drawing")]
     public float radiusDrawScale = 0.01f;   // the amount of verticies used to draw the radius. Lower number = more
     public float radiusFadeDuration = 1f;
-    public float maxRadius = 10;            // default max radius
+    public float maxRadius = 5;            // default max radius
     private float radius = 0;              // current radius, gets interpolated to and from maxRadius via fading coroutine
     private float radiusOpacity = 0f;       // current opacity, gets interpolated to and from 1 via fading coroutine
     private Vector2 radiusCenter;
+
+    [Header("Additional Player Controls")]
+    public bool enable;
+    public float maxIncreasedRadius = 10;
+    public float radiusIncreaseSpeed;
+    public float increaseTempoSpeed;
 
     [Header("Components")]
     public GameObject playerDotPrefab;      // needed for creating new playerDots
@@ -53,6 +59,61 @@ public class Player : MonoBehaviour {
     {
         UpdateRadius();
         UpdateRadiusHandle();
+
+        if(enable)
+        {
+            IncreaseRadius();
+            TempoControls();
+        }
+    }
+
+    void IncreaseRadius()
+    {
+        bool holdKey;
+        float originalSize = 5;
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            holdKey = true;
+        }
+
+        else
+        {
+            holdKey = false;
+        }
+
+        if(holdKey)
+        {
+            maxRadius += radiusIncreaseSpeed * Time.deltaTime;
+            if(maxRadius >= maxIncreasedRadius)
+            {
+                maxRadius = maxIncreasedRadius;
+            }
+        }
+
+        else if(!holdKey)
+        {
+            maxRadius -= radiusIncreaseSpeed * Time.deltaTime;
+            if (maxRadius <= originalSize)
+            {
+                maxRadius = originalSize;
+            }
+        }
+    }
+
+    void TempoControls()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            RythmManager.instance.clockDuration -= increaseTempoSpeed * Time.deltaTime;
+            Debug.Log("Left M.button pressed");
+        }
+
+        else if (Input.GetMouseButton(1))
+        {
+            RythmManager.instance.clockDuration += increaseTempoSpeed * Time.deltaTime;
+            Debug.Log("Left M.button pressed");
+        }
     }
 
     // the clock has reached its end, move the player
@@ -221,6 +282,7 @@ public class Player : MonoBehaviour {
                 radius = Mathf.SmoothStep(startRadius, maxRadius, (elapsedTime / radiusFadeDuration));
                 radiusOpacity = Mathf.SmoothStep(startRadius, 1, (elapsedTime / radiusFadeDuration));
             }
+
             else if(!fadeIn && radius != 0)
             {
                 radius = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
