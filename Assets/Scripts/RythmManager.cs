@@ -41,6 +41,18 @@ public class RythmManager : MonoBehaviour {
             clock = elapsedTime;
             if (elapsedTime >= clockDuration)
             {
+                if (Player._player.tempoUp)
+                {
+                    RythmManager.instance.clockBPM *= 2;
+                    Player._player.tempoUp = false;
+                }
+
+                else if (Player._player.tempoDown)
+                {
+                    RythmManager.instance.clockBPM /= 2;
+                    Player._player.tempoDown = false;
+                }
+
                 onRythm.Invoke(clock);
                 elapsedTime = 0f;
 
@@ -62,6 +74,18 @@ public class RythmManager : MonoBehaviour {
             fixedClock = elapsedTime;
             if (elapsedTime >= fixedClockDuration)
             {
+                if (Player._player.tempoUp)
+                {
+                    RythmManager.instance.clockBPM *= 2;
+                    Player._player.tempoUp = false;
+                }
+
+                else if (Player._player.tempoDown)
+                {
+                    RythmManager.instance.clockBPM /= 2;
+                    Player._player.tempoDown = false;
+                }
+
                 onFixedRythm.Invoke(fixedClock);
                 elapsedTime = 0f;
 

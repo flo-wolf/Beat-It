@@ -55,17 +55,6 @@ public class AudioManager : MonoBehaviour {
     {
         AudioManager.instance.Play("Kick");
 
-        if (Player._player.tempoUp)
-        {
-            RythmManager.instance.clockBPM *= 2;
-            Player._player.tempoUp = false;
-        }
-
-        else if (Player._player.tempoDown)
-        {
-            RythmManager.instance.clockBPM /= 2;
-            Player._player.tempoDown = false;
-        }
     }
 
     //This enables us to Play an AudioClip just through his name.
