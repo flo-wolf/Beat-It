@@ -30,10 +30,15 @@ public class Player : MonoBehaviour {
     private Vector2 radiusCenter;
 
     [Header("Additional Player Controls")]
-    public bool enable;
+    public bool enableAPC;
     public float maxIncreasedRadius = 10;
     public float radiusIncreaseSpeed;
-    public float increaseTempoSpeed;
+
+    [HideInInspector]
+    public bool tempoUp = false;
+    [HideInInspector]
+    public bool tempoDown = false;
+
 
     [Header("Components")]
     public GameObject playerDotPrefab;      // needed for creating new playerDots
@@ -60,7 +65,7 @@ public class Player : MonoBehaviour {
         UpdateRadius();
         UpdateRadiusHandle();
 
-        if(enable)
+        if(enableAPC)
         {
             IncreaseRadius();
             TempoControls();
@@ -103,16 +108,16 @@ public class Player : MonoBehaviour {
 
     void TempoControls()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButtonDown(0))
         {
-            RythmManager.instance.clockDuration -= increaseTempoSpeed * Time.deltaTime;
+            tempoUp = true;
             Debug.Log("Left M.button pressed");
         }
 
-        else if (Input.GetMouseButton(1))
+        else if (Input.GetMouseButtonDown(1))
         {
-            RythmManager.instance.clockDuration += increaseTempoSpeed * Time.deltaTime;
-            Debug.Log("Left M.button pressed");
+            tempoDown = true;
+            Debug.Log("Right M.button pressed");
         }
     }
 
@@ -302,7 +307,6 @@ public class Player : MonoBehaviour {
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
     void SpawnDot()
     {
-        FindObjectOfType<AudioManager>().Play("Kick");
 
         // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
         if (dot0 != null && dot1 != null)

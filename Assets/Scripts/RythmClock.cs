@@ -16,7 +16,7 @@ public class RythmClock : MonoBehaviour {
 	void Update ()
     {
         // calculate the current turning degree of the clock pointer
-        turnDegree = RythmManager.clock.Remap(0f, RythmManager.instance.clockDuration, 2f * Mathf.PI + Mathf.PI/2, Mathf.PI / 2);
+        turnDegree = RythmManager.clock.Remap(0f, RythmManager.instance.clockBPM, 2f * Mathf.PI + Mathf.PI/2, Mathf.PI / 2);
 
         DrawPointer();
     }

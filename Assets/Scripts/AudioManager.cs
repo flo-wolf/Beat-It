@@ -42,7 +42,30 @@ public class AudioManager : MonoBehaviour {
 
     private void Start()
     {
-        //Play("Theme");
+        RythmManager.onFixedRythm.AddListener(FixedRythmCall);
+        RythmManager.onRythm.AddListener(RythmCall);
+    }
+
+    public void FixedRythmCall(float f)
+    {
+        Play("Bass");
+    }
+
+    public void RythmCall(float f)
+    {
+        AudioManager.instance.Play("Kick");
+
+        if (Player._player.tempoUp)
+        {
+            RythmManager.instance.clockBPM *= 2;
+            Player._player.tempoUp = false;
+        }
+
+        else if (Player._player.tempoDown)
+        {
+            RythmManager.instance.clockBPM /= 2;
+            Player._player.tempoDown = false;
+        }
     }
 
     //This enables us to Play an AudioClip just through his name.

@@ -602,7 +602,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfe3edef04dd944eaac4fbd4fee50c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockDuration: 0.5
+  fixedClockBPM: 120
+  clockBPM: 120
 --- !u!4 &576614143
 Transform:
   m_ObjectHideFlags: 0
@@ -690,10 +691,10 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Loop
-    clip: {fileID: 8300000, guid: a16e5e94a86230d42bed1d093e7ec1f2, type: 3}
+    clip: {fileID: 8300000, guid: 542ae874115bef8418fe1fc8f5f8aa86, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: Snare
     clip: {fileID: 8300000, guid: fc31a99d91a426a4c9dbbfb4e73c30d3, type: 3}
@@ -806,6 +807,7 @@ MonoBehaviour:
   Dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
   DotStart: {fileID: 336495485}
   LevelInstanceSize: 5
+  rythmSpawnSkip: 4
   delay: 0.5
 --- !u!4 &713139673
 Transform:
@@ -1089,6 +1091,7 @@ MonoBehaviour:
   Dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
   DotStart: {fileID: 695038657}
   LevelInstanceSize: 5
+  rythmSpawnSkip: 4
   delay: 0.5
 --- !u!4 &1176259888
 Transform:
@@ -1609,6 +1612,7 @@ MonoBehaviour:
   Dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
   DotStart: {fileID: 733962623}
   LevelInstanceSize: 5
+  rythmSpawnSkip: 4
   delay: 0.5
 --- !u!4 &1576984310
 Transform:
@@ -1656,10 +1660,11 @@ MonoBehaviour:
   radiusDrawScale: 0.01
   radiusFadeDuration: 0.25
   maxRadius: 5
-  enable: 1
+  enableAPC: 1
   maxIncreasedRadius: 10
   radiusIncreaseSpeed: 50
-  increaseTempoSpeed: 0.05
+  tempoUp: 0
+  tempoDown: 0
   playerDotPrefab: {fileID: 1371461933542696, guid: b87071e003593024b9f9ee071fe7e6c5,
     type: 2}
   playerSegment: {fileID: 204892949}
