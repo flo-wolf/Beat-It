@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,7 +38,8 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -322,6 +322,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -405,7 +406,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1934718413826444, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
       propertyPath: m_Name
-      value: LevelDot 1
+      value: LevelDot 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
@@ -544,6 +545,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -755,7 +757,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1934718413826444, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
       propertyPath: m_Name
-      value: LevelDot 1
+      value: LevelDot 0
       objectReference: {fileID: 0}
     - target: {fileID: 120797463985515928, guid: 0ad78cd71d828c0468d0672ff5dff52d,
         type: 2}
@@ -803,10 +805,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2757e602f53a238408c94954ce68e43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
-  DotStart: {fileID: 336495485}
-  LevelInstanceSize: 5
-  delay: 0.5
+  dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
+  dotStart: {fileID: 336495485}
+  MaxDots: 5
+  rythmSpawnSkip: 4
 --- !u!4 &713139673
 Transform:
   m_ObjectHideFlags: 0
@@ -869,7 +871,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 731585576}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.608418, y: -8.232215, z: 0.43799287}
+  m_LocalPosition: {x: -39.1, y: -8.232215, z: 0.43799287}
   m_LocalScale: {x: 3.0809312, y: 19.71438, z: 1}
   m_Children: []
   m_Father: {fileID: 641464212}
@@ -916,7 +918,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1934718413826444, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
       propertyPath: m_Name
-      value: LevelDot 1
+      value: LevelDot 0
       objectReference: {fileID: 0}
     - target: {fileID: 212923259090662850, guid: 0ad78cd71d828c0468d0672ff5dff52d,
         type: 2}
@@ -1086,10 +1088,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2757e602f53a238408c94954ce68e43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
-  DotStart: {fileID: 695038657}
-  LevelInstanceSize: 5
-  delay: 0.5
+  dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
+  dotStart: {fileID: 695038657}
+  MaxDots: 5
+  rythmSpawnSkip: 4
 --- !u!4 &1176259888
 Transform:
   m_ObjectHideFlags: 0
@@ -1135,6 +1137,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1165,12 +1168,15 @@ LineRenderer:
     widthCurve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
+      - serializedVersion: 3
         time: 0
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1236,6 +1242,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1529,7 +1536,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1550815779}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 45.016582, y: -8.072215, z: 0.43799287}
+  m_LocalPosition: {x: 40.9, y: -8.072215, z: 0.43799287}
   m_LocalScale: {x: 3.0809312, y: 19.71438, z: 1}
   m_Children: []
   m_Father: {fileID: 641464212}
@@ -1606,10 +1613,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2757e602f53a238408c94954ce68e43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
-  DotStart: {fileID: 733962623}
-  LevelInstanceSize: 5
-  delay: 0.5
+  dot: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
+  dotStart: {fileID: 733962623}
+  MaxDots: 5
+  rythmSpawnSkip: 4
 --- !u!4 &1576984310
 Transform:
   m_ObjectHideFlags: 0
@@ -1694,6 +1701,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1724,12 +1732,15 @@ LineRenderer:
     widthCurve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
+      - serializedVersion: 3
         time: 0
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

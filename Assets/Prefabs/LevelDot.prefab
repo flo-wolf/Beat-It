@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 120797463985515928}
   - component: {fileID: 212238728654888022}
   m_Layer: 0
-  m_Name: SpawnDot 1
+  m_Name: LevelDot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
