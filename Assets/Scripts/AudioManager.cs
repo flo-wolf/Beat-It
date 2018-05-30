@@ -9,12 +9,12 @@ public class AudioManager : MonoBehaviour {
 
     public static AudioManager instance;
 
-	// Use this for initialization before Start()
-	void Awake ()
+    // Use this for initialization before Start()
+    void Awake()
     {
         //We dont want that there can be multiple AudioManagers, whenever a new scene starts, so we use a Singleton pattern,
         //to check if there is already an instance of our AudioManager, and if yes, we just destroy it.
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -30,7 +30,7 @@ public class AudioManager : MonoBehaviour {
 
         //Each instance of our Sound class will now get a AudioSource that is stored in the variable "source", we defined in our Sound class
         //We then set the diffrent variables of our Sound class equals to the variables the AudioClip brings with it.
-		foreach(Sound s in sounds)
+        foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -38,11 +38,34 @@ public class AudioManager : MonoBehaviour {
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
-	}
+    }
 
     private void Start()
     {
-        //Play("Theme");
+        RythmManager.onFixedRythm.AddListener(FixedRythmCall);
+        RythmManager.onRythm.AddListener(RythmCall);
+    }
+
+    public void FixedRythmCall(float f)
+    {
+        Play("Bass");
+    }
+
+    public void RythmCall(float f)
+    {
+        AudioManager.instance.Play("Kick");
+
+        if (Player._player.tempoUp)
+        {
+            RythmManager.instance.clockBPM *= 2;
+            Player._player.tempoUp = false;
+        }
+
+        else if (Player._player.tempoDown)
+        {
+            RythmManager.instance.clockBPM /= 2;
+            Player._player.tempoDown = false;
+        }
     }
 
     //This enables us to Play an AudioClip just through his name.
@@ -55,7 +78,7 @@ public class AudioManager : MonoBehaviour {
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
-        if(s == null)
+        if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;

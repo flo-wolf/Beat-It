@@ -30,10 +30,15 @@ public class Player : MonoBehaviour {
     private Vector2 radiusCenter;
 
     [Header("Additional Player Controls")]
-    public bool enable;
+    public bool enableAPC;
     public float maxIncreasedRadius = 10;
     public float radiusIncreaseSpeed;
-    public float increaseTempoSpeed;
+
+    [HideInInspector]
+    public bool tempoUp = false;
+    [HideInInspector]
+    public bool tempoDown = false;
+
 
     [Header("Components")]
     public GameObject playerDotPrefab;      // needed for creating new playerDots
@@ -60,7 +65,7 @@ public class Player : MonoBehaviour {
         UpdateRadius();
         UpdateRadiusHandle();
 
-        if(enable)
+        if (enableAPC)
         {
             IncreaseRadius();
             TempoControls();
@@ -82,16 +87,16 @@ public class Player : MonoBehaviour {
             holdKey = false;
         }
 
-        if(holdKey)
+        if (holdKey)
         {
             maxRadius += radiusIncreaseSpeed * Time.deltaTime;
-            if(maxRadius >= maxIncreasedRadius)
+            if (maxRadius >= maxIncreasedRadius)
             {
                 maxRadius = maxIncreasedRadius;
             }
         }
 
-        else if(!holdKey)
+        else if (!holdKey)
         {
             maxRadius -= radiusIncreaseSpeed * Time.deltaTime;
             if (maxRadius <= originalSize)
@@ -103,16 +108,16 @@ public class Player : MonoBehaviour {
 
     void TempoControls()
     {
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            RythmManager.instance.clockDuration -= increaseTempoSpeed * Time.deltaTime;
+            tempoUp = true;
             Debug.Log("Left M.button pressed");
         }
 
-        else if (Input.GetMouseButton(1))
+        else if (Input.GetMouseButtonDown(1))
         {
-            RythmManager.instance.clockDuration += increaseTempoSpeed * Time.deltaTime;
-            Debug.Log("Left M.button pressed");
+            tempoDown = true;
+            Debug.Log("Right M.button pressed");
         }
     }
 
@@ -226,7 +231,7 @@ public class Player : MonoBehaviour {
 
         // calculate the destination position
         Vector2 activePosition = Vector2.zero;
-        
+
 
 
         // check which dot is "alone", and if one is alone, get its position to display the radius handle
@@ -234,7 +239,8 @@ public class Player : MonoBehaviour {
             activePosition = dot0.transform.position;
         else if (dot1 != null && dot0 == null)
             activePosition = dot1.transform.position;
-        else if(dot0 != null && dot1 != null){
+        else if (dot0 != null && dot1 != null)
+        {
             // both dots are alive, don't draw a radius
             activePosition = radiusCenter;
         }
@@ -283,7 +289,7 @@ public class Player : MonoBehaviour {
                 radiusOpacity = Mathf.SmoothStep(startRadius, 1, (elapsedTime / radiusFadeDuration));
             }
 
-            else if(!fadeIn && radius != 0)
+            else if (!fadeIn && radius != 0)
             {
                 radius = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
                 radiusOpacity = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
@@ -302,7 +308,6 @@ public class Player : MonoBehaviour {
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
     void SpawnDot()
     {
-        FindObjectOfType<AudioManager>().Play("Kick");
 
         // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
         if (dot0 != null && dot1 != null)
@@ -323,7 +328,7 @@ public class Player : MonoBehaviour {
             activePosition = dot1.transform.position;
 
             spawnPosition = activePosition + lookDirection;
-            
+
             dotWasSpawned = 0;
 
             FadeRadius(false);
@@ -364,22 +369,22 @@ public class Player : MonoBehaviour {
             dot0 = newPlayerDot;
             newestDot = DotType.Dot0;
         }
-        else if(dotWasSpawned == 1)
+        else if (dotWasSpawned == 1)
         {
             newDotGo.name = "dot1";
             dot1 = newPlayerDot;
             newestDot = DotType.Dot1;
         }
-            
+
 
         //Debug.Log("activePosition: " + activePosition + " spawnPosition: " + spawnPosition);
 
         // fill the segment in between two dots
         if (dot0 != null && dot1 != null)
         {
-            if(newestDot == DotType.Dot0)
+            if (newestDot == DotType.Dot0)
                 playerSegment.FillSegment(dot1.transform.position, dot0.transform.position);
-            else if(newestDot == DotType.Dot1)
+            else if (newestDot == DotType.Dot1)
                 playerSegment.FillSegment(dot0.transform.position, dot1.transform.position);
         }
     }
@@ -396,9 +401,9 @@ public class Player : MonoBehaviour {
             dot0.Remove();
             dot0 = null;
 
-            if(dot1 != null)
+            if (dot1 != null)
             {
-                if(newestDot == DotType.Dot1)
+                if (newestDot == DotType.Dot1)
                     switchSegmentDirection = true;
                 newestDot = DotType.Dot1;
                 FadeRadius(true);
@@ -430,7 +435,7 @@ public class Player : MonoBehaviour {
             radiusOpacity = 0;
             newestDot = DotType.None;
         }
-            
+
 
         // empty the segment in between those two dots
         playerSegment.EmptySegment(switchSegmentDirection);

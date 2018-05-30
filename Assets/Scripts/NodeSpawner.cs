@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DotSpawner : MonoBehaviour {
+public class NodeSpawner : MonoBehaviour {
 
 	//public stuff
-	public Dot dot;
-	public Dot dotStart;
-    public int MaxDots = 5;
+	public Node node;
+	public Node nodeStart;
+    public int maxNodes = 5;
+    public float opacityFadeDuration = 1f;
 
     public int rythmSpawnSkip = 4;
 
     private int rythmSpawnSkipCount = 4;
-    private int DotCount = 0;
+    private int nodeCount = 0;
 
     //private stuff
-    private List<Dot> DotList = new List<Dot>();
+    private List<Node> nodeList = new List<Node>();
 	private LineRenderer connection;
     private List<LineRenderer> connections = new List<LineRenderer>();
 
@@ -23,27 +24,20 @@ public class DotSpawner : MonoBehaviour {
     private float randomRadius;
     private float randomAngle;
 
+    // opacity value for all connections
+    [HideInInspector]
+    
+    public float opacity = 0f;
+
 	// Use this for initialization
 	void Start ()
     {
-		DotList.Add (dotStart);
-		connection = dotStart.GetComponent<LineRenderer>();
+		nodeList.Add (nodeStart);
+		connection = nodeStart.GetComponent<LineRenderer>();
 
         RythmManager.onRythm.AddListener(Spawn);
     }
 		
-	//Method to connect 2 points with a linerenderer
-	void Connect (Dot currentDot , Dot nextDot)
-	{
-		Vector3[] positions = new Vector3[] {currentDot.transform.position , nextDot.transform.position};
-		//OC = Outgoing Connection
-		currentDot._OC = currentDot.GetComponent<LineRenderer> ();
-		currentDot._OC.SetPositions (positions);
-		//IC = Incoming Connection
-		nextDot.hasIC = true;
-	}
-
-
 	void Spawn(float f)
 	{
         if (rythmSpawnSkipCount < rythmSpawnSkip)
@@ -54,54 +48,102 @@ public class DotSpawner : MonoBehaviour {
         else
             rythmSpawnSkipCount = 0;
 
-        //choose random Dot from list
-        int randomDot = Random.Range(0, DotList.Count - 1);
+        //choose random Node from list
+        int randomNode = Random.Range(0, nodeList.Count - 1);
 
-		//get the random Dot from the list
-		Dot currentDot = DotList[randomDot];
+		//get the random Node from the list
+		Node currentNode = nodeList[randomNode];
 
 		// Find a suitable spawn location
-		Vector3 spawnVector = CastRays(currentDot);
+		Vector3 spawnVector = CastRays(currentNode);
 
 		bool isGoodLocation = true;
-		foreach (Dot node in DotList) {
+		foreach (Node node in nodeList) {
 			if (spawnVector == node.transform.position)
 				isGoodLocation = false;
 		}
 
-        if (isGoodLocation && DotCount < MaxDots - 1)
+        if (isGoodLocation && nodeCount < maxNodes - 1)
 		{
-
-            Debug.Log("1111 ");
 			//suck in outgoing connection
-			SuckIn(randomDot , currentDot);
-
-			//cast rays
-            //this.castRays( currentDot );
+			//SuckIn(randomNode , currentNode);
 
 			//create new node
-			Dot nextDot = Instantiate (dot, spawnVector, Quaternion.Euler( new Vector3 (-180,0,0)));
-            nextDot.transform.parent = transform;
+			Node nextNode = Instantiate (node, spawnVector, Quaternion.Euler( new Vector3 (-180,0,0)));
+            nextNode.transform.parent = transform;
+            nextNode.nodeSpawner = this;
 
-            DotCount++;
+            nodeCount++;
 
-            nextDot.name = "LevelDot " + DotCount.ToString();
+            nextNode.name = "LevelNode " + nodeCount.ToString();
 			//add to list
-			DotList.Insert (randomDot + 1, nextDot);
-			//name it ( i cant change the name of the child of the new Dots :C )
-			nextDot.gameObject.transform.GetChild(0).name = System.Convert.ToString ("Blockradius" + DotCount);
+			nodeList.Insert (randomNode + 1, nextNode);
+			//name it ( i cant change the name of the child of the new Nodes :C )
+			nextNode.gameObject.transform.GetChild(0).name = System.Convert.ToString ("Blockradius" + nodeCount);
 
 			//connect the old point with the new one
-			Connect (currentDot, nextDot);
+			Connect (currentNode, nextNode);
 
-			//reconnect the new Dot with the one wich has no incoming connection
-			Reconnect (randomDot + 1, nextDot);
+			//reconnect the new Node with the one wich has no incoming connection
+			Reconnect (randomNode + 1, nextNode);
 			isGoodLocation = true;
+
+            StopAllCoroutines();
+            StartCoroutine(FadeConnections());
 		}
 	}
 
+    IEnumerator FadeConnections()
+    {
+        // fadeout
+        float elapsedTime = 0f;
+        float startOpacity = 0f;
+
+        while (elapsedTime <= opacityFadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            opacity = Mathf.SmoothStep(startOpacity, 1, (elapsedTime / (opacityFadeDuration)));
+            yield return null;
+        }
+
+
+        yield return null;
+    }
+
+    // connect 2 points with a linerenderer
+    void Connect(Node currentNode, Node nextNode)
+    {
+        Vector3[] positions = new Vector3[] { currentNode.transform.position, nextNode.transform.position };
+        //OC = Outgoing Connection
+        currentNode._OC = currentNode.GetComponent<LineRenderer>();
+        currentNode._OC.SetPositions(positions);
+        //IC = Incoming Connection
+        nextNode.hasIC = true;
+    }
+
+    // reconnects the missing connections
+    void Reconnect(int Index, Node nextNode)
+    {
+        //set the linerenderers endposition to the next Node's position
+        if (Index < nodeList.Count - 1)
+        {
+            Vector3[] positions = new Vector3[] { nextNode.transform.position, nodeList[Index + 1].transform.position };
+            nextNode._OC = nextNode.GetComponent<LineRenderer>();
+            nextNode._OC.SetPositions(positions);
+            Debug.Log("Reconnected to " + nodeList[Index + 1].name);
+        }
+        else if (Index == nodeList.Count - 1 || Index >= nodeList.Count - 1)
+        {
+            Vector3[] positions = new Vector3[] { nextNode.transform.position, nodeList[0].transform.position };
+            nextNode._OC = nextNode.GetComponent<LineRenderer>();
+            nextNode._OC.SetPositions(positions);
+            Debug.Log("Reconnected to " + nodeList[0].name);
+        }
+    }
+
     // Find a suitable spawn vector and set spawnVector to that found vector
-	Vector2 CastRays(Dot node)
+    Vector2 CastRays(Node node)
     {
 		//the ray has hit the level boundaries (block radius)
 		bool hitBlockRadius = false;
@@ -178,7 +220,8 @@ public class DotSpawner : MonoBehaviour {
             return node.transform.position;
     }
 
-	void SuckIn(int Index , Dot currentDot)
+    /*
+	void SuckIn(int Index , Node currentNode)
 	{
 		//if the Index is bigger than 0/ not the start of the list
 		//basically set end and start point of linerenderer to the point so it's not visible anymore
@@ -186,21 +229,21 @@ public class DotSpawner : MonoBehaviour {
         {
 			Vector3[] position = new Vector3[] 
             {
-				DotList [Index - 1].transform.position,
-				DotList [Index - 1].transform.position
+				nodeList [Index - 1].transform.position,
+				nodeList [Index - 1].transform.position
 			};
-			DotList [Index + 1].hasIC = false;
-			currentDot._OC.SetPositions (position);
+			nodeList [Index + 1].hasIC = false;
+			currentNode._OC.SetPositions (position);
 		}
 		//If it's the start of the list
 		else if ( Index == 0 )
 		{
 			Vector3[] position = new Vector3[] 
             {
-				DotList [0].transform.position ,
-				DotList [0].transform.position
+				nodeList [0].transform.position ,
+				nodeList [0].transform.position
 			};
-			DotList [0].hasIC = false;
+			nodeList [0].hasIC = false;
 		}
 	}
 
@@ -209,34 +252,10 @@ public class DotSpawner : MonoBehaviour {
 	{
 
 	}
+    */
 
-	//checks if it has IC ( pretty useless :P )
-	bool GetIC(Dot currentDot)
-	{
-		return currentDot.hasIC;
-	}
-
-	//reconnects the missing connections
-	void Reconnect(int Index , Dot nextDot )
-	{
-		//set the linerenderers endposition to the next Dot's position
-		if (Index < DotList.Count - 1)
-        {
-			Vector3[] positions = new Vector3[] { nextDot.transform.position, DotList [Index + 1].transform.position };
-			nextDot._OC = nextDot.GetComponent<LineRenderer> ();
-			nextDot._OC.SetPositions (positions);
-			Debug.Log ("Reconnected to " + DotList [Index + 1].name);
-		} else if (Index == DotList.Count - 1 || Index >= DotList.Count - 1)
-        {
-			Vector3[] positions = new Vector3[] { nextDot.transform.position , DotList [ 0 ].transform.position };
-			nextDot._OC = nextDot.GetComponent<LineRenderer> ();
-			nextDot._OC.SetPositions (positions);
-			Debug.Log ("Reconnected to " + DotList [0].name);
-		}
-	}
-
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update ()
     {
 	}
 }

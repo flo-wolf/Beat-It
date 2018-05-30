@@ -5,23 +5,77 @@ using UnityEngine.Events;
 
 public class RythmManager : MonoBehaviour {
 
+    enum Ticks { tick1, tick2, tick3, tick4, tick5, tick6, tick7, tick8 }
+
     public static RythmManager instance;
     public static RythmEvent onRythm = new RythmEvent();
-    public static float clock = 0f;
-    public float clockDuration = 0.5f;
+    public static RythmEvent onFixedRythm = new RythmEvent();
 
-	void Start()
+    public static float clock = 0f;
+    public static float fixedClock = 0f;
+    public float fixedClockBPM = 120f;
+    public float clockBPM = 120f;
+
+    void Start()
     {
         instance = this;
+        StartCoroutine(UpdateClock());
+        StartCoroutine(UpdateFixedClock());
     }
 
-	// Update is called once per frame
-	void Update () {
-        UpdateClock();
-	}
+    // Update is called once per frame
+    void Update()
+    {
+    }
 
+    IEnumerator UpdateClock()
+    {
+        float clockDuration = (1 / clockBPM) * 60;
+
+        float elapsedTime = 0f;
+        while (elapsedTime <= clockDuration)
+        {
+            
+            clockDuration = (1 / clockBPM) * 60;
+            elapsedTime += Time.deltaTime;
+            clock = elapsedTime;
+            if (elapsedTime >= clockDuration)
+            {
+                onRythm.Invoke(clock);
+                elapsedTime = 0f;
+
+            }
+            yield return null;
+        }
+        yield return null;
+    }
+
+    IEnumerator UpdateFixedClock()
+    {
+        float fixedClockDuration = (1 / fixedClockBPM) * 60;
+
+        float elapsedTime = 0f;
+        while (elapsedTime <= fixedClockDuration)
+        {
+            fixedClockDuration = (1 / fixedClockBPM) * 60;
+            elapsedTime += Time.deltaTime;
+            fixedClock = elapsedTime;
+            if (elapsedTime >= fixedClockDuration)
+            {
+                onFixedRythm.Invoke(fixedClock);
+                elapsedTime = 0f;
+
+            }
+            yield return null;
+        }
+        yield return null;
+    }
+
+    /*
     private void UpdateClock()
     {
+        float clockDuration = (1 / clockBPM) * 60;
+
         if (clock + Time.deltaTime < clockDuration)
         {
             clock += Time.deltaTime;
@@ -39,7 +93,29 @@ public class RythmManager : MonoBehaviour {
         }
     }
 
-    
+    private void UpdateFixedClock()
+    {
+        float fixedClockDuration = (1 / fixedClockBPM) * 60;
+
+        if (fixedClock + Time.deltaTime < fixedClockDuration)
+        {
+            fixedClock += Time.deltaTime;
+
+            // rythm events go here (offbeat for loop spawning)
+        }
+
+        // the clock has reached its end => set back to 0
+        else if (fixedClock + Time.deltaTime >= fixedClockDuration)
+        {
+            fixedClock = fixedClockDuration;
+
+            onFixedRythm.Invoke(fixedClock);
+            fixedClock = 0f;
+        }
+    }
+    */
+
+
 
     // events
     public class RythmEvent : UnityEvent<float> { }
