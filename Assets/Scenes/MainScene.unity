@@ -1399,7 +1399,7 @@ MonoBehaviour:
   node: {fileID: 114971980325437210, guid: 0ad78cd71d828c0468d0672ff5dff52d, type: 2}
   nodeStart: {fileID: 733962623}
   maxNodes: 5
-  opacityFadeDuration: 0.5
+  opacityFadeDuration: 1
   rythmSpawnSkip: 4
   opacity: 0
 --- !u!4 &1576984310

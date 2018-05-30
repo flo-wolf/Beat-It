@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public class RythmManager : MonoBehaviour {
 
-    enum Ticks { tick1, tick2, tick3, tick4, tick5, tick6, tick7, tick8 }
+    // we split a timeframe of 2 seconds into 8 parts. Tick1 = 0.25sek, Tick4 = 1sek, Tick6 = 1.5sek, Tick8 = 2sek. 
+    public enum Ticks { tick1, tick2, tick3, tick4, tick5, tick6, tick7, tick8 }
 
     public static RythmManager instance;
     public static RythmEvent onRythm = new RythmEvent();
@@ -15,6 +16,9 @@ public class RythmManager : MonoBehaviour {
     public static float fixedClock = 0f;
     public float fixedClockBPM = 120f;
     public float clockBPM = 120f;
+
+    // timeframe that gets divided into 8 ticks
+    private float clockDuration = 2f;
 
     void Start()
     {
@@ -53,8 +57,8 @@ public class RythmManager : MonoBehaviour {
                     Player._player.tempoDown = false;
                 }
 
-                onRythm.Invoke(clock);
-                elapsedTime = 0f;
+                onRythm.Invoke(1f);
+                elapsedTime = elapsedTime % clockDuration;
 
             }
             yield return null;
@@ -86,8 +90,8 @@ public class RythmManager : MonoBehaviour {
                     Player._player.tempoDown = false;
                 }
 
-                onFixedRythm.Invoke(fixedClock);
-                elapsedTime = 0f;
+                onFixedRythm.Invoke(1f);
+                elapsedTime = elapsedTime % fixedClockDuration;
 
             }
             yield return null;
