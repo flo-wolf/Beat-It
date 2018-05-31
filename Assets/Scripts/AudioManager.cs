@@ -42,8 +42,7 @@ public class AudioManager : MonoBehaviour {
 
     private void Start()
     {
-        RythmManager.onFixedRythm.AddListener(FixedRythmCall);
-        RythmManager.onRythm.AddListener(RythmCall);
+        RythmManager.onBPM.AddListener(RythmCall);
     }
 
     public void FixedRythmCall(float f)
@@ -51,10 +50,13 @@ public class AudioManager : MonoBehaviour {
         Play("Bass");
     }
 
-    public void RythmCall(float f)
+    public void RythmCall(RythmManager.BPM bpm)
     {
-        AudioManager.instance.Play("Kick");
+        if(bpm == RythmManager.instance.levelBPM)
+            AudioManager.instance.Play("Bass");
 
+        if (bpm == RythmManager.instance.playerBPM)
+            AudioManager.instance.Play("Kick");
     }
 
     //This enables us to Play an AudioClip just through his name.

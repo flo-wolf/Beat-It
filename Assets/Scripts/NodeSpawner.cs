@@ -12,7 +12,7 @@ public class NodeSpawner : MonoBehaviour {
 
     public int rythmSpawnSkip = 4;
 
-    private int rythmSpawnSkipCount = 4;
+    private int rythmSpawnSkipCount = 16;
     private int nodeCount = 0;
 
     //private stuff
@@ -35,18 +35,21 @@ public class NodeSpawner : MonoBehaviour {
 		nodeList.Add (nodeStart);
 		connection = nodeStart.GetComponent<LineRenderer>();
 
-        RythmManager.onRythm.AddListener(Spawn);
+        RythmManager.onBPM.AddListener(Spawn);
     }
 		
-	void Spawn(float f)
+	void Spawn(RythmManager.BPM bpm)
 	{
-        if (rythmSpawnSkipCount < rythmSpawnSkip)
+        if(bpm == RythmManager.instance.levelBPM)
         {
-            rythmSpawnSkipCount++;
-            return;
+            if (rythmSpawnSkipCount < rythmSpawnSkip)
+            {
+                rythmSpawnSkipCount++;
+                return;
+            }
+            else
+                rythmSpawnSkipCount = 0;
         }
-        else
-            rythmSpawnSkipCount = 0;
 
         //choose random Node from list
         int randomNode = Random.Range(0, nodeList.Count - 1);
@@ -75,7 +78,7 @@ public class NodeSpawner : MonoBehaviour {
 
             nodeCount++;
 
-            nextNode.name = "LevelNode " + nodeCount.ToString();
+            nextNode.name = "Node " + nodeCount.ToString();
 			//add to list
 			nodeList.Insert (randomNode + 1, nextNode);
 			//name it ( i cant change the name of the child of the new Nodes :C )

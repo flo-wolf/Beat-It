@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
     {
         _player = this;
 
-        RythmManager.onRythm.AddListener(OnRythmMove);
+        RythmManager.onBPM.AddListener(OnRythmMove);
     }
 
     /// Input Handling and Radius Drawing
@@ -122,58 +122,61 @@ public class Player : MonoBehaviour {
     }
 
     // the clock has reached its end, move the player
-    void OnRythmMove(float timestep)
+    void OnRythmMove(RythmManager.BPM bpm)
     {
-        // if there are two dots
-        if (dot1 != null && dot0 != null)
+        if(bpm == RythmManager.instance.playerBPM)
         {
-            Vector2 aimPos;
-            float dot0LookLength;
-            float dot1LookLength;
-
-            // mouse input
-            if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
+            // if there are two dots
+            if (dot1 != null && dot0 != null)
             {
-                // get the world mouse position 
-                Vector2 mousePos = Input.mousePosition;
-                aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+                Vector2 aimPos;
+                float dot0LookLength;
+                float dot1LookLength;
 
-                // check which point is closest to the lookdirection
-                dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
-                dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
+                // mouse input
+                if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
+                {
+                    // get the world mouse position 
+                    Vector2 mousePos = Input.mousePosition;
+                    aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                    // check which point is closest to the lookdirection
+                    dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
+                    dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
+                }
+
+                // controller input
+                else
+                {
+                    Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+                    aimPos = controllerInput;
+
+                    // check which point is closest to the lookdirection
+                    dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
+                    dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
+                }
+
+
+                // dot 0 is closer to the direction we are aiming at => remove dot1
+                if (dot0LookLength <= dot1LookLength)
+                {
+                    RemoveDot(false);
+                }
+                // dot 1 is closer to the direction we are aiming at => remove dot0
+                else
+                {
+                    RemoveDot(true);
+                }
             }
 
-            // controller input
+            // if there is only one dot
             else
             {
-                Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                aimPos = controllerInput;
-
-                // check which point is closest to the lookdirection
-                dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
-                dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
+                SpawnDot();
             }
-
-
-            // dot 0 is closer to the direction we are aiming at => remove dot1
-            if (dot0LookLength <= dot1LookLength)
-            {
-                RemoveDot(false);
-            }
-            // dot 1 is closer to the direction we are aiming at => remove dot0
-            else
-            {
-                RemoveDot(true);
-            }
+            // spawn the new dot at the aimed at position
         }
-
-        // if there is only one dot
-        else
-        {
-            SpawnDot();
-        }
-        // spawn the new dot at the aimed at position
     }
 
     /// Updates the radius size, opacity and Position
