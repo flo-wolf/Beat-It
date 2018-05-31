@@ -46,8 +46,6 @@ public class Segment : MonoBehaviour {
 
             StopCoroutine("FillCoroutine");
             StartCoroutine(EmptyCoroutine());
-
-            AudioManager.instance.Play("Snare");
         }
     }
 

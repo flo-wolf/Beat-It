@@ -8,9 +8,15 @@ public class RythmManager : MonoBehaviour {
     public static RythmManager instance;
     public static BPMEvent onBPM = new BPMEvent();
 
-    public enum BPM { bpm60, bpm90, bpm120, bpm180 }
+    // bpm values - bpm60 means 1 call every second, bpm60h means one call every second with half a second offset
+    public enum BPM { bpm60, bpm90, bpm120, bpm180, bpm60h, bpm90h, bpm120h, bpm180h }
     public BPM playerBPM = BPM.bpm90;
     public BPM levelBPM = BPM.bpm60;
+
+    [HideInInspector]
+    public BPM playerBPMh = BPM.bpm90h;
+    [HideInInspector]
+    public BPM levelBPMh = BPM.bpm60h;
 
     public static float playerClock = 0f;
     public static float levelClock = 0f;
@@ -33,36 +39,51 @@ public class RythmManager : MonoBehaviour {
     // update the bpm integer value depending on the BPM selected
     void UpdateBPM()
     {
-        switch (playerBPM)
-        {
-            case BPM.bpm60:
-                _playerBPM = 60;
-                break;
-            case BPM.bpm90:
-                _playerBPM = 90;
-                break;
-            case BPM.bpm120:
-                _playerBPM = 120;
-                break;
-            case BPM.bpm180:
-                _playerBPM = 180;
-                break;
-        }
+        _playerBPM = BPMtoInt(playerBPM);
+        _levelBPM = BPMtoInt(levelBPM);
+    }
 
-        switch (levelBPM)
+    // convert a bpm type to the corresponding bpm as integer
+    public static int BPMtoInt(BPM b)
+    {
+        switch (b)
         {
             case BPM.bpm60:
-                _levelBPM = 60;
-                break;
+                return 60;
             case BPM.bpm90:
-                _levelBPM = 90;
-                break;
+                return 90;
             case BPM.bpm120:
-                _levelBPM = 120;
-                break;
+                return 120;
             case BPM.bpm180:
-                _levelBPM = 180;
-                break;
+                return 180;
+            case BPM.bpm60h:
+                return 60;
+            case BPM.bpm90h:
+                return 90;
+            case BPM.bpm120h:
+                return 120;
+            case BPM.bpm180h:
+                return 180;
+            default:
+                return 90;
+        }
+    }
+
+    // convert a bpm type to bpm halfs
+    public static BPM BPMtoBPMh(BPM b)
+    {
+        switch (b)
+        {
+            case BPM.bpm60:
+                return BPM.bpm60h;
+            case BPM.bpm90:
+                return BPM.bpm90h;
+            case BPM.bpm120:
+                return BPM.bpm120h;
+            case BPM.bpm180:
+                return BPM.bpm180h;
+            default:
+                return BPM.bpm90h;
         }
     }
 
@@ -75,6 +96,12 @@ public class RythmManager : MonoBehaviour {
         float duration = (1 / b) * 60;
         float elapsedTime = 0f;
 
+        // this bpm event gets called twice. 
+        // Once when the time runs up after one second (bpm60), 
+        // once when the time is half done after half a second (bpm60h). 
+        // That half call is the offset call, also happening once a second, just half a second offset.
+        bool offsetCalled = false;
+
         // run two second intervalls and check the bpm
         while (elapsedTime <= duration)
         {
@@ -85,7 +112,14 @@ public class RythmManager : MonoBehaviour {
 
             elapsedTime += Time.deltaTime;
 
-            // the bpm intervall has ended.
+            // half offset bpm 
+            if (elapsedTime >= duration / 2 && !offsetCalled)
+            {
+                onBPM.Invoke(BPM.bpm60h);
+                offsetCalled = true;
+            }
+
+            // bpm
             if (elapsedTime >= duration)
             {
                 onBPM.Invoke(BPM.bpm60);
@@ -97,6 +131,8 @@ public class RythmManager : MonoBehaviour {
                     levelClock = elapsedTime;
                 if (playerBPM == BPM.bpm60)
                     playerClock = elapsedTime;
+
+                offsetCalled = false;
             }
             yield return null;
         }
@@ -112,6 +148,8 @@ public class RythmManager : MonoBehaviour {
         float duration = (1 / b) * 60;
         float elapsedTime = 0f;
 
+        bool offsetCalled = false;
+
         // run two second intervalls and check the bpm
         while (elapsedTime <= duration)
         {
@@ -121,6 +159,13 @@ public class RythmManager : MonoBehaviour {
                 playerClock = elapsedTime;
 
             elapsedTime += Time.deltaTime;
+
+            // half offset bpm 
+            if (elapsedTime >= duration / 2 && !offsetCalled)
+            {
+                onBPM.Invoke(BPM.bpm90h);
+                offsetCalled = true;
+            }
 
             // the bpm intervall has ended.
             if (elapsedTime >= duration)
@@ -134,6 +179,8 @@ public class RythmManager : MonoBehaviour {
                     levelClock = elapsedTime;
                 if (playerBPM == BPM.bpm90)
                     playerClock = elapsedTime;
+
+                offsetCalled = false;
             }
             yield return null;
         }
@@ -149,6 +196,8 @@ public class RythmManager : MonoBehaviour {
         float duration = (1 / b) * 60;
         float elapsedTime = 0f;
 
+        bool offsetCalled = false;
+
         // run two second intervalls and check the bpm
         while (elapsedTime <= duration)
         {
@@ -158,6 +207,13 @@ public class RythmManager : MonoBehaviour {
                 playerClock = elapsedTime;
 
             elapsedTime += Time.deltaTime;
+
+            // half offset bpm 
+            if (elapsedTime >= duration / 2 && !offsetCalled)
+            {
+                onBPM.Invoke(BPM.bpm120h);
+                offsetCalled = true;
+            }
 
             // the bpm intervall has ended.
             if (elapsedTime >= duration)
@@ -171,6 +227,8 @@ public class RythmManager : MonoBehaviour {
                     levelClock = elapsedTime;
                 if (playerBPM == BPM.bpm120)
                     playerClock = elapsedTime;
+
+                offsetCalled = false;
             }
             yield return null;
         }
@@ -186,6 +244,8 @@ public class RythmManager : MonoBehaviour {
         float duration = (1 / b) * 60;
         float elapsedTime = 0f;
 
+        bool offsetCalled = false;
+
         // run two second intervalls and check the bpm
         while (elapsedTime <= duration)
         {
@@ -195,6 +255,13 @@ public class RythmManager : MonoBehaviour {
                 playerClock = elapsedTime;
 
             elapsedTime += Time.deltaTime;
+
+            // half offset bpm 
+            if (elapsedTime >= duration / 2 && !offsetCalled)
+            {
+                onBPM.Invoke(BPM.bpm180h);
+                offsetCalled = true;
+            }
 
             // the bpm intervall has ended.
             if (elapsedTime >= duration)
@@ -208,6 +275,8 @@ public class RythmManager : MonoBehaviour {
                     levelClock = elapsedTime;
                 if (playerBPM == BPM.bpm180)
                     playerClock = elapsedTime;
+
+                offsetCalled = false;
             }
             yield return null;
         }

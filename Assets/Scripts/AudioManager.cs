@@ -57,6 +57,9 @@ public class AudioManager : MonoBehaviour {
 
         if (bpm == RythmManager.instance.playerBPM)
             AudioManager.instance.Play("Kick");
+
+        if (bpm == RythmManager.BPMtoBPMh(RythmManager.instance.playerBPM))
+            AudioManager.instance.Play("Snare");
     }
 
     //This enables us to Play an AudioClip just through his name.

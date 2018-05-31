@@ -10,9 +10,9 @@ public class NodeSpawner : MonoBehaviour {
     public int maxNodes = 5;
     public float opacityFadeDuration = 1f;
 
-    public int rythmSpawnSkip = 4;
+    public int rythmSpawnSkip = 8;
 
-    private int rythmSpawnSkipCount = 16;
+    private int rythmSpawnSkipCount;
     private int nodeCount = 0;
 
     //private stuff
@@ -32,7 +32,9 @@ public class NodeSpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-		nodeList.Add (nodeStart);
+        rythmSpawnSkipCount = rythmSpawnSkip;
+
+        nodeList.Add (nodeStart);
 		connection = nodeStart.GetComponent<LineRenderer>();
 
         RythmManager.onBPM.AddListener(Spawn);
@@ -40,7 +42,7 @@ public class NodeSpawner : MonoBehaviour {
 		
 	void Spawn(RythmManager.BPM bpm)
 	{
-        if(bpm == RythmManager.instance.levelBPM)
+        if (bpm == RythmManager.instance.levelBPM)
         {
             if (rythmSpawnSkipCount < rythmSpawnSkip)
             {
@@ -50,6 +52,8 @@ public class NodeSpawner : MonoBehaviour {
             else
                 rythmSpawnSkipCount = 0;
         }
+        else
+            return;
 
         //choose random Node from list
         int randomNode = Random.Range(0, nodeList.Count - 1);
