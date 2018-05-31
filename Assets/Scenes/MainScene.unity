@@ -477,7 +477,7 @@ MonoBehaviour:
   nodeStart: {fileID: 1116571754}
   maxNodes: 10
   opacityFadeDuration: 2
-  rythmSpawnSkip: 8
+  rythmSpawnSkip: 0
   opacity: 0
 --- !u!4 &440153706
 Transform:
@@ -594,10 +594,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfe3edef04dd944eaac4fbd4fee50c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBPM: 1
-  levelBPM: 2
-  playerBPMh: 5
-  levelBPMh: 4
+  playerRythm: 3
+  loopSpawnRythm: 2
+  loopSegmentShootingRythm: 6
 --- !u!4 &576614143
 Transform:
   m_ObjectHideFlags: 0
@@ -920,7 +919,7 @@ MonoBehaviour:
   nodeStart: {fileID: 1971431165}
   maxNodes: 10
   opacityFadeDuration: 2
-  rythmSpawnSkip: 8
+  rythmSpawnSkip: 0
   opacity: 0
 --- !u!4 &972650792
 Transform:
@@ -1512,7 +1511,7 @@ MonoBehaviour:
   nodeStart: {fileID: 733962623}
   maxNodes: 10
   opacityFadeDuration: 2
-  rythmSpawnSkip: 8
+  rythmSpawnSkip: 0
   opacity: 0
 --- !u!4 &1576984310
 Transform:

@@ -8,7 +8,7 @@ public class NodeSpawner : MonoBehaviour {
 	public Node node;
 	public Node nodeStart;
     public int maxNodes = 5;
-    public float opacityFadeDuration = 1f;
+    public float opacityFadeDuration;
 
     public int rythmSpawnSkip = 8;
 
@@ -37,12 +37,14 @@ public class NodeSpawner : MonoBehaviour {
         nodeList.Add (nodeStart);
 		connection = nodeStart.GetComponent<LineRenderer>();
 
+        opacityFadeDuration = RythmManager.loopSpawnBPM.ToSecs();
+
         RythmManager.onBPM.AddListener(Spawn);
     }
 		
-	void Spawn(RythmManager.BPM bpm)
+	void Spawn(BPMinfo bpm)
 	{
-        if (bpm == RythmManager.instance.levelBPM)
+        if (bpm.Equals(RythmManager.loopSpawnBPM))
         {
             if (rythmSpawnSkipCount < rythmSpawnSkip)
             {

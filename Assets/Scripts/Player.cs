@@ -19,6 +19,8 @@ public class Player : MonoBehaviour {
 
     // keep track of which dot is the newest
     public enum DotType { None, Dot0, Dot1 }
+
+    [HideInInspector]
     public DotType newestDot = DotType.None;
 
     [Header("Radius Drawing")]
@@ -56,6 +58,7 @@ public class Player : MonoBehaviour {
     {
         _player = this;
 
+        // move the player on the beat
         RythmManager.onBPM.AddListener(OnRythmMove);
     }
 
@@ -122,10 +125,11 @@ public class Player : MonoBehaviour {
     }
 
     // the clock has reached its end, move the player
-    void OnRythmMove(RythmManager.BPM bpm)
+    void OnRythmMove(BPMinfo bpm)
     {
-        if(bpm == RythmManager.instance.playerBPM)
+        if(bpm.Equals(RythmManager.playerBPM))
         {
+            Debug.Log("HEEEY");
             // if there are two dots
             if (dot1 != null && dot0 != null)
             {

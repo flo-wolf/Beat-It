@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,39 +9,47 @@ public class RythmManager : MonoBehaviour {
     public static RythmManager instance;
     public static BPMEvent onBPM = new BPMEvent();
 
+    // bpm clocks
+    public static Dictionary<BPM, float> bpmClocks = new Dictionary<BPM, float>();
+
     // bpm values - bpm60 means 1 call every second, bpm60h means one call every second with half a second offset
-    public enum BPM { bpm60, bpm90, bpm120, bpm180, bpm60h, bpm90h, bpm120h, bpm180h }
-    public BPM playerBPM = BPM.bpm90;
-    public BPM levelBPM = BPM.bpm60;
+    public enum BPM { bpm15, bpm30, bpm60, bpm90, bpm120, bpm180, bpm15h, bpm30h, bpm60h, bpm90h, bpm120h, bpm180h }
 
-    [HideInInspector]
-    public BPM playerBPMh = BPM.bpm90h;
-    [HideInInspector]
-    public BPM levelBPMh = BPM.bpm60h;
+    public BPM playerRythm = BPM.bpm90;
+    public BPM loopSpawnRythm = BPM.bpm15;
+    public BPM loopSegmentShootingRythm = BPM.bpm15h;
 
-    public static float playerClock = 0f;
-    public static float levelClock = 0f;
-
-    // the current player bpm as an integer
-    public static int _playerBPM;
-    public static int _levelBPM;
+    // bpm references. Use these to compare the bpm type reported with the onBPM event
+    public static BPMinfo playerBPM;
+    public static BPMinfo loopSpawnBPM;
+    public static BPMinfo loopSegmentShootingBPM;
 
     void Start()
     {
         instance = this;
-        UpdateBPM();
 
+        // set the static references based on the inspector public settings (workaround to public BPMinfo not showing up)
+        playerBPM = new BPMinfo(playerRythm);
+        loopSpawnBPM = new BPMinfo(loopSpawnRythm);
+        loopSegmentShootingBPM = new BPMinfo(loopSegmentShootingRythm);
+
+        // fill up the clock dictionary
+        FillBPMclockDictionary();
+
+        StartCoroutine(UpdateClock15());
+        StartCoroutine(UpdateClock30());
         StartCoroutine(UpdateClock60());
         StartCoroutine(UpdateClock90());
         StartCoroutine(UpdateClock120());
         StartCoroutine(UpdateClock180());
     }
 
-    // update the bpm integer value depending on the BPM selected
-    void UpdateBPM()
+    private void FillBPMclockDictionary()
     {
-        _playerBPM = BPMtoInt(playerBPM);
-        _levelBPM = BPMtoInt(levelBPM);
+        foreach (BPM bpm in Enum.GetValues(typeof(BPM)))
+        {
+            bpmClocks.Add(bpm, 0f);
+        }
     }
 
     // convert a bpm type to the corresponding bpm as integer
@@ -48,6 +57,11 @@ public class RythmManager : MonoBehaviour {
     {
         switch (b)
         {
+            // full bpm
+            case BPM.bpm15:
+                return 15;
+            case BPM.bpm30:
+                return 30;
             case BPM.bpm60:
                 return 60;
             case BPM.bpm90:
@@ -56,6 +70,12 @@ public class RythmManager : MonoBehaviour {
                 return 120;
             case BPM.bpm180:
                 return 180;
+
+            // half offset bpm
+            case BPM.bpm15h:
+                return 15;
+            case BPM.bpm30h:
+                return 30;
             case BPM.bpm60h:
                 return 60;
             case BPM.bpm90h:
@@ -74,6 +94,10 @@ public class RythmManager : MonoBehaviour {
     {
         switch (b)
         {
+            case BPM.bpm15:
+                return BPM.bpm15h;
+            case BPM.bpm30:
+                return BPM.bpm30h;
             case BPM.bpm60:
                 return BPM.bpm60h;
             case BPM.bpm90:
@@ -85,6 +109,93 @@ public class RythmManager : MonoBehaviour {
             default:
                 return BPM.bpm90h;
         }
+    }    
+
+    // 15 bpm clock
+    IEnumerator UpdateClock15()
+    {
+        // set this to the appropiate bpm
+        float b = 15;
+
+        float duration = (1 / b) * 60;
+        float elapsedTime = 0f;
+
+        // this bpm event gets called twice. 
+        // Once when the time runs up after one second (bpm60), 
+        // once when the time is half done after half a second (bpm60h). 
+        // That half call is the offset call, also happening once a second, just half a second offset.
+        bool offsetCalled = false;
+
+        // run two second intervalls and check the bpm
+        while (elapsedTime <= duration)
+        {
+            bpmClocks[BPM.bpm15] = elapsedTime;
+
+            elapsedTime += Time.deltaTime;
+
+            // half offset bpm 
+            if (elapsedTime >= duration / 2 && !offsetCalled)
+            {
+                onBPM.Invoke(new BPMinfo(BPM.bpm15h));
+                offsetCalled = true;
+            }
+
+            // bpm
+            if (elapsedTime >= duration)
+            {
+                onBPM.Invoke(new BPMinfo(BPM.bpm15));
+
+                elapsedTime = elapsedTime % duration;
+
+                bpmClocks[BPM.bpm15] = elapsedTime;
+
+                offsetCalled = false;
+            }
+            yield return null;
+        }
+        yield return null;
+    }
+
+    // 30 bpm clock
+    IEnumerator UpdateClock30()
+    {
+        // set this to the appropiate bpm
+        float b = 30;
+
+        float duration = (1 / b) * 60;
+        float elapsedTime = 0f;
+
+        // the half offset call also happends once every 30 bpm, just 15 bpm offset
+        bool offsetCalled = false;
+
+        // run two second intervalls and check the bpm
+        while (elapsedTime <= duration)
+        {
+            bpmClocks[BPM.bpm30] = elapsedTime;
+
+            elapsedTime += Time.deltaTime;
+
+            // half offset bpm call
+            if (elapsedTime >= duration / 2 && !offsetCalled)
+            {
+                onBPM.Invoke(new BPMinfo(BPM.bpm30h));
+                offsetCalled = true;
+            }
+
+            // bpm
+            if (elapsedTime >= duration)
+            {
+                onBPM.Invoke(new BPMinfo(BPM.bpm30));
+
+                elapsedTime = elapsedTime % duration;
+
+                bpmClocks[BPM.bpm30] = elapsedTime;
+
+                offsetCalled = false;
+            }
+            yield return null;
+        }
+        yield return null;
     }
 
     // 60 bpm clock
@@ -105,32 +216,25 @@ public class RythmManager : MonoBehaviour {
         // run two second intervalls and check the bpm
         while (elapsedTime <= duration)
         {
-            if (levelBPM == BPM.bpm60)
-                levelClock = elapsedTime;
-            if (playerBPM == BPM.bpm60)
-                playerClock = elapsedTime;
+            bpmClocks[BPM.bpm60] = elapsedTime;
 
             elapsedTime += Time.deltaTime;
 
             // half offset bpm 
             if (elapsedTime >= duration / 2 && !offsetCalled)
             {
-                onBPM.Invoke(BPM.bpm60h);
+                onBPM.Invoke(new BPMinfo(BPM.bpm60h));
                 offsetCalled = true;
             }
 
             // bpm
             if (elapsedTime >= duration)
             {
-                onBPM.Invoke(BPM.bpm60);
-                Debug.Log("BPM Call: 60");
+                onBPM.Invoke(new BPMinfo(BPM.bpm60));
 
                 elapsedTime = elapsedTime % duration;
 
-                if (levelBPM == BPM.bpm60)
-                    levelClock = elapsedTime;
-                if (playerBPM == BPM.bpm60)
-                    playerClock = elapsedTime;
+                bpmClocks[BPM.bpm60] = elapsedTime;
 
                 offsetCalled = false;
             }
@@ -153,32 +257,25 @@ public class RythmManager : MonoBehaviour {
         // run two second intervalls and check the bpm
         while (elapsedTime <= duration)
         {
-            if (levelBPM == BPM.bpm90)
-                levelClock = elapsedTime;
-            if (playerBPM == BPM.bpm90)
-                playerClock = elapsedTime;
+            bpmClocks[BPM.bpm90] = elapsedTime;
 
             elapsedTime += Time.deltaTime;
 
             // half offset bpm 
             if (elapsedTime >= duration / 2 && !offsetCalled)
             {
-                onBPM.Invoke(BPM.bpm90h);
+                onBPM.Invoke(new BPMinfo(BPM.bpm90h));
                 offsetCalled = true;
             }
 
             // the bpm intervall has ended.
             if (elapsedTime >= duration)
             {
-                onBPM.Invoke(BPM.bpm90);
-                Debug.Log("BPM Call: 90");
+                onBPM.Invoke(new BPMinfo(BPM.bpm90));
 
                 elapsedTime = elapsedTime % duration;
 
-                if (levelBPM == BPM.bpm90)
-                    levelClock = elapsedTime;
-                if (playerBPM == BPM.bpm90)
-                    playerClock = elapsedTime;
+                bpmClocks[BPM.bpm90] = elapsedTime;
 
                 offsetCalled = false;
             }
@@ -201,32 +298,25 @@ public class RythmManager : MonoBehaviour {
         // run two second intervalls and check the bpm
         while (elapsedTime <= duration)
         {
-            if (levelBPM == BPM.bpm120)
-                levelClock = elapsedTime;
-            if (playerBPM == BPM.bpm120)
-                playerClock = elapsedTime;
+            bpmClocks[BPM.bpm120] = elapsedTime;
 
             elapsedTime += Time.deltaTime;
 
             // half offset bpm 
             if (elapsedTime >= duration / 2 && !offsetCalled)
             {
-                onBPM.Invoke(BPM.bpm120h);
+                onBPM.Invoke(new BPMinfo(BPM.bpm120h));
                 offsetCalled = true;
             }
 
             // the bpm intervall has ended.
             if (elapsedTime >= duration)
             {
-                onBPM.Invoke(BPM.bpm120);
-                Debug.Log("BPM Call: 120");
+                onBPM.Invoke(new BPMinfo(BPM.bpm120));
 
                 elapsedTime = elapsedTime % duration;
 
-                if (levelBPM == BPM.bpm120)
-                    levelClock = elapsedTime;
-                if (playerBPM == BPM.bpm120)
-                    playerClock = elapsedTime;
+                bpmClocks[BPM.bpm120] = elapsedTime;
 
                 offsetCalled = false;
             }
@@ -249,32 +339,25 @@ public class RythmManager : MonoBehaviour {
         // run two second intervalls and check the bpm
         while (elapsedTime <= duration)
         {
-            if (levelBPM == BPM.bpm180)
-                levelClock = elapsedTime;
-            if (playerBPM == BPM.bpm180)
-                playerClock = elapsedTime;
+            bpmClocks[BPM.bpm180] = elapsedTime;
 
             elapsedTime += Time.deltaTime;
 
             // half offset bpm 
             if (elapsedTime >= duration / 2 && !offsetCalled)
             {
-                onBPM.Invoke(BPM.bpm180h);
+                onBPM.Invoke(new BPMinfo(BPM.bpm180h));
                 offsetCalled = true;
             }
 
             // the bpm intervall has ended.
             if (elapsedTime >= duration)
             {
-                onBPM.Invoke(BPM.bpm180);
-                Debug.Log("BPM Call: 180");
+                onBPM.Invoke(new BPMinfo(BPM.bpm180));
 
                 elapsedTime = elapsedTime % duration;
 
-                if (levelBPM == BPM.bpm180)
-                    levelClock = elapsedTime;
-                if (playerBPM == BPM.bpm180)
-                    playerClock = elapsedTime;
+                bpmClocks[BPM.bpm180] = elapsedTime;
 
                 offsetCalled = false;
             }
@@ -472,5 +555,5 @@ public class RythmManager : MonoBehaviour {
 
 
     // events
-    public class BPMEvent : UnityEvent<BPM> { }
+    public class BPMEvent : UnityEvent<BPMinfo> { }
 }

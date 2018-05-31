@@ -50,15 +50,18 @@ public class AudioManager : MonoBehaviour {
         Play("Bass");
     }
 
-    public void RythmCall(RythmManager.BPM bpm)
+    public void RythmCall(BPMinfo bpmInfo)
     {
-        if(bpm == RythmManager.instance.levelBPM)
+        // bass plays on the level bpm
+        if(bpmInfo.Equals(RythmManager.loopSpawnBPM))
             AudioManager.instance.Play("Bass");
 
-        if (bpm == RythmManager.instance.playerBPM)
+        // kick plays on the player bpm
+        if (bpmInfo.Equals(RythmManager.playerBPM))
             AudioManager.instance.Play("Kick");
 
-        if (bpm == RythmManager.BPMtoBPMh(RythmManager.instance.playerBPM))
+        // snare plays on the half offset player bpm
+        if (bpmInfo.Equals(BPMinfo.ToHalf(RythmManager.playerBPM))) 
             AudioManager.instance.Play("Snare");
     }
 
