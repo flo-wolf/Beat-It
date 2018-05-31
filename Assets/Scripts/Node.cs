@@ -9,6 +9,7 @@ public class Node : MonoBehaviour {
     public float minRadius = 0.3f;
 	public float maxRadius = 0.8f;
     public float radius;
+    public bool startNode = false;
 
     public GameObject fillCircleGo;
     public NodeSegment nodeSegment;
@@ -60,8 +61,13 @@ public class Node : MonoBehaviour {
 
         defaultLocalScale = transform.localScale.x;
         defaultFillCircleSize = fillCircleGo.transform.localScale.x;
+        transform.localScale = Vector3.zero;
 
-        StartCoroutine(Fade(true));
+        // the starting node needs to be faded in right away, all other nodes get faded during the spawning coroutine in NodeSpawner.cs
+        if (startNode)
+        {
+            StartCoroutine(Fade(true));
+        }
     }
 
     void Update()
@@ -91,7 +97,7 @@ public class Node : MonoBehaviour {
 
 
     /// interpolates the dots opacity as well as its size
-    IEnumerator Fade(bool fadeIn)
+    public IEnumerator Fade(bool fadeIn)
     {
         float elapsedTime = 0f;
         float startScale = scale;

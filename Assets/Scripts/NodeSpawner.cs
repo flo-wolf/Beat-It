@@ -88,29 +88,44 @@ public class NodeSpawner : MonoBehaviour {
 			//name it ( i cant change the name of the child of the new Nodes :C )
 			nextNode.gameObject.transform.GetChild(0).name = System.Convert.ToString ("Blockradius" + nodeCount);
 
-			//connect the old point with the new one
-			Connect (currentNode, nextNode);
-
-			//reconnect the new Node with the one wich has no incoming connection
-			Reconnect (randomNode + 1, nextNode);
-			isGoodLocation = true;
-
+            // fade out the paths
             StopAllCoroutines();
-            StartCoroutine(FadeConnections());
+            StartCoroutine(FadeAndConnect(currentNode, nextNode, randomNode + 1));
+
+			isGoodLocation = true;
 		}
 	}
 
-    IEnumerator FadeConnections()
+    IEnumerator FadeAndConnect(Node currentNode, Node nextNode, int nextNodeInsertIndex)
     {
         // fadeout
         float elapsedTime = 0f;
-        float startOpacity = 0f;
+        float startOpacity = opacity;
 
-        while (elapsedTime <= opacityFadeDuration)
+        while (elapsedTime <= opacityFadeDuration/2)
         {
             elapsedTime += Time.deltaTime;
 
-            opacity = Mathf.SmoothStep(startOpacity, 1, (elapsedTime / (opacityFadeDuration)));
+            opacity = Mathf.SmoothStep(startOpacity, 0, (elapsedTime / (opacityFadeDuration/2)));
+            yield return null;
+        }
+
+        //connect the old point with the new one
+        Connect(currentNode, nextNode);
+
+        //reconnect the new Node with the one wich has no incoming connection
+        Reconnect(nextNodeInsertIndex, nextNode);
+
+        elapsedTime = 0f;
+        startOpacity = opacity;
+        // fade in the node
+        nextNode.StartCoroutine(nextNode.Fade(true));
+
+        while (elapsedTime <= opacityFadeDuration/2)
+        {
+            elapsedTime += Time.deltaTime;
+
+            opacity = Mathf.SmoothStep(0, 1, (elapsedTime / (opacityFadeDuration/2)));
             yield return null;
         }
 

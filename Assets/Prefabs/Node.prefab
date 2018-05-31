@@ -148,6 +148,7 @@ MonoBehaviour:
   minRadius: 7
   maxRadius: 8
   radius: 0
+  startNode: 0
   fillCircleGo: {fileID: 1457899361476800}
   nodeSegment: {fileID: 114072686849785016}
   sr: {fileID: 212238728654888022}
