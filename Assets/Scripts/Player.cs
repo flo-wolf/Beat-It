@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
     public float maxRadius = 5;            // default max radius
     private float radius = 0;              // current radius, gets interpolated to and from maxRadius via fading coroutine
     private float radiusOpacity = 0f;       // current opacity, gets interpolated to and from 1 via fading coroutine
-    private Vector2 radiusCenter;
+    private Vector2 handleCenter;
 
     /*
     [Header("Additional Player Controls")]
@@ -69,7 +69,6 @@ public class Player : MonoBehaviour {
     {
         /*
         UpdateRadius();
-        UpdateRadiusHandle();
         
         if (enableAPC)
         {
@@ -92,18 +91,23 @@ public class Player : MonoBehaviour {
 
         // check which dot is "alone", and if one is alone, get its position to display the radius handle
         if (dot0 != null && dot1 == null)
+        {
             activePosition = dot0.transform.position;
+            handleCenter = activePosition;
+        }
         else if (dot1 != null && dot0 == null)
+        {
             activePosition = dot1.transform.position;
+            handleCenter = activePosition;
+        }
         else if (dot0 != null && dot1 != null)
         {
             // both dots are alive, don't draw a radius
-            activePosition = radiusCenter;
+            activePosition = handleCenter;
         }
 
         lookDirection = mousePos - activePosition;
         lookDirection = lookDirection.normalized;
-        lookDirection = lookDirection * maxRadius;
 
         // in case we use a controller
         Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
@@ -111,8 +115,20 @@ public class Player : MonoBehaviour {
         {
             lookDirection = controllerInput;
             lookDirection = lookDirection.normalized;
-            lookDirection = lookDirection * maxRadius;
         }
+
+        UpdateHandle(activePosition);
+    }
+
+    /// Updates the Handle position and opacity
+    void UpdateHandle(Vector2 activePos)
+    {
+        // set opacity value of the radius handle
+        Color c = lookHandleSr.color;
+        c.a = radiusOpacity;
+        lookHandleSr.color = c;
+
+        lookHandleSr.gameObject.transform.position = activePos + lookDirection;
     }
 
     // the clock has reached its end, move the player
@@ -519,49 +535,5 @@ for (int i = 0; i < size; i++)
     float y = activePosition.y + radius * Mathf.Sin(theta);
     radiusLineRenderer.SetPosition(i, new Vector3(x, y, 0));
 }
-}
-
-/// Updates the Handle position and opacity
-void UpdateRadiusHandle()
-{
-// set opacity value of the radius handle
-Color c = lookHandleSr.color;
-c.a = radiusOpacity;
-lookHandleSr.color = c;
-
-// get the world mouse position 
-Vector2 mousePos = Input.mousePosition;
-mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-
-// calculate the destination position
-Vector2 activePosition = Vector2.zero;
-
-
-
-// check which dot is "alone", and if one is alone, get its position to display the radius handle
-if (dot0 != null && dot1 == null)
-    activePosition = dot0.transform.position;
-else if (dot1 != null && dot0 == null)
-    activePosition = dot1.transform.position;
-else if (dot0 != null && dot1 != null)
-{
-    // both dots are alive, don't draw a radius
-    activePosition = radiusCenter;
-}
-
-lookDirection = mousePos - activePosition;
-lookDirection = lookDirection.normalized;
-lookDirection = lookDirection * maxRadius;
-
-// in case we use a controller
-Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.Controler)
-{
-    lookDirection = controllerInput;
-    lookDirection = lookDirection.normalized;
-    lookDirection = lookDirection * maxRadius;
-}
-
-lookHandleSr.gameObject.transform.position = activePosition + lookDirection;
 }
 */

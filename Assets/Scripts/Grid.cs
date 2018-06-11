@@ -108,7 +108,6 @@ public class Grid : MonoBehaviour
                 hexDots.Add(gridDots[dot.row + 1, dot.column]);
         }
 
-        direction = direction.normalized;
         direction = (Vector2)dot.transform.position + direction;
 
         Debug.Log("Nearest Active - centerDot: " + dot.transform.position + " direction: " + direction);
