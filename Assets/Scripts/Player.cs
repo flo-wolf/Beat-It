@@ -31,10 +31,11 @@ public class Player : MonoBehaviour {
     private float radiusOpacity = 0f;       // current opacity, gets interpolated to and from 1 via fading coroutine
     private Vector2 radiusCenter;
 
+    /*
     [Header("Additional Player Controls")]
-    public bool enableAPC;
     public float maxIncreasedRadius = 10;
     public float radiusIncreaseSpeed;
+    */
 
     [HideInInspector]
     public bool tempoUp = false;
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour {
     // aiming
     private Vector2 lookDirection = new Vector2(); //
     private bool lookingRight = false;
+    private GridDot aimedGridDot;
 
     /// initialization
     void Start()
@@ -65,62 +67,51 @@ public class Player : MonoBehaviour {
     /// Input Handling and Radius Drawing
     void Update()
     {
+        /*
         UpdateRadius();
         UpdateRadiusHandle();
-
+        
         if (enableAPC)
         {
             IncreaseRadius();
             TempoControls();
         }
+        */
+
+        UpdateLookDirection();
     }
 
-    void IncreaseRadius()
+    private void UpdateLookDirection()
     {
-        bool holdKey;
-        float originalSize = 5;
+        // get the world mouse position 
+        Vector2 mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        if (Input.GetKey(KeyCode.Space))
+        // calculate the destination position
+        Vector2 activePosition = Vector2.zero;
+
+        // check which dot is "alone", and if one is alone, get its position to display the radius handle
+        if (dot0 != null && dot1 == null)
+            activePosition = dot0.transform.position;
+        else if (dot1 != null && dot0 == null)
+            activePosition = dot1.transform.position;
+        else if (dot0 != null && dot1 != null)
         {
-            holdKey = true;
+            // both dots are alive, don't draw a radius
+            activePosition = radiusCenter;
         }
 
-        else
-        {
-            holdKey = false;
-        }
+        lookDirection = mousePos - activePosition;
+        lookDirection = lookDirection.normalized;
+        lookDirection = lookDirection * maxRadius;
 
-        if (holdKey)
+        // in case we use a controller
+        Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.Controler)
         {
-            maxRadius += radiusIncreaseSpeed * Time.deltaTime;
-            if (maxRadius >= maxIncreasedRadius)
-            {
-                maxRadius = maxIncreasedRadius;
-            }
-        }
-
-        else if (!holdKey)
-        {
-            maxRadius -= radiusIncreaseSpeed * Time.deltaTime;
-            if (maxRadius <= originalSize)
-            {
-                maxRadius = originalSize;
-            }
-        }
-    }
-
-    void TempoControls()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            tempoUp = true;
-            Debug.Log("Left M.button pressed");
-        }
-
-        else if (Input.GetMouseButtonDown(1))
-        {
-            tempoDown = true;
-            Debug.Log("Right M.button pressed");
+            lookDirection = controllerInput;
+            lookDirection = lookDirection.normalized;
+            lookDirection = lookDirection * maxRadius;
         }
     }
 
@@ -129,7 +120,6 @@ public class Player : MonoBehaviour {
     {
         if(bpm.Equals(RythmManager.playerBPM))
         {
-            Debug.Log("HEEEY");
             // if there are two dots
             if (dot1 != null && dot0 != null)
             {
@@ -181,91 +171,6 @@ public class Player : MonoBehaviour {
             }
             // spawn the new dot at the aimed at position
         }
-    }
-
-    /// Updates the radius size, opacity and Position
-    void UpdateRadius()
-    {
-        Vector2 activePosition;
-
-        // check which dot is "alone", and if one is alone, get its position to display the radius circle
-        if (dot0 != null && dot1 == null)
-        {
-            activePosition = dot0.transform.position;
-            radiusCenter = dot0.transform.position;
-        }
-        else if (dot1 != null && dot0 == null)
-        {
-            activePosition = dot1.transform.position;
-            radiusCenter = dot1.transform.position;
-        }
-        else
-            activePosition = radiusCenter;
-
-
-        // set opacity value of the line renderer - opacity gets modiefied in radiusFade Corouine
-        Color startC = radiusLineRenderer.startColor;
-        startC.a = radiusOpacity;
-        Color endC = radiusLineRenderer.endColor;
-        endC.a = radiusOpacity;
-        radiusLineRenderer.SetColors(startC, endC);
-
-        // draw the radius with the line renderer
-        float theta = 0f;
-        int size = (int)((1f / radiusDrawScale) + 1f);
-        radiusLineRenderer.SetVertexCount(size);
-        radiusLineRenderer.numCornerVertices = 500;
-        for (int i = 0; i < size; i++)
-        {
-            theta += (2.0f * Mathf.PI * radiusDrawScale);
-            float x = activePosition.x + radius * Mathf.Cos(theta);
-            float y = activePosition.y + radius * Mathf.Sin(theta);
-            radiusLineRenderer.SetPosition(i, new Vector3(x, y, 0));
-        }
-    }
-
-    /// Updates the Handle position and opacity
-    void UpdateRadiusHandle()
-    {
-        // set opacity value of the radius handle
-        Color c = lookHandleSr.color;
-        c.a = radiusOpacity;
-        lookHandleSr.color = c;
-
-        // get the world mouse position 
-        Vector2 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-
-        // calculate the destination position
-        Vector2 activePosition = Vector2.zero;
-
-
-
-        // check which dot is "alone", and if one is alone, get its position to display the radius handle
-        if (dot0 != null && dot1 == null)
-            activePosition = dot0.transform.position;
-        else if (dot1 != null && dot0 == null)
-            activePosition = dot1.transform.position;
-        else if (dot0 != null && dot1 != null)
-        {
-            // both dots are alive, don't draw a radius
-            activePosition = radiusCenter;
-        }
-
-        lookDirection = mousePos - activePosition;
-        lookDirection = lookDirection.normalized;
-        lookDirection = lookDirection * maxRadius;
-
-        // in case we use a controller
-        Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.Controler)
-        {
-            lookDirection = controllerInput;
-            lookDirection = lookDirection.normalized;
-            lookDirection = lookDirection * maxRadius;
-        }
-
-        lookHandleSr.gameObject.transform.position = activePosition + lookDirection;
     }
 
     void FadeRadius(bool fadeIn, Action onStart = null, Action onComplete = null)
@@ -328,46 +233,47 @@ public class Player : MonoBehaviour {
 
         Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
 
+        // the closest dot that the next dot should be spawned on
+        GridDot parentDot = null;
 
         // dot1 exists, dot0 doesnt => spawn dot0
         if (dot1 != null && dot0 == null)
         {
-            activePosition = dot1.transform.position;
+            parentDot = Grid.GetNearestActiveDot(dot1.gridDot, lookDirection);
 
-            spawnPosition = activePosition + lookDirection;
-
+            if(parentDot == null)
+                return;
+            
             dotWasSpawned = 0;
-
             FadeRadius(false);
         }
         // dot0 exists, dot1 doesnt => spawn dot1
         else if (dot0 != null && dot1 == null)
         {
-            activePosition = dot0.transform.position;
+            parentDot = Grid.GetNearestActiveDot(dot0.gridDot, lookDirection);
 
-            spawnPosition = activePosition + lookDirection;
+            if (parentDot == null)
+                return;
 
             dotWasSpawned = 1;
-
             FadeRadius(false);
         }
         // there are no dots, spawn the first dot
         else
         {
-            // get the world mouse position and spawn the dot there
-            Vector2 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-            spawnPosition = mousePos;
-
+            parentDot = Grid.GetRandomActiveDot();
             dotWasSpawned = 0;
 
             FadeRadius(true);
         }
 
         // spawn the new dot
-        GameObject newDotGo = GameObject.Instantiate(playerDotPrefab, spawnPosition, Quaternion.identity);
-        newDotGo.transform.parent = transform;
+        GameObject newDotGo = GameObject.Instantiate(playerDotPrefab, Vector2.zero, Quaternion.identity);
+        newDotGo.transform.parent = parentDot.transform;
+        newDotGo.transform.localPosition = Vector3.zero;
         PlayerDot newPlayerDot = newDotGo.GetComponent<PlayerDot>();
+        newPlayerDot.gridDot = parentDot;
+        parentDot.levelObj = newPlayerDot;
 
         // set the newest dot information
         if (dotWasSpawned == 0)
@@ -517,4 +423,145 @@ public class Player : MonoBehaviour {
         _activeDotIndex = _playerDots.IndexOf(newPlayerDot);
     }
 
+*/
+
+
+
+/*
+void IncreaseRadius()
+{
+   bool holdKey;
+   float originalSize = 5;
+
+   if (Input.GetKey(KeyCode.Space))
+   {
+       holdKey = true;
+   }
+
+   else
+   {
+       holdKey = false;
+   }
+
+   if (holdKey)
+   {
+       maxRadius += radiusIncreaseSpeed * Time.deltaTime;
+       if (maxRadius >= maxIncreasedRadius)
+       {
+           maxRadius = maxIncreasedRadius;
+       }
+   }
+
+   else if (!holdKey)
+   {
+       maxRadius -= radiusIncreaseSpeed * Time.deltaTime;
+       if (maxRadius <= originalSize)
+       {
+           maxRadius = originalSize;
+       }
+   }
+}
+
+void TempoControls()
+{
+   if (Input.GetMouseButtonDown(0))
+   {
+       tempoUp = true;
+       Debug.Log("Left M.button pressed");
+   }
+
+   else if (Input.GetMouseButtonDown(1))
+   {
+       tempoDown = true;
+       Debug.Log("Right M.button pressed");
+   }
+}
+*/
+
+
+/*
+/// Updates the radius size, opacity and Position
+void UpdateRadius()
+{
+Vector2 activePosition;
+
+// check which dot is "alone", and if one is alone, get its position to display the radius circle
+if (dot0 != null && dot1 == null)
+{
+    activePosition = dot0.transform.position;
+    radiusCenter = dot0.transform.position;
+}
+else if (dot1 != null && dot0 == null)
+{
+    activePosition = dot1.transform.position;
+    radiusCenter = dot1.transform.position;
+}
+else
+    activePosition = radiusCenter;
+
+
+// set opacity value of the line renderer - opacity gets modiefied in radiusFade Corouine
+Color startC = radiusLineRenderer.startColor;
+startC.a = radiusOpacity;
+Color endC = radiusLineRenderer.endColor;
+endC.a = radiusOpacity;
+radiusLineRenderer.SetColors(startC, endC);
+
+// draw the radius with the line renderer
+float theta = 0f;
+int size = (int)((1f / radiusDrawScale) + 1f);
+radiusLineRenderer.SetVertexCount(size);
+radiusLineRenderer.numCornerVertices = 500;
+for (int i = 0; i < size; i++)
+{
+    theta += (2.0f * Mathf.PI * radiusDrawScale);
+    float x = activePosition.x + radius * Mathf.Cos(theta);
+    float y = activePosition.y + radius * Mathf.Sin(theta);
+    radiusLineRenderer.SetPosition(i, new Vector3(x, y, 0));
+}
+}
+
+/// Updates the Handle position and opacity
+void UpdateRadiusHandle()
+{
+// set opacity value of the radius handle
+Color c = lookHandleSr.color;
+c.a = radiusOpacity;
+lookHandleSr.color = c;
+
+// get the world mouse position 
+Vector2 mousePos = Input.mousePosition;
+mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+// calculate the destination position
+Vector2 activePosition = Vector2.zero;
+
+
+
+// check which dot is "alone", and if one is alone, get its position to display the radius handle
+if (dot0 != null && dot1 == null)
+    activePosition = dot0.transform.position;
+else if (dot1 != null && dot0 == null)
+    activePosition = dot1.transform.position;
+else if (dot0 != null && dot1 != null)
+{
+    // both dots are alive, don't draw a radius
+    activePosition = radiusCenter;
+}
+
+lookDirection = mousePos - activePosition;
+lookDirection = lookDirection.normalized;
+lookDirection = lookDirection * maxRadius;
+
+// in case we use a controller
+Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.Controler)
+{
+    lookDirection = controllerInput;
+    lookDirection = lookDirection.normalized;
+    lookDirection = lookDirection * maxRadius;
+}
+
+lookHandleSr.gameObject.transform.position = activePosition + lookDirection;
+}
 */

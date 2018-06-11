@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDot : MonoBehaviour{
+public class PlayerDot : LevelObject{
 
     [Header("Settings")]
     public float fadeDuration = 0.5f;
@@ -32,6 +32,7 @@ public class PlayerDot : MonoBehaviour{
 
     public void Remove()
     {
+
         StopCoroutine("Fade");
         StartCoroutine(Fade(false));
     }
@@ -75,6 +76,7 @@ public class PlayerDot : MonoBehaviour{
         }
         if (!fadeIn)
         {
+            gridDot.levelObj = null;
             GameObject.Destroy(gameObject);
         }
         yield return null;

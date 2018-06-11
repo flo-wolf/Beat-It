@@ -11,10 +11,10 @@ public class GridPlacer : EditorWindow
     private GameObject grid = null;
     private int rows = 8; // needs to be even
     private int columns = 16; // needs to be even
-    private float gridStep = 9f;
+    private float gridStep = 8;
 
     private GameObject tempObj = null;
-    private GameObject[,] placedGrid = null;
+    private GridDot[,] placedDots = null;
 
     private Vector3 tempPos = Vector3.zero;
     private float tempOffset = 0f;
@@ -23,15 +23,28 @@ public class GridPlacer : EditorWindow
     static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(GridPlacer));
-
-        
     }
 
     void OnInspectorUpdate()
     {
         Repaint();
 
-        placedGrid = new GameObject[rows, columns];
+        placedDots = new GridDot[rows, columns];
+    }
+
+    // updates the Dot array in the Grid class
+    private void UpdateDotReferences()
+    {
+        Grid g = grid.GetComponent<Grid>();
+        if(g != null)
+        {
+            g.rows = rows;
+            g.columns = columns;
+        }
+        else // the grid component doesnt exist
+        {
+            Debug.LogError("GridWindow: The referenced Grid-GameObject doesn't have the Grid script attached.");
+        }
     }
 
     void OnGUI()
@@ -79,26 +92,70 @@ public class GridPlacer : EditorWindow
                         tempObj.name = "GridDot Row" + (i + (rows / 2)) + " Column" + (j + (columns / 2));
                         tempObj.transform.parent = grid.transform;
 
-                        placedGrid[i+ (rows / 2), j + (columns / 2)] = tempObj;
+                        //update the references in the grid class
+                        GridDot dot = tempObj.GetComponent<GridDot>();
+                        if(dot != null)
+                        {
+                            dot.row = i +(rows / 2);
+                            dot.column = j + (columns / 2);
+                            placedDots[i + (rows / 2), j + (columns / 2)] = dot;
+                        }
+                        else
+                        {
+                            EditorGUILayout.Space();
+                            Debug.LogError("GridWindow: The GridDot prefab doesnt have a GridDot script attached.");
+                            EditorGUILayout.Space();
+                        }
+
                         tempObj = null;
                     }
                 }
+
+                UpdateDotReferences();
             }
 
             if (GUILayout.Button("Activate only visible Dots"))
             {
-                // remove the old grid
-                var tempList = grid.transform.Cast<Transform>().ToList();
-                foreach (var child in tempList)
+                BoxCollider2D box = grid.GetComponent<BoxCollider2D>();
+                if(box != null)
                 {
-                    Vector3 pos = Camera.main.WorldToViewportPoint(child.transform.position);
+                    // remove the old grid
+                    var tempList = grid.transform.Cast<Transform>().ToList();
+                    foreach (var child in tempList)
+                    {
+                        /*
+                        // deactivate all the gameobjects outside of the camera
+                        Vector3 pos = Camera.main.WorldToViewportPoint(child.transform.position);
 
-                    // if the dot lays outside the viewport and outside the treshhold, deactivate it
-                    float t = 0.005f; // treshhold
-                    if (pos.x < 0-t || pos.x > 1 + t || pos.y < 0 - t || pos.y > 1 + t)
-                        child.gameObject.SetActive(false);
-                    else
-                        child.gameObject.SetActive(true);
+                        // if the dot lays outside the viewport and outside the treshhold, deactivate it
+                        float t = 0.005f; // treshhold
+                        if (pos.x < 0 - t || pos.x > 1 + t || pos.y < 0 - t || pos.y > 1 + t)
+                            child.gameObject.SetActive(false);
+                        else
+                            child.gameObject.SetActive(true);
+
+                        */
+
+                        // deactivate all the objects outside the bounding box
+                        if (box.bounds.Contains(child.transform.position))
+                        {
+                            child.gameObject.SetActive(true);
+                            GridDot dot = child.GetComponent<GridDot>();
+                            if(dot != null)
+                            {
+                                dot.active = true;
+                            }
+                        }
+                        else
+                        {
+                            GridDot dot = child.GetComponent<GridDot>();
+                            if (dot != null)
+                            {
+                                dot.active = false;
+                            }
+                            child.gameObject.SetActive(false);
+                        }
+                    }
                 }
             }
 
@@ -109,6 +166,11 @@ public class GridPlacer : EditorWindow
                 foreach (var child in tempList)
                 {
                     child.gameObject.SetActive(true);
+                    GridDot dot = child.GetComponent<GridDot>();
+                    if (dot != null)
+                    {
+                        dot.active = true;
+                    }
                 }
             }
 
@@ -118,6 +180,11 @@ public class GridPlacer : EditorWindow
                 var tempList = grid.transform.Cast<Transform>().ToList();
                 foreach (var child in tempList)
                 {
+                    GridDot dot = child.GetComponent<GridDot>();
+                    if (dot != null)
+                    {
+                        dot.active = false;
+                    }
                     child.gameObject.SetActive(false);
                 }
             }
@@ -130,13 +197,15 @@ public class GridPlacer : EditorWindow
                 {
                     DestroyImmediate(child.gameObject);
                 }
+                placedDots = new GridDot[rows, columns];
+                UpdateDotReferences();
             }
         }
         else
         {
             EditorGUILayout.Space();
             GUI.contentColor = Color.red;
-            EditorGUILayout.LabelField("You must reference the dot prefab as well as the grid.");
+            EditorGUILayout.LabelField("You must reference the dot prefab as well as the grid in order to proceed.");
         }
     }
 }
