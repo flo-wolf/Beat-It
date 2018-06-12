@@ -12,6 +12,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
+    //Particle
+    //public ParticleSystem spawnEffect;
+
     // structure
     public static Player _player;           // self reference
     public static PlayerDot dot0 = null;  // mouse1 dot
@@ -316,6 +319,8 @@ public class Player : MonoBehaviour {
             else if (newestDot == DotType.Dot1)
                 playerSegment.FillSegment(dot0.transform.position, dot1.transform.position);
         }
+
+        //Instantiate(spawnEffect, newPlayerDot.transform.position, Quaternion.identity);
     }
 
     /// Retracts the segment towards the new player dot and removes the old one

@@ -61,8 +61,8 @@ public class AudioManager : MonoBehaviour {
             AudioManager.instance.Play("Kick");
 
         // snare plays on the half offset player bpm
-        if (bpmInfo.Equals(BPMinfo.ToHalf(RythmManager.playerBPM))) 
-            AudioManager.instance.Play("Snare");
+        //if (bpmInfo.Equals(BPMinfo.ToHalf(RythmManager.playerBPM))) 
+            //AudioManager.instance.Play("Snare");
     }
 
     //This enables us to Play an AudioClip just through his name.
