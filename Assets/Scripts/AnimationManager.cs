@@ -16,7 +16,7 @@ public class AnimationManager : MonoBehaviour {
 
     public static AnimationManager instance;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
     }
