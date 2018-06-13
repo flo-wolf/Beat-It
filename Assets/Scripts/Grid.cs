@@ -58,62 +58,121 @@ public class Grid : MonoBehaviour
         // gather all six sourrounding dots
         List<GridDot> hexDots = new List<GridDot>();
 
-        // our row is uneven
-        if (dot.row % 2 == 0)
+
+        if(Input.GetKey(KeyCode.Space))
         {
-            // top left dot
-            if (dot.row - 1 >= 0)
-                hexDots.Add(gridDots[dot.row - 1, dot.column]);
-            // top right dot
-            if (dot.row - 1 >= 0 && dot.column + 1 < instance.columns)
-                hexDots.Add(gridDots[dot.row - 1, dot.column + 1]);
+            //Double Jump
+            // our row is uneven
+            if (dot.row % 2 == 0)
+            {
+                // top left dot
+                if (dot.row - 2 >= 0)
+                    hexDots.Add(gridDots[dot.row - 2, dot.column]);
+                // top right dot
+                if (dot.row - 2 >= 0 && dot.column + 1 < instance.columns)
+                    hexDots.Add(gridDots[dot.row - 2, dot.column]);
 
-            // left dot
-            if (dot.column - 1 >= 0)
-                hexDots.Add(gridDots[dot.row, dot.column - 1]);
-            // right dot
-            if (dot.column + 1 < instance.columns)
-                hexDots.Add(gridDots[dot.row, dot.column + 1]);
+                // left dot
+                if (dot.column - 2 >= 0)
+                    hexDots.Add(gridDots[dot.row, dot.column - 2]);
+                // right dot
+                if (dot.column + 2 < instance.columns)
+                    hexDots.Add(gridDots[dot.row, dot.column + 2]);
 
-            // bot left dot
-            if (dot.row + 1 < instance.rows)
-                hexDots.Add(gridDots[dot.row + 1, dot.column]);
-            // bot right dot
-            if (dot.row + 1 < instance.rows && dot.column + 1 < instance.columns)
-                hexDots.Add(gridDots[dot.row + 1, dot.column + 1]);
+                // bot left dot
+                if (dot.row + 2 < instance.rows)
+                    hexDots.Add(gridDots[dot.row + 2, dot.column]);
+                // bot right dot
+                if (dot.row + 2 < instance.rows && dot.column + 1 < instance.columns)
+                    hexDots.Add(gridDots[dot.row + 2, dot.column]);
+            }
+
+            // our row is even
+            else
+            {
+                // top left dot
+                if (dot.row - 2 >= 0 && dot.column - 1 >= 0)
+                    hexDots.Add(gridDots[dot.row - 2, dot.column]);
+                // top right dot
+                if (dot.row - 2 >= 0)
+                    hexDots.Add(gridDots[dot.row - 2, dot.column]);
+
+                // left dot
+                if (dot.column - 2 >= 0)
+                    hexDots.Add(gridDots[dot.row, dot.column - 2]);
+                // right dot
+                if (dot.column + 2 < instance.columns)
+                    hexDots.Add(gridDots[dot.row, dot.column + 2]);
+
+                // bot left dot
+                if (dot.row + 2 < instance.rows && dot.column - 1 >= 0)
+                    hexDots.Add(gridDots[dot.row + 2, dot.column]);
+                // bot right dot
+                if (dot.row + 2 < instance.rows)
+                    hexDots.Add(gridDots[dot.row + 2, dot.column]);
+            }
         }
 
-        // our row is even
         else
         {
-            // top left dot
-            if (dot.row - 1 >= 0 && dot.column - 1 >= 0)
-                hexDots.Add(gridDots[dot.row - 1, dot.column-1]);
-            // top right dot
-            if (dot.row - 1 >= 0)
-                hexDots.Add(gridDots[dot.row - 1, dot.column]);
+            // Normal movement
+            // our row is uneven
+            if (dot.row % 2 == 0)
+            {
+                // top left dot
+                if (dot.row - 1 >= 0)
+                    hexDots.Add(gridDots[dot.row - 1, dot.column]);
+                // top right dot
+                if (dot.row - 1 >= 0 && dot.column + 1 < instance.columns)
+                    hexDots.Add(gridDots[dot.row - 1, dot.column + 1]);
 
-            // left dot
-            if (dot.column - 1 >= 0)
-                hexDots.Add(gridDots[dot.row, dot.column - 1]);
-            // right dot
-            if (dot.column + 1 < instance.columns)
-                hexDots.Add(gridDots[dot.row, dot.column + 1]);
+                // left dot
+                if (dot.column - 1 >= 0)
+                    hexDots.Add(gridDots[dot.row, dot.column - 1]);
+                // right dot
+                if (dot.column + 1 < instance.columns)
+                    hexDots.Add(gridDots[dot.row, dot.column + 1]);
 
-            // bot left dot
-            if (dot.row + 1 < instance.rows && dot.column - 1 >= 0)
-                hexDots.Add(gridDots[dot.row + 1, dot.column - 1]);
-            // bot right dot
-            if (dot.row + 1 < instance.rows)
-                hexDots.Add(gridDots[dot.row + 1, dot.column]);
-        }
+                // bot left dot
+                if (dot.row + 1 < instance.rows)
+                    hexDots.Add(gridDots[dot.row + 1, dot.column]);
+                // bot right dot
+                if (dot.row + 1 < instance.rows && dot.column + 1 < instance.columns)
+                    hexDots.Add(gridDots[dot.row + 1, dot.column + 1]);
+            }
+
+            // our row is even
+            else
+            {
+                // top left dot
+                if (dot.row - 1 >= 0 && dot.column - 1 >= 0)
+                    hexDots.Add(gridDots[dot.row - 1, dot.column - 1]);
+                // top right dot
+                if (dot.row - 1 >= 0)
+                    hexDots.Add(gridDots[dot.row - 1, dot.column]);
+
+                // left dot
+                if (dot.column - 1 >= 0)
+                    hexDots.Add(gridDots[dot.row, dot.column - 1]);
+                // right dot
+                if (dot.column + 1 < instance.columns)
+                    hexDots.Add(gridDots[dot.row, dot.column + 1]);
+
+                // bot left dot
+                if (dot.row + 1 < instance.rows && dot.column - 1 >= 0)
+                    hexDots.Add(gridDots[dot.row + 1, dot.column - 1]);
+                // bot right dot
+                if (dot.row + 1 < instance.rows)
+                    hexDots.Add(gridDots[dot.row + 1, dot.column + 1]);
+            }
+        }  
 
         direction = (Vector2)dot.transform.position + direction;
 
         Debug.Log("Nearest Active - centerDot: " + dot.transform.position + " direction: " + direction);
 
         GridDot closestDot = null;
-        float closestLength = 100000f;
+        float closestLength = 200000f;
 
         foreach (GridDot d in hexDots)
         {

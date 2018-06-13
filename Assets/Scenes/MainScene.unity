@@ -7490,7 +7490,7 @@ MonoBehaviour:
   mid: 0.5
   end: 1
   startValue: 0.5
-  midValue: 1
+  midValue: 0.75
   endValue: 0.5
 --- !u!4 &1124543036
 Transform:
