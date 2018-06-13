@@ -54,6 +54,7 @@ public class Player : MonoBehaviour {
     private Vector2 lookDirection = new Vector2(); //
     private bool lookingRight = false;
     private GridDot aimedGridDot;
+    private float thumbstickTreshhold = 0.03f;
 
     /// initialization
     void Start()
@@ -136,101 +137,79 @@ public class Player : MonoBehaviour {
     {
         if(bpm.Equals(RythmManager.playerBPM))
         {
+
+
+            /* STAY AS ONE DOT, only move forward on controller input
+            bool thumbstickPushed = true;
+            Vector2 cntrlInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+            if (Math.Abs(cntrlInput.x) <= thumbstickTreshhold && Math.Abs(cntrlInput.y) <= thumbstickTreshhold)
+            {
+                thumbstickPushed = false;
+                Debug.Log("Dont move");
+            }
+            
+
+
+            // if there is only one dot and if the thumbstick actually got pressed into a direction
+            if (thumbstickPushed)
+            {
+            */
+
             // if there are two dots
             if (dot1 != null && dot0 != null)
-            {
-                Vector2 aimPos;
-                float dot0LookLength;
-                float dot1LookLength;
-
-                // mouse input
-                if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
                 {
-                    // get the world mouse position 
-                    Vector2 mousePos = Input.mousePosition;
-                    aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+                    Vector2 aimPos;
+                    float dot0LookLength;
+                    float dot1LookLength;
 
-                    // check which point is closest to the lookdirection
-                    dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
-                    dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
+                    // mouse input
+                    if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
+                    {
+                        Debug.Log("mouse");
+                        // get the world mouse position 
+                        Vector2 mousePos = Input.mousePosition;
+                        aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                        // check which point is closest to the lookdirection
+                        dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
+                        dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
+                    }
+
+                    // controller input
+                    else
+                    {
+
+                        Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+                        aimPos = controllerInput;
+
+                        // check which point is closest to the lookdirection
+                        dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
+                        dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
+                    }
+
+
+                    // dot 0 is closer to the direction we are aiming at => remove dot1
+                    if (dot0LookLength <= dot1LookLength)
+                    {
+                        RemoveDot(false);
+                    }
+                    // dot 1 is closer to the direction we are aiming at => remove dot0
+                    else
+                    {
+                        RemoveDot(true);
+                    }
                 }
 
-                // controller input
+                // if there is only one dot and if the thumbstick actually got pressed into a direction
                 else
                 {
-                    Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                    aimPos = controllerInput;
-
-                    // check which point is closest to the lookdirection
-                    dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
-                    dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
+                    SpawnDot();
                 }
-
-
-                // dot 0 is closer to the direction we are aiming at => remove dot1
-                if (dot0LookLength <= dot1LookLength)
-                {
-                    RemoveDot(false);
-                }
-                // dot 1 is closer to the direction we are aiming at => remove dot0
-                else
-                {
-                    RemoveDot(true);
-                }
-            }
-
-            // if there is only one dot
-            else
-            {
-                SpawnDot();
-            }
+            //}
             // spawn the new dot at the aimed at position
         }
-    }
-
-    void FadeRadius(bool fadeIn, Action onStart = null, Action onComplete = null)
-    {
-        StopCoroutine("FadeRadiusCoroutine");
-        StartCoroutine(FadeRadiusCoroutine(fadeIn, onStart, onComplete));
-    }
-
-    /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
-    IEnumerator FadeRadiusCoroutine(bool fadeIn, Action onStart = null, Action onComplete = null)
-    {
-        //Debug.Log("Radius FadeIn " + fadeIn);
-
-        if (onStart != null)
-        {
-            onStart();
-        }
-
-        float startRadius = radius;
-
-        float elapsedTime = 0f;
-        while (elapsedTime <= radiusFadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            if (fadeIn && radius != maxRadius)
-            {
-                radius = Mathf.SmoothStep(startRadius, maxRadius, (elapsedTime / radiusFadeDuration));
-                radiusOpacity = Mathf.SmoothStep(startRadius, 1, (elapsedTime / radiusFadeDuration));
-            }
-
-            else if (!fadeIn && radius != 0)
-            {
-                radius = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
-                radiusOpacity = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
-            }
-            yield return null;
-        }
-
-        if (onComplete != null)
-        {
-            onComplete();
-        }
-
-        yield return null;
     }
 
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
@@ -243,9 +222,6 @@ public class Player : MonoBehaviour {
 
         //Debug.Log("Dot0: " + dot0 + " ---- Dot1: " + dot1);
         int dotWasSpawned = -1; // -1 = no dot spawned, 0 = dot0 spawndd, 1 = dot1 spawned
-
-        Vector2 activePosition = new Vector2();
-        Vector2 spawnPosition;
 
         Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
 
@@ -288,8 +264,7 @@ public class Player : MonoBehaviour {
         newDotGo.transform.parent = parentDot.transform;
         newDotGo.transform.localPosition = Vector3.zero;
         PlayerDot newPlayerDot = newDotGo.GetComponent<PlayerDot>();
-        newPlayerDot.gridDot = parentDot;
-        parentDot.levelObj = newPlayerDot;
+        parentDot.levelObject = newPlayerDot;
 
         // set the newest dot information
         if (dotWasSpawned == 0)
@@ -368,6 +343,51 @@ public class Player : MonoBehaviour {
 
         // empty the segment in between those two dots
         playerSegment.EmptySegment(switchSegmentDirection);
+    }
+
+
+    void FadeRadius(bool fadeIn, Action onStart = null, Action onComplete = null)
+    {
+        StopCoroutine("FadeRadiusCoroutine");
+        StartCoroutine(FadeRadiusCoroutine(fadeIn, onStart, onComplete));
+    }
+
+    /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
+    IEnumerator FadeRadiusCoroutine(bool fadeIn, Action onStart = null, Action onComplete = null)
+    {
+        //Debug.Log("Radius FadeIn " + fadeIn);
+
+        if (onStart != null)
+        {
+            onStart();
+        }
+
+        float startRadius = radius;
+
+        float elapsedTime = 0f;
+        while (elapsedTime <= radiusFadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            if (fadeIn && radius != maxRadius)
+            {
+                radius = Mathf.SmoothStep(startRadius, maxRadius, (elapsedTime / radiusFadeDuration));
+                radiusOpacity = Mathf.SmoothStep(startRadius, 1, (elapsedTime / radiusFadeDuration));
+            }
+
+            else if (!fadeIn && radius != 0)
+            {
+                radius = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
+                radiusOpacity = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
+            }
+            yield return null;
+        }
+
+        if (onComplete != null)
+        {
+            onComplete();
+        }
+
+        yield return null;
     }
 }
 

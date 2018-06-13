@@ -57,7 +57,6 @@ MonoBehaviour:
   row: 0
   column: 0
   active: 1
-  levelObj: {fileID: 0}
 --- !u!212 &212396159475235212
 SpriteRenderer:
   m_ObjectHideFlags: 1

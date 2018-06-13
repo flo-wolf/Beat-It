@@ -6,6 +6,7 @@ TagManager:
   tags:
   - blockradius
   - wall
+  - Grid
   layers:
   - Default
   - TransparentFX

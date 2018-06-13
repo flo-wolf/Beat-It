@@ -76,7 +76,7 @@ public class PlayerDot : LevelObject{
         }
         if (!fadeIn)
         {
-            gridDot.levelObj = null;
+            gridDot.levelObject = null;
             GameObject.Destroy(gameObject);
         }
         yield return null;

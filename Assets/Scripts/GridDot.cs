@@ -12,8 +12,13 @@ public class GridDot : MonoBehaviour
 
     public bool active = true;
 
-    // the object occupying our dot (player or levelobject)
-    public LevelObject levelObj;
+    // the object attached to our dot, oqupying it (player or levelobject)
+    private LevelObject m_levelObj;
+    public LevelObject levelObject
+    {
+        get { return m_levelObj; }
+        set { m_levelObj = value; if(value != null) value.gridDot = this; } // if levelobject gets set, also reference this gridDot on the levelobject
+    }
 
     void Start()
     {
@@ -25,6 +30,7 @@ public class GridDot : MonoBehaviour
         AdjustMaterial();
     }
 
+    // Adjust the material depending on the state of the griddot (active => opaque / non active => half transparent)
     void AdjustMaterial()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

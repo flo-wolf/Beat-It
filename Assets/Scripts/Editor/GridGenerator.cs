@@ -4,14 +4,14 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-public class GridPlacer : EditorWindow
+public class GridGenerator : EditorWindow
 {
 
     private GameObject gridDotPrefab = null;
     private GameObject grid = null;
     private int rows = 8; // needs to be even
     private int columns = 16; // needs to be even
-    private float gridStep = 8;
+    private int gridStep = 8;
 
     private GameObject tempObj = null;
     private GridDot[,] placedDots = null;
@@ -19,10 +19,10 @@ public class GridPlacer : EditorWindow
     private Vector3 tempPos = Vector3.zero;
     private float tempOffset = 0f;
 
-    [MenuItem("Window/GridPlacer")]
+    [MenuItem("Window/GridGenerator")]
     static void ShowWindow()
     {
-        EditorWindow.GetWindow(typeof(GridPlacer));
+        EditorWindow.GetWindow(typeof(GridGenerator));
     }
 
     void OnInspectorUpdate()
@@ -40,6 +40,7 @@ public class GridPlacer : EditorWindow
         {
             g.rows = rows;
             g.columns = columns;
+            g.gridStep = (int) gridStep;
         }
         else // the grid component doesnt exist
         {
@@ -49,20 +50,31 @@ public class GridPlacer : EditorWindow
 
     void OnGUI()
     {
-        EditorGUILayout.LabelField("Flo's Grid Drawer", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Grid Generator", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
-        grid = EditorGUILayout.ObjectField("Grid GameObject:", grid, typeof(GameObject), true) as GameObject;
+        if (grid == null)
+        {
+            GameObject[] grids;
+            grids = GameObject.FindGameObjectsWithTag("Grid");
+            if (grids.Length > 0)
+            {
+                grid = grids[0];
+            }
+        }
+
         gridDotPrefab = EditorGUILayout.ObjectField("GridDot Prefab:", gridDotPrefab, typeof(GameObject), true) as GameObject;
         rows = EditorGUILayout.IntField("Number of Rows: ", rows);
         columns = EditorGUILayout.IntField("Number of Columns: ", columns);
-        gridStep = EditorGUILayout.FloatField("Dot Padding: ", gridStep);
+        gridStep = EditorGUILayout.IntField("Dot Padding: ", gridStep);
 
         EditorGUILayout.Space();
 
         // the dot prefab was referenced
         if (gridDotPrefab && grid)
         {
+
+/// Grid Placer
             if (GUILayout.Button("Redraw the Grid"))
             {
                 // remove the old grid
@@ -189,7 +201,6 @@ public class GridPlacer : EditorWindow
                 }
             }
 
-
             if (GUILayout.Button("Clear the Grid"))
             {
                 var tempList = grid.transform.Cast<Transform>().ToList();
@@ -205,7 +216,7 @@ public class GridPlacer : EditorWindow
         {
             EditorGUILayout.Space();
             GUI.contentColor = Color.red;
-            EditorGUILayout.LabelField("You must reference the dot prefab as well as the grid in order to proceed.");
+            EditorGUILayout.LabelField("You must reference the dot prefab in order to proceed.");
         }
     }
 }
