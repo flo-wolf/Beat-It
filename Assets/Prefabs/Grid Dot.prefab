@@ -70,7 +70,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
