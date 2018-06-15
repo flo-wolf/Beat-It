@@ -32,16 +32,28 @@ public class Grid : MonoBehaviour
     {
         GridDot[,] foundDots = new GridDot[rows, columns];
 
-        var tempList = transform.Cast<Transform>().ToList();
-        foreach (var child in tempList)
+        var temp = GetComponentsInChildren<GridDot>();
+        Debug.Log("GridDot length: " + temp.Length);
+
+        foreach (GridDot child in temp)
         {
-            GridDot dot = child.GetComponent<GridDot>();
-            if(dot != null) // child is a griddot
-            {
-                foundDots[dot.row,dot.column] = dot;
-            }
+                if (child != null) // child is a griddot
+                {
+                    foundDots[child.row, child.column] = child;
+                }
         }
         return foundDots;
+    }
+
+    public static GridDot FindPlayerSpawn()
+    {
+        PlayerSpawn s = instance.GetComponentInChildren<PlayerSpawn>();
+        if(s != null)
+        {
+            GridDot parentDot = s.transform.parent.GetComponent<GridDot>();
+            return parentDot;
+        }
+        return null;
     }
 
     public static GridDot GetRandomActiveDot()
@@ -182,7 +194,7 @@ public class Grid : MonoBehaviour
         foreach (GridDot d in hexDots)
         {
             // rule out all the dots that are not set to be active
-            if (d.active && d.levelObject == null && d.gameObject.activeSelf)
+            if (d != null && d.active && d.gameObject.activeSelf)
             {
                 // get distance between the sourrounding hexagon dot and our dot position plus the lookdirection
                 float l = (direction - (Vector2)d.transform.position).magnitude;

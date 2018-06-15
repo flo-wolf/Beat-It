@@ -171,6 +171,24 @@ public class GridGenerator : EditorWindow
                 }
             }
 
+            if (GUILayout.Button("Delete all non-visible Dots"))
+            {
+                BoxCollider2D box = grid.GetComponent<BoxCollider2D>();
+                if (box != null)
+                {
+                    // remove the old grid
+                    var tempList = grid.transform.Cast<Transform>().ToList();
+                    foreach (var child in tempList)
+                    {
+                        // delete all the objects outside the bounding box
+                        if (!box.bounds.Contains(child.transform.position))
+                        {
+                            GameObject.DestroyImmediate(child.gameObject);
+                        }
+                    }
+                }
+            }
+
             if (GUILayout.Button("Activate all Dots"))
             {
                 // remove the old grid
@@ -201,7 +219,7 @@ public class GridGenerator : EditorWindow
                 }
             }
 
-            if (GUILayout.Button("Clear the Grid"))
+            if (GUILayout.Button("Clear the Grid, Delete all Dots"))
             {
                 var tempList = grid.transform.Cast<Transform>().ToList();
                 foreach (var child in tempList)
@@ -218,5 +236,8 @@ public class GridGenerator : EditorWindow
             GUI.contentColor = Color.red;
             EditorGUILayout.LabelField("You must reference the dot prefab in order to proceed.");
         }
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Change the collider size on the Grid GameObject in order to define the visible space.");
     }
 }

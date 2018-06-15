@@ -23,10 +23,17 @@ public class GridDot : MonoBehaviour
 
     void Start()
     {
+        FindLevelObjectChildren();
         AdjustMaterial();
         AddAnimation();
     }
 
+    void FindLevelObjectChildren()
+    {
+        levelObject = gameObject.FindComponentInChildWithTag<LevelObject>("LevelObject");
+    }
+
+    // Adjust the 
     void OnValidate()
     {
         AdjustMaterial();

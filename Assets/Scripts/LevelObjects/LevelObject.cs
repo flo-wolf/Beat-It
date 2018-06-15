@@ -8,21 +8,12 @@ using UnityEngine;
 public class LevelObject : MonoBehaviour {
 
     
-    public enum Type { Unset, Player, LoopDot, Rotator }
+    public enum Type { Unset, Player, LoopDot, KillDot, Rotator, PlayerSpawn }
 
     [Header("LevelObject Settings")]
     public Type type = Type.Unset;
 
     // the gridDot this object is tied to (aka placed ontop)
+    [HideInInspector]
     public GridDot gridDot;
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -43,7 +43,7 @@ public class Game : MonoBehaviour {
         if (newState == State.Death)
         {
             state = State.Death;
-            _game.StartCoroutine(_game.FadeSpawnText(true, Restart));
+            //_game.StartCoroutine(_game.FadeSpawnText(true, Restart));
         }
         else if (newState == State.Restart)
         {
