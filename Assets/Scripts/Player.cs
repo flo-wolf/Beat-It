@@ -155,6 +155,84 @@ public class Player : MonoBehaviour {
 
             // if there are two dots
             if (dot1 != null && dot0 != null)
+            {
+                Vector2 aimPos;
+                float dot0LookLength;
+                float dot1LookLength;
+
+                // mouse input
+                if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
+                {
+                    Debug.Log("mouse");
+                    // get the world mouse position 
+                    Vector2 mousePos = Input.mousePosition;
+                    aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                    // check which point is closest to the lookdirection
+                    dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
+                    dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
+                }
+
+                // controller input
+                else
+                {
+
+                    Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+                    aimPos = controllerInput;
+
+                    // check which point is closest to the lookdirection
+                    dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
+                    dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
+                }
+
+                if(Input.GetKey(KeyCode.A))
+                {
+                    // dot 0 is closer to the direction we are aiming at => remove dot1
+                    if (dot0LookLength <= dot1LookLength)
+                    {
+                        RemoveDot(false);
+                        SpawnDot();
+                    }
+                    // dot 1 is closer to the direction we are aiming at => remove dot0
+                    else
+                    {
+                        RemoveDot(true);
+                        SpawnDot();
+                    }
+                }
+
+                else
+                {
+                    // dot 0 is closer to the direction we are aiming at => remove dot1
+                    if (dot0LookLength <= dot1LookLength)
+                    {
+                        RemoveDot(false);
+                    }
+                    // dot 1 is closer to the direction we are aiming at => remove dot0
+                    else
+                    {
+                        RemoveDot(true);
+                    }
+                }
+            }
+
+            // if there is only one dot and if the thumbstick actually got pressed into a direction
+            else
+            {
+                SpawnDot();
+            }
+            //}
+            // spawn the new dot at the aimed at position
+        }
+
+        /*
+        //Dash on offbeat
+        else if(Input.GetKey(KeyCode.A))
+        {
+            if(bpm.Equals(RythmManager.playerDashBPM))
+            {
+                if (dot1 != null && dot0 != null)
                 {
                     Vector2 aimPos;
                     float dot0LookLength;
@@ -191,22 +269,18 @@ public class Player : MonoBehaviour {
                     if (dot0LookLength <= dot1LookLength)
                     {
                         RemoveDot(false);
+                        SpawnDot();
                     }
                     // dot 1 is closer to the direction we are aiming at => remove dot0
                     else
                     {
                         RemoveDot(true);
+                        SpawnDot();
                     }
                 }
-
-                // if there is only one dot and if the thumbstick actually got pressed into a direction
-                else
-                {
-                    SpawnDot();
-                }
-            //}
-            // spawn the new dot at the aimed at position
+            }
         }
+        */
     }
 
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between

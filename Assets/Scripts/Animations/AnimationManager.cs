@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationManager : MonoBehaviour {
+public class AnimationManager : MonoBehaviour
+{
 
-    [Header ("Keyframe Times")]
+    [Header("Keyframe Times")]
     public float start;
     public float mid;
     public float end;

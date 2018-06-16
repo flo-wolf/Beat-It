@@ -25,7 +25,6 @@ public class GridDot : MonoBehaviour
     {
         FindLevelObjectChildren();
         AdjustMaterial();
-        AddAnimation();
     }
 
     void FindLevelObjectChildren()
@@ -50,32 +49,5 @@ public class GridDot : MonoBehaviour
             else
                 sr.material = materialDeactive;
         }
-    }
-
-    void AddAnimation()
-    {
-        Animation anim = gameObject.AddComponent<Animation>();
-        AnimationCurve curve;
-
-        AnimationClip clip = new AnimationClip();
-        clip.legacy = true;
-        clip.wrapMode = WrapMode.Loop;
-
-        Keyframe[] keys;
-        keys = new Keyframe[3];
-        keys[0] = new Keyframe(AnimationManager.instance.start, AnimationManager.instance.startValue);
-        keys[1] = new Keyframe(AnimationManager.instance.mid, AnimationManager.instance.midValue);
-        keys[2] = new Keyframe(AnimationManager.instance.end, AnimationManager.instance.endValue);
-
-        Debug.Log(keys);
-
-        curve = new AnimationCurve(keys);
-
-        clip.SetCurve("", typeof(Transform), "localScale.x", curve);
-        clip.SetCurve("", typeof(Transform), "localScale.y", curve);
-        clip.SetCurve("", typeof(Transform), "localScale.z", curve);
-
-        anim.AddClip(clip, "Scale");
-        anim.Play("Scale");
     }
 }

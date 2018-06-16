@@ -16,13 +16,18 @@ public class RythmManager : MonoBehaviour {
     public enum BPM { bpm15, bpm30, bpm60, bpm90, bpm120, bpm180, bpm15h, bpm30h, bpm60h, bpm90h, bpm120h, bpm180h }
 
     public BPM playerRythm = BPM.bpm90;
+    public BPM playerDashRythm = BPM.bpm90h;
     public BPM loopSpawnRythm = BPM.bpm15;
     public BPM loopSegmentShootingRythm = BPM.bpm15h;
+    public BPM animationRythm = BPM.bpm60;
+
 
     // bpm references. Use these to compare the bpm type reported with the onBPM event
     public static BPMinfo playerBPM;
+    public static BPMinfo playerDashBPM;
     public static BPMinfo loopSpawnBPM;
     public static BPMinfo loopSegmentShootingBPM;
+    public static BPMinfo animationBPM;
 
     void Start()
     {
@@ -30,8 +35,10 @@ public class RythmManager : MonoBehaviour {
 
         // set the static references based on the inspector public settings (workaround to public BPMinfo not showing up)
         playerBPM = new BPMinfo(playerRythm);
+        playerDashBPM = new BPMinfo(playerDashRythm);
         loopSpawnBPM = new BPMinfo(loopSpawnRythm);
         loopSegmentShootingBPM = new BPMinfo(loopSegmentShootingRythm);
+        animationBPM = new BPMinfo(animationRythm);
 
         // fill up the clock dictionary
         FillBPMclockDictionary();
