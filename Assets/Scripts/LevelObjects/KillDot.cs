@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class KillDot : LevelObject {
 
+    ParticleSystem killFeedback;
+
+    private void Start()
+    {
+        killFeedback = GetComponent<ParticleSystem>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger");
@@ -11,6 +18,7 @@ public class KillDot : LevelObject {
         {
             Debug.Log("Kill the player");
             Player.instance.Death();
+            killFeedback.Play();
         }
     }
 }
