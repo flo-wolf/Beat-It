@@ -4728,11 +4728,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfe3edef04dd944eaac4fbd4fee50c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRythm: 4
+  playerRythm: 3
   playerDashRythm: 9
   loopSpawnRythm: 2
   loopSegmentShootingRythm: 2
-  animationRythm: 2
+  animationRythm: 3
 --- !u!4 &576614143
 Transform:
   m_ObjectHideFlags: 0
@@ -12529,9 +12529,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d832ebedfc2f2143a3140f488ac7c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashOnBeat: 1
+  dashOffBeat: 0
   newestDot: 0
   radiusDrawScale: 0.01
-  radiusFadeDuration: 0.1
+  radiusFadeDuration: 0.01
   maxRadius: 5
   tempoUp: 0
   tempoDown: 0
