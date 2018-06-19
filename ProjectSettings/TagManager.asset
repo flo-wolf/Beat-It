@@ -10,6 +10,7 @@ TagManager:
   - LevelObject
   - GridDot
   - PlayerSpawn
+  - PlayerGoal
   layers:
   - Default
   - TransparentFX

@@ -15,7 +15,7 @@ public class Sound
     public AudioClip clip;
 
     //[Range(xf, xf)] just gives us the option to control the given values over a slider in the inspector.
-    [Range(0f, 1f)]
+    [Range(0f, 2f)]
     public float volume;
 
     [Range(0.1f, 3f)]

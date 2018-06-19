@@ -62,12 +62,18 @@ public class Player : MonoBehaviour {
 
     private GridDot spawnDot = null;
 
+
+    public static bool allowMove = true;
+
+
     /// initialization
     void Start()
     {
         instance = this;
 
         spawnDot = Grid.FindPlayerSpawn();
+
+        Game.onGameStateChange.AddListener(GameStateChanged);
 
         // move the player on the beat
         RythmManager.onBPM.AddListener(OnRythmMove);
@@ -78,6 +84,22 @@ public class Player : MonoBehaviour {
     {
         UpdateLookDirection();
         CheckDot();
+    }
+
+    private void GameStateChanged(Game.State newState)
+    {
+        switch (newState)
+        {
+            case Game.State.Playing:
+                allowMove = true;
+                lookHandleSr.gameObject.SetActive(true);
+                break;
+            case Game.State.Death:
+                Death();
+                
+                break;
+            default: break;
+        }
     }
 
     public bool CheckDot()
@@ -143,7 +165,7 @@ public class Player : MonoBehaviour {
     // the clock has reached its end, move the player
     void OnRythmMove(BPMinfo bpm)
     {
-        if(GoalDot.respawnTimer == false)
+        if(Game.state == Game.State.Playing && allowMove)
         {
             if (dashOffBeat == true)
             {
@@ -263,7 +285,7 @@ public class Player : MonoBehaviour {
                             dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
                         }
 
-                        if (Input.GetKey(KeyCode.A))
+                        if (Input.GetKey(KeyCode.A) || Input.GetKey("joystick button 5"))
                         {
                             // dot 0 is closer to the direction we are aiming at => remove dot1
                             if (dot0LookLength <= dot1LookLength)
@@ -387,89 +409,92 @@ public class Player : MonoBehaviour {
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
     void SpawnDot()
     {
-
-        // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
-        if (dot0 != null && dot1 != null)
-            return;
-
-        //Debug.Log("Dot0: " + dot0 + " ---- Dot1: " + dot1);
-        int dotWasSpawned = -1; // -1 = no dot spawned, 0 = dot0 spawndd, 1 = dot1 spawned
-
-        Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-        // the closest dot that the next dot should be spawned on
-        GridDot parentDot = null;
-
-        // dot1 exists, dot0 doesnt => spawn dot0
-        if (dot1 != null && dot0 == null)
+        if(Game.state == Game.State.Playing)
         {
-            parentDot = Grid.GetNearestActiveDot(dot1.gridDot, lookDirection);
-
-            if(parentDot == null)
-                return;
-            
-            dotWasSpawned = 0;
-            FadeRadius(false);
-        }
-        // dot0 exists, dot1 doesnt => spawn dot1
-        else if (dot0 != null && dot1 == null)
-        {
-            parentDot = Grid.GetNearestActiveDot(dot0.gridDot, lookDirection);
-
-            if (parentDot == null)
+            // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
+            if (dot0 != null && dot1 != null)
                 return;
 
-            dotWasSpawned = 1;
-            FadeRadius(false);
-        }
-        // there are no dots, spawn the first dot
-        else
-        {
-            if (spawnDot == null)
-                parentDot = Grid.GetRandomActiveDot();
+            //Debug.Log("Dot0: " + dot0 + " ---- Dot1: " + dot1);
+            int dotWasSpawned = -1; // -1 = no dot spawned, 0 = dot0 spawndd, 1 = dot1 spawned
+
+            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+            // the closest dot that the next dot should be spawned on
+            GridDot parentDot = null;
+
+            // dot1 exists, dot0 doesnt => spawn dot0
+            if (dot1 != null && dot0 == null)
+            {
+                parentDot = Grid.GetNearestActiveDot(dot1.gridDot, lookDirection);
+
+                if (parentDot == null)
+                    return;
+
+                dotWasSpawned = 0;
+                FadeRadius(false);
+            }
+            // dot0 exists, dot1 doesnt => spawn dot1
+            else if (dot0 != null && dot1 == null)
+            {
+                parentDot = Grid.GetNearestActiveDot(dot0.gridDot, lookDirection);
+
+                if (parentDot == null)
+                    return;
+
+                dotWasSpawned = 1;
+                FadeRadius(false);
+            }
+            // there are no dots, spawn the first dot
             else
-                parentDot = spawnDot;
-            dotWasSpawned = 0;
-
-            FadeRadius(true);
-        }
-
-        if(parentDot != null)
-        {
-            // spawn the new dot
-            GameObject newDotGo = GameObject.Instantiate(playerDotPrefab, Vector2.zero, Quaternion.identity);
-            newDotGo.transform.parent = parentDot.transform;
-            newDotGo.transform.localPosition = Vector3.zero;
-            PlayerDot newPlayerDot = newDotGo.GetComponent<PlayerDot>();
-            parentDot.levelObject = newPlayerDot;
-
-            // set the newest dot information
-            if (dotWasSpawned == 0)
             {
-                newDotGo.name = "dot0";
-                dot0 = newPlayerDot;
-                newestDot = DotType.Dot0;
+                if (spawnDot == null)
+                    parentDot = Grid.GetRandomActiveDot();
+                else
+                    parentDot = spawnDot;
+                dotWasSpawned = 0;
+
+                FadeRadius(true);
             }
-            else if (dotWasSpawned == 1)
+
+            if (parentDot != null)
             {
-                newDotGo.name = "dot1";
-                dot1 = newPlayerDot;
-                newestDot = DotType.Dot1;
+                // spawn the new dot
+                GameObject newDotGo = GameObject.Instantiate(playerDotPrefab, Vector2.zero, Quaternion.identity);
+                newDotGo.transform.parent = parentDot.transform;
+                newDotGo.transform.localPosition = Vector3.zero;
+                PlayerDot newPlayerDot = newDotGo.GetComponent<PlayerDot>();
+                parentDot.levelObject = newPlayerDot;
+
+                // set the newest dot information
+                if (dotWasSpawned == 0)
+                {
+                    newDotGo.name = "dot0";
+                    dot0 = newPlayerDot;
+                    newestDot = DotType.Dot0;
+                }
+                else if (dotWasSpawned == 1)
+                {
+                    newDotGo.name = "dot1";
+                    dot1 = newPlayerDot;
+                    newestDot = DotType.Dot1;
+                }
             }
+
+            //Debug.Log("activePosition: " + activePosition + " spawnPosition: " + spawnPosition);
+
+            // fill the segment in between two dots
+            if (dot0 != null && dot1 != null)
+            {
+                if (newestDot == DotType.Dot0)
+                    playerSegment.FillSegment(dot1.transform.position, dot0.transform.position);
+                else if (newestDot == DotType.Dot1)
+                    playerSegment.FillSegment(dot0.transform.position, dot1.transform.position);
+            }
+
+            //Instantiate(spawnEffect, newPlayerDot.transform.position, Quaternion.identity);
         }
 
-        //Debug.Log("activePosition: " + activePosition + " spawnPosition: " + spawnPosition);
-
-        // fill the segment in between two dots
-        if (dot0 != null && dot1 != null)
-        {
-            if (newestDot == DotType.Dot0)
-                playerSegment.FillSegment(dot1.transform.position, dot0.transform.position);
-            else if (newestDot == DotType.Dot1)
-                playerSegment.FillSegment(dot0.transform.position, dot1.transform.position);
-        }
-
-        //Instantiate(spawnEffect, newPlayerDot.transform.position, Quaternion.identity);
     }
 
     /// Retracts the segment towards the new player dot and removes the old one
@@ -513,10 +538,10 @@ public class Player : MonoBehaviour {
         // both dots are gone => Death/Restart
         if (dot1 == null && dot0 == null)
         {
-            Game.SetState(Game.State.Death);
             radius = 0;
             radiusOpacity = 0;
             newestDot = DotType.None;
+
         }
 
         // empty the segment in between those two dots
@@ -525,8 +550,18 @@ public class Player : MonoBehaviour {
 
     public void Death()
     {
-        RemoveDot(true);
-        RemoveDot(false);
+        allowMove = false;
+        lookHandleSr.gameObject.SetActive(false);
+
+        if(newestDot == DotType.Dot0){
+            RemoveDot(false);
+            RemoveDot(true);
+        }
+        else if (newestDot == DotType.Dot1){
+            RemoveDot(true);
+            RemoveDot(false);
+        }
+
     }
 
     void FadeRadius(bool fadeIn, Action onStart = null, Action onComplete = null)

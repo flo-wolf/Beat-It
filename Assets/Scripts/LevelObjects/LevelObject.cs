@@ -8,7 +8,7 @@ using UnityEngine;
 public class LevelObject : MonoBehaviour {
 
     
-    public enum Type { Unset, Player, LoopDot, KillDot, Rotator, PlayerSpawn }
+    public enum Type { Unset, Player, LoopDot, KillDot, Rotator, PlayerSpawn, PlayerGoal }
 
     [Header("LevelObject Settings")]
     public Type type = Type.Unset;

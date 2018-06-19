@@ -25,7 +25,7 @@ public class PlayerSpawn : LevelObject {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger");
+        //Debug.Log("Trigger");
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player Spawned");

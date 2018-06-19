@@ -21,6 +21,12 @@ public class Segment : MonoBehaviour {
     public enum State { NoDraw, Filling, Filled, Emptying };
     private State state = State.NoDraw;
 
+    public void Start()
+    {
+        //fillTime = RythmManager.playerBPM.ToSecs();
+        //emptyTime = RythmManager.playerBPM.ToSecs();
+    }
+
     public void FillSegment(Vector2 start, Vector2 end)
     {
         state = State.Filling;
@@ -33,6 +39,12 @@ public class Segment : MonoBehaviour {
 
     public void EmptySegment(bool switchDirection)
     {
+        Debug.Log("EmptySegment " + PlayerSegment.touchedKillDot);
+        if (PlayerSegment.touchedKillDot)
+        {
+            PlayerSegment.instance.AdaptKillColor();
+        }
+
         if (state == State.Filled || state == State.Filling)
         {
             state = State.Emptying;
@@ -57,7 +69,7 @@ public class Segment : MonoBehaviour {
 
         while (elapsedTime <= fillTime && state == State.Filling)
         {
-            fillProgress = Mathf.Lerp(startFill, 1, (elapsedTime / fillTime));
+            fillProgress = Mathf.SmoothStep(startFill, 1, (elapsedTime / fillTime));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -75,7 +87,7 @@ public class Segment : MonoBehaviour {
 
         while (elapsedTime <= emptyTime && state == State.Emptying)
         {
-            fillProgress = Mathf.Lerp(startFill, 0, (elapsedTime / emptyTime));
+            fillProgress = Mathf.SmoothStep(startFill, 0, (elapsedTime / emptyTime));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
