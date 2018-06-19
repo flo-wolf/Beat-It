@@ -45,24 +45,30 @@ public class AudioManager : MonoBehaviour {
         RythmManager.onBPM.AddListener(RythmCall);
     }
 
+    /*
     public void FixedRythmCall(float f)
     {
         Play("Bass");
     }
+    */
+
 
     public void RythmCall(BPMinfo bpmInfo)
     {
         // bass plays on the level bpm
-        if(bpmInfo.Equals(RythmManager.loopSpawnBPM))
+        if(bpmInfo.Equals(RythmManager.animationBPM))
             AudioManager.instance.Play("Bass");
 
+        /*
         // kick plays on the player bpm
         if (bpmInfo.Equals(RythmManager.playerBPM))
             AudioManager.instance.Play("Kick");
 
         // snare plays on the half offset player bpm
-        //if (bpmInfo.Equals(BPMinfo.ToHalf(RythmManager.playerBPM))) 
-            //AudioManager.instance.Play("Snare");
+        if (bpmInfo.Equals(BPMinfo.ToHalf(RythmManager.playerBPM))) 
+            AudioManager.instance.Play("Snare");
+          
+        */
     }
 
     //This enables us to Play an AudioClip just through his name.
