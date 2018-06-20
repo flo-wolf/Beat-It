@@ -7,7 +7,10 @@ public class PlayerGoal : LevelObject
     public static PlayerGoal instance;
 
     ParticleSystem goalFeedback;
+
     public static bool respawnTimer = false;
+    public int timer = 1;
+    int counter = 0;
 
     private void Start()
     {
@@ -28,26 +31,33 @@ public class PlayerGoal : LevelObject
         if (collision.gameObject.CompareTag("Player"))
         {
             respawnTimer = true;
-            Game.SetState(Game.State.Death);
         }
     }
 
     void OnRythmCount(BPMinfo bpm)
     {
-        if(bpm.Equals(RythmManager.playerBPM))
+        if (bpm.Equals(RythmManager.playerBPM))
         {
 
             if (respawnTimer == true)
             {
-                respawnTimer = false;
                 goalFeedback.Play();
-                AudioManager.instance.Play("Goal");
-                
-                Player.allowMove = false;
+                AudioManager.instance.Play("Plop");
 
+                counter++;
+
+                if (counter == timer)
+                {
+                    Player.allowMove = false;
+                    respawnTimer = false;
+                    counter = 0;
+
+                    goalFeedback.Play();
+                    AudioManager.instance.Play("Plop");
+
+                    Game.SetState(Game.State.Death);
+                }
             }
-
-            
         }
     }
  
