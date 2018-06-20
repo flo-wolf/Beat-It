@@ -83,7 +83,7 @@ public class Player : MonoBehaviour {
     void Update()
     {
         UpdateLookDirection();
-        CheckDot();
+        CheckIfSingleDot();
     }
 
     private void GameStateChanged(Game.State newState)
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public bool CheckDot()
+    public bool CheckIfSingleDot()
     {
         if(dot0 != null && dot1 != null)
         {

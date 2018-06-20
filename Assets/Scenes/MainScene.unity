@@ -5210,14 +5210,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Bass
-    clip: {fileID: 8300000, guid: 7bb89494a17c3ed47a76a008def26204, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: b093bf7b85676d14887c1c96deee3f63, type: 3}
+    volume: 0.75
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Kick
-    clip: {fileID: 8300000, guid: 640b8db7b1658fc43922a28f16b1fa0f, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: e42dd0d4c5d8ebc49acd10e05ad1a9ee, type: 3}
+    volume: 0.75
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -5229,13 +5229,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Snare
     clip: {fileID: 8300000, guid: fc31a99d91a426a4c9dbbfb4e73c30d3, type: 3}
-    volume: 1
+    volume: 0.75
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: HiHat
     clip: {fileID: 8300000, guid: 327f1ef40fa71f1409968c38010b834a, type: 3}
-    volume: 1
+    volume: 0.75
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -5258,8 +5258,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Plop
-    clip: {fileID: 8300000, guid: 6fda689189780de4892807e634f81deb, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 3f3e10011cbd5f9478ecb1ee9667cb7a, type: 3}
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}

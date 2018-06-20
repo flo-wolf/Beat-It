@@ -39,8 +39,10 @@ public class PlayerGoal : LevelObject
         if (bpm.Equals(RythmManager.playerBPM))
         {
 
-            if (respawnTimer == true)
+            if (respawnTimer == true && Player.instance.CheckIfSingleDot())
             {
+                Player.allowMove = false;
+
                 goalFeedback.Play();
                 AudioManager.instance.Play("Plop");
 
@@ -48,8 +50,6 @@ public class PlayerGoal : LevelObject
 
                 if (counter == timer)
                 {
-                    Player.allowMove = false;
-
                     respawnTimer = false;
                     counter = 0;
 
