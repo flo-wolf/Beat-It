@@ -28,7 +28,7 @@ public class PlayerGoal : LevelObject
         if (collision.gameObject.CompareTag("Player"))
         {
             respawnTimer = true;
-            
+            Game.SetState(Game.State.Death);
         }
     }
 
@@ -42,7 +42,7 @@ public class PlayerGoal : LevelObject
                 respawnTimer = false;
                 goalFeedback.Play();
                 AudioManager.instance.Play("Goal");
-                Game.SetState(Game.State.Death);
+                
                 Player.allowMove = false;
 
             }

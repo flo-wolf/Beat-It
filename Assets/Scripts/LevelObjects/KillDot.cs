@@ -20,9 +20,10 @@ public class KillDot : LevelObject {
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerSegment.touchedKillDot = true;
-            //PlayerSegment.instance.AdaptKillColor();
-            kill = true;
             Player.allowMove = false;
+            Game.SetState(Game.State.Death);
+
+            killFeedback.Play();
         }
     }
 
@@ -30,14 +31,9 @@ public class KillDot : LevelObject {
     {
         if (bpm.Equals(RythmManager.playerBPM))
         {
-            if (kill)
+            if (kill || (Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
             {
-                killFeedback.Play();
                 AudioManager.instance.Play("Death");
-                AudioManager.instance.Play("Slurp");
-                Game.SetState(Game.State.Death);
-                
-                Debug.Log("Kill the player");
                 kill = false;
             }
         }
