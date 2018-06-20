@@ -25,6 +25,15 @@ public class PlayerGoal : LevelObject
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Trigger");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            respawnTimer = false;
+        }
+    }
+
     void OnRythmCount(BPMinfo bpm)
     {
         if (bpm.Equals(RythmManager.playerBPM) && Player.instance.CheckIfSingleDot())

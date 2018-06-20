@@ -159,7 +159,7 @@ public class Player : MonoBehaviour {
         c.a = radiusOpacity;
         lookHandleSr.color = c;
 
-        lookHandleSr.gameObject.transform.position = activePos + lookDirection;
+        lookHandleSr.gameObject.transform.position = activePos + (lookDirection + lookDirection/2);
     }
 
     // the clock has reached its end, move the player
