@@ -49,6 +49,7 @@ public class PlayerGoal : LevelObject
                 if (counter == timer)
                 {
                     Player.allowMove = false;
+
                     respawnTimer = false;
                     counter = 0;
 

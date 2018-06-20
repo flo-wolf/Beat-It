@@ -5899,15 +5899,50 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114661067681835002, guid: a679a522d457d9742847a4d2c9cd227d,
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
         type: 2}
-      propertyPath: type
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114661067681835002, guid: a679a522d457d9742847a4d2c9cd227d,
-        type: 2}
-      propertyPath: timer
+      propertyPath: SizeModule.curve.scalar
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.atime2
+      value: 55127
+      objectReference: {fileID: 0}
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 24865
+      objectReference: {fileID: 0}
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1556966465
+      objectReference: {fileID: 0}
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: useRigidbodyForVelocity
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a679a522d457d9742847a4d2c9cd227d, type: 2}
