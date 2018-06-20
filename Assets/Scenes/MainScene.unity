@@ -5259,7 +5259,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Plop
     clip: {fileID: 8300000, guid: 3f3e10011cbd5f9478ecb1ee9667cb7a, type: 3}
-    volume: 0.3
+    volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -5942,6 +5942,11 @@ Prefab:
     - target: {fileID: 198758183868054578, guid: a679a522d457d9742847a4d2c9cd227d,
         type: 2}
       propertyPath: useRigidbodyForVelocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114661067681835002, guid: a679a522d457d9742847a4d2c9cd227d,
+        type: 2}
+      propertyPath: timer
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

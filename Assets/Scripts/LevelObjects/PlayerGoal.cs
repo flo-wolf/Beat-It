@@ -9,21 +9,12 @@ public class PlayerGoal : LevelObject
     ParticleSystem goalFeedback;
 
     public static bool respawnTimer = false;
-    public int timer = 1;
-    int counter = 0;
 
     private void Start()
     {
         RythmManager.onBPM.AddListener(OnRythmCount);
         goalFeedback = GetComponent<ParticleSystem>();
     }
-
-    /*
-    private void Update()
-    {
-        Respawn();
-    }
-    */
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -36,42 +27,19 @@ public class PlayerGoal : LevelObject
 
     void OnRythmCount(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.playerBPM))
+        if (bpm.Equals(RythmManager.playerBPM) && Player.instance.CheckIfSingleDot())
         {
 
-            if (respawnTimer == true && Player.instance.CheckIfSingleDot())
+            if (respawnTimer == true)
             {
                 Player.allowMove = false;
+                respawnTimer = false;
 
                 goalFeedback.Play();
                 AudioManager.instance.Play("Plop");
 
-                counter++;
-
-                if (counter == timer)
-                {
-                    respawnTimer = false;
-                    counter = 0;
-
-                    goalFeedback.Play();
-                    AudioManager.instance.Play("Plop");
-
-                    Game.SetState(Game.State.Death);
-                }
+                Game.SetState(Game.State.Death);
             }
         }
     }
- 
-    /*
-    void Respawn()
-    {
-        if (beatCount == 1)
-        {
-            respawnTimer = false;
-            beatCount = 0;
-
-            Player.instance.Death();
-        }
-    }
-    */
 }
