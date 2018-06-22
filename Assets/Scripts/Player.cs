@@ -173,8 +173,6 @@ public class Player : MonoBehaviour {
 
                 if (bpm.Equals(RythmManager.playerBPM))
                 {
-
-
                     /* STAY AS ONE DOT, only move forward on controller input
                     bool thumbstickPushed = true;
                     Vector2 cntrlInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));

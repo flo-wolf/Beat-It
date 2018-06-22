@@ -31,6 +31,10 @@ public class MovingKillDot : LevelObject {
     {
         if (bpm.Equals(RythmManager.playerBPM))
         {
+            Debug.Log("MovingKillDot Position: " + transform.position);
+            //Achtung, gibt ne Nullref...
+            //Debug.Log("Player Dot0: " + Player.dot0.transform.position);
+
             if (kill || (Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
             {
                 AudioManager.instance.Play("Death");
