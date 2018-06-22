@@ -31,13 +31,19 @@ public class MovingKillDot : LevelObject {
     {
         if (bpm.Equals(RythmManager.playerBPM))
         {
-            Debug.Log("MovingKillDot Position: " + transform.position);
+            //Debug.Log("MovingKillDot Position: " + transform.position);
 
             if (kill || (Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
             {
                 AudioManager.instance.Play("Death");
                 kill = false;
             }
+
+            if (MovingKillDotHandler.instance.destroy == true)
+            {
+                MovingKillDotHandler.instance.destroy = false;
+                Destroy(gameObject);
+            }
         }
-    }
+    }  
 }

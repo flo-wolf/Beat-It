@@ -72,6 +72,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   gridDot: {fileID: 0}
+  movingKillDotPrefab: {fileID: 1980215587948604}
+  startDot: {fileID: 0}
+  endDot: {fileID: 0}
 --- !u!198 &198862300716822152
 ParticleSystem:
   m_ObjectHideFlags: 1
