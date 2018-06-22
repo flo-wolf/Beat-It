@@ -4394,7 +4394,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2071499136}
   m_Father: {fileID: 1579914702}
   m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7448,6 +7449,48 @@ MonoBehaviour:
   row: 3
   column: 9
   active: 1
+--- !u!1001 &968161577
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 507790973}
+    m_Modifications:
+    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &968233158
 GameObject:
   m_ObjectHideFlags: 0
@@ -15351,6 +15394,11 @@ MonoBehaviour:
   row: 6
   column: 4
   active: 0
+--- !u!4 &2071499136 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 968161577}
 --- !u!1 &2127488308
 GameObject:
   m_ObjectHideFlags: 0
