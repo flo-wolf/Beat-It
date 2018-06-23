@@ -30,11 +30,8 @@ public class MovingKillDotHandler : MonoBehaviour {
     //Will be calculated by the start and end
     Vector2 lookDirection;
 
-    //Our initial starting Direction;
-    Vector2 startDirection;
-
-    //The reverse Direction;
-    Vector2 reverseDirection;
+    bool forward = false;
+    bool reverse = false;
 
     bool kill = false;
 
@@ -51,11 +48,6 @@ public class MovingKillDotHandler : MonoBehaviour {
         lookDirection = endDot.transform.position - startDot.transform.position;
         lookDirection = lookDirection.normalized;
 
-        startDirection = lookDirection;
-        reverseDirection = lookDirection * -1;
-        reverseDirection = reverseDirection.normalized;
-        Debug.Log(reverseDirection);
-
         //Debug.Log("MovingKillDot Direction: " + lookDirection);
 
         StartSpawn();
@@ -63,6 +55,7 @@ public class MovingKillDotHandler : MonoBehaviour {
 
     private void Update()
     {
+        UpdateLookBool();
         UpdateLookDirection();
         CheckPlayerDotPosition();
     }
@@ -119,16 +112,33 @@ public class MovingKillDotHandler : MonoBehaviour {
 
     void UpdateLookDirection()
     {
-        if(newDot.transform.position == startDot.transform.position)
+        if(forward)
+        {
+            lookDirection = endDot.transform.position - newDot.transform.position;
+            lookDirection = lookDirection.normalized;
+        }
+
+        else if(reverse)
+        {
+            lookDirection = startDot.transform.position - newDot.transform.position;
+            lookDirection = lookDirection.normalized;
+        }
+    }
+
+    void UpdateLookBool()
+    {
+        if (newDot.transform.position == startDot.transform.position)
         {
             Debug.Log("REACHED STARTDOT");
-            lookDirection = startDirection;
+            forward = true;
+            reverse = false;
         }
 
         if(newDot.transform.position == endDot.transform.position)
         {
             Debug.Log("REACHED ENDDOT");
-            lookDirection = reverseDirection;
+            reverse = true;
+            forward = false;
         }
     }
 
