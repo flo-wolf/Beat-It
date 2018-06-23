@@ -78,15 +78,15 @@
     <Compile Include="Assets\Scripts\LevelObjects\KillDot.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\LevelObject.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\MovingKillDot.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\Node.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\NodeSegment.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\NodeSpawner.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\PlayerDot.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\PlayerGoal.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\PlayerSpawn.cs" />
-    <Compile Include="Assets\Scripts\Node.cs" />
-    <Compile Include="Assets\Scripts\NodeSegment.cs" />
-    <Compile Include="Assets\Scripts\NodeSpawner.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\PlayerSegment.cs" />
-    <Compile Include="Assets\Scripts\Segment.cs" />
+    <Compile Include="Assets\Scripts\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerSegment.cs" />
+    <Compile Include="Assets\Scripts\Player\Segment.cs" />
     <None Include="Assets\CustomShader\pulseShader.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Repository/Loop/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
