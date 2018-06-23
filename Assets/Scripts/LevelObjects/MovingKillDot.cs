@@ -4,46 +4,73 @@ using UnityEngine;
 
 public class MovingKillDot : LevelObject {
 
+    [Header("Settings")]
+    public float fadeDuration = 0.5f;
+
+    [Header("Components")]
+    public SpriteRenderer sr;
+
+    private float defaultLocalScale;            // default player dot size
+    private float scale = 0f;
+    private float opacity = 0f;
+
     ParticleSystem killFeedback;
 
     bool kill = false;
 
     private void Start()
     {
+        defaultLocalScale = transform.localScale.x;
+        StartCoroutine(Fade(true));
+
         killFeedback = GetComponent<ParticleSystem>();
-        RythmManager.onBPM.AddListener(OnRythmCount);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Remove()
     {
-        Debug.Log("Trigger");
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerSegment.touchedKillDot = true;
-            Player.allowMove = false;
-            Game.SetState(Game.State.Death);
-
-            killFeedback.Play();
-        }
+        StopCoroutine("Fade");
+        StartCoroutine(Fade(false));
     }
 
-    void OnRythmCount(BPMinfo bpm)
+    public void PlayParticleSystem()
     {
-        if (bpm.Equals(RythmManager.playerBPM))
+        killFeedback.Play();
+    }
+
+    IEnumerator Fade(bool fadeIn)
+    {
+        float elapsedTime = 0f;
+        float startScale = scale;
+        float startOpacity = opacity;
+
+        while (elapsedTime <= fadeDuration)
         {
-            //Debug.Log("MovingKillDot Position: " + transform.position);
-
-            if (kill || (Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
+            elapsedTime += Time.deltaTime;
+            Color c = sr.color;
+            if (fadeIn)
             {
-                AudioManager.instance.Play("Death");
-                kill = false;
+                scale = Mathf.SmoothStep(startScale, defaultLocalScale, (elapsedTime / fadeDuration));
+                transform.localScale = new Vector3(scale, scale, 1);
+
+                opacity = Mathf.SmoothStep(startOpacity, 1, (elapsedTime / fadeDuration));
+            }
+            else
+            {
+                scale = Mathf.SmoothStep(startScale, 0, (elapsedTime / fadeDuration));
+                transform.localScale = new Vector3(scale, scale, 1);
+                opacity = Mathf.SmoothStep(startOpacity, 0, (elapsedTime / fadeDuration));
             }
 
-            if (MovingKillDotHandler.instance.destroy == true)
-            {
-                MovingKillDotHandler.instance.destroy = false;
-                Destroy(gameObject);
-            }
+            c.a = opacity;
+            sr.color = c;
+
+            yield return null;
         }
-    }  
+        if (!fadeIn)
+        {
+            gridDot.levelObject = null;
+            GameObject.Destroy(gameObject);
+        }
+        yield return null;
+    }
 }

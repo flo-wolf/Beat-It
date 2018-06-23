@@ -218,4 +218,97 @@ public class Grid : MonoBehaviour
 
         return closestDot;
     }
+
+    public static GridDot GetNearestActiveMovingDot(GridDot dot, Vector2 direction)
+    {
+
+        // gather all six sourrounding dots
+        List<GridDot> hexDots = new List<GridDot>();
+
+        // Normal movement
+        // our row is uneven
+        if (dot.row % 2 == 0)
+        {
+            // top left dot
+            if (dot.row - 1 >= 0)
+                hexDots.Add(gridDots[dot.row - 1, dot.column]);
+            // top right dot
+            if (dot.row - 1 >= 0 && dot.column + 1 < instance.columns)
+                hexDots.Add(gridDots[dot.row - 1, dot.column + 1]);
+
+            // left dot
+            if (dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row, dot.column - 1]);
+            // right dot
+            if (dot.column + 1 < instance.columns)
+                hexDots.Add(gridDots[dot.row, dot.column + 1]);
+
+            // bot left dot
+            if (dot.row + 1 < instance.rows)
+                hexDots.Add(gridDots[dot.row + 1, dot.column]);
+            // bot right dot
+            if (dot.row + 1 < instance.rows && dot.column + 1 < instance.columns)
+                hexDots.Add(gridDots[dot.row + 1, dot.column + 1]);
+        }
+
+        // our row is even
+        else
+        {
+            // top left dot
+            if (dot.row - 1 >= 0 && dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row - 1, dot.column - 1]);
+            // top right dot
+            if (dot.row - 1 >= 0)
+                hexDots.Add(gridDots[dot.row - 1, dot.column]);
+
+            // left dot
+            if (dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row, dot.column - 1]);
+            // right dot
+            if (dot.column + 1 < instance.columns)
+                hexDots.Add(gridDots[dot.row, dot.column + 1]);
+
+            // bot left dot
+            if (dot.row + 1 < instance.rows && dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row + 1, dot.column - 1]);
+            // bot right dot
+            if (dot.row + 1 < instance.rows)
+                hexDots.Add(gridDots[dot.row + 1, dot.column]);
+        }
+
+        direction = (Vector2)dot.transform.position + direction;
+
+        //Debug.Log("Nearest Active - centerDot: " + dot.transform.position + " direction: " + direction);
+
+        GridDot closestDot = null;
+        float closestLength = 10000000f;
+
+        foreach (GridDot d in hexDots)
+        {
+            // rule out all the dots that are not set to be active
+            if (d != null && d.active && d.gameObject.activeSelf)
+            {
+                // get distance between the sourrounding hexagon dot and our dot position plus the lookdirection
+                float l = (direction - (Vector2)d.transform.position).magnitude;
+
+                // pythagoras fix for row offsets
+                if ((dot.row % 2 == 0 && d.row % 2 != 0) || (dot.row % 2 != 0 && d.row % 2 == 0))
+                {
+                    float hypothenuse = Mathf.Sqrt(((instance.gridStep / 2) * (instance.gridStep / 2)) + ((instance.gridStep) * (instance.gridStep)));
+                    float multi = instance.gridStep / hypothenuse;
+                    l = l * multi;
+
+                }
+
+                if (l < closestLength)
+                {
+                    closestLength = l;
+                    closestDot = d;
+                }
+            }
+        }
+
+        return closestDot;
+    }
+
 }

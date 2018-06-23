@@ -4166,6 +4166,7 @@ MonoBehaviour:
   loopSpawnRythm: 4
   loopSegmentShootingRythm: 4
   animationRythm: 4
+  movingKillDotRythm: 2
 --- !u!4 &576614143
 Transform:
   m_ObjectHideFlags: 0
@@ -4821,7 +4822,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Tom
     clip: {fileID: 8300000, guid: 29a271bda67b7fc42b5f9335328edd09, type: 3}
-    volume: 0.5
+    volume: 0.4
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -14826,51 +14827,6 @@ MonoBehaviour:
   row: 1
   column: 8
   active: 0
---- !u!1 &1790288990
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1790288992}
-  - component: {fileID: 1790288991}
-  m_Layer: 0
-  m_Name: MovingKillDotHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1790288991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1790288990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c9d9634ae968cb4cb0195bdc6a3db02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movingKillDotPrefab: {fileID: 1980215587948604, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-    type: 2}
-  startDot: {fileID: 1184419242}
-  endDot: {fileID: 525985748}
-  destroy: 0
---- !u!4 &1790288992
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1790288990}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1790507581
 GameObject:
   m_ObjectHideFlags: 0
@@ -15541,6 +15497,58 @@ MonoBehaviour:
   row: 10
   column: 5
   active: 0
+--- !u!1001 &1855801736
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4040779437465912, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040779437465912, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040779437465912, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040779437465912, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040779437465912, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040779437465912, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040779437465912, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040779437465912, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397479423063230, guid: 0b420e1e6a7eff046b6eec78765366f7,
+        type: 2}
+      propertyPath: startDot
+      value: 
+      objectReference: {fileID: 1184419242}
+    - target: {fileID: 114397479423063230, guid: 0b420e1e6a7eff046b6eec78765366f7,
+        type: 2}
+      propertyPath: endDot
+      value: 
+      objectReference: {fileID: 525985748}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0b420e1e6a7eff046b6eec78765366f7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1867184247
 GameObject:
   m_ObjectHideFlags: 0

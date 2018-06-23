@@ -9,14 +9,20 @@ public class MovingKillDotHandler : MonoBehaviour {
     //This GameObject will be instantiated as the new Dot at the new GridDot position.
     public GameObject movingKillDotPrefab;
 
+    //Particle System
+    public ParticleSystem killFeedback;
+
     //This will reference the latest dot
     MovingKillDot newDot = null;
-    //MovingKillDot oldDot = null;
+    //This will reference the dot before
+    MovingKillDot oldDot = null;
 
     //Define where the MovingKillDot should start
     public GridDot startDot;
     //Define where the MovingKillDot should end
     public GridDot endDot;
+
+    GridDot parentDot;
 
     //The initial spawn position for the MovingKillDot
     Vector2 spawnPosition;
@@ -26,10 +32,14 @@ public class MovingKillDotHandler : MonoBehaviour {
 
     //Our initial starting Direction;
     Vector2 startDirection;
+
+    //The reverse Direction;
     Vector2 reverseDirection;
 
+    bool kill = false;
+
     [HideInInspector]
-    public bool destroy = false;
+    public static bool allowMove = false;
 
     // Use this for initialization
     void Start ()
@@ -43,6 +53,7 @@ public class MovingKillDotHandler : MonoBehaviour {
 
         startDirection = lookDirection;
         reverseDirection = lookDirection * -1;
+        reverseDirection = reverseDirection.normalized;
         Debug.Log(reverseDirection);
 
         //Debug.Log("MovingKillDot Direction: " + lookDirection);
@@ -53,17 +64,59 @@ public class MovingKillDotHandler : MonoBehaviour {
     private void Update()
     {
         UpdateLookDirection();
+        CheckPlayerDotPosition();
     }
 
 
     void OnRythmMove(BPMinfo bpm)
     {
+        if(bpm.Equals(RythmManager.movingKillDotBPM))
+        {
+            if(allowMove)
+            {
+                SpawnMovingKillDot();
+
+                if (newDot != null)
+                {
+                    DestroyOldMovingKillDot();
+                }
+            }
+        }
+
         if(bpm.Equals(RythmManager.playerBPM))
         {
-            SpawnMovingKillDot();
+            if (kill)
+            {
+                PlayerSegment.touchedKillDot = true;
+                Player.allowMove = false;
+                Game.SetState(Game.State.Death);
+
+                Instantiate(killFeedback, newDot.transform.position, Quaternion.identity);
+                AudioManager.instance.Play("Tom");
+
+                kill = false;
+            }
+
+            //Is checked in PlayerScript when spawning
+            /*
+            if(Player.dot0 != null || Player.dot1 != null)
+            {
+                allowMove = true;
+            }
+            */
         }
     }
-    
+
+    void CheckPlayerDotPosition()
+    {
+        if((Player.dot0 != null && Player.dot0.transform.position == newDot.transform.position) || (Player.dot1 != null && Player.dot1.transform.position == newDot.transform.position))
+        {
+            kill = true;
+            allowMove = false;
+            Player.allowMove = false;
+        }
+    }
+
     void UpdateLookDirection()
     {
         if(newDot.transform.position == startDot.transform.position)
@@ -95,21 +148,25 @@ public class MovingKillDotHandler : MonoBehaviour {
 
     void SpawnMovingKillDot()
     {
-        GridDot parentdot = Grid.GetNearestActiveDot(newDot.gridDot, lookDirection);
+        parentDot = Grid.GetNearestActiveMovingDot(newDot.gridDot, lookDirection);
+        oldDot = newDot;
         //Debug.Log("ParentDot MovingKillDot: " + parentdot.transform.position);
 
         //spawn the new MovingKillDot
         GameObject newDotToGo = GameObject.Instantiate(movingKillDotPrefab, Vector2.zero, Quaternion.identity);
-        newDotToGo.transform.parent = parentdot.transform;
+        newDotToGo.transform.parent = parentDot.transform;
         newDotToGo.transform.localPosition = Vector3.zero;
         newDotToGo.transform.localScale = movingKillDotPrefab.transform.localScale;
 
         MovingKillDot newMovingKillDot = newDotToGo.GetComponent<MovingKillDot>();
-        parentdot.levelObject = newMovingKillDot;
+        parentDot.levelObject = newMovingKillDot;
 
         newDot = newMovingKillDot;
         //Debug.Log("NewDot: " + newDot.transform.position);
+    }
 
-        destroy = true;
+    void DestroyOldMovingKillDot()
+    {
+        oldDot.Remove();
     }
 }

@@ -32,7 +32,6 @@ public class PlayerDot : LevelObject{
 
     public void Remove()
     {
-
         StopCoroutine("Fade");
         StartCoroutine(Fade(false));
     }
