@@ -520,6 +520,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114194387891064492, guid: f9760adb1c1f23f4b93fbfeecd32f12a,
+        type: 2}
+      propertyPath: animationRythm
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114194387891064492, guid: f9760adb1c1f23f4b93fbfeecd32f12a,
+        type: 2}
+      propertyPath: movingKillDotRythm
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9760adb1c1f23f4b93fbfeecd32f12a, type: 2}
   m_IsPrefabParent: 0
@@ -913,6 +923,12 @@ Prefab:
       propertyPath: endDot
       value: 
       objectReference: {fileID: 525985748}
+    - target: {fileID: 114723449293564084, guid: 8d9fe3d71f47d524b94967cd2db07e56,
+        type: 2}
+      propertyPath: oldFeedback
+      value: 
+      objectReference: {fileID: 198452767094585988, guid: 63afac41e20ecbe4a9512b85f23a8e31,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d9fe3d71f47d524b94967cd2db07e56, type: 2}
   m_IsPrefabParent: 0

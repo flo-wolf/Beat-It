@@ -11,6 +11,7 @@ public class MovingKillDotHandler : MonoBehaviour {
 
     //Particle System
     public ParticleSystem killFeedback;
+    public ParticleSystem oldFeedback;
 
     //This will reference the latest dot
     MovingKillDot newDot = null;
@@ -172,6 +173,7 @@ public class MovingKillDotHandler : MonoBehaviour {
         parentDot.levelObject = newMovingKillDot;
 
         newDot = newMovingKillDot;
+        Instantiate(oldFeedback, newDot.transform.position, Quaternion.identity);
         //Debug.Log("NewDot: " + newDot.transform.position);
     }
 
