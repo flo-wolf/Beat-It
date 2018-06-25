@@ -13,7 +13,7 @@ public class RythmManager : MonoBehaviour {
     public static Dictionary<BPM, float> bpmClocks = new Dictionary<BPM, float>();
 
     // bpm values - bpm60 means 1 call every second, bpm60h means one call every second with half a second offset
-    public enum BPM { bpm15, bpm30, bpm60, bpm90, bpm120, bpm180, bpm15h, bpm30h, bpm60h, bpm90h, bpm120h, bpm180h }
+    public enum BPM { bpm15, bpm30, bpm40, bpm60, bpm80, bpm90, bpm120, bpm180, bpm15h, bpm30h, bpm40h, bpm60h, bpm80h, bpm90h, bpm120h, bpm180h }
 
     public BPM playerRythm = BPM.bpm90;
     public BPM playerDashRythm = BPM.bpm90h;
@@ -47,7 +47,9 @@ public class RythmManager : MonoBehaviour {
 
         StartCoroutine(UpdateClock15());
         StartCoroutine(UpdateClock30());
+        StartCoroutine(UpdateClock40());
         StartCoroutine(UpdateClock60());
+        StartCoroutine(UpdateClock80());
         StartCoroutine(UpdateClock90());
         StartCoroutine(UpdateClock120());
         StartCoroutine(UpdateClock180());
@@ -71,8 +73,12 @@ public class RythmManager : MonoBehaviour {
                 return 15;
             case BPM.bpm30:
                 return 30;
+            case BPM.bpm40:
+                return 40;
             case BPM.bpm60:
                 return 60;
+            case BPM.bpm80:
+                return 80;
             case BPM.bpm90:
                 return 90;
             case BPM.bpm120:
@@ -85,8 +91,12 @@ public class RythmManager : MonoBehaviour {
                 return 15;
             case BPM.bpm30h:
                 return 30;
+            case BPM.bpm40h:
+                return 40;
             case BPM.bpm60h:
                 return 60;
+            case BPM.bpm80h:
+                return 80;
             case BPM.bpm90h:
                 return 90;
             case BPM.bpm120h:
@@ -107,8 +117,12 @@ public class RythmManager : MonoBehaviour {
                 return BPM.bpm15h;
             case BPM.bpm30:
                 return BPM.bpm30h;
+            case BPM.bpm40:
+                return BPM.bpm40h;
             case BPM.bpm60:
                 return BPM.bpm60h;
+            case BPM.bpm80:
+                return BPM.bpm80h;
             case BPM.bpm90:
                 return BPM.bpm90h;
             case BPM.bpm120:
@@ -207,6 +221,51 @@ public class RythmManager : MonoBehaviour {
         yield return null;
     }
 
+    //40 bpm clock
+    IEnumerator UpdateClock40()
+    {
+        // set this to the appropiate bpm
+        float b = 40;
+
+        float duration = (1 / b) * 60;
+        float elapsedTime = 0f;
+
+        // this bpm event gets called twice. 
+        // Once when the time runs up after one second (bpm60), 
+        // once when the time is half done after half a second (bpm60h). 
+        // That half call is the offset call, also happening once a second, just half a second offset.
+        bool offsetCalled = false;
+
+        // run two second intervalls and check the bpm
+        while (elapsedTime <= duration)
+        {
+            bpmClocks[BPM.bpm40] = elapsedTime;
+
+            elapsedTime += Time.deltaTime;
+
+            // half offset bpm 
+            if (elapsedTime >= duration / 2 && !offsetCalled)
+            {
+                onBPM.Invoke(new BPMinfo(BPM.bpm40h));
+                offsetCalled = true;
+            }
+
+            // bpm
+            if (elapsedTime >= duration)
+            {
+                onBPM.Invoke(new BPMinfo(BPM.bpm40));
+
+                elapsedTime = elapsedTime % duration;
+
+                bpmClocks[BPM.bpm40] = elapsedTime;
+
+                offsetCalled = false;
+            }
+            yield return null;
+        }
+        yield return null;
+    }
+
     // 60 bpm clock
     IEnumerator UpdateClock60()
     {
@@ -244,6 +303,51 @@ public class RythmManager : MonoBehaviour {
                 elapsedTime = elapsedTime % duration;
 
                 bpmClocks[BPM.bpm60] = elapsedTime;
+
+                offsetCalled = false;
+            }
+            yield return null;
+        }
+        yield return null;
+    }
+
+    //80 bpm clock
+    IEnumerator UpdateClock80()
+    {
+        // set this to the appropiate bpm
+        float b = 80;
+
+        float duration = (1 / b) * 60;
+        float elapsedTime = 0f;
+
+        // this bpm event gets called twice. 
+        // Once when the time runs up after one second (bpm60), 
+        // once when the time is half done after half a second (bpm60h). 
+        // That half call is the offset call, also happening once a second, just half a second offset.
+        bool offsetCalled = false;
+
+        // run two second intervalls and check the bpm
+        while (elapsedTime <= duration)
+        {
+            bpmClocks[BPM.bpm40] = elapsedTime;
+
+            elapsedTime += Time.deltaTime;
+
+            // half offset bpm 
+            if (elapsedTime >= duration / 2 && !offsetCalled)
+            {
+                onBPM.Invoke(new BPMinfo(BPM.bpm80h));
+                offsetCalled = true;
+            }
+
+            // bpm
+            if (elapsedTime >= duration)
+            {
+                onBPM.Invoke(new BPMinfo(BPM.bpm80));
+
+                elapsedTime = elapsedTime % duration;
+
+                bpmClocks[BPM.bpm80] = elapsedTime;
 
                 offsetCalled = false;
             }

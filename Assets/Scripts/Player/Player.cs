@@ -228,12 +228,14 @@ public class Player : MonoBehaviour {
                         {
                             RemoveDot(false);
                             AudioManager.instance.Play("HiHat");
+                            AudioManager.instance.Play("Segment");
                         }
                         // dot 1 is closer to the direction we are aiming at => remove dot0
                         else
                         {
                             RemoveDot(true);
                             AudioManager.instance.Play("HiHat");
+                            AudioManager.instance.Play("Segment");
                         }
                         //}
                     }

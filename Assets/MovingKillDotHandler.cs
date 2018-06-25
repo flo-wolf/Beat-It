@@ -69,6 +69,7 @@ public class MovingKillDotHandler : MonoBehaviour {
             if(allowMove)
             {
                 SpawnMovingKillDot();
+                AudioManager.instance.Play("MovingKillDotSnare");
 
                 if (newDot != null)
                 {
@@ -86,7 +87,7 @@ public class MovingKillDotHandler : MonoBehaviour {
                 Game.SetState(Game.State.Death);
 
                 Instantiate(killFeedback, newDot.transform.position, Quaternion.identity);
-                AudioManager.instance.Play("Tom");
+                AudioManager.instance.Play("Death");
 
                 kill = false;
             }
@@ -173,7 +174,9 @@ public class MovingKillDotHandler : MonoBehaviour {
         parentDot.levelObject = newMovingKillDot;
 
         newDot = newMovingKillDot;
+
         Instantiate(oldFeedback, newDot.transform.position, Quaternion.identity);
+
         //Debug.Log("NewDot: " + newDot.transform.position);
     }
 

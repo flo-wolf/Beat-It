@@ -43,6 +43,9 @@ public class AudioManager : MonoBehaviour {
     private void Start()
     {
         RythmManager.onBPM.AddListener(RythmCall);
+        AudioManager.instance.Play("Background");
+        AudioManager.instance.Play("Radio");
+        AudioManager.instance.Play("Piano");
     }
 
     /*
