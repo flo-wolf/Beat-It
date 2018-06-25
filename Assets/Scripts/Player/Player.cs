@@ -301,6 +301,80 @@ public class Player : MonoBehaviour {
                             }
                         }
                     }
+
+                    else if (dot1 == null && dot0 != null)
+                    {
+                        Vector2 aimPos;
+                        float dot0LookLength;
+
+                        // mouse input
+                        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
+                        {
+                            Debug.Log("mouse");
+                            // get the world mouse position 
+                            Vector2 mousePos = Input.mousePosition;
+                            aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                            // check which point is closest to the lookdirection
+                            dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
+                        }
+
+                        // controller input
+                        else
+                        {
+
+                            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+                            aimPos = controllerInput;
+
+                            // check which point is closest to the lookdirection
+                            dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
+                        }
+
+                        if (Input.GetKey(KeyCode.A) || Input.GetKey("joystick button 5"))
+                        {
+                            SpawnDot();
+                            AudioManager.instance.Play("Kick");
+                        }
+                    }
+
+                    else if (dot1 != null && dot0 == null)
+                    {
+                        Vector2 aimPos;
+                        float dot1LookLength;
+
+                        // mouse input
+                        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
+                        {
+                            Debug.Log("mouse");
+                            // get the world mouse position 
+                            Vector2 mousePos = Input.mousePosition;
+                            aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                            // check which point is closest to the lookdirection
+                            dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
+                        }
+
+                        // controller input
+                        else
+                        {
+
+                            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+                            aimPos = controllerInput;
+
+                            // check which point is closest to the lookdirection
+                            dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
+                        }
+
+                        if (Input.GetKey(KeyCode.A) || Input.GetKey("joystick button 5"))
+                        {
+                            SpawnDot();
+                            AudioManager.instance.Play("Kick");
+                        }
+                    }
+
+
                 }
             }
 
