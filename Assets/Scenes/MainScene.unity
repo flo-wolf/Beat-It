@@ -583,22 +583,22 @@ Prefab:
     - target: {fileID: 114194387891064492, guid: f9760adb1c1f23f4b93fbfeecd32f12a,
         type: 2}
       propertyPath: animationRythm
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114194387891064492, guid: f9760adb1c1f23f4b93fbfeecd32f12a,
         type: 2}
       propertyPath: movingKillDotRythm
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114194387891064492, guid: f9760adb1c1f23f4b93fbfeecd32f12a,
         type: 2}
       propertyPath: playerRythm
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114194387891064492, guid: f9760adb1c1f23f4b93fbfeecd32f12a,
         type: 2}
       propertyPath: playerDashRythm
-      value: 14
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1438274357481114, guid: f9760adb1c1f23f4b93fbfeecd32f12a, type: 2}
       propertyPath: m_IsActive
@@ -651,6 +651,11 @@ Prefab:
     - target: {fileID: 4672238191852316, guid: 18f600b766aaef34991ab2ad8d5e7ab9, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18f600b766aaef34991ab2ad8d5e7ab9, type: 2}
