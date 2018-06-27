@@ -8,42 +8,38 @@ public class PlayerGoal : LevelObject
 
     ParticleSystem goalFeedback;
 
-    public static bool respawnTimer = false;
+    //public static bool respawn = false;
 
     private void Start()
     {
-        RythmManager.onBPM.AddListener(OnRythmCount);
+        RythmManager.onBPM.AddListener(OnRythmRespawn);
         goalFeedback = GetComponent<ParticleSystem>();
     }
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger");
         if (collision.gameObject.CompareTag("Player"))
         {
-            respawnTimer = true;
+            Player.allowMove = false;
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
+   
+    void OnRythmRespawn(BPMinfo bpm)
     {
-        Debug.Log("Trigger");
-        if (collision.gameObject.CompareTag("Player"))
+        if (bpm.Equals(RythmManager.playerBPM))
         {
-            respawnTimer = false;
-        }
-    }
-
-    void OnRythmCount(BPMinfo bpm)
-    {
-        if (bpm.Equals(RythmManager.playerBPM) && Player.instance.CheckIfSingleDot())
-        {
-
-            if (respawnTimer == true)
+            if(Player.dot0 != null && Player.dot0.transform.position == gameObject.transform.parent.position)
             {
-                Player.allowMove = false;
-                respawnTimer = false;
+                goalFeedback.Play();
+                AudioManager.instance.Play("Plop");
 
+                Game.SetState(Game.State.Death);
+            }
+
+            else if (Player.dot1 != null && Player.dot1.transform.position == gameObject.transform.parent.position)
+            {
                 goalFeedback.Play();
                 AudioManager.instance.Play("Plop");
 

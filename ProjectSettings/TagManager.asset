@@ -11,6 +11,7 @@ TagManager:
   - GridDot
   - PlayerSpawn
   - PlayerGoal
+  - Teleporter
   layers:
   - Default
   - TransparentFX
@@ -65,4 +66,7 @@ TagManager:
     locked: 0
   - name: KillDots
     uniqueID: 3306532739
+    locked: 0
+  - name: TeleporterDot
+    uniqueID: 219244143
     locked: 0

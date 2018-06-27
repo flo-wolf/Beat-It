@@ -34,7 +34,7 @@ public class MovingKillDotHandler : MonoBehaviour {
     bool forward = false;
     bool reverse = false;
 
-    bool kill = false;
+    public static bool kill = false;
 
     [HideInInspector]
     public static bool allowMove = false;
