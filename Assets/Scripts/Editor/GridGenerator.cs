@@ -19,7 +19,7 @@ public class GridGenerator : EditorWindow
     private Vector3 tempPos = Vector3.zero;
     private float tempOffset = 0f;
 
-    [MenuItem("Window/GridGenerator")]
+    [MenuItem("Window/Grid Generator")]
     static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(GridGenerator));
@@ -176,7 +176,6 @@ public class GridGenerator : EditorWindow
                 BoxCollider2D box = grid.GetComponent<BoxCollider2D>();
                 if (box != null)
                 {
-                    // remove the old grid
                     var tempList = grid.transform.Cast<Transform>().ToList();
                     foreach (var child in tempList)
                     {
@@ -188,6 +187,28 @@ public class GridGenerator : EditorWindow
                     }
                 }
             }
+
+            if (GUILayout.Button("Delete all non-activated Dots"))
+            {
+                var tempList = grid.transform.Cast<Transform>().ToList();
+                Debug.Log("templisttttttttttttttttttt: " + tempList.Count);
+                foreach (Transform t in tempList)
+                {
+                    GridDot child = t.GetComponent<GridDot>();
+                    if(child != null)
+                    {
+                        // delete all the objects that arent activated
+                        if (!child.active || !child.gameObject.activeInHierarchy || !child.gameObject.activeSelf)
+                        {
+                            GameObject.DestroyImmediate(child.gameObject);
+                        }
+                    }
+
+                    
+                }
+            }
+
+
 
             if (GUILayout.Button("Activate all Dots"))
             {

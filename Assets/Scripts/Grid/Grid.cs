@@ -8,12 +8,10 @@ public class Grid : MonoBehaviour
     public static Grid instance;
     public static GridDot[,] gridDots;
 
-    [HideInInspector]
     public int rows = -1; // gets set by the GridPlacer Editor Window when modifying the grid
-    [HideInInspector]
+
     public int columns = -1; // gets set by the GridPlacer Editor Window when modifying the grid
 
-    [HideInInspector]
     public int gridStep = 8; // gets set by the GridPlacer Editor Window when modifying the grid
 
     // Use this for initialization

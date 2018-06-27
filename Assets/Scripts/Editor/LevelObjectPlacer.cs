@@ -19,7 +19,7 @@ public class LevelObjectPlacer : EditorWindow
     private GameObject playerSpawnPrefab = null;
     private GameObject killDotPrefab = null;
 
-    [MenuItem("Window/LevelObjectPlacer")]
+    [MenuItem("Window/LevelObject Placer")]
     static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(LevelObjectPlacer));

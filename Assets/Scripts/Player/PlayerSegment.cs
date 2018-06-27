@@ -6,11 +6,10 @@ public class PlayerSegment : Segment {
 
     public static PlayerSegment instance;
 
-    public KillDot killDotPrefab;
+    public Material movingKillDotMaterial;
 
     private Color defaultColor;
     private LineRenderer lr;
-    private SpriteRenderer killDotSr;
     private Color killColor;
 
     public static bool touchedKillDot = false;
@@ -20,21 +19,15 @@ public class PlayerSegment : Segment {
     {
         instance = this;
         Game.onGameStateChange.AddListener(GameStateChanged);
-        RythmManager.onBPM.AddListener(OnRythm);
 
         lr = GetComponent<LineRenderer>();
         if (lr != null)
         {
             defaultColor = lr.startColor;
-            killDotSr = killDotPrefab.GetComponent<SpriteRenderer>();
+            killColor = movingKillDotMaterial.color;
 
-            if (killDotSr != null)
-            {
-                killColor = killDotSr.sharedMaterial.color;
-
-                lr.startColor = defaultColor;
-                lr.endColor = defaultColor;
-            }
+            lr.startColor = defaultColor;
+            lr.endColor = defaultColor;
         }
     }
 
@@ -51,13 +44,6 @@ public class PlayerSegment : Segment {
         else if(state == Game.State.Death)
         {
 
-        }
-    }
-
-    public void OnRythm(BPMinfo bpm)
-    {
-        if (touchedKillDot && bpm.Equals(BPMinfo.ToHalf(RythmManager.playerBPM)))
-        {
         }
     }
 

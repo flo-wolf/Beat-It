@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Drawing class for segments 
+ * Segments = Lines that move from point A to B, like the Moving parts of the loop or the player connection
+ * */
 public class Segment : MonoBehaviour {
 
 
