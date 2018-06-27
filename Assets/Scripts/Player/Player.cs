@@ -632,7 +632,7 @@ public class Player : MonoBehaviour {
     }
 
     /// Retracts the segment towards the new player dot and removes the old one
-    void RemoveDot(bool removeDot0)
+    public void RemoveDot(bool removeDot0)
     {
         //StartCoroutine(RadiusFade(true));
 
