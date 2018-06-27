@@ -16,6 +16,7 @@ public class TeleporterDot : LevelObject
     {
         instance = this;
         particleFeedback = GetComponent<ParticleSystem>();
+        RythmManager.onBPM.AddListener(OnRythmPlayAudio);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,9 +28,18 @@ public class TeleporterDot : LevelObject
             {
                 teleporterTouched = true;
             }
+        }
+    }
 
-            particleFeedback.Play();
-
+    void OnRythmPlayAudio(BPMinfo bpm)
+    {
+        if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
+        {
+            if ((Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
+            {
+                AudioManager.instance.Play("Warp");
+                particleFeedback.Play();
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ public class KillDot : LevelObject {
 
     void OnRythmCount(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.playerBPM))
+        if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
         {
             if (kill || (Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
             {

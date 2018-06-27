@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1565179570363336}
+  m_RootGameObject: {fileID: 1743635659404150}
   m_IsPrefabParent: 1
---- !u!1 &1565179570363336
+--- !u!1 &1743635659404150
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4154216581559492}
-  - component: {fileID: 114723449293564084}
+  - component: {fileID: 4183628125549734}
+  - component: {fileID: 114083154656122776}
   m_Layer: 0
-  m_Name: MovingKillDotHandler
-  m_TagString: Untagged
+  m_Name: Teleporter
+  m_TagString: Teleporter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4154216581559492
+--- !u!4 &4183628125549734
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1565179570363336}
+  m_GameObject: {fileID: 1743635659404150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,22 +40,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114723449293564084
+--- !u!114 &114083154656122776
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1565179570363336}
+  m_GameObject: {fileID: 1743635659404150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c9d9634ae968cb4cb0195bdc6a3db02, type: 3}
+  m_Script: {fileID: 11500000, guid: fceb8fcc247f61d4b90dbd18b0296bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingKillDotPrefab: {fileID: 1980215587948604, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
+  teleporterDotPrefab: {fileID: 1956615007488830, guid: c88a13bda5c02a84b9c228b273430411,
     type: 2}
-  killFeedback: {fileID: 198015776762171262, guid: 98a742b77a81fd3479c8f16e30dce3b3,
-    type: 2}
-  oldFeedback: {fileID: 198452767094585988, guid: 63afac41e20ecbe4a9512b85f23a8e31,
-    type: 2}
-  startDot: {fileID: 0}
-  endDot: {fileID: 0}
+  tele0: {fileID: 0}
+  tele1: {fileID: 0}
