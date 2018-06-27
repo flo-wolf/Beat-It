@@ -132,14 +132,15 @@ public class LoopEditor : EditorWindow
                         // place a loop GameObject inside the container
                         GameObject loopGo = (GameObject)Instantiate(loopPrefab, Vector3.zero, Quaternion.identity);
                         loopGo.transform.parent = containerGo.transform;
-                        loopGo.name = "Loop";
-
-                        // get the Loop component
+                        
+                        // get the Loop component of the newly created loop gameobject
                         Loop loop = loopGo.GetComponent<Loop>();
                         Loop.totalLoopsCounter++;
                         loop.loopIndex = Loop.totalLoopsCounter;
-                        
-                        if(loop != null)
+
+                        loopGo.name = "Loop " + loop.loopIndex;
+
+                        if (loop != null)
                         {
                             int dotCounter = 0;
                             // add loopdots to the griddots
@@ -149,6 +150,7 @@ public class LoopEditor : EditorWindow
                                 GameObject loopDotGo = Instantiate(loopDotPrefab, Vector3.zero, Quaternion.identity);
                                 loopDotGo.transform.parent = gridDot.transform;
                                 loopDotGo.transform.localPosition = Vector3.zero;
+                                loopDotGo.transform.localScale = loopDotPrefab.transform.localScale;
                                 loopDotGo.name = "LoopDot " + loop.loopIndex + "-" + dotCounter;
                                 LoopDot loopDot = loopDotGo.GetComponent<LoopDot>();
                                 if(loopDot != null)
@@ -157,6 +159,17 @@ public class LoopEditor : EditorWindow
                                     loop.loopDots.Add(loopDot);
                                 }
                             }
+
+                            // add a segment to the loop
+                            GameObject segmentGo = (GameObject)Instantiate(segmentPrefab, Vector3.zero, Quaternion.identity);
+                            segmentGo.transform.parent = loopGo.transform;
+
+                            // get the Segment component and add it to the loop segments list
+                            LoopSegment segment = segmentGo.GetComponent<LoopSegment>();
+                            segment.loop = loop;
+                            loop.segments.Add(segment);
+                            segmentGo.name = "LoopSegment " + loop.loopIndex + "-" + loop.segments.Count;
+
                             loopCreated = true;
                         }
                     }

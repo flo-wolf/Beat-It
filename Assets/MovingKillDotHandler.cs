@@ -131,14 +131,14 @@ public class MovingKillDotHandler : MonoBehaviour {
     {
         if (newDot.transform.position == startDot.transform.position)
         {
-            Debug.Log("REACHED STARTDOT");
+            //Debug.Log("REACHED STARTDOT");
             forward = true;
             reverse = false;
         }
 
         if(newDot.transform.position == endDot.transform.position)
         {
-            Debug.Log("REACHED ENDDOT");
+            //Debug.Log("REACHED ENDDOT");
             reverse = true;
             forward = false;
         }

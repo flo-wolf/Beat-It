@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class KillDot : LevelObject {
 
-    ParticleSystem killFeedback;
+    [HideInInspector]
+    public ParticleSystem killFeedback;
 
     bool kill = false;
 
@@ -14,7 +15,7 @@ public class KillDot : LevelObject {
         RythmManager.onBPM.AddListener(OnRythmCount);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger");
         if (collision.gameObject.CompareTag("Player"))
@@ -27,7 +28,7 @@ public class KillDot : LevelObject {
         }
     }
 
-    void OnRythmCount(BPMinfo bpm)
+    private void OnRythmCount(BPMinfo bpm)
     {
         if (bpm.Equals(RythmManager.playerBPM))
         {

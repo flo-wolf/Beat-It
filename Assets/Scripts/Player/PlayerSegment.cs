@@ -13,7 +13,7 @@ public class PlayerSegment : Segment {
     private Color killColor;
 
     public static bool touchedKillDot = false;
-    
+
 
     private void Start()
     {
@@ -55,4 +55,24 @@ public class PlayerSegment : Segment {
         lr.startColor = killColor;
         touchedKillDot = false;
     }
+
+    // Update the endpoints of the lienrenderer to fit the calculated lineEnd and lineStart points
+    void Update()
+    {
+        if (state != State.NoDraw)
+        {
+            lineRenderer.positionCount = 2;
+
+            Vector2 lineStart = startPoint;
+            Vector2 lineEnd = Vector2.Lerp(startPoint, endPoint, fillProgress);
+
+            lineRenderer.SetPosition(0, lineEnd);
+            lineRenderer.SetPosition(1, lineStart);
+        }
+        else
+        {
+            lineRenderer.positionCount = 0;
+        }
+    }
+
 }

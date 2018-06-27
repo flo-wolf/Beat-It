@@ -17,19 +17,14 @@ public class Segment : MonoBehaviour {
     public LineRenderer lineRenderer;
 
     // Segment drawing information provided by the Player Class on PlayerDot creation
-    private Vector2 startPoint = new Vector2();
-    private Vector2 endPoint = new Vector2();
-    public static float fillProgress = 0f;
+    public Vector2 startPoint = new Vector2();
+    public Vector2 endPoint = new Vector2();
+
+    public float fillProgress = 0f;
 
     // the state of this segment
-    public enum State { NoDraw, Filling, Filled, Emptying };
-    private State state = State.NoDraw;
-
-    public void Start()
-    {
-        //fillTime = RythmManager.playerBPM.ToSecs();
-        //emptyTime = RythmManager.playerBPM.ToSecs();
-    }
+    public enum State { NoDraw, Filling, Filled, Emptying, Shooting };
+    public State state = State.NoDraw;
 
     public void FillSegment(Vector2 start, Vector2 end)
     {
@@ -63,6 +58,33 @@ public class Segment : MonoBehaviour {
             StopCoroutine("FillCoroutine");
             StartCoroutine(EmptyCoroutine());
         }
+    }
+
+    // Loop Segment shooting
+    public void ShootSegment(Vector2 start, Vector2 end, float length, float duration)
+    {
+        state = State.Shooting;
+        startPoint = start;
+        endPoint = end;
+        fillProgress = 0;
+        StopCoroutine("ShootCoroutine");
+        StartCoroutine(ShootCoroutine(length, duration));
+    }
+
+
+    IEnumerator ShootCoroutine(float length, float duration)
+    {
+        float elapsedTime = 0f;
+        float startFill = fillProgress;
+
+        while (elapsedTime <= duration)
+        {
+            fillProgress = Mathf.SmoothStep(startFill, 1, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return null;
     }
 
     // interpolates the progress of the segment i order to fill it
@@ -99,25 +121,5 @@ public class Segment : MonoBehaviour {
             state = State.NoDraw;
 
         yield return null;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (state != State.NoDraw)
-        {
-            lineRenderer.positionCount = 2;
-            Vector2 toEnd = endPoint - startPoint;
-
-            Vector2 lineStart = startPoint;
-            Vector2 lineEnd = Vector2.Lerp(startPoint, endPoint, fillProgress);
-
-            lineRenderer.SetPosition(0, lineEnd);
-            lineRenderer.SetPosition(1, lineStart);
-        }
-        else
-        {
-            lineRenderer.positionCount = 0;
-        }
     }
 }

@@ -39,7 +39,7 @@ public class PlayerDot : LevelObject{
     void Update()
     {
         // update fill amount
-        float fillScale = Mathf.Lerp(0, defaultFillCircleSize, PlayerSegment.fillProgress);
+        float fillScale = Mathf.Lerp(0, defaultFillCircleSize, PlayerSegment.instance.fillProgress);
         fillCircleGo.transform.localScale = new Vector3(fillScale, fillScale, 1);
     }
 

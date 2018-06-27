@@ -72,6 +72,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   gridDot: {fileID: 0}
+  killFeedback: {fileID: 0}
+  loop: {fileID: 0}
 --- !u!198 &198197500475304344
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -258,7 +260,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.40784314, b: 0.15294118, a: 1}
+      maxColor: {r: 1, g: 0.64705884, b: 0.15294118, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

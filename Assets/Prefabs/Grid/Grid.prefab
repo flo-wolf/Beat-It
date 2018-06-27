@@ -5060,6 +5060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   gridDot: {fileID: 0}
+  killFeedback: {fileID: 0}
 --- !u!114 &114006076830967248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5409,6 +5410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   gridDot: {fileID: 0}
+  killFeedback: {fileID: 0}
 --- !u!114 &114106019174634704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6168,6 +6170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   gridDot: {fileID: 0}
+  killFeedback: {fileID: 0}
 --- !u!114 &114322348944908012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7038,6 +7041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   gridDot: {fileID: 0}
+  killFeedback: {fileID: 0}
 --- !u!114 &114510094053730644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7381,6 +7385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   gridDot: {fileID: 0}
+  killFeedback: {fileID: 0}
 --- !u!114 &114595350598077548
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -55,6 +55,15 @@ MonoBehaviour:
   fillTime: 0.5
   emptyTime: 0.5
   lineRenderer: {fileID: 120602161842801566}
+  startPoint: {x: 0, y: 0}
+  endPoint: {x: 0, y: 0}
+  fillProgress: 0
+  state: 0
+  segmentLength: 7
+  segmentLengthPercent: 0
+  loop: {fileID: 0}
+  currentLoopIndex: 0
+  moveUpLoopList: 1
 --- !u!120 &120602161842801566
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -113,8 +122,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.9490196, b: 1, a: 1}
-      key1: {r: 0, g: 0.9490196, b: 1, a: 1}
+      key0: {r: 1, g: 0.64705884, b: 0.15294118, a: 1}
+      key1: {r: 1, g: 0.64705884, b: 0.15294118, a: 1}
       key2: {r: 0, g: 0.9490196, b: 1, a: 1}
       key3: {r: 0, g: 0.9490196, b: 1, a: 1}
       key4: {r: 0, g: 0, b: 0, a: 0}
