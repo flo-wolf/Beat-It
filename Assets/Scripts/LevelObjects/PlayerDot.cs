@@ -13,6 +13,9 @@ public class PlayerDot : LevelObject{
     public SpriteRenderer emptyFillSr;
     public GameObject fillCircleGo;
 
+    private Material defaultMaterial;
+    public Material killMaterial;
+
     private float fillAmount = 0; // 0 = no fill, empty black;  1 = full fill, white
 
     private enum State { Spawn, Idle, Extend, Despawn }
@@ -25,9 +28,25 @@ public class PlayerDot : LevelObject{
 
     void Start()
     {
+        defaultMaterial = sr.material;
         defaultLocalScale = transform.localScale.x;
         defaultFillCircleSize = fillCircleGo.transform.localScale.x;
         StartCoroutine(Fade(true));
+
+        Game.onGameStateChange.AddListener(GameStateChanged);
+    }
+
+    private void GameStateChanged(Game.State state)
+    {
+        switch (state)
+        {
+            case Game.State.Death:
+                sr.material = killMaterial;
+                break;
+            default:
+                
+                break;
+        }
     }
 
     public void Remove()

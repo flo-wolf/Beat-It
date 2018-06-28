@@ -126,6 +126,7 @@ MonoBehaviour:
   sr: {fileID: 212090538057330824}
   emptyFillSr: {fileID: 212915313867511076}
   fillCircleGo: {fileID: 1953165806431560}
+  killMaterial: {fileID: 2100000, guid: 8f61bc16e23aec3479dd3be17ffc29cc, type: 2}
 --- !u!212 &212090538057330824
 SpriteRenderer:
   m_ObjectHideFlags: 1
