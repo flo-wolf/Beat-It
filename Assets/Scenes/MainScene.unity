@@ -5136,11 +5136,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114307798837158290, guid: 85d852ae79d71de4fa9e27ea0426feb2,
-        type: 2}
-      propertyPath: movingKillDotMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 8f61bc16e23aec3479dd3be17ffc29cc, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85d852ae79d71de4fa9e27ea0426feb2, type: 2}
   m_IsPrefabParent: 0
@@ -22458,6 +22453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 6
   gridDot: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &2030716936
 GameObject:
   m_ObjectHideFlags: 0

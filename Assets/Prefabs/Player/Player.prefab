@@ -116,7 +116,11 @@ MonoBehaviour:
   fillTime: 0.25
   emptyTime: 0.25
   lineRenderer: {fileID: 120361600636161970}
-  killDotPrefab: {fileID: 114029131059231142, guid: a8103e2a69a54314ab0521e6b90f3d3c,
+  startPoint: {x: 0, y: 0}
+  endPoint: {x: 0, y: 0}
+  fillProgress: 0
+  state: 0
+  movingKillDotMaterial: {fileID: 2100000, guid: 8f61bc16e23aec3479dd3be17ffc29cc,
     type: 2}
 --- !u!114 &114606964953327214
 MonoBehaviour:

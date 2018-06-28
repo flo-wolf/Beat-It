@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4154216581559492}
-  - component: {fileID: 114723449293564084}
+  - component: {fileID: 114634477188635120}
   m_Layer: 0
   m_Name: MovingKillDotHandler
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114723449293564084
+--- !u!114 &114634477188635120
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1565179570363336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c9d9634ae968cb4cb0195bdc6a3db02, type: 3}
+  m_Script: {fileID: 11500000, guid: 38a3ba74f0a8a3e439077bc3c758ce1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movingKillDotPrefab: {fileID: 1980215587948604, guid: 23414e48f3b3f9c44862bc39cbd23dc8,

@@ -71,11 +71,16 @@
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Grid\Grid.cs" />
     <Compile Include="Assets\Scripts\Grid\GridDot.cs" />
+    <Compile Include="Assets\Scripts\Helper\EditScriptableAttribute.cs" />
     <Compile Include="Assets\Scripts\Helper\ExtensionMethods.cs" />
     <Compile Include="Assets\Scripts\Helper\Helper.cs" />
+    <Compile Include="Assets\Scripts\Helper\ReorderableAttribute.cs" />
     <Compile Include="Assets\Scripts\InputDeviceDetector.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\KillDot.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\LevelObject.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\Loop.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\LoopDot.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\LoopSegment.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\MovingKillDot.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\MovingKillDotHandler.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\Node.cs" />
