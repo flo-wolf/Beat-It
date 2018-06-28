@@ -84,6 +84,20 @@ public class MovingKillDotHandler : MonoBehaviour {
             {
                 PlayerSegment.touchedKillDot = true;
                 Player.allowMove = false;
+
+                if(Player.dot0 != null && Player.dot1 !=null)
+                {
+                    if(Player.dot1.transform.position == newDot.transform.position)
+                    {
+                        Player.instance.RemoveDot(true);
+                    }
+
+                    else if(Player.dot0.transform.position == newDot.transform.position)
+                    {
+                        Player.instance.RemoveDot(false);
+                    }
+                }
+
                 Game.SetState(Game.State.Death);
 
                 Instantiate(killFeedback, newDot.transform.position, Quaternion.identity);
@@ -91,14 +105,6 @@ public class MovingKillDotHandler : MonoBehaviour {
 
                 kill = false;
             }
-
-            //Is checked in PlayerScript when spawning
-            /*
-            if(Player.dot0 != null || Player.dot1 != null)
-            {
-                allowMove = true;
-            }
-            */
         }
     }
 
