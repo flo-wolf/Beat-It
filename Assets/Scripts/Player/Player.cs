@@ -108,6 +108,12 @@ public class Player : MonoBehaviour {
         {
             return false;
         }
+
+        if(dot0 == null && dot1 == null)
+        {
+            return false;
+        }
+
         return true;
     }
 
@@ -213,7 +219,6 @@ public class Player : MonoBehaviour {
                         // controller input
                         else
                         {
-
                             Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
 
                             aimPos = controllerInput;
@@ -223,26 +228,55 @@ public class Player : MonoBehaviour {
                             dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
                         }
 
-                        // dot 0 is closer to the direction we are aiming at => remove dot1
-                        if (dot0LookLength <= dot1LookLength)
+                        if(!TeleporterDot.teleporterTouched)
                         {
-                            RemoveDot(false);
-                            AudioManager.instance.Play("HiHat");
-                            AudioManager.instance.Play("Segment");
+                            // dot 0 is closer to the direction we are aiming at => remove dot1
+                            if (dot0LookLength <= dot1LookLength)
+                            {
+                                RemoveDot(false);
+                                AudioManager.instance.Play("HiHat");
+                                AudioManager.instance.Play("Segment");
+
+                                TeleporterDot.teleportEnabled = true;
+                            }
+                            // dot 1 is closer to the direction we are aiming at => remove dot0
+                            else
+                            {
+                                RemoveDot(true);
+                                AudioManager.instance.Play("HiHat");
+                                AudioManager.instance.Play("Segment");
+
+                                TeleporterDot.teleportEnabled = true;
+                            }
                         }
-                        // dot 1 is closer to the direction we are aiming at => remove dot0
-                        else
+
+                        else if(TeleporterDot.teleporterTouched)
                         {
-                            RemoveDot(true);
-                            AudioManager.instance.Play("HiHat");
-                            AudioManager.instance.Play("Segment");
+                            if (dot0.transform.position == Teleporter.instance.tele0.transform.position || dot0.transform.position == Teleporter.instance.tele1.transform.position)
+                            {
+                                RemoveDot(false);
+                                AudioManager.instance.Play("HiHat");
+                                AudioManager.instance.Play("Segment");
+                                TeleporterDot.teleportEnabled = false;
+                                SpawnDot();
+                                RemoveDot(true);
+                            }
+
+                            else if (dot1.transform.position == Teleporter.instance.tele0.transform.position || dot1.transform.position == Teleporter.instance.tele1.transform.position)
+                            {
+                                RemoveDot(true);
+                                AudioManager.instance.Play("HiHat");
+                                AudioManager.instance.Play("Segment");
+                                TeleporterDot.teleportEnabled = false;
+                                SpawnDot();
+                                RemoveDot(false);
+                            }
                         }
-                        //}
                     }
 
                     // if there is only one dot and if the thumbstick actually got pressed into a direction
                     else
-                    {
+                    {                     
                         SpawnDot();
                         AudioManager.instance.Play("Kick");
                     }
@@ -252,129 +286,91 @@ public class Player : MonoBehaviour {
 
                 if (bpm.Equals(RythmManager.playerDashBPM))
                 {
-                    // if there are two dots
-                    if (dot1 != null && dot0 != null)
+                    if (Input.GetKey(KeyCode.A))
                     {
-                        Vector2 aimPos;
-                        float dot0LookLength;
-                        float dot1LookLength;
-
-                        // mouse input
-                        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
+                        // if there are two dots
+                        if (dot1 != null && dot0 != null)
                         {
-                            Debug.Log("mouse");
-                            // get the world mouse position 
-                            Vector2 mousePos = Input.mousePosition;
-                            aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+                            Vector2 aimPos;
+                            float dot0LookLength;
+                            float dot1LookLength;
 
-                            // check which point is closest to the lookdirection
-                            dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
-                            dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
-                        }
-
-                        // controller input
-                        else
-                        {
-
-                            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                            aimPos = controllerInput;
-
-                            // check which point is closest to the lookdirection
-                            dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
-                            dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
-                        }
-
-                        if (Input.GetKey(KeyCode.A) || Input.GetKey("joystick button 5"))
-                        {
-                            // dot 0 is closer to the direction we are aiming at => remove dot1
-                            if (dot0LookLength <= dot1LookLength)
+                            // mouse input
+                            if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
                             {
-                                RemoveDot(false);
-                                AudioManager.instance.Play("Snare");
+                                Debug.Log("mouse");
+                                // get the world mouse position 
+                                Vector2 mousePos = Input.mousePosition;
+                                aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                                // check which point is closest to the lookdirection
+                                dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
+                                dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
                             }
-                            // dot 1 is closer to the direction we are aiming at => remove dot0
+
+                            // controller input
                             else
                             {
-                                RemoveDot(true);
-                                AudioManager.instance.Play("Snare");
+                                Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+                                aimPos = controllerInput;
+
+                                // check which point is closest to the lookdirection
+                                dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
+                                dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
                             }
+
+                            if(!TeleporterDot.teleporterTouched)
+                            {
+                                // dot 0 is closer to the direction we are aiming at => remove dot1
+                                if (dot0LookLength <= dot1LookLength)
+                                {
+                                    RemoveDot(false);
+                                    AudioManager.instance.Play("Snare");
+                                    TeleporterDot.teleportEnabled = true;
+
+                                }
+                                // dot 1 is closer to the direction we are aiming at => remove dot0
+                                else
+                                {
+                                    RemoveDot(true);
+                                    AudioManager.instance.Play("Snare");
+                                    TeleporterDot.teleportEnabled = true;
+
+                                }
+                            }
+
+                            else if(TeleporterDot.teleporterTouched)
+                            {
+                                if(dot0.transform.position == Teleporter.instance.tele0.transform.position || dot0.transform.position == Teleporter.instance.tele1.transform.position)
+                                {
+                                    RemoveDot(false);
+                                    AudioManager.instance.Play("Snare");
+                                    TeleporterDot.teleportEnabled = false;
+                                    SpawnDot();
+                                    RemoveDot(true);
+                                }
+
+                                else if (dot1.transform.position == Teleporter.instance.tele0.transform.position || dot1.transform.position == Teleporter.instance.tele1.transform.position)
+                                {
+                                    RemoveDot(true);
+                                    AudioManager.instance.Play("Snare");
+                                    TeleporterDot.teleportEnabled = false;
+                                    SpawnDot();
+                                    RemoveDot(false);
+                                }
+
+                            }
+
                         }
-                    }
-
-                    else if (dot1 == null && dot0 != null)
-                    {
-                        Vector2 aimPos;
-                        float dot0LookLength;
-
-                        // mouse input
-                        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
-                        {
-                            Debug.Log("mouse");
-                            // get the world mouse position 
-                            Vector2 mousePos = Input.mousePosition;
-                            aimPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-                            // check which point is closest to the lookdirection
-                            dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
-                        }
-
-                        // controller input
+                        
                         else
-                        {
-
-                            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                            aimPos = controllerInput;
-
-                            // check which point is closest to the lookdirection
-                            dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
-                        }
-
-                        if (Input.GetKey(KeyCode.A) || Input.GetKey("joystick button 5"))
                         {
                             SpawnDot();
                             AudioManager.instance.Play("Kick");
                         }
+                        
                     }
-
-                    else if (dot1 != null && dot0 == null)
-                    {
-                        Vector2 aimPos;
-                        float dot1LookLength;
-
-                        // mouse input
-                        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
-                        {
-                            Debug.Log("mouse");
-                            // get the world mouse position 
-                            Vector2 mousePos = Input.mousePosition;
-                            aimPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-                            // check which point is closest to the lookdirection
-                            dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
-                        }
-
-                        // controller input
-                        else
-                        {
-
-                            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                            aimPos = controllerInput;
-
-                            // check which point is closest to the lookdirection
-                            dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
-                        }
-
-                        if (Input.GetKey(KeyCode.A) || Input.GetKey("joystick button 5"))
-                        {
-                            SpawnDot();
-                            AudioManager.instance.Play("Kick");
-                        }
-                    }
-
-
                 }
             }
 
@@ -497,40 +493,100 @@ public class Player : MonoBehaviour {
             // the closest dot that the next dot should be spawned on
             GridDot parentDot = null;
 
-            // dot1 exists, dot0 doesnt => spawn dot0
-            if (dot1 != null && dot0 == null)
+            if(!TeleporterDot.teleporterTouched)
             {
-                parentDot = Grid.GetNearestActiveDot(dot1.gridDot, lookDirection);
+                // dot1 exists, dot0 doesnt => spawn dot0
+                if (dot1 != null && dot0 == null)
+                {
+                    parentDot = Grid.GetNearestActiveDot(dot1.gridDot, lookDirection);
 
-                if (parentDot == null)
-                    return;
+                    if (parentDot == null)
+                        return;
 
-                dotWasSpawned = 0;
-                FadeRadius(false);
-            }
-            // dot0 exists, dot1 doesnt => spawn dot1
-            else if (dot0 != null && dot1 == null)
-            {
-                parentDot = Grid.GetNearestActiveDot(dot0.gridDot, lookDirection);
+                    dotWasSpawned = 0;
+                    FadeRadius(false);
+                }
+                // dot0 exists, dot1 doesnt => spawn dot1
+                else if (dot0 != null && dot1 == null)
+                {
+                    parentDot = Grid.GetNearestActiveDot(dot0.gridDot, lookDirection);
 
-                if (parentDot == null)
-                    return;
+                    if (parentDot == null)
+                        return;
 
-                dotWasSpawned = 1;
-                FadeRadius(false);
-            }
-            // there are no dots, spawn the first dot
-            else
-            {
-                if (spawnDot == null)
-                    parentDot = Grid.GetRandomActiveDot();
+                    dotWasSpawned = 1;
+                    FadeRadius(false);
+                }
+                // there are no dots, spawn the first dot
                 else
-                    parentDot = spawnDot;
-                dotWasSpawned = 0;
+                {
+                    if (spawnDot == null)
+                        parentDot = Grid.GetRandomActiveDot();
+                    else
+                        parentDot = spawnDot;
+                    dotWasSpawned = 0;
 
-                //move the moving kill dot again
-                MovingKillDotHandler.allowMove = true;
-                FadeRadius(true);
+                    //move the moving kill dot again
+                    MovingKillDotHandler.allowMove = true;
+                    FadeRadius(true);
+                }
+            }
+
+            else if (TeleporterDot.teleporterTouched)
+            {
+                // dot1 exists, dot0 doesnt => spawn dot0
+                if (dot1 != null && dot0 == null)
+                {
+                    if(dot1.transform.position == Teleporter.instance.tele0.transform.position)
+                    {
+                        parentDot = Teleporter.instance.tele1;
+                    }
+
+                    else if (dot1.transform.position == Teleporter.instance.tele1.transform.position)
+                    {
+                        parentDot = Teleporter.instance.tele0;
+                    }
+
+                    if (parentDot == null)
+                        return;
+
+                    dotWasSpawned = 0;
+                    FadeRadius(false);
+
+                }
+                // dot0 exists, dot1 doesnt => spawn dot1
+                else if (dot0 != null && dot1 == null)
+                {
+                    if (dot0.transform.position == Teleporter.instance.tele0.transform.position)
+                    {
+                        parentDot = Teleporter.instance.tele1;
+                    }
+
+                    else if (dot0.transform.position == Teleporter.instance.tele1.transform.position)
+                    {
+                        parentDot = Teleporter.instance.tele0;
+                    }
+
+                    if (parentDot == null)
+                        return;
+
+                    dotWasSpawned = 1;
+                    FadeRadius(false);
+                }
+
+                // there are no dots, spawn the first dot
+                else
+                {
+                    if (spawnDot == null)
+                        parentDot = Grid.GetRandomActiveDot();
+                    else
+                        parentDot = spawnDot;
+                    dotWasSpawned = 0;
+
+                    //move the moving kill dot again
+                    MovingKillDotHandler.allowMove = true;
+                    FadeRadius(true);
+                }
             }
 
             if (parentDot != null)
@@ -557,6 +613,8 @@ public class Player : MonoBehaviour {
                 }
             }
 
+            TeleporterDot.teleporterTouched = false;
+
             //Debug.Log("activePosition: " + activePosition + " spawnPosition: " + spawnPosition);
 
             // fill the segment in between two dots
@@ -574,7 +632,7 @@ public class Player : MonoBehaviour {
     }
 
     /// Retracts the segment towards the new player dot and removes the old one
-    void RemoveDot(bool removeDot0)
+    public void RemoveDot(bool removeDot0)
     {
         //StartCoroutine(RadiusFade(true));
 
@@ -617,7 +675,6 @@ public class Player : MonoBehaviour {
             radius = 0;
             radiusOpacity = 0;
             newestDot = DotType.None;
-
         }
 
         // empty the segment in between those two dots

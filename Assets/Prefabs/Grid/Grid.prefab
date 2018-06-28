@@ -7915,6 +7915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 6
   gridDot: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &114736976219975156
 MonoBehaviour:
   m_ObjectHideFlags: 1

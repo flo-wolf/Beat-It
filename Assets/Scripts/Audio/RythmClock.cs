@@ -15,7 +15,6 @@ public class RythmClock : MonoBehaviour {
 	
 	void Update ()
     {
-
         float clock = RythmManager.bpmClocks[RythmManager.loopSpawnBPM.bpm];
 
         float tick = (1f / (float) RythmManager.loopSpawnBPM.bpmValue) * 60;
