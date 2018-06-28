@@ -5856,6 +5856,7 @@ GameObject:
   - component: {fileID: 559696718}
   - component: {fileID: 559696720}
   - component: {fileID: 559696719}
+  - component: {fileID: 559696721}
   m_Layer: 0
   m_Name: LoopSegment 1-1
   m_TagString: Player
@@ -5991,6 +5992,23 @@ MonoBehaviour:
   loop: {fileID: 323989021}
   currentLoopIndex: 0
   moveUpLoopList: 1
+--- !u!68 &559696721
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 559696717}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.25, y: 0}
+  - {x: 0.25, y: 0}
 --- !u!1 &561895767
 GameObject:
   m_ObjectHideFlags: 0
