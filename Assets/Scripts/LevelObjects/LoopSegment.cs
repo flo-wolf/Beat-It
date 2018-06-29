@@ -26,14 +26,19 @@ public class LoopSegment : Segment {
     {
         if (Game.state == Game.State.Playing)
         {
-            if (bpm.Equals(RythmManager.playerBPM))
+            if ( (bpm.Equals(RythmManager.playerBPM) && !loop.offBeat)
+                || (bpm.Equals(BPMinfo.ToHalf(RythmManager.playerBPM)) && loop.offBeat))
             {
-                if(nextDot != null)
+                if (loop.skipEverySecondBeat && !loop.skippedThisBeat)
                 {
-                    nextDot.SegmentRecieved();
-                    AudioManager.instance.Play("HiHat");
+                    if (nextDot != null)
+                    {
+                        nextDot.SegmentRecieved();
+                        AudioManager.instance.Play("HiHat");
+                    }
+                    MoveToNextLoopDot();
                 }
-                MoveToNextLoopDot();
+                loop.skippedThisBeat = !loop.skippedThisBeat;
             }
         }
     }

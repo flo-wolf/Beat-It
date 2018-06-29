@@ -7,6 +7,11 @@ public class Loop : MonoBehaviour {
 
     public static int totalLoopsCounter = 0;
 
+    public bool offBeat = false;
+    public bool skipEverySecondBeat = true;
+    [HideInInspector]
+    public bool skippedThisBeat = false;
+
     [Reorderable]
     public List<LoopDot> loopDots = new List<LoopDot>();
     public List<LoopSegment> segments = new List<LoopSegment>();
