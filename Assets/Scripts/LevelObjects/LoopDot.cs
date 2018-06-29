@@ -5,13 +5,22 @@ using UnityEngine;
 public class LoopDot : KillDot {
 
     public Loop loop = null;
+    private Animation anim;
 
     private void Start()
     {
+        anim = GetComponent<Animation>();
         killFeedback = GetComponent<ParticleSystem>();
+        RythmManager.onBPM.AddListener(OnRythmCount);
     }
 
     // Update is called once per frame
     void Update () {
 	}
+
+    // a segment has touched this dot => grow animation
+    public void SegmentRecieved()
+    {
+        anim.Play();
+    }
 }

@@ -286,7 +286,7 @@ public class Player : MonoBehaviour {
 
                 if (bpm.Equals(RythmManager.playerDashBPM))
                 {
-                    if (Input.GetKey(KeyCode.A))
+                    if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button5))
                     {
                         // if there are two dots
                         if (dot1 != null && dot0 != null)
@@ -432,7 +432,7 @@ public class Player : MonoBehaviour {
                             dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
                         }
 
-                        if (Input.GetKey(KeyCode.A))
+                        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button5))
                         {
                             // dot 0 is closer to the direction we are aiming at => remove dot1
                             if (dot0LookLength <= dot1LookLength)

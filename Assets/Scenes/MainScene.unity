@@ -358,6 +358,8 @@ GameObject:
   - component: {fileID: 184536251}
   - component: {fileID: 184536250}
   - component: {fileID: 184536249}
+  - component: {fileID: 184536255}
+  - component: {fileID: 184536254}
   m_Layer: 0
   m_Name: LoopDot 1-2
   m_TagString: LevelObject
@@ -5097,6 +5099,41 @@ MonoBehaviour:
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
   loop: {fileID: 323989021}
+--- !u!111 &184536254
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 184536247}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: da22f3ac23a54a34cb68266787b1b970, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: da22f3ac23a54a34cb68266787b1b970, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!320 &184536255
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 184536247}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 259d76deb30e4784eb4f54d34514a885, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 114663393254149144, guid: 259d76deb30e4784eb4f54d34514a885, type: 2}
+    value: {fileID: 184536247}
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &191563516
 Prefab:
   m_ObjectHideFlags: 0
@@ -6899,6 +6936,10 @@ Prefab:
       propertyPath: playerDashRythm
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1202166343286732, guid: f9760adb1c1f23f4b93fbfeecd32f12a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9760adb1c1f23f4b93fbfeecd32f12a, type: 2}
   m_IsPrefabParent: 0
@@ -7549,6 +7590,7 @@ GameObject:
   - component: {fileID: 1342865784}
   - component: {fileID: 1342865783}
   - component: {fileID: 1342865782}
+  - component: {fileID: 1342865787}
   m_Layer: 0
   m_Name: LoopDot 1-1
   m_TagString: LevelObject
@@ -12288,6 +12330,21 @@ MonoBehaviour:
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
   loop: {fileID: 323989021}
+--- !u!111 &1342865787
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1342865780}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: da22f3ac23a54a34cb68266787b1b970, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: da22f3ac23a54a34cb68266787b1b970, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1344568709
 GameObject:
   m_ObjectHideFlags: 0
@@ -17261,6 +17318,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1519978440 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1306025592115166, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1185450026}
+--- !u!114 &1519978445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1519978440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 2bffe024db50cfa419a89d8c9933c7c3, type: 2}
 --- !u!1 &1531486278
 GameObject:
   m_ObjectHideFlags: 0
@@ -22684,6 +22758,7 @@ GameObject:
   - component: {fileID: 2107009531}
   - component: {fileID: 2107009530}
   - component: {fileID: 2107009529}
+  - component: {fileID: 2107009534}
   m_Layer: 0
   m_Name: LoopDot 1-3
   m_TagString: LevelObject
@@ -27423,3 +27498,18 @@ Transform:
   m_Father: {fileID: 2070413606}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &2107009534
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2107009527}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: da22f3ac23a54a34cb68266787b1b970, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: da22f3ac23a54a34cb68266787b1b970, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

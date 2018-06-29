@@ -13,6 +13,8 @@ public class LoopSegment : Segment {
 
     private EdgeCollider2D collider;
 
+    private LoopDot nextDot = null;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -26,6 +28,11 @@ public class LoopSegment : Segment {
         {
             if (bpm.Equals(RythmManager.playerBPM))
             {
+                if(nextDot != null)
+                {
+                    nextDot.SegmentRecieved();
+                    AudioManager.instance.Play("HiHat");
+                }
                 MoveToNextLoopDot();
             }
         }
@@ -35,7 +42,7 @@ public class LoopSegment : Segment {
     {
         LoopDot currentDot = loop.loopDots[currentLoopIndex];
 
-        LoopDot nextDot = null;
+        nextDot = null;
         if (moveUpLoopList)
             currentLoopIndex = loop.GetNextLoopDot(currentLoopIndex);
         else
@@ -78,7 +85,7 @@ public class LoopSegment : Segment {
                 fillProgressSegment = (endPoint - startPoint).magnitude * segmentLength;
             }
             
-            Debug.Log("fillProgressSegment " + fillProgressSegment);
+            //Debug.Log("fillProgressSegment " + fillProgressSegment);
 
             Vector2 lineStart = Vector2.Lerp(startPoint, endPoint, Mathf.Clamp(fillProgress-(fillProgressSegment-(fillProgressSegment*fillProgress)), 0 , 1));
             Vector2 lineEnd = Vector2.Lerp(startPoint, endPoint, Mathf.Clamp(fillProgress, 0, 1));
