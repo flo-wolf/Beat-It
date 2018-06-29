@@ -34,7 +34,7 @@ public class KillDot : LevelObject {
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
         {
             Debug.Log(name);
-            if (kill || (Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
+            if ((Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
             {
                 Debug.Log("2 " + name );
                 AudioManager.instance.Play("Death");
