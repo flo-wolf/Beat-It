@@ -11,6 +11,7 @@ public class PlayerSegment : Segment {
     private Color defaultColor;
     private LineRenderer lr;
     private Color killColor;
+    private PolygonCollider2D collider;
 
     public static bool touchedKillDot = false;
 
@@ -19,6 +20,9 @@ public class PlayerSegment : Segment {
     {
         instance = this;
         Game.onGameStateChange.AddListener(GameStateChanged);
+
+        collider = GetComponent<PolygonCollider2D>();
+        collider.pathCount = 1;
 
         lr = GetComponent<LineRenderer>();
         if (lr != null)
@@ -68,6 +72,14 @@ public class PlayerSegment : Segment {
 
             lineRenderer.SetPosition(0, lineEnd);
             lineRenderer.SetPosition(1, lineStart);
+
+            Vector2[] colliderpoints = new Vector2[4];
+            colliderpoints[0] = lineEnd;
+            colliderpoints[1] = lineStart;
+            colliderpoints[2] = new Vector3(lineEnd.x + 0.01f, lineEnd.y + 0.01f, 0);
+            colliderpoints[3] = new Vector3(lineStart.x + 0.01f, lineStart.y + 0.01f, 0);
+            collider.points = colliderpoints;
+
         }
         else
         {

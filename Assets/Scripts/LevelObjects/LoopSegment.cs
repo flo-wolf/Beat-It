@@ -114,9 +114,10 @@ public class LoopSegment : Segment {
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Touched Segment");
+        Debug.Log("------- LoopSegment touched by " + collision.name);
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("------- LoopSegment touched by player");
             PlayerSegment.touchedKillDot = true;
             Player.allowMove = false;
             Game.SetState(Game.State.Death);

@@ -12,6 +12,7 @@ public class Rotator : LevelObject {
 
     private List<GridDot> surroundingDots = new List<GridDot>();
     private bool waitForRotation = false;
+    private bool nextDot = false;
 
 	void Start ()
     {
@@ -27,6 +28,7 @@ public class Rotator : LevelObject {
             // if are there dots that can be rotated around this rotator, rotate them
             if (rotators[currentRotator].Equals(this))
             {
+                nextDot = true;
                 if (FindSourroundingDots())
                 {
                     waitForRotation = true;
@@ -34,10 +36,16 @@ public class Rotator : LevelObject {
                 else Debug.LogError("Not able to rotate, because some sourrounding dots are not available!");
             }
         }
-        if(bpm.Equals(RythmManager.playerBPM) && waitForRotation)
+        if(bpm.Equals(RythmManager.playerBPM) && nextDot)
         {
-            waitForRotation = false;
-            RotateSurroundingDots(RythmManager.playerBPM.ToSecs());
+            nextDot = false;
+
+            if (waitForRotation)
+            {
+                waitForRotation = false;
+                RotateSurroundingDots(RythmManager.playerBPM.ToSecs());
+            }
+
             // play rotators in sequence if there are multiple than one in one level
             if (currentRotator + 1 < rotators.Count)
                 currentRotator++;
