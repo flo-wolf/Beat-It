@@ -67,7 +67,8 @@ public class Grid : MonoBehaviour
         return g;
     }
 
-    public static List<GridDot> GetSourroundingDots(GridDot dot)
+    // gather all six surrounding dots in CLOCKWISE ORDER, beginning top left.
+    public static List<GridDot> GetSurroundingDots(GridDot dot)
     {
         List<GridDot> hexDots = new List<GridDot>();
 
@@ -81,19 +82,21 @@ public class Grid : MonoBehaviour
             if (dot.row - 1 >= 0 && dot.column + 1 < instance.columns)
                 hexDots.Add(gridDots[dot.row - 1, dot.column + 1]);
 
-            // left dot
-            if (dot.column - 1 >= 0)
-                hexDots.Add(gridDots[dot.row, dot.column - 1]);
             // right dot
             if (dot.column + 1 < instance.columns)
                 hexDots.Add(gridDots[dot.row, dot.column + 1]);
 
-            // bot left dot
-            if (dot.row + 1 < instance.rows)
-                hexDots.Add(gridDots[dot.row + 1, dot.column]);
             // bot right dot
             if (dot.row + 1 < instance.rows && dot.column + 1 < instance.columns)
                 hexDots.Add(gridDots[dot.row + 1, dot.column + 1]);
+
+            // bot left dot
+            if (dot.row + 1 < instance.rows)
+                hexDots.Add(gridDots[dot.row + 1, dot.column]);
+
+            // left dot
+            if (dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row, dot.column - 1]);
         }
 
         // our row is even
@@ -105,20 +108,18 @@ public class Grid : MonoBehaviour
             // top right dot
             if (dot.row - 1 >= 0)
                 hexDots.Add(gridDots[dot.row - 1, dot.column]);
-
-            // left dot
-            if (dot.column - 1 >= 0)
-                hexDots.Add(gridDots[dot.row, dot.column - 1]);
             // right dot
             if (dot.column + 1 < instance.columns)
                 hexDots.Add(gridDots[dot.row, dot.column + 1]);
-
-            // bot left dot
-            if (dot.row + 1 < instance.rows && dot.column - 1 >= 0)
-                hexDots.Add(gridDots[dot.row + 1, dot.column - 1]);
             // bot right dot
             if (dot.row + 1 < instance.rows)
                 hexDots.Add(gridDots[dot.row + 1, dot.column]);
+            // bot left dot
+            if (dot.row + 1 < instance.rows && dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row + 1, dot.column - 1]);
+            // left dot
+            if (dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row, dot.column - 1]);
         }
 
         return hexDots;

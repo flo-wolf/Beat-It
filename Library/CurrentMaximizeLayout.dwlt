@@ -21,10 +21,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 926
-  m_MinSize: {x: 713, y: 492}
-  m_MaxSize: {x: 18008, y: 14042}
+  m_MinSize: {x: 711, y: 492}
+  m_MaxSize: {x: 18006, y: 14042}
   vertical: 0
-  controlID: 10924
+  controlID: 18511
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 321}
   m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 10975
+  controlID: 18512
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -182,9 +182,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -16.423447, y: 1.8720144, z: -0.017020408}
+    m_Target: {x: -5.868453, y: 4.0654755, z: 0.19140625}
     speed: 2
-    m_Value: {x: -16.423447, y: 1.8720144, z: -0.017020408}
+    m_Value: {x: -5.868453, y: 4.0654755, z: 0.19140625}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -216,9 +216,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 45.68997
+    m_Target: 24.908262
     speed: 2
-    m_Value: 45.68997
+    m_Value: 24.908262
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_AnimEditor: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -37934
+  m_LastSelectedObjectID: 5380
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 10925
+  controlID: 18432
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -410,10 +410,10 @@ MonoBehaviour:
     height: 445
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
-    scrollPos: {x: 0, y: 144}
-    m_SelectedIDs: ee110000
-    m_LastClickedID: 0
-    m_ExpandedIDs: eefbfffff0fbffff00000000cc130000d01300004e1400006c1400009e140000e0140000
+    scrollPos: {x: 0, y: 260}
+    m_SelectedIDs: 04150000
+    m_LastClickedID: 5380
+    m_ExpandedIDs: eefbfffff0fbffff00000000cc130000d01300004e1400006c1400009e140000ba140000c4140000e0140000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -455,8 +455,8 @@ MonoBehaviour:
     y: 466
     width: 499
     height: 460
-  m_MinSize: {x: 234, y: 271}
-  m_MaxSize: {x: 10004, y: 10021}
+  m_MinSize: {x: 230, y: 250}
+  m_MaxSize: {x: 10000, y: 10000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -499,19 +499,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs/LevelObjects
+    - Assets/Scripts/Editor
   m_ViewMode: 1
   m_StartGridSize: 81
   m_LastFolders:
-  - Assets/Prefabs/LevelObjects
+  - Assets/Scripts/Editor
   m_LastFoldersGridSize: 81
   m_LastProjectPath: D:\Google Drive\Studium\Spieltechnik\Semester 2\Loop
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 250}
-    m_SelectedIDs: 5e120000
-    m_LastClickedID: 4702
+    m_SelectedIDs: 34100000
+    m_LastClickedID: 4148
     m_ExpandedIDs: 00000000aa0c0000080f0000ee0f00007e10000094100000e0110000301200003c1200005e120000a412000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -565,8 +565,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: ee110000
-    m_LastClickedInstanceID: 4590
+    m_SelectedInstanceIDs: 04150000
+    m_LastClickedInstanceID: 5380
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: d832000000000000
     m_RenameOverlay:
@@ -592,7 +592,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 59}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 81
   m_DirectoriesAreaWidth: 125
 --- !u!114 &15

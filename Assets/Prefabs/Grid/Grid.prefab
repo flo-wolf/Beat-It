@@ -5059,6 +5059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  playerCanMoveOnto: 1
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
 --- !u!114 &114006076830967248
@@ -5409,6 +5410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  playerCanMoveOnto: 1
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
 --- !u!114 &114106019174634704
@@ -6169,6 +6171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  playerCanMoveOnto: 1
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
 --- !u!114 &114322348944908012
@@ -7040,6 +7043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  playerCanMoveOnto: 1
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
 --- !u!114 &114510094053730644
@@ -7384,6 +7388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  playerCanMoveOnto: 1
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
 --- !u!114 &114595350598077548
@@ -7914,6 +7919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 6
+  playerCanMoveOnto: 1
   gridDot: {fileID: 0}
   player: {fileID: 0}
 --- !u!114 &114736976219975156
@@ -8824,6 +8830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
+  playerCanMoveOnto: 1
   gridDot: {fileID: 0}
 --- !u!114 &114949056251464360
 MonoBehaviour:
