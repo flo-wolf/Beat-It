@@ -621,9 +621,9 @@ public class Player : MonoBehaviour {
             if (dot0 != null && dot1 != null)
             {
                 if (newestDot == DotType.Dot0)
-                    playerSegment.FillSegment(dot1.transform.position, dot0.transform.position);
+                    playerSegment.FillSegment(dot1.gridDot, dot0.gridDot);
                 else if (newestDot == DotType.Dot1)
-                    playerSegment.FillSegment(dot0.transform.position, dot1.transform.position);
+                    playerSegment.FillSegment(dot0.gridDot, dot1.gridDot);
             }
 
             //Instantiate(spawnEffect, newPlayerDot.transform.position, Quaternion.identity);

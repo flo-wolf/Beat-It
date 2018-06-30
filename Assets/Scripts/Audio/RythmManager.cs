@@ -21,6 +21,7 @@ public class RythmManager : MonoBehaviour {
     public BPM loopSegmentShootingRythm = BPM.bpm15h;
     public BPM animationRythm = BPM.bpm60;
     public BPM movingKillDotRythm = BPM.bpm60;
+    public BPM rotatorRythm = BPM.bpm15;
 
     // bpm references. Use these to compare the bpm type reported with the onBPM event
     public static BPMinfo playerBPM;
@@ -29,6 +30,7 @@ public class RythmManager : MonoBehaviour {
     public static BPMinfo loopSegmentShootingBPM;
     public static BPMinfo animationBPM;
     public static BPMinfo movingKillDotBPM;
+    public static BPMinfo rotatorBPM;
 
     void Start()
     {
@@ -41,6 +43,7 @@ public class RythmManager : MonoBehaviour {
         loopSegmentShootingBPM = new BPMinfo(loopSegmentShootingRythm);
         animationBPM = new BPMinfo(animationRythm);
         movingKillDotBPM = new BPMinfo(movingKillDotRythm);
+        rotatorBPM = new BPMinfo(rotatorRythm);
 
         // fill up the clock dictionary
         FillBPMclockDictionary();

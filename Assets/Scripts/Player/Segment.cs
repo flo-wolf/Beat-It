@@ -17,8 +17,8 @@ public class Segment : MonoBehaviour {
     public LineRenderer lineRenderer;
 
     // Segment drawing information provided by the Player Class on PlayerDot creation
-    public Vector2 startPoint = new Vector2();
-    public Vector2 endPoint = new Vector2();
+    public GridDot startDot = null;
+    public GridDot endDot = null;
 
     public float fillProgress = 0f;
 
@@ -26,11 +26,11 @@ public class Segment : MonoBehaviour {
     public enum State { NoDraw, Filling, Filled, Emptying, Shooting };
     public State state = State.NoDraw;
 
-    public void FillSegment(Vector2 start, Vector2 end)
+    public void FillSegment(GridDot start, GridDot end)
     {
         state = State.Filling;
-        startPoint = start;
-        endPoint = end;
+        startDot = start;
+        endDot = end;
         fillProgress = 0;
         StopCoroutine("EmptyCoroutine");
         StartCoroutine(FillCoroutine());
@@ -50,9 +50,9 @@ public class Segment : MonoBehaviour {
 
             if (switchDirection)
             {
-                Vector2 memory = startPoint;
-                startPoint = endPoint;
-                endPoint = memory;
+                GridDot memory = startDot;
+                startDot = endDot;
+                endDot = memory;
             }
 
             StopCoroutine("FillCoroutine");
@@ -61,11 +61,11 @@ public class Segment : MonoBehaviour {
     }
 
     // Loop Segment shooting
-    public void ShootSegment(Vector2 start, Vector2 end, float length, float duration)
+    public void ShootSegment(GridDot start, GridDot end, float length, float duration)
     {
         state = State.Shooting;
-        startPoint = start;
-        endPoint = end;
+        startDot = start;
+        endDot = end;
         fillProgress = 0;
         StopCoroutine("ShootCoroutine");
         StartCoroutine(ShootCoroutine(length, duration));

@@ -54,7 +54,7 @@ public class LoopSegment : Segment {
             currentLoopIndex = loop.GetPrevLoopDot(currentLoopIndex);
 
         nextDot = loop.loopDots[currentLoopIndex];
-        ShootSegment(currentDot.transform.position, nextDot.transform.position, segmentLength, RythmManager.playerBPM.ToSecs());
+        ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs());
     }
 
     IEnumerator ShootCoroutine(Vector3 start, Vector3 end, float duration)
@@ -83,17 +83,17 @@ public class LoopSegment : Segment {
 
             if (!segmentLengthPercent)
             {
-                fillProgressSegment = segmentLength / (endPoint - startPoint).magnitude;
+                fillProgressSegment = segmentLength / (endDot.transform.position - startDot.transform.position).magnitude;
             }
             else
             {
-                fillProgressSegment = (endPoint - startPoint).magnitude * segmentLength;
+                fillProgressSegment = (endDot.transform.position - startDot.transform.position).magnitude * segmentLength;
             }
             
             //Debug.Log("fillProgressSegment " + fillProgressSegment);
 
-            Vector2 lineStart = Vector2.Lerp(startPoint, endPoint, Mathf.Clamp(fillProgress-(fillProgressSegment-(fillProgressSegment*fillProgress)), 0 , 1));
-            Vector2 lineEnd = Vector2.Lerp(startPoint, endPoint, Mathf.Clamp(fillProgress, 0, 1));
+            Vector2 lineStart = Vector2.Lerp(startDot.transform.position, endDot.transform.position, Mathf.Clamp(fillProgress-(fillProgressSegment-(fillProgressSegment*fillProgress)), 0 , 1));
+            Vector2 lineEnd = Vector2.Lerp(startDot.transform.position, endDot.transform.position, Mathf.Clamp(fillProgress, 0, 1));
 
             lineRenderer.SetPosition(0, lineEnd);
             lineRenderer.SetPosition(1, lineStart);

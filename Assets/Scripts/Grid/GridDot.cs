@@ -80,7 +80,6 @@ public class GridDot : MonoBehaviour
     IEnumerator Fade(bool fadeIn)
     {
 
-        Debug.Log("fade");
         // size
         float size = 0f;
 
@@ -113,5 +112,12 @@ public class GridDot : MonoBehaviour
             yield return null;
         }
         yield return null;
+    }
+
+    public bool PlayerCanMoveOnto()
+    {
+        if (levelObject != null && !levelObject.playerCanMoveOnto)
+            return false;
+        return true;
     }
 }

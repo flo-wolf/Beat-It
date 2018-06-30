@@ -31,7 +31,7 @@ public class AddAnimation : MonoBehaviour
         keys[1] = new Keyframe(AnimationManager.instance.mid, AnimationManager.instance.midValue);
         keys[2] = new Keyframe(AnimationManager.instance.end, AnimationManager.instance.endValue);
 
-        Debug.Log(keys);
+        //Debug.Log(keys);
 
         curve = new AnimationCurve(keys);
 

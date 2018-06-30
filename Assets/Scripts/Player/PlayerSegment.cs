@@ -63,8 +63,8 @@ public class PlayerSegment : Segment {
         {
             lineRenderer.positionCount = 2;
 
-            Vector2 lineStart = startPoint;
-            Vector2 lineEnd = Vector2.Lerp(startPoint, endPoint, fillProgress);
+            Vector2 lineStart = startDot.transform.position;
+            Vector2 lineEnd = Vector2.Lerp(startDot.transform.position, endDot.transform.position, fillProgress);
 
             lineRenderer.SetPosition(0, lineEnd);
             lineRenderer.SetPosition(1, lineStart);

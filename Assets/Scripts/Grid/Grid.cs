@@ -67,6 +67,63 @@ public class Grid : MonoBehaviour
         return g;
     }
 
+    public static List<GridDot> GetSourroundingDots(GridDot dot)
+    {
+        List<GridDot> hexDots = new List<GridDot>();
+
+        // our row is uneven
+        if (dot.row % 2 == 0)
+        {
+            // top left dot
+            if (dot.row - 1 >= 0)
+                hexDots.Add(gridDots[dot.row - 1, dot.column]);
+            // top right dot
+            if (dot.row - 1 >= 0 && dot.column + 1 < instance.columns)
+                hexDots.Add(gridDots[dot.row - 1, dot.column + 1]);
+
+            // left dot
+            if (dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row, dot.column - 1]);
+            // right dot
+            if (dot.column + 1 < instance.columns)
+                hexDots.Add(gridDots[dot.row, dot.column + 1]);
+
+            // bot left dot
+            if (dot.row + 1 < instance.rows)
+                hexDots.Add(gridDots[dot.row + 1, dot.column]);
+            // bot right dot
+            if (dot.row + 1 < instance.rows && dot.column + 1 < instance.columns)
+                hexDots.Add(gridDots[dot.row + 1, dot.column + 1]);
+        }
+
+        // our row is even
+        else
+        {
+            // top left dot
+            if (dot.row - 1 >= 0 && dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row - 1, dot.column - 1]);
+            // top right dot
+            if (dot.row - 1 >= 0)
+                hexDots.Add(gridDots[dot.row - 1, dot.column]);
+
+            // left dot
+            if (dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row, dot.column - 1]);
+            // right dot
+            if (dot.column + 1 < instance.columns)
+                hexDots.Add(gridDots[dot.row, dot.column + 1]);
+
+            // bot left dot
+            if (dot.row + 1 < instance.rows && dot.column - 1 >= 0)
+                hexDots.Add(gridDots[dot.row + 1, dot.column - 1]);
+            // bot right dot
+            if (dot.row + 1 < instance.rows)
+                hexDots.Add(gridDots[dot.row + 1, dot.column]);
+        }
+
+        return hexDots;
+    }
+
     // get the nearest dot based on a normalized input (thumbstick to the right => closest active dot on the right)
 	public static GridDot GetNearestActiveDot(GridDot dot, Vector2 direction)
     {
@@ -192,7 +249,7 @@ public class Grid : MonoBehaviour
         foreach (GridDot d in hexDots)
         {
             // rule out all the dots that are not set to be active
-            if (d != null && d.active && d.gameObject.activeSelf)
+            if (d != null && d.active && d.gameObject.activeSelf && d.PlayerCanMoveOnto()) 
             {
                 // get distance between the sourrounding hexagon dot and our dot position plus the lookdirection
                 float l = (direction - (Vector2)d.transform.position).magnitude;

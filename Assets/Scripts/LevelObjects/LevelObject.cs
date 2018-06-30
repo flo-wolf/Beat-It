@@ -13,6 +13,8 @@ public class LevelObject : MonoBehaviour {
     [Header("LevelObject Settings")]
     public Type type = Type.Unset;
 
+    public bool playerCanMoveOnto = true;
+
     // the gridDot this object is tied to (aka placed ontop)
     [HideInInspector]
     public GridDot gridDot;
