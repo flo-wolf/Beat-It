@@ -23,15 +23,9 @@ public class Rotator : LevelObject {
     {
         if (bpm.Equals(RythmManager.rotatorBPM))
         {
-            // play rotators in sequence if there are multiple than one in one level
-            if (currentRotator + 1 <= rotators.Count - 1)
-                currentRotator++;
-            else
-                currentRotator = 0;
-
             Debug.Log("Ratoator bpm");
             // if are there dots that can be rotated around this rotator, rotate them
-            if (rotators[currentRotator] == this)
+            if (rotators[currentRotator].Equals(this))
             {
                 if (FindSourroundingDots())
                 {
@@ -44,6 +38,11 @@ public class Rotator : LevelObject {
         {
             waitForRotation = false;
             RotateSurroundingDots(RythmManager.playerBPM.ToSecs());
+            // play rotators in sequence if there are multiple than one in one level
+            if (currentRotator + 1 < rotators.Count)
+                currentRotator++;
+            else
+                currentRotator = 0;
         }
     }
 
