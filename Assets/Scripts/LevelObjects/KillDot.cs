@@ -7,10 +7,14 @@ public class KillDot : LevelObject {
     [HideInInspector]
     public ParticleSystem killFeedback;
 
+    private Animation deathAnim;
+
     bool kill = false;
 
     private void Start()
     {
+        Game.onGameStateChange.AddListener(OnGameStateChange);
+        deathAnim = GetComponent<Animation>();
         killFeedback = GetComponent<ParticleSystem>();
         RythmManager.onBPM.AddListener(OnRythmCount);
     }
@@ -25,7 +29,16 @@ public class KillDot : LevelObject {
             Player.allowMove = false;
             Game.SetState(Game.State.Death);
 
+            deathAnim.Play();
             killFeedback.Play();
+        }
+    }
+
+    public void OnGameStateChange(Game.State state)
+    {
+        if(state == Game.State.Playing)
+        {
+            deathAnim.clip.SampleAnimation(gameObject, 0);
         }
     }
 

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 58191485539641248}
   - component: {fileID: 198736821188059610}
   - component: {fileID: 199372052582733254}
+  - component: {fileID: 111161868970390678}
   m_Layer: 0
   m_Name: Kill Dot
   m_TagString: LevelObject
@@ -41,7 +42,7 @@ GameObject:
   - component: {fileID: 4382373089592556}
   - component: {fileID: 212747817129019154}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Inner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,6 +90,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!111 &111161868970390678
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247184371975134}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: d8a3077dbd78840419e4b416ee9a03df, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: d8a3077dbd78840419e4b416ee9a03df, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114029131059231142
 MonoBehaviour:
   m_ObjectHideFlags: 1
