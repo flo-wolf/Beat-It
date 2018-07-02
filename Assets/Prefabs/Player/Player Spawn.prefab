@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
+  playerCanMoveOnto: 1
   gridDot: {fileID: 0}
 --- !u!198 &198448179826526378
 ParticleSystem:
@@ -258,7 +259,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.9490196, b: 1, a: 1}
+      maxColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

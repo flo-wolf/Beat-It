@@ -56,6 +56,7 @@ MonoBehaviour:
   playerCanMoveOnto: 0
   gridDot: {fileID: 0}
   pullPercentage: 0.5
+  rotateRight: 0
 --- !u!212 &212837835312144232
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c447e54ced13c264d8b02cd32a84b8e2, type: 2}
+  - {fileID: 2100000, guid: ac82b1711fd0b16499638cde17de537a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

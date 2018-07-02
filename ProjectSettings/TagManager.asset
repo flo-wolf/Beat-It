@@ -67,3 +67,6 @@ TagManager:
   - name: KillDots
     uniqueID: 3306532739
     locked: 0
+  - name: LoopDot
+    uniqueID: 2221007371
+    locked: 0

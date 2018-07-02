@@ -73,12 +73,13 @@ MonoBehaviour:
   fillTime: 0.5
   emptyTime: 0.5
   lineRenderer: {fileID: 120602161842801566}
-  startPoint: {x: 0, y: 0}
-  endPoint: {x: 0, y: 0}
+  startDot: {fileID: 0}
+  endDot: {fileID: 0}
   fillProgress: 0
   state: 0
-  segmentLength: 7
+  segmentLength: 25
   segmentLengthPercent: 0
+  delayOneBeat: 0
   loop: {fileID: 0}
   currentLoopIndex: 0
   moveUpLoopList: 1
@@ -114,15 +115,15 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1484489375
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.5
+    widthMultiplier: 0.25
     widthCurve:
       serializedVersion: 2
       m_Curve:
