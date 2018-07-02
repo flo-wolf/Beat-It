@@ -6031,8 +6031,9 @@ MonoBehaviour:
   endDot: {fileID: 0}
   fillProgress: 0
   state: 0
-  segmentLength: 7
+  segmentLength: 12
   segmentLengthPercent: 0
+  delayOneBeat: 1
   loop: {fileID: 323989021}
   currentLoopIndex: 0
   moveUpLoopList: 1
@@ -17869,6 +17870,11 @@ Prefab:
     - target: {fileID: 114127080936210518, guid: 7373e18165b15f4418f06d3deae8dd71,
         type: 2}
       propertyPath: rotateRight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114127080936210518, guid: 7373e18165b15f4418f06d3deae8dd71,
+        type: 2}
+      propertyPath: playerCanMoveOnto
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

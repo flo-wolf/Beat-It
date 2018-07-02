@@ -7,6 +7,9 @@ public class LoopSegment : Segment {
     public float segmentLength = 5f;
     public bool segmentLengthPercent = false;
 
+    public bool delayOneBeat = false;
+    private bool beatDelayed = true;
+
     public Loop loop = null;
     public int currentLoopIndex= 0;
     public bool moveUpLoopList = true; // 0,1,2,3 if true, 0,3,2,1 if false
@@ -14,6 +17,7 @@ public class LoopSegment : Segment {
     private EdgeCollider2D collider;
 
     private LoopDot nextDot = null;
+
 
 	// Use this for initialization
 	void Start ()
@@ -29,16 +33,21 @@ public class LoopSegment : Segment {
             if ( (bpm.Equals(RythmManager.playerBPM) && !loop.offBeat)
                 || (bpm.Equals(BPMinfo.ToHalf(RythmManager.playerBPM)) && loop.offBeat))
             {
-                if (loop.skipEverySecondBeat && !loop.skippedThisBeat)
+                if((delayOneBeat && !beatDelayed) || !delayOneBeat)
                 {
-                    if (nextDot != null)
+                    if (loop.skipEverySecondBeat && !loop.skippedThisBeat)
                     {
-                        nextDot.SegmentRecieved();
-                        AudioManager.instance.Play("HiHat");
+                        if (nextDot != null)
+                        {
+                            nextDot.SegmentRecieved();
+                            AudioManager.instance.Play("HiHat");
+                        }
+                        MoveToNextLoopDot();
                     }
-                    MoveToNextLoopDot();
+                    loop.skippedThisBeat = !loop.skippedThisBeat;
+                    beatDelayed = false;
                 }
-                loop.skippedThisBeat = !loop.skippedThisBeat;
+                beatDelayed = !beatDelayed;
             }
         }
     }
@@ -54,7 +63,8 @@ public class LoopSegment : Segment {
             currentLoopIndex = loop.GetPrevLoopDot(currentLoopIndex);
 
         nextDot = loop.loopDots[currentLoopIndex];
-        ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs());
+
+        ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs()/2);
     }
 
     IEnumerator ShootCoroutine(Vector3 start, Vector3 end, float duration)
