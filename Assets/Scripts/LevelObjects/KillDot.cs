@@ -29,14 +29,15 @@ public class KillDot : LevelObject {
             Player.allowMove = false;
             Game.SetState(Game.State.Death);
 
-            deathAnim.Play();
+            if(deathAnim != null)
+                deathAnim.Play();
             killFeedback.Play();
         }
     }
 
     public void OnGameStateChange(Game.State state)
     {
-        if(state == Game.State.Playing)
+        if(state == Game.State.Playing && deathAnim != null)
         {
             deathAnim.clip.SampleAnimation(gameObject, 0);
         }

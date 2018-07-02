@@ -35,7 +35,7 @@ MonoBehaviour:
     staticPattern: {fileID: 2800000, guid: 7452eff367e0a4149afd455a45fc9601, type: 3}
     staticMagnitude: 0.053
     staticScale: 1
-    staticOffset: 29.088121
+    staticOffset: 4.540056
     staticOffsetX: 0
     dirtPattern: {fileID: 2800000, guid: df0ffcc7ed4d822408d84a34b9d048e0, type: 3}
     dirtMagnitude: 0.13
@@ -61,11 +61,11 @@ MonoBehaviour:
     _enabled: 1
     pattern: {fileID: 2800000, guid: a1dbf24ae6b15204d865e07f735d09aa, type: 3}
     lineCount: 180
-    magnetude: 0.119
+    magnetude: 0.08
   _tubeFilter:
     _foldout: 1
     _material: {fileID: 0}
-    _enabled: 1
+    _enabled: 0
     maskPattern: {fileID: 2800000, guid: 508915631f31d1541821df47a2c2a715, type: 3}
     reflexPattern: {fileID: 0}
     distortionMagnitude: 0.158

@@ -548,7 +548,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.64705884, b: 0.15294118, a: 1}
+      maxColor: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1628,8 +1628,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.40784314, b: 0.15294118, a: 1}
-        key1: {r: 1, g: 0.40784314, b: 0.15294118, a: 1}
+        key0: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
+        key1: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5503,7 +5503,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.64705884, b: 0.15294118, a: 1}
+      maxColor: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -6583,8 +6583,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.40784314, b: 0.15294118, a: 1}
-        key1: {r: 1, g: 0.40784314, b: 0.15294118, a: 1}
+        key0: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
+        key1: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -11320,7 +11320,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.64705884, b: 0.15294118, a: 1}
+      maxColor: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -12400,8 +12400,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.40784314, b: 0.15294118, a: 1}
-        key1: {r: 1, g: 0.40784314, b: 0.15294118, a: 1}
+        key0: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
+        key1: {r: 1, g: 0.15294118, b: 0.21176471, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -16573,26 +16573,6 @@ MonoBehaviour:
   row: 6
   column: 3
   active: 1
---- !u!1 &1041309753 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1247184371975134, guid: a8103e2a69a54314ab0521e6b90f3d3c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1549066124}
---- !u!111 &1041309754
-Animation:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1041309753}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: d8a3077dbd78840419e4b416ee9a03df, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: d8a3077dbd78840419e4b416ee9a03df, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &1116735327
 GameObject:
   m_ObjectHideFlags: 0
@@ -17494,6 +17474,56 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: SizeModule.curve.scalar
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1da0df1505caae4882c547d31278831, type: 2}
   m_IsPrefabParent: 0
@@ -18122,10 +18152,6 @@ Prefab:
     - target: {fileID: 4160883663687138, guid: a8103e2a69a54314ab0521e6b90f3d3c, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1396205958448196, guid: a8103e2a69a54314ab0521e6b90f3d3c, type: 2}
-      propertyPath: m_Name
-      value: Inner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8103e2a69a54314ab0521e6b90f3d3c, type: 2}
