@@ -181,9 +181,7 @@ public class MovingKillDotHandler : MonoBehaviour {
 
         newDot = newMovingKillDot;
 
-        Instantiate(oldFeedback, newDot.transform.position, Quaternion.identity);
-
-        //Debug.Log("NewDot: " + newDot.transform.position);
+        //Instantiate(oldFeedback, newDot.transform.position, Quaternion.identity);
     }
 
     void DestroyOldMovingKillDot()
