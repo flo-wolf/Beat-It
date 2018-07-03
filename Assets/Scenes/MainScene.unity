@@ -18538,6 +18538,7 @@ MonoBehaviour:
   offBeat: 0
   skipEverySecondBeat: 1
   skippedThisBeat: 0
+  seperateShootSuck: 1
   loopDots:
   - {fileID: 30671250}
   - {fileID: 621985617}

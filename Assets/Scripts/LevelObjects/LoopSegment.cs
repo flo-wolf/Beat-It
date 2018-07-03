@@ -64,7 +64,10 @@ public class LoopSegment : Segment {
 
         nextDot = loop.loopDots[currentLoopIndex];
 
-        ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs()/2);
+        if(!loop.seperateShootSuck)
+            ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs()/2);
+        else
+            ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs() * 2);
     }
 
     IEnumerator ShootCoroutine(Vector3 start, Vector3 end, float duration)

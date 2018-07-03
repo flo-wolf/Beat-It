@@ -12,6 +12,8 @@ public class Loop : MonoBehaviour {
     [HideInInspector]
     public bool skippedThisBeat = false;
 
+    public bool seperateShootSuck = false;
+
     [Reorderable]
     public List<LoopDot> loopDots = new List<LoopDot>();
     public List<LoopSegment> segments = new List<LoopSegment>();
