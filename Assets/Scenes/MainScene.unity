@@ -369,7 +369,7 @@ ParticleSystem:
   m_GameObject: {fileID: 30671243}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 1.5
   stopAction: 0
   looping: 0
   prewarm: 0
@@ -5324,7 +5324,7 @@ ParticleSystem:
   m_GameObject: {fileID: 159298608}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 1.5
   stopAction: 0
   looping: 0
   prewarm: 0
@@ -11134,7 +11134,7 @@ ParticleSystem:
   m_GameObject: {fileID: 621985610}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 1.5
   stopAction: 0
   looping: 0
   prewarm: 0
@@ -17372,6 +17372,11 @@ Prefab:
     - target: {fileID: 4795498839215952, guid: b1da0df1505caae4882c547d31278831, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198112350312890482, guid: b1da0df1505caae4882c547d31278831,
+        type: 2}
+      propertyPath: simulationSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1da0df1505caae4882c547d31278831, type: 2}

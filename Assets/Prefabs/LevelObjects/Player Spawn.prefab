@@ -111,7 +111,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1198487069357628}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 1.5
   stopAction: 0
   looping: 0
   prewarm: 0
