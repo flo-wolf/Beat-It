@@ -12,6 +12,7 @@ TagManager:
   - PlayerSpawn
   - PlayerGoal
   - NonGridContainer
+  - Teleporter
   layers:
   - Default
   - TransparentFX
@@ -51,6 +52,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2472060709
+    locked: 0
+  - name: PlayerGoal
+    uniqueID: 3895347539
     locked: 0
   - name: PlayerBall
     uniqueID: 1525222283
