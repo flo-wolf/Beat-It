@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4861562182422764}
   - component: {fileID: 212613752252720186}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: InnerBlackRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4480202773274720}
   - component: {fileID: 212521664259842018}
   m_Layer: 0
-  m_Name: Filling
+  m_Name: OutterWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4826434652604904}
   - component: {fileID: 212292697242808686}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: InnerWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,7 +350,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.9490196, b: 1, a: 1}
+      maxColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1102,7 +1102,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 2
+      scalar: 4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1430,8 +1430,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.9490196, b: 1, a: 1}
-        key1: {r: 0, g: 0.9490196, b: 1, a: 1}
+        key0: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+        key1: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
