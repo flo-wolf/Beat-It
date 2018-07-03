@@ -8,13 +8,14 @@ public class GridDot : MonoBehaviour
     public Material materialActive;
     public Material materialDeactive;
     private SpriteRenderer sr;
+    private Animation anim;
 
     public int row = 0;
     public int column = 0;
 
     public bool active = true;
 
-    private float defaultSize;
+    private float defaultSize = 0.5f;
 
     // the object attached to our dot, oqupying it (player or levelobject)
     private LevelObject m_levelObj;
@@ -32,9 +33,10 @@ public class GridDot : MonoBehaviour
 
     void Start()
     {
-        defaultSize = transform.localScale.x;
+        anim = GetComponent<Animation>();
         FindLevelObjectChildren();
         AdjustMaterial();
+        transform.localScale = Vector3.zero;
     }
 
     void FindLevelObjectChildren()
@@ -66,10 +68,18 @@ public class GridDot : MonoBehaviour
         switch (state)
         {
             case Game.State.LevelFadein:
+                if (anim)
+                    anim.Stop();
                 StartCoroutine(Fade(true));
                 break;
-            case Game.State.LevelFadeout:
+            case Game.State.RestartFade:
+                if (anim)
+                    anim.Stop();
                 StartCoroutine(Fade(false));
+                break;
+            case Game.State.Playing:
+                if (anim)
+                    anim.Play();
                 break;
             default:
                 break;
@@ -79,35 +89,37 @@ public class GridDot : MonoBehaviour
     /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
     IEnumerator Fade(bool fadeIn)
     {
-
+        Debug.Log("Fade Dots: " + fadeIn);
         // size
-        float size = 0f;
-
+        
         // color
         Color c = sr.color;
+        float startSize = transform.localScale.x;
+        float size = startSize;
+
 
         float elapsedTime = 0f;
-        float dur = Game.instance.levelSwitchDuration;
+        float dur = RythmManager.playerBPM.ToSecs();
         while (elapsedTime <= dur)
         {
             elapsedTime += Time.deltaTime;
-            if (fadeIn && size != defaultSize)
+            if (fadeIn)
             {
                 size = Mathf.SmoothStep(0, defaultSize, (elapsedTime / dur));
                 transform.localScale = new Vector3(size, size, size);
 
-                c.a = Mathf.SmoothStep(0, 1, (elapsedTime / dur));
-                sr.color = c;
+                //c.a = Mathf.SmoothStep(0, 1, (elapsedTime / dur));
+                //sr.color = c;
 
             }
 
-            else if (!fadeIn && size != 0)
+            else
             {
-                size = Mathf.SmoothStep(defaultSize, 0, (elapsedTime / dur));
+                size = Mathf.SmoothStep(startSize, 0, (elapsedTime / dur));
                 transform.localScale = new Vector3(size, size, size);
 
-                c.a = Mathf.SmoothStep(1, 0, (elapsedTime / dur));
-                sr.color = c;
+                //c.a = Mathf.SmoothStep(1, 0, (elapsedTime / dur));
+                //sr.color = c;
             }
             yield return null;
         }

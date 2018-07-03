@@ -7,6 +7,8 @@ using System.Collections;
 
 public class InputDeviceDetector : MonoBehaviour
 {
+    InputDeviceDetector instance = null;
+
     public enum InputType
     {
         MouseKeyboard,
@@ -18,6 +20,16 @@ public class InputDeviceDetector : MonoBehaviour
     // Unity member methods    //
     //*************************//
 
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
 
     private void Start()
     {

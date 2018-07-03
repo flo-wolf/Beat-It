@@ -48,7 +48,7 @@ public class AddAnimation : MonoBehaviour
 
     void OnRythmAnimate(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.animationBPM))
+        if (bpm.Equals(RythmManager.animationBPM) && Game.state == Game.State.Playing)
         {
             PlayAnimation();
         }

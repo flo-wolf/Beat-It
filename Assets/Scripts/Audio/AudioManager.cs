@@ -17,16 +17,14 @@ public class AudioManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
+            //We dont want our AudioManager to be destroyed in case we switch scenes.
+            DontDestroyOnLoad(gameObject);
         }
 
         else
         {
             Destroy(gameObject);
         }
-
-
-        //We dont want our AudioManager to be destroyed in case we switch scenes.
-        DontDestroyOnLoad(gameObject);
 
         //Each instance of our Sound class will now get a AudioSource that is stored in the variable "source", we defined in our Sound class
         //We then set the diffrent variables of our Sound class equals to the variables the AudioClip brings with it.

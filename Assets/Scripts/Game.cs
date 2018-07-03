@@ -9,26 +9,34 @@ public class Game : MonoBehaviour {
 
     public static Game instance;
 
-    public float levelSwitchDuration = 1f;
+    public static float levelSwitchDuration = 1f;
     public float timeStepDuration = 0.5f;
 
     private static float timestep = 0f;
-    public static int level = 1;
+
+    // level management
+    public static int level = 0;
+    public List<string> levels = new List<string>();
 
     // gamestate
-    public enum State { LevelFadein, Playing, Death, LevelFadeout }
-    public static State state = State.LevelFadein;
+    public enum State { LevelFadein, Playing, Death, NextLevelFade, RestartFade, None }
+    public static State state = State.None;
 
     public static GameStateChangeEvent onGameStateChange = new GameStateChangeEvent();
 
     void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 
     void Start()
     {
-        SetState(State.LevelFadein);
         StartCoroutine(LevelFadeTimer(true));
     }
 
@@ -39,19 +47,46 @@ public class Game : MonoBehaviour {
         onGameStateChange.Invoke(state);
         if (newState == State.Death)
         {
-            SetState(State.LevelFadeout);
+            SetState(State.RestartFade);
         }
-        else if(newState == State.LevelFadeout)
+        else if(newState == State.RestartFade)
         {
-            Debug.Log("LevelFadeOut");
-            instance.StartCoroutine(instance.LevelFadeTimer(false));
+            Debug.Log("RestartFade");
+            instance.StartCoroutine(instance.C_Restart());
         }
+        else if (newState == State.NextLevelFade)
+        {
+            Debug.Log("RestartFade");
+            instance.StartCoroutine(instance.C_NextLevel());
+        }
+    }
+
+    public IEnumerator C_Restart()
+    {
+        Debug.Log("Restart the level");
+
+        yield return new WaitForSeconds(levelSwitchDuration*1);
+        SetState(State.LevelFadein);
+        yield return new WaitForSeconds(levelSwitchDuration/2);
+        SetState(State.Playing);
+        yield return null;
+    }
+
+    public IEnumerator C_NextLevel()
+    {
+        Debug.Log("Restart the level");
+
+        yield return new WaitForSeconds(levelSwitchDuration);
+        SetState(State.Playing);
+        yield return new WaitForSeconds(levelSwitchDuration);
+        SetState(State.Playing);
+        yield return null;
     }
 
     // sets the state after the fadein fadeout
     IEnumerator LevelFadeTimer(bool fadeIn)
     {
-        Debug.Log("LevelFadeeTimer");
+        SetState(State.LevelFadein);
         if (fadeIn)
         {
             yield return new WaitForSeconds(levelSwitchDuration);

@@ -32,9 +32,14 @@ public class RythmManager : MonoBehaviour {
     public static BPMinfo movingKillDotBPM;
     public static BPMinfo rotatorBPM;
 
-    void Start()
+    void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+            Destroy(gameObject);
 
         // set the static references based on the inspector public settings (workaround to public BPMinfo not showing up)
         playerBPM = new BPMinfo(playerRythm);
