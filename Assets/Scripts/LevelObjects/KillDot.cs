@@ -31,6 +31,7 @@ public class KillDot : LevelObject {
 
             if(deathAnim != null)
                 deathAnim.Play();
+
             killFeedback.Play();
         }
     }

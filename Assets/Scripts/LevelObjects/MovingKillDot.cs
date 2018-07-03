@@ -16,7 +16,7 @@ public class MovingKillDot : LevelObject {
 
     ParticleSystem killFeedback;
 
-    bool kill = false;
+    private Animation deathAnim;
 
     private void Start()
     {
@@ -24,6 +24,8 @@ public class MovingKillDot : LevelObject {
         StartCoroutine(Fade(true));
 
         killFeedback = GetComponent<ParticleSystem>();
+
+        deathAnim = GetComponentInChildren<Animation>();
     }
 
     public void Remove()
@@ -35,6 +37,16 @@ public class MovingKillDot : LevelObject {
     public void PlayParticleSystem()
     {
         killFeedback.Play();
+    }
+
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (deathAnim != null)
+                deathAnim.Play("MovingKillDotDeathFast");
+        }
     }
 
     IEnumerator Fade(bool fadeIn)
