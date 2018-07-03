@@ -7,12 +7,17 @@ public class Loop : MonoBehaviour {
 
     public static int totalLoopsCounter = 0;
 
-    public bool offBeat = false;
+    public bool offBeat = false; 
     public bool skipEverySecondBeat = true;
     [HideInInspector]
     public bool skippedThisBeat = false;
 
     public bool seperateShootSuck = false;
+
+
+    public bool delayOneBeat = false;
+    [HideInInspector]
+    public bool beatDelayed = true;
 
     [Reorderable]
     public List<LoopDot> loopDots = new List<LoopDot>();

@@ -8,7 +8,6 @@ using UnityEngine;
  * */
 public class Segment : MonoBehaviour {
 
-
     [Header("Settings")]
     public float fillTime = 0.5f;
     public float emptyTime = 0.5f;
@@ -26,17 +25,17 @@ public class Segment : MonoBehaviour {
     public enum State { NoDraw, Filling, Filled, Emptying, Shooting };
     public State state = State.NoDraw;
 
-    public void FillSegment(GridDot start, GridDot end)
+    public void FillSegment(GridDot start, GridDot end, float duration)
     {
         state = State.Filling;
         startDot = start;
         endDot = end;
         fillProgress = 0;
         StopCoroutine("EmptyCoroutine");
-        StartCoroutine(FillCoroutine());
+        StartCoroutine(FillCoroutine(duration));
     }
 
-    public void EmptySegment(bool switchDirection)
+    public void EmptySegment(bool switchDirection, float duration)
     {
         Debug.Log("EmptySegment " + PlayerSegment.touchedKillDot);
         if (PlayerSegment.touchedKillDot)
@@ -56,7 +55,7 @@ public class Segment : MonoBehaviour {
             }
 
             StopCoroutine("FillCoroutine");
-            StartCoroutine(EmptyCoroutine());
+            StartCoroutine(EmptyCoroutine(duration));
         }
     }
 
@@ -88,12 +87,12 @@ public class Segment : MonoBehaviour {
     }
 
     // interpolates the progress of the segment i order to fill it
-    IEnumerator FillCoroutine()
+    IEnumerator FillCoroutine(float duration)
     {
         float elapsedTime = 0f;
         float startFill = fillProgress;
 
-        while (elapsedTime <= fillTime && state == State.Filling)
+        while (elapsedTime <= duration && state == State.Filling)
         {
             fillProgress = Mathf.SmoothStep(startFill, 1, (elapsedTime / fillTime));
             elapsedTime += Time.deltaTime;
@@ -106,12 +105,12 @@ public class Segment : MonoBehaviour {
     }
 
     // interpolates the progress of the segment in order to empty it
-    IEnumerator EmptyCoroutine()
+    IEnumerator EmptyCoroutine(float duration)
     {
         float elapsedTime = 0f;
         float startFill = fillProgress;
 
-        while (elapsedTime <= emptyTime && state == State.Emptying)
+        while (elapsedTime <= duration && state == State.Emptying)
         {
             fillProgress = Mathf.SmoothStep(startFill, 0, (elapsedTime / emptyTime));
             elapsedTime += Time.deltaTime;

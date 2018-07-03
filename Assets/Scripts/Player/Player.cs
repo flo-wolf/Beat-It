@@ -621,11 +621,10 @@ public class Player : MonoBehaviour {
             if (dot0 != null && dot1 != null)
             {
                 if (newestDot == DotType.Dot0)
-                    playerSegment.FillSegment(dot1.gridDot, dot0.gridDot);
+                    playerSegment.FillSegment(dot1.gridDot, dot0.gridDot, playerSegment.fillTime);
                 else if (newestDot == DotType.Dot1)
-                    playerSegment.FillSegment(dot0.gridDot, dot1.gridDot);
+                    playerSegment.FillSegment(dot0.gridDot, dot1.gridDot, playerSegment.fillTime);
             }
-
             //Instantiate(spawnEffect, newPlayerDot.transform.position, Quaternion.identity);
         }
 
@@ -678,7 +677,7 @@ public class Player : MonoBehaviour {
         }
 
         // empty the segment in between those two dots
-        playerSegment.EmptySegment(switchSegmentDirection);
+        playerSegment.EmptySegment(switchSegmentDirection, playerSegment.emptyTime);
     }
 
     public void Death()

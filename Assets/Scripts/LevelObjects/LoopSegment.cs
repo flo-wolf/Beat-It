@@ -7,22 +7,22 @@ public class LoopSegment : Segment {
     public float segmentLength = 5f;
     public bool segmentLengthPercent = false;
 
-    public bool delayOneBeat = false;
-    private bool beatDelayed = true;
-
     public Loop loop = null;
     public int currentLoopIndex= 0;
     public bool moveUpLoopList = true; // 0,1,2,3 if true, 0,3,2,1 if false
 
-    private EdgeCollider2D collider;
+    private EdgeCollider2D colliderEdge;
 
     private LoopDot nextDot = null;
+
+    // In case loop.seperateShotSuck == true: was the segment shot out? if so, suck it in.
+    private bool segmentShot = false;
 
 
 	// Use this for initialization
 	void Start ()
     {
-        collider = GetComponent<EdgeCollider2D>();
+        colliderEdge = GetComponent<EdgeCollider2D>();
         RythmManager.onBPM.AddListener(OnBPM);
 	}
 
@@ -33,9 +33,9 @@ public class LoopSegment : Segment {
             if ( (bpm.Equals(RythmManager.playerBPM) && !loop.offBeat)
                 || (bpm.Equals(BPMinfo.ToHalf(RythmManager.playerBPM)) && loop.offBeat))
             {
-                if((delayOneBeat && !beatDelayed) || !delayOneBeat)
+                if((loop.delayOneBeat && !loop.beatDelayed) || !loop.delayOneBeat)
                 {
-                    if (loop.skipEverySecondBeat && !loop.skippedThisBeat)
+                    if ((loop.skipEverySecondBeat && !loop.skippedThisBeat) || (loop.seperateShootSuck && segmentShot))
                     {
                         if (nextDot != null)
                         {
@@ -45,29 +45,52 @@ public class LoopSegment : Segment {
                         MoveToNextLoopDot();
                     }
                     loop.skippedThisBeat = !loop.skippedThisBeat;
-                    beatDelayed = false;
+                    loop.beatDelayed = false;
                 }
-                beatDelayed = !beatDelayed;
+                loop.beatDelayed = !loop.beatDelayed;
             }
         }
     }
 
     private void MoveToNextLoopDot()
     {
-        LoopDot currentDot = loop.loopDots[currentLoopIndex];
+        if (!loop.seperateShootSuck)
+        {
+            LoopDot currentDot = loop.loopDots[currentLoopIndex];
 
-        nextDot = null;
-        if (moveUpLoopList)
-            currentLoopIndex = loop.GetNextLoopDot(currentLoopIndex);
+            nextDot = null;
+            if (moveUpLoopList)
+                currentLoopIndex = loop.GetNextLoopDot(currentLoopIndex);
+            else
+                currentLoopIndex = loop.GetPrevLoopDot(currentLoopIndex);
+            nextDot = loop.loopDots[currentLoopIndex];
+
+            ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs() / 2);
+        }
         else
-            currentLoopIndex = loop.GetPrevLoopDot(currentLoopIndex);
+        {
+            //ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs() * 2);
+            if (!segmentShot)
+            {
+                LoopDot currentDot = loop.loopDots[currentLoopIndex];
 
-        nextDot = loop.loopDots[currentLoopIndex];
+                nextDot = null;
+                if (moveUpLoopList)
+                    currentLoopIndex = loop.GetNextLoopDot(currentLoopIndex);
+                else
+                    currentLoopIndex = loop.GetPrevLoopDot(currentLoopIndex);
+                nextDot = loop.loopDots[currentLoopIndex];
 
-        if(!loop.seperateShootSuck)
-            ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs()/2);
-        else
-            ShootSegment(currentDot.gridDot, nextDot.gridDot, segmentLength, RythmManager.playerBPM.ToSecs() * 2);
+                FillSegment(currentDot.gridDot, nextDot.gridDot, RythmManager.playerBPM.ToSecs());
+                segmentShot = true;
+            }
+            else
+            {
+                EmptySegment(true, RythmManager.playerBPM.ToSecs());
+                segmentShot = false;
+            } 
+        }
+            
     }
 
     IEnumerator ShootCoroutine(Vector3 start, Vector3 end, float duration)
@@ -90,34 +113,43 @@ public class LoopSegment : Segment {
     {
         if (state != State.NoDraw)
         {
+            Vector2 lineStart = new Vector2();
+            Vector2 lineEnd = new Vector2();
             lineRenderer.positionCount = 2;
 
-            float fillProgressSegment = 0f;
-
-            if (!segmentLengthPercent)
+            // hoot a segment with a fixed length
+            if (!loop.seperateShootSuck)
             {
-                fillProgressSegment = segmentLength / (endDot.transform.position - startDot.transform.position).magnitude;
+                float fillProgressSegment = 0f;
+
+                if (!segmentLengthPercent)
+                {
+                    fillProgressSegment = segmentLength / (endDot.transform.position - startDot.transform.position).magnitude;
+                }
+                else
+                {
+                    fillProgressSegment = (endDot.transform.position - startDot.transform.position).magnitude * segmentLength;
+                }
+
+                lineStart = Vector2.Lerp(startDot.transform.position, endDot.transform.position, Mathf.Clamp(fillProgress - (fillProgressSegment - (fillProgressSegment * fillProgress)), 0, 1));
+                lineEnd = Vector2.Lerp(startDot.transform.position, endDot.transform.position, Mathf.Clamp(fillProgress, 0, 1));
             }
+
+            // shoot a segment that fills the whole area between the start and enddot, then let it suck back in
             else
             {
-                fillProgressSegment = (endDot.transform.position - startDot.transform.position).magnitude * segmentLength;
+                lineStart = startDot.transform.position;
+                lineEnd = Vector2.Lerp(startDot.transform.position, endDot.transform.position, fillProgress);
             }
-            
-            //Debug.Log("fillProgressSegment " + fillProgressSegment);
-
-            Vector2 lineStart = Vector2.Lerp(startDot.transform.position, endDot.transform.position, Mathf.Clamp(fillProgress-(fillProgressSegment-(fillProgressSegment*fillProgress)), 0 , 1));
-            Vector2 lineEnd = Vector2.Lerp(startDot.transform.position, endDot.transform.position, Mathf.Clamp(fillProgress, 0, 1));
 
             lineRenderer.SetPosition(0, lineEnd);
             lineRenderer.SetPosition(1, lineStart);
 
             Vector2[] colliderpoints;
-            colliderpoints = collider.points;
+            colliderpoints = colliderEdge.points;
             colliderpoints[0] = lineEnd;
             colliderpoints[1] = lineStart;
-            collider.points = colliderpoints;
-
-            
+            colliderEdge.points = colliderpoints;
         }
         else
         {
