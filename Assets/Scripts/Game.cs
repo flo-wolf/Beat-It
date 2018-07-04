@@ -53,21 +53,27 @@ public class Game : MonoBehaviour {
         Debug.Log("newState: " + newState);
         state = newState;
         onGameStateChange.Invoke(state);
-        if (newState == State.Death)
-        {
-            if (!Player.deathBySegment)
+        if (newState == State.Death) { 
+
+            if (!Player.deathByMovingKillDot)
             {
-                AudioManager.instance.Play("Death");
-                //AudioManager.instance.Play("Death2");
-                //
+                if (!Player.deathBySegment && !Player.deathByMovingKillDot)
+                {
+                    AudioManager.instance.Play("Death");
+                    //AudioManager.instance.Play("Death2");
+                    //
+                }
+                else
+                {
+                    AudioManager.playDeathSounds = true;
+                    Player.deathBySegment = false;
+                    
+                }
             }
             else
-            {
-                AudioManager.playDeathSounds = true;
-                Player.deathBySegment = false;
-            }
-                
-            SetState(State.RestartFade);
+                Player.deathByMovingKillDot = false;
+
+        SetState(State.RestartFade);
         }
         else if(newState == State.RestartFade)
         {

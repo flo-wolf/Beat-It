@@ -23,6 +23,7 @@ public class Player : MonoBehaviour {
 
     // player was killed by a loop segment
     public static bool deathBySegment = false;
+    public static bool deathByMovingKillDot = false;
 
     // keep track of which dot is the newest
     public enum DotType { None, Dot0, Dot1 }

@@ -171,7 +171,7 @@ public class LoopSegment : Segment {
             Debug.Log("------- LoopSegment touched by player");
             PlayerSegment.touchedKillDot = true;
             Player.allowMove = false;
-            Player.deathBySegment = true;
+            //Player.deathBySegment = true;
             Game.SetState(Game.State.Death);
         }
     }

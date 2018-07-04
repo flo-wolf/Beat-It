@@ -66,7 +66,6 @@ public class AudioManager : MonoBehaviour {
         if (bpmInfo.Equals(RythmManager.playerBPM) && playDeathSounds)
         {
             Play("Death");
-            Play("Death2");
             playDeathSounds = false;
         }
             
