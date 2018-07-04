@@ -42,7 +42,7 @@ public class PlayerGoal : LevelObject
                 if (Player.dot0 != null && Player.dot0.transform.position == gameObject.transform.parent.position)
                 {
                     goalFeedback.Play();
-                    AudioManager.instance.Play("Plop");
+                    AudioManager.instance.Play("Goal");
 
                     Game.SetState(Game.State.Death);
                 }
@@ -50,7 +50,7 @@ public class PlayerGoal : LevelObject
                 else if (Player.dot1 != null && Player.dot1.transform.position == gameObject.transform.parent.position)
                 {
                     goalFeedback.Play();
-                    AudioManager.instance.Play("Plop");
+                    AudioManager.instance.Play("Goal");
 
                     Game.SetState(Game.State.Death);
                 }

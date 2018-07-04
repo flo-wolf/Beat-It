@@ -21,6 +21,9 @@ public class Player : MonoBehaviour {
     public static PlayerDot dot0 = null;  // mouse1 dot
     public static PlayerDot dot1 = null; // mouse2 dot
 
+    // player was killed by a loop segment
+    public static bool deathBySegment = false;
+
     // keep track of which dot is the newest
     public enum DotType { None, Dot0, Dot1 }
 

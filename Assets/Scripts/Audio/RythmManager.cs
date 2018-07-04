@@ -67,7 +67,8 @@ public class RythmManager : MonoBehaviour {
     {
         foreach (BPM bpm in Enum.GetValues(typeof(BPM)))
         {
-            bpmClocks.Add(bpm, 0f);
+            if(!bpmClocks.ContainsKey(bpm))
+                bpmClocks.Add(bpm, 0f);
         }
     }
 

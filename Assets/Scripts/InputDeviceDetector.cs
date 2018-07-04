@@ -7,7 +7,7 @@ using System.Collections;
 
 public class InputDeviceDetector : MonoBehaviour
 {
-    InputDeviceDetector instance = null;
+    public static InputDeviceDetector instance = null;
 
     public enum InputType
     {

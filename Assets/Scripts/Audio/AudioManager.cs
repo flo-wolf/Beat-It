@@ -7,7 +7,10 @@ public class AudioManager : MonoBehaviour {
     //Here we create an array for instances of our Sound class
     public Sound[] sounds;
 
-    public static AudioManager instance;
+    public static AudioManager instance = null;
+    public static bool playDeathSounds = false;
+
+    private static bool firstStart = true;
 
     // Use this for initialization before Start()
     void Awake()
@@ -17,14 +20,10 @@ public class AudioManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
-            //We dont want our AudioManager to be destroyed in case we switch scenes.
             DontDestroyOnLoad(gameObject);
         }
-
         else
-        {
             Destroy(gameObject);
-        }
 
         //Each instance of our Sound class will now get a AudioSource that is stored in the variable "source", we defined in our Sound class
         //We then set the diffrent variables of our Sound class equals to the variables the AudioClip brings with it.
@@ -40,10 +39,14 @@ public class AudioManager : MonoBehaviour {
 
     private void Start()
     {
-        RythmManager.onBPM.AddListener(RythmCall);
-        AudioManager.instance.Play("Background");
-        AudioManager.instance.Play("Radio");
-        AudioManager.instance.Play("Piano");
+        if (firstStart)
+        {
+            RythmManager.onBPM.AddListener(RythmCall);
+            AudioManager.instance.Play("Background");
+            AudioManager.instance.Play("Radio");
+            AudioManager.instance.Play("Piano");
+            firstStart = false;
+        }
     }
 
     /*
@@ -59,6 +62,14 @@ public class AudioManager : MonoBehaviour {
         // bass plays on the level bpm
         if(bpmInfo.Equals(RythmManager.animationBPM))
             AudioManager.instance.Play("Bass");
+
+        if (bpmInfo.Equals(RythmManager.playerBPM) && playDeathSounds)
+        {
+            Play("Death");
+            Play("Death2");
+            playDeathSounds = false;
+        }
+            
 
         /*
         // kick plays on the player bpm

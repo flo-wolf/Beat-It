@@ -18,13 +18,19 @@ public class LoopSegment : Segment {
     // In case loop.seperateShotSuck == true: was the segment shot out? if so, suck it in.
     private bool segmentShot = false;
 
+    private Color lineRendererColor;
 
-	// Use this for initialization
-	void Start ()
+
+    // Use this for initialization
+    void Start ()
     {
         colliderEdge = GetComponent<EdgeCollider2D>();
         RythmManager.onBPM.AddListener(OnBPM);
-	}
+        Game.onGameStateChange.AddListener(GameStateChanged);
+
+        lineRendererColor = lineRenderer.startColor;
+
+    }
 
     private void OnBPM(BPMinfo bpm)
     {
@@ -160,12 +166,48 @@ public class LoopSegment : Segment {
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("------- LoopSegment touched by " + collision.name);
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && Game.state == Game.State.Playing)
         {
             Debug.Log("------- LoopSegment touched by player");
             PlayerSegment.touchedKillDot = true;
             Player.allowMove = false;
+            Player.deathBySegment = true;
             Game.SetState(Game.State.Death);
         }
+    }
+
+    void GameStateChanged(Game.State state)
+    {
+        switch (state)
+        {
+            case Game.State.Death:
+                StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs()));
+                break;
+            case Game.State.Playing:
+                lineRenderer.startColor = lineRendererColor;
+                lineRenderer.endColor = lineRendererColor;
+                break;
+        }
+    }
+
+    IEnumerator C_FadeOutSegment(float duration)
+    {
+        float elapsedTime = 0f;
+        Color startColor = lineRenderer.startColor;
+        Color endColor = startColor;
+        endColor.a = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            Color lerpColor = Color.Lerp(startColor, endColor, (elapsedTime / duration));
+            lineRenderer.startColor = lerpColor;
+            lineRenderer.endColor = lerpColor;
+            yield return null;
+        }
+
+        lineRenderer.startColor = endColor;
+        lineRenderer.endColor = endColor;
+        yield return null;
     }
 }

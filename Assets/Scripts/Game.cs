@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
 
-    public static Game instance;
+    public static Game instance = null;
 
     public static float levelSwitchDuration = 1f;
     public float timeStepDuration = 0.5f;
@@ -24,6 +25,7 @@ public class Game : MonoBehaviour {
 
     public static GameStateChangeEvent onGameStateChange = new GameStateChangeEvent();
 
+
     void Awake()
     {
         if (instance == null)
@@ -37,6 +39,12 @@ public class Game : MonoBehaviour {
 
     void Start()
     {
+        Debug.Log("Start");
+        StartCoroutine(LevelFadeTimer(true));
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
         StartCoroutine(LevelFadeTimer(true));
     }
 
@@ -47,6 +55,18 @@ public class Game : MonoBehaviour {
         onGameStateChange.Invoke(state);
         if (newState == State.Death)
         {
+            if (!Player.deathBySegment)
+            {
+                AudioManager.instance.Play("Death");
+                //AudioManager.instance.Play("Death2");
+                //
+            }
+            else
+            {
+                AudioManager.playDeathSounds = true;
+                Player.deathBySegment = false;
+            }
+                
             SetState(State.RestartFade);
         }
         else if(newState == State.RestartFade)
@@ -66,9 +86,7 @@ public class Game : MonoBehaviour {
         Debug.Log("Restart the level");
 
         yield return new WaitForSeconds(levelSwitchDuration*1);
-        SetState(State.LevelFadein);
-        yield return new WaitForSeconds(levelSwitchDuration/2);
-        SetState(State.Playing);
+        SceneManager.LoadScene(levels[level]);
         yield return null;
     }
 

@@ -53,14 +53,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Bass
-    clip: {fileID: 8300000, guid: 6d29d9fc42e5c6b4bb049781447701f5, type: 3}
-    volume: 0.75
+    clip: {fileID: 8300000, guid: 8c943eda4cec0024daf701883cba5fc0, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Kick
-    clip: {fileID: 8300000, guid: 2b9341adde2c08b449cdc87dce3b8675, type: 3}
-    volume: 0.75
+    clip: {fileID: 8300000, guid: 36080e676c2befe4db3aa300bcfe23b6, type: 3}
+    volume: 1.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -71,44 +71,74 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Snare
-    clip: {fileID: 8300000, guid: fc31a99d91a426a4c9dbbfb4e73c30d3, type: 3}
-    volume: 0.75
+    clip: {fileID: 8300000, guid: 2e3e45b35674c8e44b972819f76484c2, type: 3}
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: HiHat
-    clip: {fileID: 8300000, guid: 327f1ef40fa71f1409968c38010b834a, type: 3}
-    volume: 0.75
+    clip: {fileID: 8300000, guid: fdedf1f1741f1a74288b7ef84c984dda, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Goal
-    clip: {fileID: 8300000, guid: 737b5e6cee6d1714d8d0f6bbf65b477c, type: 3}
+    clip: {fileID: 8300000, guid: 76f9089c2893788438fdf2edbee033b0, type: 3}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Death
-    clip: {fileID: 8300000, guid: b5a2f09ff019b5b41ba0c6ebfe441c69, type: 3}
+    clip: {fileID: 8300000, guid: 4f2a6f0d0cef67d4fb03a66bfc28ca13, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Slurp
-    clip: {fileID: 8300000, guid: 6640495442584c9479819f1b5f8bbe8b, type: 3}
-    volume: 0.5
+  - name: Segment
+    clip: {fileID: 8300000, guid: fb48704ee76efc448b11972340f6a4f6, type: 3}
+    volume: 0.08
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Plop
     clip: {fileID: 8300000, guid: 459d83524d8a02e40aa4bc6f38d956ad, type: 3}
-    volume: 0.4
+    volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Tom
     clip: {fileID: 8300000, guid: 29a271bda67b7fc42b5f9335328edd09, type: 3}
     volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Background
+    clip: {fileID: 8300000, guid: c7047e839ee0ec74eaaa9c3f820298bc, type: 3}
+    volume: 0.05
+    pitch: 0.75
+    loop: 0
+    source: {fileID: 0}
+  - name: Radio
+    clip: {fileID: 8300000, guid: be14326d0806681439fd429d030d0d45, type: 3}
+    volume: 0.2
+    pitch: 0.9
+    loop: 0
+    source: {fileID: 0}
+  - name: MovingKillDotSnare
+    clip: {fileID: 8300000, guid: 53c4d5d55c7231b4995be21538ad95fc, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Piano
+    clip: {fileID: 8300000, guid: 7664f43aea8dc6843a821fecfd2d9e56, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Death2
+    clip: {fileID: 8300000, guid: 7bb89494a17c3ed47a76a008def26204, type: 3}
+    volume: 0.184
     pitch: 1
     loop: 0
     source: {fileID: 0}
