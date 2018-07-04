@@ -33,9 +33,9 @@ MonoBehaviour:
     _material: {fileID: 0}
     _enabled: 1
     staticPattern: {fileID: 2800000, guid: 7452eff367e0a4149afd455a45fc9601, type: 3}
-    staticMagnitude: 0.053
+    staticMagnitude: 0
     staticScale: 1
-    staticOffset: 1.1649991
+    staticOffset: 4.4300537
     staticOffsetX: 0
     dirtPattern: {fileID: 2800000, guid: df0ffcc7ed4d822408d84a34b9d048e0, type: 3}
     dirtMagnitude: 0.18
