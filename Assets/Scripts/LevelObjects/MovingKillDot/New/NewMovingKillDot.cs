@@ -22,9 +22,6 @@ public class NewMovingKillDot : LevelObject
     //The direction the MovingKD is looking at
     Vector2 lookDirection;
 
-    bool onStart;
-    bool onEnd;
-
     private float defaultLocalScale;            // default player dot size
     private float scale = 0f;
     private float opacity = 0f;
@@ -49,7 +46,6 @@ public class NewMovingKillDot : LevelObject
         lenghtOfList = gridDots.Length;
     }
 
-    
     void OnRythmMove(BPMinfo bpm)
     {
         if(bpm.Equals(RythmManager.movingKillDotBPM))
@@ -63,29 +59,26 @@ public class NewMovingKillDot : LevelObject
     {
         if (transform.position == startDot.transform.position)
         {
+            Debug.Log("REACHED START");
             lookDirection = gridDots[0].transform.position - transform.position;
             lookDirection = lookDirection.normalized;
-            onStart = true;
         }
 
         if (transform.position == gridDots[lenghtOfList-1].transform.position)
         {
+            Debug.Log("REACHED END");
             lookDirection = startDot.transform.position - transform.position;
             lookDirection = lookDirection.normalized;
-            onEnd = true;
         }
 
         else
         {
             foreach(GridDot dot in gridDots)
             {
-                if(!onStart && !onEnd)
+                if(this.transform.position == dot.transform.position)
                 {
-                    if(this.transform.position == dot.transform.position)
-                    {
-                        int positionInList = Array.IndexOf(gridDots, dot);
-                        lookDirection = gridDots[positionInList + 1].transform.position - dot.transform.position;
-                    }
+                    int positionInList = Array.IndexOf(gridDots, dot);
+                    lookDirection = gridDots[positionInList + 1].transform.position - dot.transform.position;
                 }
             }
         }
@@ -102,8 +95,6 @@ public class NewMovingKillDot : LevelObject
         this.transform.localPosition = Vector3.zero;
 
         Appear();
-        onStart = false;
-        onEnd = false;
     }
 
     public void Remove()
@@ -161,13 +152,7 @@ public class NewMovingKillDot : LevelObject
 
             yield return null;
         }
-        /*
-        if (!fadeIn)
-        {
-            gridDot.levelObject = null;
-            //GameObject.Destroy(gameObject);
-        }
-        */
+
         yield return null;
     }
 }
