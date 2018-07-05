@@ -530,8 +530,6 @@ public class Player : MonoBehaviour {
                         parentDot = spawnDot;
                     dotWasSpawned = 0;
 
-                    //move the moving kill dot again
-                    MovingKillDotHandler.allowMove = true;
                     FadeRadius(true);
                 }
             }
@@ -588,7 +586,7 @@ public class Player : MonoBehaviour {
                     dotWasSpawned = 0;
 
                     //move the moving kill dot again
-                    MovingKillDotHandler.allowMove = true;
+
                     FadeRadius(true);
                 }
             }
