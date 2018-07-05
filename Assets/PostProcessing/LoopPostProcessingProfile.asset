@@ -313,7 +313,7 @@ MonoBehaviour:
     m_Enabled: 0
     m_Settings:
       colored: 1
-      intensity: 0.5
+      intensity: 0.112
       size: 1
       luminanceContribution: 0.8
   vignette:
