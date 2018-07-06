@@ -13,8 +13,10 @@ public class NewMovingKillDot : LevelObject
 
     [Header("List of GridDots")]
     //List of GridDots to define where the Dot should move
-    public GridDot[] gridDots;
+    public List<GridDot> gridDotList;
+
     int lenghtOfList;
+    int listPosition;
 
     //The StartDot where the MovingKD was placed
     GridDot startDot;
@@ -42,8 +44,10 @@ public class NewMovingKillDot : LevelObject
         deathAnim = GetComponentInChildren<Animation>();
 
         startDot = transform.parent.gameObject.GetComponent<GridDot>();
+        gridDotList.Insert(0, startDot);
+        listPosition = 0;
 
-        lenghtOfList = gridDots.Length;
+        lenghtOfList = gridDotList.Count;
     }
 
     void OnRythmMove(BPMinfo bpm)
@@ -51,40 +55,36 @@ public class NewMovingKillDot : LevelObject
         if(bpm.Equals(RythmManager.movingKillDotBPM))
         {
             UpdateLookDirection();
-            Move();
+            MoveToNextDot();
         }
     }
 
     void UpdateLookDirection()
     {
-        if (transform.position == startDot.transform.position)
+        foreach(GridDot dot in gridDotList)
         {
-            Debug.Log("REACHED START");
-            lookDirection = gridDots[0].transform.position - transform.position;
-            lookDirection = lookDirection.normalized;
-        }
-
-        if (transform.position == gridDots[lenghtOfList-1].transform.position)
-        {
-            Debug.Log("REACHED END");
-            lookDirection = startDot.transform.position - transform.position;
-            lookDirection = lookDirection.normalized;
-        }
-
-        else
-        {
-            foreach(GridDot dot in gridDots)
+            if(this.transform.position == gridDotList[listPosition].transform.position)
             {
-                if(this.transform.position == dot.transform.position)
+                if(listPosition < (lenghtOfList-1))
                 {
-                    int positionInList = Array.IndexOf(gridDots, dot);
-                    lookDirection = gridDots[positionInList + 1].transform.position - dot.transform.position;
+                    lookDirection = gridDotList[listPosition + 1].transform.position - this.transform.position;
+                    lookDirection = lookDirection.normalized;
+                    listPosition = listPosition + 1;
                 }
+
+                else if(listPosition == (lenghtOfList-1))
+                {
+                    lookDirection = gridDotList[0].transform.position - this.transform.position;
+                    lookDirection = lookDirection.normalized;
+                    listPosition = 0;
+                }
+
+                Debug.Log("LIST POSITION" + listPosition);
             }
         }
     }
     
-    void Move()
+    void MoveToNextDot()
     {
         Remove();
 
