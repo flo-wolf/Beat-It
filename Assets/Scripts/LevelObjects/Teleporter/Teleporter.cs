@@ -10,10 +10,23 @@ public class Teleporter : MonoBehaviour
     public GameObject teleporterDotPrefab;
 
     [Header("GridDots to teleport")]
+    public List<GridDot> gridDotList;
+
+    [HideInInspector]
+    public int lenghtofList;
+
+    [HideInInspector]
+    public int listPosition;
+
+    public static bool teleporterTouched;
+    public static bool teleportEnabled = true;
+
+    /*
     //Define dot0 of the Teleporter
     public GridDot tele0;
     //Define dot1 of the Teleporter
     public GridDot tele1;
+    */
 
     // Use this for initialization
     void Start()
@@ -21,11 +34,26 @@ public class Teleporter : MonoBehaviour
         instance = this;
 
         InitialTeleDotPositions();
+        lenghtofList = gridDotList.Count;
+
+        foreach(GridDot dot in gridDotList)
+        {
+            Debug.Log(dot);
+        }
     }
 
     //Takes the chosen GridDots in the Inspector and places the prefabs there
     void InitialTeleDotPositions()
     {
+        foreach(GridDot dot in gridDotList)
+        {
+            GameObject prefab = GameObject.Instantiate(teleporterDotPrefab, Vector2.zero, Quaternion.identity);
+            prefab.transform.parent = dot.transform;
+            prefab.transform.localPosition = Vector3.zero;
+            prefab.transform.localScale = teleporterDotPrefab.transform.localScale;
+        }
+
+        /*
         GameObject teleDot0 = GameObject.Instantiate(teleporterDotPrefab, Vector2.zero, Quaternion.identity);
         GameObject teleDot1 = GameObject.Instantiate(teleporterDotPrefab, Vector2.zero, Quaternion.identity);
 
@@ -34,5 +62,6 @@ public class Teleporter : MonoBehaviour
 
         teleDot1.transform.parent = tele1.transform;
         teleDot1.transform.localPosition = Vector3.zero;
+        */
     }
 }
