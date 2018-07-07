@@ -13,17 +13,17 @@ TextureImporter:
     21300016: 256_SpriteSheet_Dots 1_8
     21300018: 256_SpriteSheet_Dots 1_9
     21300020: 256_SpriteSheet_Dots 1_10
-    21300022: 256_SpriteSheet_Dots 1_11
-    21300024: 256_SpriteSheet_Dots 1_12
-    21300026: 256_SpriteSheet_Dots 1_13
-    21300028: 256_SpriteSheet_Dots 1_14
-    21300030: 256_SpriteSheet_Dots 1_15
-    21300032: 256_SpriteSheet_Dots 1_16
-    21300034: 256_SpriteSheet_Dots 1_17
-    21300036: 256_SpriteSheet_Dots 1_18
-    21300038: 256_SpriteSheet_Dots 1_19
-    21300040: 256_SpriteSheet_Dots 1_20
-    21300042: 256_SpriteSheet_Dots 1_21
+    21300022: T_GridDot
+    21300024: T_KillDot_00
+    21300026: T_KillDot_01
+    21300028: T_GoalDot
+    21300030: T_Teleporter_00
+    21300032: T_LoopDot
+    21300034: T_LoopDotIndicator
+    21300036: T_PlayerDot
+    21300038: T_SpawnDot
+    21300040: T_Teleporter_01
+    21300042: T_Teleporter_02
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -83,7 +83,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -94,7 +94,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -112,7 +112,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -132,7 +132,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +152,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -172,7 +172,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,7 +192,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -212,7 +212,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -232,7 +232,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -252,7 +252,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -272,7 +272,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -292,7 +292,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -312,7 +312,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -324,7 +324,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_11
+      name: T_GridDot
       rect:
         serializedVersion: 2
         x: 0
@@ -332,7 +332,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -344,7 +344,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_12
+      name: T_KillDot_00
       rect:
         serializedVersion: 2
         x: 256
@@ -352,7 +352,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -364,7 +364,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_13
+      name: T_KillDot_01
       rect:
         serializedVersion: 2
         x: 512
@@ -372,7 +372,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -384,7 +384,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_14
+      name: T_GoalDot
       rect:
         serializedVersion: 2
         x: 768
@@ -392,7 +392,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -404,7 +404,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_15
+      name: T_Teleporter_00
       rect:
         serializedVersion: 2
         x: 1024
@@ -412,7 +412,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -424,7 +424,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_16
+      name: T_LoopDot
       rect:
         serializedVersion: 2
         x: 1280
@@ -432,7 +432,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -444,15 +444,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_17
+      name: T_LoopDotIndicator
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1545
         y: 1280
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -464,7 +464,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_18
+      name: T_PlayerDot
       rect:
         serializedVersion: 2
         x: 1792
@@ -472,7 +472,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -484,7 +484,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_19
+      name: T_SpawnDot
       rect:
         serializedVersion: 2
         x: 0
@@ -492,7 +492,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -504,7 +504,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_20
+      name: T_Teleporter_01
       rect:
         serializedVersion: 2
         x: 256
@@ -512,7 +512,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -524,7 +524,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 256_SpriteSheet_Dots 1_21
+      name: T_Teleporter_02
       rect:
         serializedVersion: 2
         x: 512
@@ -532,7 +532,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
