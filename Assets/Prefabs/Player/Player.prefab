@@ -324,13 +324,13 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1484489375
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.5
+    widthMultiplier: 1.4
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -348,8 +348,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-      key1: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+      key0: {r: 0.20000002, g: 0.19215688, b: 0.45098042, a: 1}
+      key1: {r: 0.20000002, g: 0.19215688, b: 0.45098042, a: 1}
       key2: {r: 0, g: 0.9490196, b: 1, a: 1}
       key3: {r: 0, g: 0.9490196, b: 1, a: 1}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -375,8 +375,8 @@ LineRenderer:
       m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 8
-    numCapVertices: 4
+    numCornerVertices: 16
+    numCapVertices: 8
     alignment: 1
     textureMode: 0
     generateLightingData: 0

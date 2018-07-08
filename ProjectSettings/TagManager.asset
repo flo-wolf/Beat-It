@@ -53,9 +53,6 @@ TagManager:
   - name: UI
     uniqueID: 2472060709
     locked: 0
-  - name: PlayerGoal
-    uniqueID: 3895347539
-    locked: 0
   - name: PlayerBall
     uniqueID: 1525222283
     locked: 0
@@ -73,4 +70,10 @@ TagManager:
     locked: 0
   - name: LoopDot
     uniqueID: 2221007371
+    locked: 0
+  - name: PlayerGoal
+    uniqueID: 3895347539
+    locked: 0
+  - name: New Layer
+    uniqueID: 3269094843
     locked: 0
