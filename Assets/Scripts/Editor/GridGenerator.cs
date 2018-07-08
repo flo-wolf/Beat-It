@@ -100,7 +100,8 @@ public class GridGenerator : EditorWindow
                         tempPos.x += j * gridStep + tempOffset;
                         tempPos.y += i * gridStep;
 
-                        tempObj = (GameObject)Instantiate(gridDotPrefab, tempPos, Quaternion.identity);
+                        tempObj = (GameObject)PrefabUtility.InstantiatePrefab(gridDotPrefab);
+                        tempObj.transform.position = tempPos;
                         tempObj.name = "GridDot Row" + (i + (rows / 2)) + " Column" + (j + (columns / 2));
                         tempObj.transform.parent = grid.transform;
 

@@ -20,7 +20,7 @@ public class Game : MonoBehaviour {
     public List<string> levels = new List<string>();
 
     // gamestate
-    public enum State { LevelFadein, Playing, Death, NextLevelFade, RestartFade, None }
+    public enum State { LevelFadein, Playing, DeathOnNextBeat, Death, NextLevelFade, RestartFade, None }
     public static State state = State.None;
 
     public static GameStateChangeEvent onGameStateChange = new GameStateChangeEvent();
@@ -39,6 +39,7 @@ public class Game : MonoBehaviour {
 
     void Start()
     {
+        RythmManager.onBPM.AddListener(OnBPM);
         Debug.Log("Start");
         StartCoroutine(LevelFadeTimer(true));
     }
@@ -48,11 +49,29 @@ public class Game : MonoBehaviour {
         StartCoroutine(LevelFadeTimer(true));
     }
 
+    public void OnBPM(BPMinfo bpm)
+    {
+        if(bpm.Equals(RythmManager.playerBPM))
+        {
+            if(state == State.DeathOnNextBeat)
+            {
+                SetState(State.Death);
+            }
+        }
+    }
+
     public static void SetState(State newState)
     {
         Debug.Log("newState: " + newState);
         state = newState;
         onGameStateChange.Invoke(state);
+
+        if(newState == State.DeathOnNextBeat)
+        {
+            Player.allowMove = false;
+        }
+
+
         if (newState == State.Death) { 
 
             if (!Player.deathByMovingKillDot)
@@ -72,8 +91,7 @@ public class Game : MonoBehaviour {
             }
             else
                 Player.deathByMovingKillDot = false;
-
-        SetState(State.RestartFade);
+            SetState(State.RestartFade);
         }
         else if(newState == State.RestartFade)
         {

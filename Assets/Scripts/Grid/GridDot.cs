@@ -89,7 +89,7 @@ public class GridDot : MonoBehaviour
     /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
     IEnumerator Fade(bool fadeIn)
     {
-        Debug.Log("Fade Dots: " + fadeIn);
+        //Debug.Log("Fade Dots: " + fadeIn);
         // size
         
         // color

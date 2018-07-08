@@ -168,12 +168,26 @@ public class LoopSegment : Segment {
         Debug.Log("------- LoopSegment touched by " + collision.name);
         if (collision.gameObject.CompareTag("Player") && Game.state == Game.State.Playing)
         {
-            Debug.Log("------- LoopSegment touched by player");
-            PlayerSegment.touchedKillDot = true;
-            Player.allowMove = false;
-            //Player.deathBySegment = true;
-            Game.SetState(Game.State.Death);
+
+            if (!PlayerIsOnLoopDot())
+            {
+                Debug.Log("------- LoopSegment touched by player");
+                PlayerSegment.touchedKillDot = true;
+                Player.allowMove = false;
+                //Player.deathBySegment = true;
+                Game.SetState(Game.State.Death);
+            }
         }
+    }
+
+    public bool PlayerIsOnLoopDot()
+    {
+        foreach(LoopDot dot in loop.loopDots)
+        {
+            if (dot.IsTouchingPlayer(false))
+                return true;
+        }
+        return false;
     }
 
     void GameStateChanged(Game.State state)

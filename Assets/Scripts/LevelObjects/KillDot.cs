@@ -19,6 +19,7 @@ public class KillDot : LevelObject {
         RythmManager.onBPM.AddListener(OnRythmCount);
     }
 
+    /*
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger");
@@ -35,6 +36,7 @@ public class KillDot : LevelObject {
             killFeedback.Play();
         }
     }
+    */
 
     public void OnGameStateChange(Game.State state)
     {
@@ -48,12 +50,18 @@ public class KillDot : LevelObject {
     {
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
         {
+            if (IsTouchingPlayer(false))
+            {
+                Game.SetState(Game.State.DeathOnNextBeat);
+            }
+            /*
             //Debug.Log(name);
             if ((Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
             {
                 //Debug.Log("2 " + name );
                 kill = false;
             }
+            */
         }
     }
 }

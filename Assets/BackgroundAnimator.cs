@@ -7,7 +7,9 @@ using UnityEngine;
 /// </summary>
 public class BackgroundAnimator : MonoBehaviour {
 
-    [Header("Componens")]
+    public static BackgroundAnimator instance;
+
+    [Header("Components")]
     public SpriteRenderer farSr;
     public SpriteRenderer closeSr;
 
@@ -31,6 +33,16 @@ public class BackgroundAnimator : MonoBehaviour {
 
 
     void Start () {
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+            Destroy(this.gameObject);
+
+        DontDestroyOnLoad(this);
+
         originFar = farSr.transform.position;
         originClose = closeSr.transform.position;
 
@@ -50,7 +62,7 @@ public class BackgroundAnimator : MonoBehaviour {
         StartCoroutine(C_MoveClose(closeSr.transform.position, GetNextPoint(false), GetNextDuration(false)));
     }
 
-    IEnumerator C_MoveFar(Vector3 start, Vector3 end, float duration)
+    IEnumerator C_MoveFar(Vector3 start, Vector3 end, float duration, bool recursive = true)
     {
         Vector3 newPosition = new Vector3();
         float elapsedTime = 0f;
@@ -63,11 +75,12 @@ public class BackgroundAnimator : MonoBehaviour {
             yield return null;
         }
 
-        MoveFar();
+        if(recursive)
+            MoveFar();
         yield return null;
     }
 
-    IEnumerator C_MoveClose(Vector3 start, Vector3 end, float duration)
+    IEnumerator C_MoveClose(Vector3 start, Vector3 end, float duration, bool recursive = true)
     {
         Vector3 newPosition = new Vector3();
         float elapsedTime = 0f;
@@ -80,7 +93,8 @@ public class BackgroundAnimator : MonoBehaviour {
             yield return null;
         }
 
-        MoveClose();
+        if (recursive)
+            MoveClose();
         yield return null;
     }
 
@@ -131,4 +145,20 @@ public class BackgroundAnimator : MonoBehaviour {
         }
         return next;
     }
+
+
+    /*
+    public void GameStateChanged(Game.State state)
+    {
+        if (state == Game.State.Death)
+        {
+            StopCoroutine("C_MoveFar");
+            StopCoroutine("C_MoveClose");
+
+            float duration = Game.levelSwitchDuration / 2;
+            StartCoroutine(C_MoveFar(farSr.transform.position, originFar, duration, false));
+            StartCoroutine(C_MoveClose(closeSr.transform.position, originClose, duration, false));
+        }
+    }
+    */
 }

@@ -18,4 +18,18 @@ public class LevelObject : MonoBehaviour {
     // the gridDot this object is tied to (aka placed ontop)
     [HideInInspector]
     public GridDot gridDot;
+
+    // is a filled playerdot touching the object?
+    public bool IsTouchingPlayer(bool playerDotNeedsToBeFilled)
+    {
+        if (playerDotNeedsToBeFilled)
+        {
+            if (type != Type.Player && ((Player.dot0 != null && Player.dot0.transform.position == transform.position && Player.dot0.state == PlayerDot.State.Full) || (Player.dot1 != null && Player.dot1.transform.position == transform.position && Player.dot1.state == PlayerDot.State.Full)))
+                return true;
+        }
+        else
+            if (type != Type.Player && ((Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position)))
+            return true;
+        return false;
+    }
 }

@@ -130,7 +130,8 @@ public class LoopEditor : EditorWindow
                     if(containerGo != null)
                     {
                         // place a loop GameObject inside the container
-                        GameObject loopGo = (GameObject)Instantiate(loopPrefab, Vector3.zero, Quaternion.identity);
+                        GameObject loopGo = (GameObject)PrefabUtility.InstantiatePrefab(loopPrefab);
+                        //GameObject loopGo = (GameObject)Instantiate(loopPrefab, Vector3.zero, Quaternion.identity);
                         loopGo.transform.parent = containerGo.transform;
                         
                         // get the Loop component of the newly created loop gameobject
@@ -147,7 +148,7 @@ public class LoopEditor : EditorWindow
                             foreach(GridDot gridDot in gridDots)
                             {
                                 dotCounter++;
-                                GameObject loopDotGo = Instantiate(loopDotPrefab, Vector3.zero, Quaternion.identity);
+                                GameObject loopDotGo = (GameObject)PrefabUtility.InstantiatePrefab(loopDotPrefab);
                                 loopDotGo.transform.parent = gridDot.transform;
                                 loopDotGo.transform.localPosition = Vector3.zero;
                                 loopDotGo.transform.localScale = loopDotPrefab.transform.localScale;
@@ -161,7 +162,7 @@ public class LoopEditor : EditorWindow
                             }
 
                             // add a segment to the loop
-                            GameObject segmentGo = (GameObject)Instantiate(segmentPrefab, Vector3.zero, Quaternion.identity);
+                            GameObject segmentGo = (GameObject)PrefabUtility.InstantiatePrefab(segmentPrefab);
                             segmentGo.transform.parent = loopGo.transform;
 
                             // get the Segment component and add it to the loop segments list

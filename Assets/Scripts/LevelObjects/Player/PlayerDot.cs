@@ -18,8 +18,8 @@ public class PlayerDot : LevelObject{
 
     private float fillAmount = 0; // 0 = no fill, empty black;  1 = full fill, white
 
-    private enum State { Spawn, Idle, Extend, Despawn }
-    private State state = State.Spawn;
+    public enum State { Filling, Full, Emptying, Empty }
+    public State state = State.Filling;
 
     private float defaultLocalScale;            // default player dot size
     private float defaultFillCircleSize;        // default fill indicator size (inside player dot)
@@ -65,6 +65,11 @@ public class PlayerDot : LevelObject{
     /// interpolates the dots opacity as well as its size
     IEnumerator Fade(bool fadeIn)
     {
+        if (fadeIn)
+            state = State.Filling;
+        else
+            state = State.Emptying;
+
         float elapsedTime = 0f;
         float startScale = scale;
         float startOpacity = opacity;
@@ -94,9 +99,12 @@ public class PlayerDot : LevelObject{
         }
         if (!fadeIn)
         {
+            state = State.Empty;
             gridDot.levelObject = null;
             GameObject.Destroy(gameObject);
         }
+        else
+            state = State.Full;
         yield return null;
     }
 }
