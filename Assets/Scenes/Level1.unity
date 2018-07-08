@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 34564535}
   - component: {fileID: 34564534}
   m_Layer: 0
-  m_Name: BackGroundStars_01
+  m_Name: BackGroundStars_close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,12 +346,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 34564533}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 5.8, y: 5.8, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_Father: {fileID: 1960759672}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &75427677
 GameObject:
@@ -6071,7 +6071,7 @@ GameObject:
   - component: {fileID: 463277958}
   - component: {fileID: 463277957}
   m_Layer: 0
-  m_Name: BackGroundStars_00
+  m_Name: BackGroundStars_far
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6128,12 +6128,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 463277956}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 5.8, y: 5.8, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 1960759672}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &478645225
 GameObject:
@@ -12644,6 +12644,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18f600b766aaef34991ab2ad8d5e7ab9, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1185450027 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4672238191852316, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1185450026}
 --- !u!1001 &1206755919
 Prefab:
   m_ObjectHideFlags: 0
@@ -23609,6 +23614,58 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94ce061fe675b87478ca521c48fb6ddd, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1960759671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1960759672}
+  - component: {fileID: 1960759673}
+  m_Layer: 0
+  m_Name: 'Background '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1960759672
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1960759671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 463277958}
+  - {fileID: 34564535}
+  m_Father: {fileID: 1185450027}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1960759673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1960759671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d84a68356cf3846af7b47c47c7ac13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farSr: {fileID: 463277957}
+  closeSr: {fileID: 34564534}
+  moveDurationFar: 4
+  moveDutationFarVariation: 0.5
+  moveDurationClose: 3
+  moveDutationCloseVariation: 0.5
+  moveDistanceFar: 0.5
+  moveDistatanceFarVariation: 0.25
+  moveDistanceClose: 1
+  moveDistatanceCloseVariation: 0.5
 --- !u!1 &2030716936
 GameObject:
   m_ObjectHideFlags: 0
