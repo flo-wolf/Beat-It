@@ -23,6 +23,8 @@ public class Teleporter : MonoBehaviour
 
     public static bool dot0OnTeleportPosition;
 
+    public bool pairMode;
+
     /*
     //Define dot0 of the Teleporter
     public GridDot tele0;

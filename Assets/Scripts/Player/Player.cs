@@ -534,23 +534,52 @@ public class Player : MonoBehaviour {
                 // dot1 exists, dot0 doesnt => spawn dot0
                 if (dot1 != null && dot0 == null)
                 {
-                    foreach(GridDot dot in Teleporter.instance.gridDotList)
+                    if(!Teleporter.instance.pairMode)
                     {
-                        if (dot1.transform.position == dot.transform.position)
+                        foreach (GridDot dot in Teleporter.instance.gridDotList)
                         {
-                            Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
-                            Debug.Log("TELEPORTER INDEX OF ELEMENT" + Teleporter.instance.indexOfElement);
-
-                            if (Teleporter.instance.indexOfElement < (Teleporter.instance.lenghtofList-1))
+                            if (dot1.transform.position == dot.transform.position)
                             {
-                                int newDot = Teleporter.instance.indexOfElement + 1;
-                                Debug.Log("INDEX NEW DOT" + newDot);
-                                parentDot = Teleporter.instance.gridDotList[newDot];
+                                Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                                Debug.Log("TELEPORTER INDEX OF ELEMENT" + Teleporter.instance.indexOfElement);
+
+                                if (Teleporter.instance.indexOfElement < (Teleporter.instance.lenghtofList - 1))
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement + 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+
+                                else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
+                                {
+                                    parentDot = Teleporter.instance.gridDotList[0];
+                                }
                             }
+                        }
+                    }
 
-                            else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
+                    if (Teleporter.instance.pairMode)
+                    {
+                        foreach (GridDot dot in Teleporter.instance.gridDotList)
+                        {
+                            if (dot1.transform.position == dot.transform.position)
                             {
-                                parentDot = Teleporter.instance.gridDotList[0];
+                                Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                                Debug.Log("TELEPORTER INDEX OF ELEMENT" + Teleporter.instance.indexOfElement);
+
+                                if (Teleporter.instance.indexOfElement % 2 == 0)
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement + 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+
+                                else if (Teleporter.instance.indexOfElement % 2 != 0)
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement - 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
                             }
                         }
                     }
@@ -565,23 +594,52 @@ public class Player : MonoBehaviour {
                 // dot0 exists, dot1 doesnt => spawn dot1
                 else if (dot0 != null && dot1 == null)
                 {
-                    foreach (GridDot dot in Teleporter.instance.gridDotList)
+                    if(!Teleporter.instance.pairMode)
                     {
-                        if (dot0.transform.position == dot.transform.position)
+                        foreach (GridDot dot in Teleporter.instance.gridDotList)
                         {
-                            Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
-                            Debug.Log("TELEPORTER LISTPOSITION" + Teleporter.instance.indexOfElement);
-
-                            if (Teleporter.instance.indexOfElement < (Teleporter.instance.lenghtofList - 1))
+                            if (dot0.transform.position == dot.transform.position)
                             {
-                                int newDot = Teleporter.instance.indexOfElement + 1;
-                                Debug.Log("INDEX NEW DOT" + newDot);
-                                parentDot = Teleporter.instance.gridDotList[newDot];
+                                Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                                Debug.Log("TELEPORTER LISTPOSITION" + Teleporter.instance.indexOfElement);
+
+                                if (Teleporter.instance.indexOfElement < (Teleporter.instance.lenghtofList - 1))
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement + 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+
+                                else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
+                                {
+                                    parentDot = Teleporter.instance.gridDotList[0];
+                                }
                             }
+                        }
+                    }
 
-                            else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
+                    if (Teleporter.instance.pairMode)
+                    {
+                        foreach (GridDot dot in Teleporter.instance.gridDotList)
+                        {
+                            if (dot0.transform.position == dot.transform.position)
                             {
-                                parentDot = Teleporter.instance.gridDotList[0];
+                                Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                                Debug.Log("TELEPORTER INDEX OF ELEMENT" + Teleporter.instance.indexOfElement);
+
+                                if (Teleporter.instance.indexOfElement % 2 == 0)
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement + 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+
+                                else if (Teleporter.instance.indexOfElement % 2 != 0)
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement - 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
                             }
                         }
                     }

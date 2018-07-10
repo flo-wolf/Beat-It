@@ -9678,6 +9678,11 @@ Prefab:
       propertyPath: gridDotList.Array.data[3]
       value: 
       objectReference: {fileID: 478645229}
+    - target: {fileID: 114083154656122776, guid: 4b9f91abe6b19af47a25b56ea1ca10fe,
+        type: 2}
+      propertyPath: pairMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b9f91abe6b19af47a25b56ea1ca10fe, type: 2}
   m_IsPrefabParent: 0
