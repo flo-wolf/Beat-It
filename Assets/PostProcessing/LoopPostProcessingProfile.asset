@@ -77,7 +77,7 @@ MonoBehaviour:
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       shutterAngle: 360
       sampleCount: 23
@@ -97,7 +97,7 @@ MonoBehaviour:
       logMin: -8
       logMax: 4
   bloom:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       bloom:
         intensity: 45.72
@@ -112,61 +112,55 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       tonemapping:
-        tonemapper: 0
-        neutralBlackIn: 0.1
-        neutralWhiteIn: 1
+        tonemapper: 2
+        neutralBlackIn: 0.05
+        neutralWhiteIn: 2.9
         neutralBlackOut: 0
-        neutralWhiteOut: 1
-        neutralWhiteLevel: 1
-        neutralWhiteClip: 1
+        neutralWhiteOut: 10
+        neutralWhiteLevel: 3.5
+        neutralWhiteClip: 10
       basic:
-        postExposure: 0
-        temperature: 3
+        postExposure: 1
+        temperature: -15
         tint: 0
         hueShift: 0
-        saturation: 1
-        contrast: 1
+        saturation: 1.25
+        contrast: 1.13
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
         blue: {x: 0, y: 0, z: 1}
-        currentEditingChannel: 1
+        currentEditingChannel: 0
       colorWheels:
-        mode: 0
+        mode: 1
         log:
           slope: {r: 1, g: 1, b: 1, a: 0}
           power: {r: 1, g: 1, b: 1, a: 0}
           offset: {r: 1, g: 1, b: 1, a: 0}
         linear:
-          lift: {r: 1, g: 0.791972, b: 0.94444555, a: -0.017057575}
-          gamma: {r: 1, g: 1, b: 1, a: 0}
-          gain: {r: 1, g: 1, b: 1, a: 0}
+          lift: {r: 0, g: 0, b: 0, a: 0}
+          gamma: {r: 0, g: 0, b: 0, a: 0}
+          gain: {r: 0, g: 0, b: 0, a: 0}
       curves:
         master:
           curve:
             serializedVersion: 2
             m_Curve:
-            - serializedVersion: 3
+            - serializedVersion: 2
               time: 0
               value: 0
               inSlope: 1
               outSlope: 1
               tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
-            - serializedVersion: 3
+            - serializedVersion: 2
               time: 1
               value: 1
               inSlope: 1
               outSlope: 1
               tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
             m_PreInfinity: 2
             m_PostInfinity: 2
-            m_RotationOrder: 4
+            m_RotationOrder: 0
           m_Loop: 0
           m_ZeroValue: 0
           m_Range: 1
@@ -174,24 +168,18 @@ MonoBehaviour:
           curve:
             serializedVersion: 2
             m_Curve:
-            - serializedVersion: 3
+            - serializedVersion: 2
               time: 0
               value: 0
               inSlope: 1
               outSlope: 1
               tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
-            - serializedVersion: 3
+            - serializedVersion: 2
               time: 1
               value: 1
               inSlope: 1
               outSlope: 1
               tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
@@ -202,24 +190,18 @@ MonoBehaviour:
           curve:
             serializedVersion: 2
             m_Curve:
-            - serializedVersion: 3
+            - serializedVersion: 2
               time: 0
               value: 0
               inSlope: 1
               outSlope: 1
               tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
-            - serializedVersion: 3
+            - serializedVersion: 2
               time: 1
               value: 1
               inSlope: 1
               outSlope: 1
               tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
@@ -230,24 +212,18 @@ MonoBehaviour:
           curve:
             serializedVersion: 2
             m_Curve:
-            - serializedVersion: 3
+            - serializedVersion: 2
               time: 0
               value: 0
               inSlope: 1
               outSlope: 1
               tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
-            - serializedVersion: 3
+            - serializedVersion: 2
               time: 1
               value: 1
               inSlope: 1
               outSlope: 1
               tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
