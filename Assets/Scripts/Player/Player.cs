@@ -69,7 +69,6 @@ public class Player : MonoBehaviour {
 
     public static bool allowMove = true;
 
-
     /// initialization
     void Start()
     {
@@ -152,6 +151,7 @@ public class Player : MonoBehaviour {
 
         // in case we use a controller
         Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
         if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.Controler)
         {
             lookDirection = controllerInput;
@@ -232,7 +232,7 @@ public class Player : MonoBehaviour {
                             dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
                         }
 
-                        if(!TeleporterDot.teleporterTouched)
+                        if(!Teleporter.teleporterTouched)
                         {
                             // dot 0 is closer to the direction we are aiming at => remove dot1
                             if (dot0LookLength <= dot1LookLength)
@@ -241,7 +241,7 @@ public class Player : MonoBehaviour {
                                 AudioManager.instance.Play("HiHat");
                                 AudioManager.instance.Play("Segment");
 
-                                TeleporterDot.teleportEnabled = true;
+                                Teleporter.teleportEnabled = true;
                             }
                             // dot 1 is closer to the direction we are aiming at => remove dot0
                             else
@@ -250,28 +250,26 @@ public class Player : MonoBehaviour {
                                 AudioManager.instance.Play("HiHat");
                                 AudioManager.instance.Play("Segment");
 
-                                TeleporterDot.teleportEnabled = true;
+                                Teleporter.teleportEnabled = true;
                             }
                         }
 
-                        else if(TeleporterDot.teleporterTouched)
+                        else if(Teleporter.teleporterTouched)
                         {
-                            if (dot0.transform.position == Teleporter.instance.tele0.transform.position || dot0.transform.position == Teleporter.instance.tele1.transform.position)
+                            if (Teleporter.dot0OnTeleportPosition)
                             {
                                 RemoveDot(false);
-                                AudioManager.instance.Play("HiHat");
-                                AudioManager.instance.Play("Segment");
-                                TeleporterDot.teleportEnabled = false;
+                                AudioManager.instance.Play("Snare");
+                                Teleporter.teleportEnabled = false;
                                 SpawnDot();
                                 RemoveDot(true);
                             }
 
-                            else if (dot1.transform.position == Teleporter.instance.tele0.transform.position || dot1.transform.position == Teleporter.instance.tele1.transform.position)
+                            else if (!Teleporter.dot0OnTeleportPosition)
                             {
                                 RemoveDot(true);
-                                AudioManager.instance.Play("HiHat");
-                                AudioManager.instance.Play("Segment");
-                                TeleporterDot.teleportEnabled = false;
+                                AudioManager.instance.Play("Snare");
+                                Teleporter.teleportEnabled = false;
                                 SpawnDot();
                                 RemoveDot(false);
                             }
@@ -324,46 +322,43 @@ public class Player : MonoBehaviour {
                                 dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
                             }
 
-                            if(!TeleporterDot.teleporterTouched)
+                            if(!Teleporter.teleporterTouched)
                             {
                                 // dot 0 is closer to the direction we are aiming at => remove dot1
                                 if (dot0LookLength <= dot1LookLength)
                                 {
                                     RemoveDot(false);
                                     AudioManager.instance.Play("Snare");
-                                    TeleporterDot.teleportEnabled = true;
-
+                                    Teleporter.teleportEnabled = true;
                                 }
                                 // dot 1 is closer to the direction we are aiming at => remove dot0
                                 else
                                 {
                                     RemoveDot(true);
                                     AudioManager.instance.Play("Snare");
-                                    TeleporterDot.teleportEnabled = true;
-
+                                    Teleporter.teleportEnabled = true;
                                 }
                             }
 
-                            else if(TeleporterDot.teleporterTouched)
+                            else if(Teleporter.teleporterTouched)
                             {
-                                if(dot0.transform.position == Teleporter.instance.tele0.transform.position || dot0.transform.position == Teleporter.instance.tele1.transform.position)
+                                if (Teleporter.dot0OnTeleportPosition)
                                 {
                                     RemoveDot(false);
                                     AudioManager.instance.Play("Snare");
-                                    TeleporterDot.teleportEnabled = false;
+                                    Teleporter.teleportEnabled = false;
                                     SpawnDot();
                                     RemoveDot(true);
                                 }
 
-                                else if (dot1.transform.position == Teleporter.instance.tele0.transform.position || dot1.transform.position == Teleporter.instance.tele1.transform.position)
+                                else if (!Teleporter.dot0OnTeleportPosition)
                                 {
                                     RemoveDot(true);
                                     AudioManager.instance.Play("Snare");
-                                    TeleporterDot.teleportEnabled = false;
+                                    Teleporter.teleportEnabled = false;
                                     SpawnDot();
                                     RemoveDot(false);
                                 }
-
                             }
 
                         }
@@ -497,7 +492,7 @@ public class Player : MonoBehaviour {
             // the closest dot that the next dot should be spawned on
             GridDot parentDot = null;
 
-            if(!TeleporterDot.teleporterTouched)
+            if(!Teleporter.teleporterTouched)
             {
                 // dot1 exists, dot0 doesnt => spawn dot0
                 if (dot1 != null && dot0 == null)
@@ -534,19 +529,59 @@ public class Player : MonoBehaviour {
                 }
             }
 
-            else if (TeleporterDot.teleporterTouched)
+            else if (Teleporter.teleporterTouched)
             {
                 // dot1 exists, dot0 doesnt => spawn dot0
                 if (dot1 != null && dot0 == null)
                 {
-                    if(dot1.transform.position == Teleporter.instance.tele0.transform.position)
+                    if(!Teleporter.instance.pairMode)
                     {
-                        parentDot = Teleporter.instance.tele1;
+                        foreach (GridDot dot in Teleporter.instance.gridDotList)
+                        {
+                            if (dot1.transform.position == dot.transform.position)
+                            {
+                                Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                                Debug.Log("TELEPORTER INDEX OF ELEMENT" + Teleporter.instance.indexOfElement);
+
+                                if (Teleporter.instance.indexOfElement < (Teleporter.instance.lenghtofList - 1))
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement + 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+
+                                else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
+                                {
+                                    parentDot = Teleporter.instance.gridDotList[0];
+                                }
+                            }
+                        }
                     }
 
-                    else if (dot1.transform.position == Teleporter.instance.tele1.transform.position)
+                    if (Teleporter.instance.pairMode)
                     {
-                        parentDot = Teleporter.instance.tele0;
+                        foreach (GridDot dot in Teleporter.instance.gridDotList)
+                        {
+                            if (dot1.transform.position == dot.transform.position)
+                            {
+                                Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                                Debug.Log("TELEPORTER INDEX OF ELEMENT" + Teleporter.instance.indexOfElement);
+
+                                if (Teleporter.instance.indexOfElement % 2 == 0)
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement + 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+
+                                else if (Teleporter.instance.indexOfElement % 2 != 0)
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement - 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+                            }
+                        }
                     }
 
                     if (parentDot == null)
@@ -554,19 +589,59 @@ public class Player : MonoBehaviour {
 
                     dotWasSpawned = 0;
                     FadeRadius(false);
-
                 }
+
                 // dot0 exists, dot1 doesnt => spawn dot1
                 else if (dot0 != null && dot1 == null)
                 {
-                    if (dot0.transform.position == Teleporter.instance.tele0.transform.position)
+                    if(!Teleporter.instance.pairMode)
                     {
-                        parentDot = Teleporter.instance.tele1;
+                        foreach (GridDot dot in Teleporter.instance.gridDotList)
+                        {
+                            if (dot0.transform.position == dot.transform.position)
+                            {
+                                Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                                Debug.Log("TELEPORTER LISTPOSITION" + Teleporter.instance.indexOfElement);
+
+                                if (Teleporter.instance.indexOfElement < (Teleporter.instance.lenghtofList - 1))
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement + 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+
+                                else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
+                                {
+                                    parentDot = Teleporter.instance.gridDotList[0];
+                                }
+                            }
+                        }
                     }
 
-                    else if (dot0.transform.position == Teleporter.instance.tele1.transform.position)
+                    if (Teleporter.instance.pairMode)
                     {
-                        parentDot = Teleporter.instance.tele0;
+                        foreach (GridDot dot in Teleporter.instance.gridDotList)
+                        {
+                            if (dot0.transform.position == dot.transform.position)
+                            {
+                                Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                                Debug.Log("TELEPORTER INDEX OF ELEMENT" + Teleporter.instance.indexOfElement);
+
+                                if (Teleporter.instance.indexOfElement % 2 == 0)
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement + 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+
+                                else if (Teleporter.instance.indexOfElement % 2 != 0)
+                                {
+                                    int newDot = Teleporter.instance.indexOfElement - 1;
+                                    Debug.Log("INDEX NEW DOT" + newDot);
+                                    parentDot = Teleporter.instance.gridDotList[newDot];
+                                }
+                            }
+                        }
                     }
 
                     if (parentDot == null)
@@ -615,7 +690,7 @@ public class Player : MonoBehaviour {
                 }
             }
 
-            TeleporterDot.teleporterTouched = false;
+            Teleporter.teleporterTouched = false;
 
             //Debug.Log("activePosition: " + activePosition + " spawnPosition: " + spawnPosition);
 

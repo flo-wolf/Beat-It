@@ -8,9 +8,6 @@ public class TeleporterDot : LevelObject
 
     ParticleSystem particleFeedback;
 
-    public static bool teleporterTouched;
-    public static bool teleportEnabled = true;
-
 	// Use this for initialization
 	void Start ()
     {
@@ -23,11 +20,22 @@ public class TeleporterDot : LevelObject
     {
         Debug.Log("Trigger");
         if (collision.gameObject.CompareTag("Player"))
-        {
-            if(teleportEnabled)
+        {          
+            if (Teleporter.teleportEnabled)
             {
-                teleporterTouched = true;
+                Teleporter.teleporterTouched = true;
+
+                if(Player.dot0.transform.position == this.transform.position)
+                {
+                    Teleporter.dot0OnTeleportPosition = true;
+                }
+
+                else
+                {
+                    Teleporter.dot0OnTeleportPosition = false;
+                }
             }
+            Debug.Log("PLAYER ON TELEPORTERDOT");
         }
     }
 

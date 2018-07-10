@@ -13,6 +13,7 @@ TagManager:
   - PlayerGoal
   - NonGridContainer
   - Teleporter
+  - TeleporterDot
   layers:
   - Default
   - TransparentFX
@@ -64,6 +65,9 @@ TagManager:
     locked: 0
   - name: RadiusLookIndicator
     uniqueID: 1240986219
+    locked: 0
+  - name: Teleporter
+    uniqueID: 1755084661
     locked: 0
   - name: KillDots
     uniqueID: 3306532739
