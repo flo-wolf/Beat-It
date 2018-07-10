@@ -256,25 +256,22 @@ public class Player : MonoBehaviour {
 
                         else if(Teleporter.teleporterTouched)
                         {
-                            foreach (GridDot dot in Teleporter.instance.gridDotList)
+                            if (Teleporter.dot0OnTeleportPosition)
                             {
-                                if (dot0.transform.position == dot.transform.position)
-                                {
-                                    RemoveDot(false);
-                                    AudioManager.instance.Play("Snare");
-                                    Teleporter.teleportEnabled = false;
-                                    SpawnDot();
-                                    RemoveDot(true);
-                                }
+                                RemoveDot(false);
+                                AudioManager.instance.Play("Snare");
+                                Teleporter.teleportEnabled = false;
+                                SpawnDot();
+                                RemoveDot(true);
+                            }
 
-                                else if (dot1.transform.position == dot.transform.position)
-                                {
-                                    RemoveDot(true);
-                                    AudioManager.instance.Play("Snare");
-                                    Teleporter.teleportEnabled = false;
-                                    SpawnDot();
-                                    RemoveDot(false);
-                                }
+                            else if (!Teleporter.dot0OnTeleportPosition)
+                            {
+                                RemoveDot(true);
+                                AudioManager.instance.Play("Snare");
+                                Teleporter.teleportEnabled = false;
+                                SpawnDot();
+                                RemoveDot(false);
                             }
                         }
                     }
@@ -345,25 +342,22 @@ public class Player : MonoBehaviour {
 
                             else if(Teleporter.teleporterTouched)
                             {
-                                foreach(GridDot dot in Teleporter.instance.gridDotList)
+                                if (Teleporter.dot0OnTeleportPosition)
                                 {
-                                    if (dot0.transform.position == dot.transform.position)
-                                    {
-                                        RemoveDot(false);
-                                        AudioManager.instance.Play("Snare");
-                                        Teleporter.teleportEnabled = false;
-                                        SpawnDot();
-                                        RemoveDot(true);
-                                    }
+                                    RemoveDot(false);
+                                    AudioManager.instance.Play("Snare");
+                                    Teleporter.teleportEnabled = false;
+                                    SpawnDot();
+                                    RemoveDot(true);
+                                }
 
-                                    else if (dot1.transform.position == dot.transform.position)
-                                    {
-                                        RemoveDot(true);
-                                        AudioManager.instance.Play("Snare");
-                                        Teleporter.teleportEnabled = false;
-                                        SpawnDot();
-                                        RemoveDot(false);
-                                    }
+                                else if (!Teleporter.dot0OnTeleportPosition)
+                                {
+                                    RemoveDot(true);
+                                    AudioManager.instance.Play("Snare");
+                                    Teleporter.teleportEnabled = false;
+                                    SpawnDot();
+                                    RemoveDot(false);
                                 }
                             }
 
@@ -544,16 +538,17 @@ public class Player : MonoBehaviour {
                     {
                         if (dot1.transform.position == dot.transform.position)
                         {
-                            Teleporter.instance.listPosition = Teleporter.instance.gridDotList.IndexOf(dot);
-                            Debug.Log("TELEPORTER LISTPOSITION" + Teleporter.instance.listPosition);
+                            Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                            Debug.Log("TELEPORTER INDEX OF ELEMENT" + Teleporter.instance.indexOfElement);
 
-                            if (Teleporter.instance.listPosition < (Teleporter.instance.lenghtofList-1))
+                            if (Teleporter.instance.indexOfElement < (Teleporter.instance.lenghtofList-1))
                             {
-                                int newDot = Teleporter.instance.listPosition + 1;
+                                int newDot = Teleporter.instance.indexOfElement + 1;
+                                Debug.Log("INDEX NEW DOT" + newDot);
                                 parentDot = Teleporter.instance.gridDotList[newDot];
                             }
 
-                            else if (Teleporter.instance.listPosition == (Teleporter.instance.lenghtofList - 1))
+                            else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
                             {
                                 parentDot = Teleporter.instance.gridDotList[0];
                             }
@@ -565,8 +560,8 @@ public class Player : MonoBehaviour {
 
                     dotWasSpawned = 0;
                     FadeRadius(false);
-
                 }
+
                 // dot0 exists, dot1 doesnt => spawn dot1
                 else if (dot0 != null && dot1 == null)
                 {
@@ -574,16 +569,17 @@ public class Player : MonoBehaviour {
                     {
                         if (dot0.transform.position == dot.transform.position)
                         {
-                            Teleporter.instance.listPosition = Teleporter.instance.gridDotList.IndexOf(dot);
-                            Debug.Log("TELEPORTER LISTPOSITION" + Teleporter.instance.listPosition);
+                            Teleporter.instance.indexOfElement = Teleporter.instance.gridDotList.IndexOf(dot);
+                            Debug.Log("TELEPORTER LISTPOSITION" + Teleporter.instance.indexOfElement);
 
-                            if (Teleporter.instance.listPosition < (Teleporter.instance.lenghtofList - 1))
+                            if (Teleporter.instance.indexOfElement < (Teleporter.instance.lenghtofList - 1))
                             {
-                                int newDot = Teleporter.instance.listPosition + 1;
+                                int newDot = Teleporter.instance.indexOfElement + 1;
+                                Debug.Log("INDEX NEW DOT" + newDot);
                                 parentDot = Teleporter.instance.gridDotList[newDot];
                             }
 
-                            else if (Teleporter.instance.listPosition == (Teleporter.instance.lenghtofList - 1))
+                            else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
                             {
                                 parentDot = Teleporter.instance.gridDotList[0];
                             }

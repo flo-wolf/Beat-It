@@ -9624,7 +9624,7 @@ Prefab:
     - target: {fileID: 114083154656122776, guid: 4b9f91abe6b19af47a25b56ea1ca10fe,
         type: 2}
       propertyPath: gridDotList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4183628125549734, guid: 4b9f91abe6b19af47a25b56ea1ca10fe, type: 2}
       propertyPath: m_LocalPosition.x
@@ -9662,17 +9662,22 @@ Prefab:
         type: 2}
       propertyPath: gridDotList.Array.data[0]
       value: 
-      objectReference: {fileID: 478645229}
+      objectReference: {fileID: 2030716940}
     - target: {fileID: 114083154656122776, guid: 4b9f91abe6b19af47a25b56ea1ca10fe,
         type: 2}
       propertyPath: gridDotList.Array.data[1]
       value: 
-      objectReference: {fileID: 2070413609}
+      objectReference: {fileID: 1233661288}
     - target: {fileID: 114083154656122776, guid: 4b9f91abe6b19af47a25b56ea1ca10fe,
         type: 2}
       propertyPath: gridDotList.Array.data[2]
       value: 
-      objectReference: {fileID: 1233661288}
+      objectReference: {fileID: 2070413609}
+    - target: {fileID: 114083154656122776, guid: 4b9f91abe6b19af47a25b56ea1ca10fe,
+        type: 2}
+      propertyPath: gridDotList.Array.data[3]
+      value: 
+      objectReference: {fileID: 478645229}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b9f91abe6b19af47a25b56ea1ca10fe, type: 2}
   m_IsPrefabParent: 0

@@ -16,10 +16,12 @@ public class Teleporter : MonoBehaviour
     public int lenghtofList;
 
     [HideInInspector]
-    public int listPosition;
+    public int indexOfElement;
 
     public static bool teleporterTouched;
     public static bool teleportEnabled = true;
+
+    public static bool dot0OnTeleportPosition;
 
     /*
     //Define dot0 of the Teleporter
@@ -35,11 +37,6 @@ public class Teleporter : MonoBehaviour
 
         InitialTeleDotPositions();
         lenghtofList = gridDotList.Count;
-
-        foreach(GridDot dot in gridDotList)
-        {
-            Debug.Log(dot);
-        }
     }
 
     //Takes the chosen GridDots in the Inspector and places the prefabs there

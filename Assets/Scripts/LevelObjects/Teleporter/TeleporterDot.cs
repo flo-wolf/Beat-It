@@ -24,6 +24,16 @@ public class TeleporterDot : LevelObject
             if (Teleporter.teleportEnabled)
             {
                 Teleporter.teleporterTouched = true;
+
+                if(Player.dot0.transform.position == this.transform.position)
+                {
+                    Teleporter.dot0OnTeleportPosition = true;
+                }
+
+                else
+                {
+                    Teleporter.dot0OnTeleportPosition = false;
+                }
             }
             Debug.Log("PLAYER ON TELEPORTERDOT");
         }
