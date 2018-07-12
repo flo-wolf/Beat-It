@@ -22,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - GridDot
   - 
   - 
   - 
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2472060709
+    locked: 0
+  - name: GridDot
+    uniqueID: 4005536901
     locked: 0
   - name: PlayerBall
     uniqueID: 1525222283

@@ -86,6 +86,11 @@ public class GridDot : MonoBehaviour
         }
     }
 
+    public void LevelTransitionFade(bool fadeIn)
+    {
+        StartCoroutine(Fade(fadeIn));
+    }
+
     /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
     IEnumerator Fade(bool fadeIn)
     {

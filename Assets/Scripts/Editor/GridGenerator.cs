@@ -19,7 +19,7 @@ public class GridGenerator : EditorWindow
     private Vector3 tempPos = Vector3.zero;
     private float tempOffset = 0f;
 
-    [MenuItem("Window/Grid Generator")]
+    [MenuItem("Custom/Grid Generator")]
     static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(GridGenerator));

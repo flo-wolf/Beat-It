@@ -62,11 +62,13 @@ public class Game : MonoBehaviour {
 
     public static void SetState(State newState)
     {
+        State oldState = state;
         Debug.Log("newState: " + newState);
         state = newState;
         onGameStateChange.Invoke(state);
 
-        if(newState == State.DeathOnNextBeat)
+
+        if (newState == State.DeathOnNextBeat)
         {
             Player.allowMove = false;
         }
@@ -98,11 +100,19 @@ public class Game : MonoBehaviour {
             Debug.Log("RestartFade");
             instance.StartCoroutine(instance.C_Restart());
         }
-        else if (newState == State.NextLevelFade)
+        else if (newState == State.NextLevelFade && newState != oldState)
         {
-            Debug.Log("RestartFade");
-            instance.StartCoroutine(instance.C_NextLevel());
+            LevelTransition.instance.FadeOutLevel();
         }
+    }
+
+    public static void LoadNextLevel()
+    {
+        Debug.Log("Load the next level");
+        if (instance.levels.Count > level + 1)
+            SceneManager.LoadScene(instance.levels[level + 1]);
+        else
+            SceneManager.LoadScene(instance.levels[level]);
     }
 
     public IEnumerator C_Restart()
@@ -111,17 +121,6 @@ public class Game : MonoBehaviour {
 
         yield return new WaitForSeconds(levelSwitchDuration*1);
         SceneManager.LoadScene(levels[level]);
-        yield return null;
-    }
-
-    public IEnumerator C_NextLevel()
-    {
-        Debug.Log("Restart the level");
-
-        yield return new WaitForSeconds(levelSwitchDuration);
-        SetState(State.Playing);
-        yield return new WaitForSeconds(levelSwitchDuration);
-        SetState(State.Playing);
         yield return null;
     }
 

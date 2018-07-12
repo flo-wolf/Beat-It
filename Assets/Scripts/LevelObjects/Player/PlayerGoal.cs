@@ -12,6 +12,8 @@ public class PlayerGoal : LevelObject
 
     public static bool respawnRemoveDot;
 
+    private bool nextLevelLoads = false;
+
     //public static bool respawn = false;
 
     private void Start()
@@ -41,18 +43,26 @@ public class PlayerGoal : LevelObject
             {
                 if (Player.dot0 != null && Player.dot0.transform.position == gameObject.transform.parent.position)
                 {
-                    goalFeedback.Play();
-                    AudioManager.instance.Play("Goal");
+                    //goalFeedback.Play();
+                    
 
-                    Game.SetState(Game.State.Death);
+                    if(nextLevelLoads != true)
+                    {
+                        AudioManager.instance.Play("Goal");
+                        Game.SetState(Game.State.NextLevelFade);
+                    }
+                    nextLevelLoads = true;
                 }
 
                 else if (Player.dot1 != null && Player.dot1.transform.position == gameObject.transform.parent.position)
                 {
-                    goalFeedback.Play();
-                    AudioManager.instance.Play("Goal");
-
-                    Game.SetState(Game.State.Death);
+                    //goalFeedback.Play();
+                    if (nextLevelLoads != true)
+                    {
+                        AudioManager.instance.Play("Goal");
+                        Game.SetState(Game.State.NextLevelFade);
+                    }
+                    nextLevelLoads = true;
                 }
             }
 

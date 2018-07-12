@@ -10,18 +10,10 @@ public class PlayerSpawn : LevelObject {
 	// Use this for initialization
 	void Start ()
     {
+        EditPlayerSpawnData.ReportPlayerSpawnPosition(transform.position, Game.level);
+
         spawnFeedback = GetComponent<ParticleSystem>();
-		// if the spawn is not attached to a griddot, attach it to a random one
-        if(gridDot == null)
-        {
-            
-        }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -29,7 +21,7 @@ public class PlayerSpawn : LevelObject {
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player Spawned");
-            spawnFeedback.Play();
+            //spawnFeedback.Play();
         }
     }
 }

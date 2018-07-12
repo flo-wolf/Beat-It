@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -43,6 +44,62 @@ public class Grid : MonoBehaviour
         return foundDots;
     }
 
+    // smoothly fade out all the griddots in an expanding circle around the startdot
+    public static void FadeGridDotsGradually(Vector3 center, float duration, float radius, bool fadeIn, Action callback = null)
+    {
+        
+        instance.StartCoroutine(instance.C_FadeGradually(center, duration, radius, fadeIn, callback));
+    }
+
+    IEnumerator C_FadeGradually(Vector3 center, float duration, float endRadius, bool fadeIn, Action callback = null)
+    {
+        float elapsedTime = 0f;
+        float radius = 0;
+
+        // dots that have been found and faded already
+        List<GameObject> detectedDots = new List<GameObject>();
+
+        Debug.Log("fadedotsgradually");
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if(LevelTransition.instance.smoothLerp)
+                radius = Mathf.SmoothStep(0, endRadius, (elapsedTime / duration));
+            else
+                radius = Mathf.Lerp(0, endRadius, (elapsedTime / duration));
+
+            Debug.Log("radius: " + radius);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius, 1 << LayerMask.NameToLayer("GridDot"));
+            foreach(Collider2D collider in colliders)
+            {
+                //Debug.Log("found a collider: -"+collider.gameObject.tag+"-");
+                if (collider.gameObject.CompareTag("GridDot") && !detectedDots.Contains(collider.gameObject))
+                {
+                    //Debug.Log("found a griddot");
+                    detectedDots.Add(collider.gameObject);
+                    GridDot gridDot = collider.GetComponent<GridDot>();
+                    if(gridDot != null)
+                    {
+                        //Debug.Log("Found a girddot to fade out!");
+                        gridDot.LevelTransitionFade(fadeIn);
+                        yield return null;
+                    }
+                }
+            }
+
+            yield return null;
+        }
+        
+        if (callback != null)
+        {
+            yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs());
+            callback();
+        }
+            
+        yield return null;
+    }
+
     public static GridDot FindPlayerSpawn()
     {
         PlayerSpawn s = instance.GetComponentInChildren<PlayerSpawn>();
@@ -54,13 +111,24 @@ public class Grid : MonoBehaviour
         return null;
     }
 
+    public static GridDot FindPlayerGoal()
+    {
+        PlayerGoal g = instance.GetComponentInChildren<PlayerGoal>();
+        if (g != null)
+        {
+            GridDot parentDot = g.transform.parent.GetComponent<GridDot>();
+            return parentDot;
+        }
+        return null;
+    }
+
     public static GridDot GetRandomActiveDot()
     {
         GridDot g = null;
         int tries = 15;
         for(int i = 0; i < tries; i++)
         {
-            g = gridDots[Random.Range(0, instance.rows - 1), Random.Range(0, instance.columns - 1)];
+            g = gridDots[UnityEngine.Random.Range(0, instance.rows - 1), UnityEngine.Random.Range(0, instance.columns - 1)];
             if (g != null && g.active && g.levelObject == null && g.gameObject.activeSelf)
                 return g;
         }

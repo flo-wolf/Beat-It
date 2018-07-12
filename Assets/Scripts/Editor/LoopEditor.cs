@@ -22,7 +22,7 @@ public class LoopEditor : EditorWindow
 
     private bool loopCreated = false;
 
-    [MenuItem("Window/Loop Editor")]
+    [MenuItem("Custom/Loop Editor")]
     static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(LoopEditor));
