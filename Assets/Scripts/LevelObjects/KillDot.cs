@@ -11,6 +11,8 @@ public class KillDot : LevelObject {
 
     bool kill = false;
 
+    int count = 0;
+
     private void Start()
     {
         Game.onGameStateChange.AddListener(OnGameStateChange);
@@ -19,24 +21,21 @@ public class KillDot : LevelObject {
         RythmManager.onBPM.AddListener(OnRythmCount);
     }
 
-    /*
+    
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger");
         if (collision.gameObject.CompareTag("Player"))
         {
-            kill = true;
-            PlayerSegment.touchedKillDot = true;
-            Player.allowMove = false;
-            Game.SetState(Game.State.Death);
-
-            if(deathAnim != null)
-                deathAnim.Play();
-
-            killFeedback.Play();
+            if(count < 1)
+            {
+                AudioManager.instance.Play("OnDeathTrigger");
+                killFeedback.Play();
+                count++;
+            }
         }
     }
-    */
+    
 
     public void OnGameStateChange(Game.State state)
     {
@@ -53,6 +52,8 @@ public class KillDot : LevelObject {
             if (IsTouchingPlayer(false))
             {
                 Game.SetState(Game.State.DeathOnNextBeat);
+
+                count = 0;
             }
             /*
             //Debug.Log(name);

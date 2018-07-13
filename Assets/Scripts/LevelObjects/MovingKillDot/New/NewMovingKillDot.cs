@@ -32,6 +32,10 @@ public class NewMovingKillDot : LevelObject
 
     private Animation deathAnim;
 
+    int count = 0;
+    //40DFFFFF
+    Color myColor = new Color32(0x40, 0xDF, 0xFF, 0xFF);
+
     private void Start()
     {
         RythmManager.onBPM.AddListener(OnRythmMove);
@@ -48,14 +52,38 @@ public class NewMovingKillDot : LevelObject
         listPosition = 0;
 
         lenghtOfList = gridDotList.Count;
+
+        ColorGridDots();
     }
 
     void OnRythmMove(BPMinfo bpm)
     {
-        if(bpm.Equals(RythmManager.movingKillDotBPM))
+        if (bpm.Equals(RythmManager.movingKillDotBPM))
         {
-            UpdateLookDirection();
-            MoveToNextDot();
+            if(Player.allowMove)
+            {
+                UpdateLookDirection();
+                MoveToNextDot();
+            }
+        }
+
+        if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
+        {
+            if (IsTouchingPlayer(false))
+            {
+                Game.SetState(Game.State.DeathOnNextBeat);
+                count = 0;
+            }
+        }
+
+    }
+
+    void ColorGridDots()
+    {
+        foreach(GridDot dot in gridDotList)
+        {
+            SpriteRenderer spriteRenderer = dot.GetComponent<SpriteRenderer>();
+            spriteRenderer.color = myColor;
         }
     }
 
@@ -120,6 +148,13 @@ public class NewMovingKillDot : LevelObject
         {
             if (deathAnim != null)
                 deathAnim.Play("MovingKillDotDeathFast");
+
+            if (count < 1)
+            {
+                AudioManager.instance.Play("OnDeathTrigger");
+                PlayParticleSystem();
+                count++;
+            }
         }
     }
 

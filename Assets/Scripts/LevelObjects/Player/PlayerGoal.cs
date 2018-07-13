@@ -12,6 +12,8 @@ public class PlayerGoal : LevelObject
 
     public static bool respawnRemoveDot;
 
+    int count = 0;
+
     //public static bool respawn = false;
 
     private void Start()
@@ -28,6 +30,14 @@ public class PlayerGoal : LevelObject
         Debug.Log("Trigger");
         if (collision.gameObject.CompareTag("Player"))
         {
+            if(count < 1)
+            {
+                AudioManager.instance.Play("ReachedGoal");
+                goalFeedback.Play();
+
+                count++;
+            }
+
             Player.allowMove = false;
             respawnRemoveDot = true;
         }
@@ -37,22 +47,22 @@ public class PlayerGoal : LevelObject
     {
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
         {
-            if(!respawnRemoveDot)
+            if (!respawnRemoveDot)
             {
                 if (Player.dot0 != null && Player.dot0.transform.position == gameObject.transform.parent.position)
                 {
-                    goalFeedback.Play();
                     AudioManager.instance.Play("Goal");
 
                     Game.SetState(Game.State.Death);
+                    count = 0;
                 }
 
                 else if (Player.dot1 != null && Player.dot1.transform.position == gameObject.transform.parent.position)
                 {
-                    goalFeedback.Play();
                     AudioManager.instance.Play("Goal");
 
                     Game.SetState(Game.State.Death);
+                    count = 0;
                 }
             }
 
