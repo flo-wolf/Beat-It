@@ -28,12 +28,17 @@ public class NewMovingKillDot : LevelObject
     private float scale = 0f;
     private float opacity = 0f;
 
+    //ParticleSystems
     ParticleSystem killFeedback;
+    public GameObject gridDotParticleSystem;
 
+    //Animation Component
     private Animation deathAnim;
 
+    //To make sure things only get called once in OnTriggerEnter2D
     int count = 0;
-    //40DFFFFF
+
+    //40DFFFFF HexColor to color the GridDots the MovingKillDot is moving on
     Color myColor = new Color32(0x40, 0xDF, 0xFF, 0xFF);
 
     private void Start()
@@ -54,6 +59,7 @@ public class NewMovingKillDot : LevelObject
         lenghtOfList = gridDotList.Count;
 
         ColorGridDots();
+        AddParticleSystemToGridDots();
     }
 
     void OnRythmMove(BPMinfo bpm)
@@ -64,6 +70,12 @@ public class NewMovingKillDot : LevelObject
             {
                 UpdateLookDirection();
                 MoveToNextDot();
+
+                foreach (GridDot dot in gridDotList)
+                {
+                    ParticleSystem ps = dot.GetComponentInChildren<ParticleSystem>();
+                    ps.Play();
+                }
             }
         }
 
@@ -76,6 +88,17 @@ public class NewMovingKillDot : LevelObject
             }
         }
 
+    }
+
+    void AddParticleSystemToGridDots()
+    {
+        foreach (GridDot dot in gridDotList)
+        {
+            GameObject particleSystem = GameObject.Instantiate(gridDotParticleSystem, Vector2.zero, Quaternion.identity);
+            particleSystem.transform.parent = dot.transform;
+            particleSystem.transform.localPosition = Vector3.zero;
+            particleSystem.transform.localScale = gridDotParticleSystem.transform.localScale;
+        }
     }
 
     void ColorGridDots()
