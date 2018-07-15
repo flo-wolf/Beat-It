@@ -79,7 +79,7 @@ public class NewMovingKillDot : LevelObject
             }
         }
 
-        if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
+        if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM) || bpm.Equals(RythmManager.movingKillDotBPM))
         {
             if (IsTouchingPlayer(false))
             {
@@ -177,6 +177,18 @@ public class NewMovingKillDot : LevelObject
                 AudioManager.instance.Play("OnDeathTrigger");
                 PlayParticleSystem();
                 count++;
+            }
+
+            if(Player.dot0 != null && Player.dot0.transform.position == this.transform.position)
+            {
+                SpriteRenderer sr = Player.dot0.GetComponent<SpriteRenderer>();
+                sr.enabled = false;
+            }
+
+            else if(Player.dot1 != null && Player.dot1.transform.position == this.transform.position)
+            {
+                SpriteRenderer sr = Player.dot1.GetComponent<SpriteRenderer>();
+                sr.enabled = false;
             }
         }
     }
