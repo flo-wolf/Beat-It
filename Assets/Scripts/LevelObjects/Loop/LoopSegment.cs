@@ -21,6 +21,7 @@ public class LoopSegment : Segment {
     private Color lineRendererColor;
 
 
+
     // Use this for initialization
     void Start ()
     {
@@ -195,33 +196,15 @@ public class LoopSegment : Segment {
         switch (state)
         {
             case Game.State.Death:
-                StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs()));
+                StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs()/2));
+                break;
+            case Game.State.NextLevelFade:
+                StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs()/2));
                 break;
             case Game.State.Playing:
                 lineRenderer.startColor = lineRendererColor;
                 lineRenderer.endColor = lineRendererColor;
                 break;
         }
-    }
-
-    IEnumerator C_FadeOutSegment(float duration)
-    {
-        float elapsedTime = 0f;
-        Color startColor = lineRenderer.startColor;
-        Color endColor = startColor;
-        endColor.a = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            Color lerpColor = Color.Lerp(startColor, endColor, (elapsedTime / duration));
-            lineRenderer.startColor = lerpColor;
-            lineRenderer.endColor = lerpColor;
-            yield return null;
-        }
-
-        lineRenderer.startColor = endColor;
-        lineRenderer.endColor = endColor;
-        yield return null;
     }
 }

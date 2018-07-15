@@ -16,6 +16,12 @@ public class PlayerGoal : LevelObject
 
     //public static bool respawn = false;
 
+
+    public override void Awake()
+    {
+        // don't delete this, it overrides the levelobjects awake function which would otherwise set this levelobjects scale to 0.
+    }
+
     private void Start()
     {
         RythmManager.onBPM.AddListener(OnRythmRespawn);

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4147469928143892}
   - component: {fileID: 114127080936210518}
   - component: {fileID: 212837835312144232}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rotator
   m_TagString: LevelObject
   m_Icon: {fileID: 0}
@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   playerCanMoveOnto: 0
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   pullPercentage: 0.5
   rotateRight: 0
@@ -90,7 +91,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -988434557
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fb85d2438e42b8347a79fc5ddc21c555, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

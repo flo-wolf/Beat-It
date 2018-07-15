@@ -26,6 +26,11 @@ public class PlayerDot : LevelObject{
     private float scale = 0f;
     private float opacity = 0f;
 
+    public override void Awake()
+    {
+        // don't delete this, it overrides the levelobjects awake function which would otherwise set this levelobjects scale to 0.
+    }
+
     void Start()
     {
         defaultMaterial = sr.material;

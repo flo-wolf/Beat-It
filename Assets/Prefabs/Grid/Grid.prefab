@@ -1851,6 +1851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
   loop: {fileID: 0}
@@ -1867,6 +1868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
 --- !u!114 &114096808492345152
 MonoBehaviour:
@@ -1881,6 +1883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   fadeDuration: 0.5
   sr: {fileID: 212026333318856816}
@@ -1950,6 +1953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 6
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   player: {fileID: 0}
 --- !u!114 &114179206151914364
@@ -2152,6 +2156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
 --- !u!114 &114544950314700732
@@ -2458,6 +2463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
   loop: {fileID: 0}
@@ -2501,6 +2507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
   loop: {fileID: 0}
@@ -2517,6 +2524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
   loop: {fileID: 0}

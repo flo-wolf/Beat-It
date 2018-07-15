@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 58422465240486202}
   - component: {fileID: 198237921490913482}
   - component: {fileID: 199757278805757726}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TeleporterDot
   m_TagString: GridDot
   m_Icon: {fileID: 0}
@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 8
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
 --- !u!198 &198237921490913482
 ParticleSystem:

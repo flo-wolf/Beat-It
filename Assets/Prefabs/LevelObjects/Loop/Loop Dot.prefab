@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4345264952392116}
   - component: {fileID: 212172943293771986}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inner1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4036984499713010}
   - component: {fileID: 212171875316804340}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inner3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 199929942750713264}
   - component: {fileID: 198197500475304344}
   - component: {fileID: 111796389737754334}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Loop Dot
   m_TagString: LevelObject
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4166390795416324}
   - component: {fileID: 212518255505578024}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inner2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   killFeedback: {fileID: 0}
   loop: {fileID: 0}

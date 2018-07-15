@@ -47,11 +47,10 @@ public class Grid : MonoBehaviour
     // smoothly fade out all the griddots in an expanding circle around the startdot
     public static void FadeGridDotsGradually(Vector3 center, float duration, float radius, bool fadeIn, Action callback = null)
     {
-        
-        instance.StartCoroutine(instance.C_FadeGradually(center, duration, radius, fadeIn, callback));
+        instance.StartCoroutine(instance.C_FadeGridDotsGradually(center, duration, radius, fadeIn, callback));
     }
 
-    IEnumerator C_FadeGradually(Vector3 center, float duration, float endRadius, bool fadeIn, Action callback = null)
+    IEnumerator C_FadeGridDotsGradually(Vector3 center, float duration, float endRadius, bool fadeIn, Action callback = null)
     {
         float elapsedTime = 0f;
         float radius = 0;
@@ -64,12 +63,11 @@ public class Grid : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            if(LevelTransition.instance.smoothLerp)
+            if(LevelTransition.instance.smoothDotFadeLerp)
                 radius = Mathf.SmoothStep(0, endRadius, (elapsedTime / duration));
             else
                 radius = Mathf.Lerp(0, endRadius, (elapsedTime / duration));
 
-            Debug.Log("radius: " + radius);
             Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius, 1 << LayerMask.NameToLayer("GridDot"));
             foreach(Collider2D collider in colliders)
             {
@@ -100,9 +98,69 @@ public class Grid : MonoBehaviour
         yield return null;
     }
 
+
+    // smoothly fade out all the griddots in an expanding circle around the startdot
+    public static void FadeLevelObjectsGradually(Vector3 center, float duration, float radius, bool fadeIn, Action callback = null)
+    {
+        instance.StartCoroutine(instance.C_FadeLevelObjectsGradually(center, duration, radius, fadeIn, callback));
+    }
+
+
+    public IEnumerator C_FadeLevelObjectsGradually(Vector3 center, float duration, float endRadius, bool fadeIn, Action callback = null)
+    {
+        float elapsedTime = 0f;
+        float radius = 0;
+
+        // dots that have been found and faded already
+        List<GameObject> detectedObjects = new List<GameObject>();
+
+        Debug.Log("fadedotsgradually");
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            if (LevelTransition.instance.smoothDotFadeLerp)
+                radius = Mathf.SmoothStep(0, endRadius, (elapsedTime / duration));
+            else
+                radius = Mathf.Lerp(0, endRadius, (elapsedTime / duration));
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius, 1 << LayerMask.NameToLayer("LevelObject"));
+            foreach (Collider2D collider in colliders)
+            {
+                //Debug.Log("found a collider: -"+collider.gameObject.tag+"-");
+                if (!detectedObjects.Contains(collider.gameObject))
+                {
+                    //Debug.Log("found a griddot");
+                    detectedObjects.Add(collider.gameObject);
+                    LevelObject obj = collider.GetComponent<LevelObject>();
+                    if (obj != null)
+                    {
+                        //Debug.Log("Found a girddot to fade out!");
+                        obj.FadeOut(RythmManager.playerBPM.ToSecs()/2);
+                        yield return null;
+                    }
+                }
+            }
+
+            yield return null;
+        }
+
+        if (callback != null)
+        {
+            yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs());
+            callback();
+        }
+
+        yield return null;
+    }
+
     public static GridDot FindPlayerSpawn()
     {
-        PlayerSpawn s = instance.GetComponentInChildren<PlayerSpawn>();
+        PlayerSpawn s = null;
+        if (instance != null)
+        {
+            s = instance.GetComponentInChildren<PlayerSpawn>();
+        }
+        
         if(s != null)
         {
             GridDot parentDot = s.transform.parent.GetComponent<GridDot>();
@@ -435,4 +493,23 @@ public class Grid : MonoBehaviour
         return closestDot;
     }
 
+
+    public static void Pan(Vector3 start, Vector3 end, float duration, bool smoothStep = true)
+    {
+        instance.StartCoroutine(instance.C_Pan(start, end, duration));
+    }
+
+    IEnumerator C_Pan(Vector3 start, Vector3 end, float duration, bool smoothStep = true)
+    {
+        Vector3 gridOrigin = instance.transform.position;
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float extraLerp = Mathf.SmoothStep(0, 1, (elapsedTime / duration));
+            instance.transform.position = Vector3.Slerp(gridOrigin, end-start, extraLerp);
+            yield return null;
+        }
+        yield return null;
+    }
 }

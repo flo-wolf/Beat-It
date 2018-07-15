@@ -25,9 +25,13 @@ public class Game : MonoBehaviour {
 
     public static GameStateChangeEvent onGameStateChange = new GameStateChangeEvent();
 
+    public static bool quickSceneLoad = false;
+
 
     void Awake()
     {
+        
+
         if (instance == null)
         {
             instance = this;
@@ -35,18 +39,20 @@ public class Game : MonoBehaviour {
         }
         else
             Destroy(gameObject);
+
+        GetLevelNumberFromLevelName();
+        Debug.Log("LevelNumber: " + level);
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        GetLevelNumberFromLevelName();
+        Debug.Log("LevelNumber: " + level);
     }
 
     void Start()
     {
         RythmManager.onBPM.AddListener(OnBPM);
-        Debug.Log("Start");
-        StartCoroutine(LevelFadeTimer(true));
-    }
-
-    private void OnLevelWasLoaded(int level)
-    {
-        StartCoroutine(LevelFadeTimer(true));
     }
 
     public void OnBPM(BPMinfo bpm)
@@ -71,11 +77,12 @@ public class Game : MonoBehaviour {
         if (newState == State.DeathOnNextBeat)
         {
             Player.allowMove = false;
+            quickSceneLoad = true;
         }
 
 
-        if (newState == State.Death) { 
-
+        if (newState == State.Death) {
+            quickSceneLoad = true;
             if (!Player.deathByMovingKillDot)
             {
                 if (!Player.deathBySegment && !Player.deathByMovingKillDot)
@@ -98,7 +105,8 @@ public class Game : MonoBehaviour {
         else if(newState == State.RestartFade)
         {
             Debug.Log("RestartFade");
-            instance.StartCoroutine(instance.C_Restart());
+            quickSceneLoad = true;
+            LevelTransition.instance.FadeOutLevelRespawn();
         }
         else if (newState == State.NextLevelFade && newState != oldState)
         {
@@ -110,36 +118,36 @@ public class Game : MonoBehaviour {
     {
         Debug.Log("Load the next level");
         if (instance.levels.Count > level + 1)
+        {
             SceneManager.LoadScene(instance.levels[level + 1]);
+        }
+            
         else
             SceneManager.LoadScene(instance.levels[level]);
+    }
+
+    public static void RestartLevel()
+    {
+        SceneManager.LoadScene(instance.levels[level]);
     }
 
     public IEnumerator C_Restart()
     {
         Debug.Log("Restart the level");
-
+        
         yield return new WaitForSeconds(levelSwitchDuration*1);
-        SceneManager.LoadScene(levels[level]);
+        
         yield return null;
     }
 
-    // sets the state after the fadein fadeout
-    IEnumerator LevelFadeTimer(bool fadeIn)
+
+    private void GetLevelNumberFromLevelName()
     {
-        SetState(State.LevelFadein);
-        if (fadeIn)
-        {
-            yield return new WaitForSeconds(levelSwitchDuration);
-            SetState(State.Playing);
-        }
-        else
-        {
-            yield return new WaitForSeconds(levelSwitchDuration);
-            SetState(State.Playing);
-            // switch level
-        }
-        yield return null;
+        int parsedLevel = -1;
+        String levelName = SceneManager.GetActiveScene().name;
+        string numbersOnly = System.Text.RegularExpressions.Regex.Replace(levelName, "[^0-9]", "");
+        int.TryParse(numbersOnly, out parsedLevel);
+        level = parsedLevel;
     }
 
     //public static void Restart()
@@ -175,6 +183,8 @@ public class Game : MonoBehaviour {
         yield return null;
     }
     */
+
+
 
 
     // events

@@ -37,6 +37,18 @@ public class GridDot : MonoBehaviour
         FindLevelObjectChildren();
         AdjustMaterial();
         transform.localScale = Vector3.zero;
+
+        LevelTransition.onLevelTransition.AddListener(OnLevelTransition);
+    }
+
+    void OnLevelTransition(LevelTransition.Action a)
+    {
+        switch (a)
+        {
+            case LevelTransition.Action.FadeGridDots:
+                StartCoroutine(Fade(false));
+                break;
+        }
     }
 
     void FindLevelObjectChildren()
@@ -70,12 +82,24 @@ public class GridDot : MonoBehaviour
             case Game.State.LevelFadein:
                 if (anim)
                     anim.Stop();
-                StartCoroutine(Fade(true));
+                //StartCoroutine(Fade(true));
                 break;
             case Game.State.RestartFade:
                 if (anim)
                     anim.Stop();
                 StartCoroutine(Fade(false));
+                break;
+
+            case Game.State.NextLevelFade:
+                if (anim)
+                    anim.Stop();
+                //StartCoroutine(Fade(false));
+                break;
+
+            case Game.State.Death:
+                if (anim)
+                    anim.Stop();
+                //StartCoroutine(Fade(false));
                 break;
             case Game.State.Playing:
                 if (anim)
@@ -104,7 +128,7 @@ public class GridDot : MonoBehaviour
 
 
         float elapsedTime = 0f;
-        float dur = RythmManager.playerBPM.ToSecs();
+        float dur = RythmManager.playerBPM.ToSecs()/2;
         while (elapsedTime <= dur)
         {
             elapsedTime += Time.deltaTime;
