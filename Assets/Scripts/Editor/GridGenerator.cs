@@ -64,8 +64,12 @@ public class GridGenerator : EditorWindow
         }
 
         gridDotPrefab = EditorGUILayout.ObjectField("GridDot Prefab:", gridDotPrefab, typeof(GameObject), true) as GameObject;
-        rows = EditorGUILayout.IntField("Number of Rows: ", rows);
-        columns = EditorGUILayout.IntField("Number of Columns: ", columns);
+        //rows = EditorGUILayout.IntField("Number of Rows: ", rows);
+        //columns = EditorGUILayout.IntField("Number of Columns: ", columns);
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Keep this at 8 for all levels", EditorStyles.boldLabel);
         gridStep = EditorGUILayout.IntField("Dot Padding: ", gridStep);
 
         EditorGUILayout.Space();
@@ -75,58 +79,93 @@ public class GridGenerator : EditorWindow
         {
 
 /// Grid Placer
-            if (GUILayout.Button("Redraw the Grid"))
+            if (GUILayout.Button("Fill Box Collider with GridDots"))
             {
-                // remove the old grid
-                var tempList = grid.transform.Cast<Transform>().ToList();
-                foreach (var child in tempList)
+                
+                BoxCollider2D box = grid.GetComponent<BoxCollider2D>();
+                if (box != null)
                 {
-                    DestroyImmediate(child.gameObject);
-                }
+                    // calculate rows and columns
+                    float width = box.size.x;
+                    float height = box.size.y;
 
-                for (int i = -(rows/2); i < rows/2; i++)
-                {
-                    for(int j = -(columns/2); j < columns/2; j++)
+                    rows = ((int)height / gridStep) + 2;
+                    if (rows % 2 != 0)
+                        rows += 1;
+                    rows = (int) ((float)rows * 2f);
+                    columns = ((int)width / gridStep) + 2;
+                    if (columns % 2 != 0)
+                        columns += 1;
+                    columns = (int)((float)columns * 1.5f);
+
+
+                    // remove the old grid
+                    var t = grid.transform.Cast<Transform>().ToList();
+                    foreach (var c in t)
                     {
-                        // calculate the placement position:
+                        DestroyImmediate(c.gameObject);
+                    }
+                    placedDots = new GridDot[rows, columns];
+                    UpdateDotReferences();
 
-                        // row is uneven => offset it to get the hexagonal grid)
-                        if (i % 2 == 0)
-                            tempOffset = gridStep / 2;
-                        else
-                            tempOffset = 0f;
-
-                        tempPos = Vector2.zero;
-                        tempPos.x += j * gridStep + tempOffset;
-                        tempPos.y += i * gridStep;
-
-                        tempObj = (GameObject)PrefabUtility.InstantiatePrefab(gridDotPrefab);
-                        tempObj.transform.position = tempPos;
-                        tempObj.name = "GridDot Row" + (i + (rows / 2)) + " Column" + (j + (columns / 2));
-                        tempObj.transform.parent = grid.transform;
-
-                        //update the references in the grid class
-                        GridDot dot = tempObj.GetComponent<GridDot>();
-                        if(dot != null)
+                    for (int i = -(rows / 2); i < rows / 2; i++)
+                    {
+                        for (int j = -(columns / 2); j < columns / 2; j++)
                         {
-                            dot.row = i +(rows / 2);
-                            dot.column = j + (columns / 2);
-                            placedDots[i + (rows / 2), j + (columns / 2)] = dot;
-                        }
-                        else
-                        {
-                            EditorGUILayout.Space();
-                            Debug.LogError("GridWindow: The GridDot prefab doesnt have a GridDot script attached.");
-                            EditorGUILayout.Space();
-                        }
+                            // calculate the placement position:
 
-                        tempObj = null;
+                            // row is uneven => offset it to get the hexagonal grid)
+                            if (i % 2 == 0)
+                                tempOffset = gridStep / 2;
+                            else
+                                tempOffset = 0f;
+
+                            tempPos = Vector2.zero;
+                            tempPos.x += j * gridStep + tempOffset;
+                            tempPos.y += i * gridStep;
+
+                            tempObj = (GameObject)PrefabUtility.InstantiatePrefab(gridDotPrefab);
+                            tempObj.transform.position = tempPos;
+                            tempObj.name = "GridDot Row" + (i + (rows / 2)) + " Column" + (j + (columns / 2));
+                            tempObj.transform.parent = grid.transform;
+
+                            //update the references in the grid class
+                            GridDot dot = tempObj.GetComponent<GridDot>();
+                            if (dot != null)
+                            {
+                                dot.row = i + (rows / 2);
+                                dot.column = j + (columns / 2);
+                                placedDots[i + (rows / 2), j + (columns / 2)] = dot;
+                            }
+                            else
+                            {
+                                EditorGUILayout.Space();
+                                Debug.LogError("GridWindow: The GridDot prefab doesnt have a GridDot script attached.");
+                                EditorGUILayout.Space();
+                            }
+
+                            tempObj = null;
+                        }
+                    }
+
+
+
+                    var temp = grid.transform.Cast<Transform>().ToList();
+                    foreach (var child in temp)
+                    {
+
+                        // delete all the objects outside the bounding box
+                        if (!box.bounds.Contains(child.transform.position))
+                        {
+                            GameObject.DestroyImmediate(child.gameObject);
+                        }
                     }
                 }
 
                 UpdateDotReferences();
             }
 
+            /*
             if (GUILayout.Button("Activate only visible Dots"))
             {
                 BoxCollider2D box = grid.GetComponent<BoxCollider2D>();
@@ -136,18 +175,6 @@ public class GridGenerator : EditorWindow
                     var tempList = grid.transform.Cast<Transform>().ToList();
                     foreach (var child in tempList)
                     {
-                        /*
-                        // deactivate all the gameobjects outside of the camera
-                        Vector3 pos = Camera.main.WorldToViewportPoint(child.transform.position);
-
-                        // if the dot lays outside the viewport and outside the treshhold, deactivate it
-                        float t = 0.005f; // treshhold
-                        if (pos.x < 0 - t || pos.x > 1 + t || pos.y < 0 - t || pos.y > 1 + t)
-                            child.gameObject.SetActive(false);
-                        else
-                            child.gameObject.SetActive(true);
-
-                        */
 
                         // deactivate all the objects outside the bounding box
                         if (box.bounds.Contains(child.transform.position))
@@ -240,6 +267,7 @@ public class GridGenerator : EditorWindow
                     child.gameObject.SetActive(false);
                 }
             }
+            */
 
             if (GUILayout.Button("Clear the Grid, Delete all Dots"))
             {
