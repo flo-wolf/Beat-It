@@ -31,13 +31,7 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public DotType newestDot = DotType.None;
 
-    [Header("Radius Drawing")]
-    public float radiusDrawScale = 0.01f;   // the amount of verticies used to draw the radius. Lower number = more
-    public float radiusFadeDuration = 1f;
-    public float maxRadius = 5;            // default max radius
-    private float radius = 0;              // current radius, gets interpolated to and from maxRadius via fading coroutine
-    private float radiusOpacity = 0f;       // current opacity, gets interpolated to and from 1 via fading coroutine
-    private Vector2 handleCenter;
+    
 
     /*
     [Header("Additional Player Controls")]
@@ -55,11 +49,10 @@ public class Player : MonoBehaviour {
     public GameObject playerDotPrefab;      // needed for creating new playerDots
     public PlayerSegment playerSegment;     // the line drawn between two playerDots, collision detectable
     public LineRenderer radiusLineRenderer;
-    public SpriteRenderer lookHandleSr;
-    public SpriteRenderer lookHandleInnerSr;
 
     // aiming
-    private Vector2 lookDirection = new Vector2(); //
+    [HideInInspector]
+    public Vector2 lookDirection = new Vector2(); //
     private bool lookingRight = false;
     private GridDot aimedGridDot;
     private float thumbstickTreshhold = 0.03f;
@@ -86,7 +79,7 @@ public class Player : MonoBehaviour {
     /// Input Handling and Radius Drawing
     void Update()
     {
-        UpdateLookDirection();
+        PlayerDirectionHandle.instance.UpdateLookDirection();
         CheckIfSingleDot();
     }
 
@@ -96,7 +89,6 @@ public class Player : MonoBehaviour {
         {
             case Game.State.Playing:
                 allowMove = true;
-                lookHandleSr.gameObject.SetActive(true);
                 break;
             case Game.State.Death:
                 Death();
@@ -121,56 +113,9 @@ public class Player : MonoBehaviour {
         return true;
     }
 
-    private void UpdateLookDirection()
-    {
-        // get the world mouse position 
-        Vector2 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        // calculate the destination position
-        Vector2 activePosition = Vector2.zero;
 
-        // check which dot is "alone", and if one is alone, get its position to display the radius handle
-        if (dot0 != null && dot1 == null)
-        {
-            activePosition = dot0.transform.position;
-            handleCenter = activePosition;
-        }
-        else if (dot1 != null && dot0 == null)
-        {
-            activePosition = dot1.transform.position;
-            handleCenter = activePosition;
-        }
-        else if (dot0 != null && dot1 != null)
-        {
-            // both dots are alive, don't draw a radius
-            activePosition = handleCenter;
-        }
-
-        lookDirection = mousePos - activePosition;
-        lookDirection = lookDirection.normalized;
-
-        // in case we use a controller
-        Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.Controler)
-        {
-            lookDirection = controllerInput;
-            lookDirection = lookDirection.normalized;
-        }
-
-        UpdateHandle(activePosition);
-    }
-
-    /// Updates the Handle position and opacity
-    void UpdateHandle(Vector2 activePos)
-    {
-        // set opacity value of the radius handle
-        Color c = lookHandleSr.color;
-        c.a = radiusOpacity;
-        lookHandleSr.color = c;
-
-        lookHandleSr.gameObject.transform.position = activePos + (lookDirection + lookDirection/2);
-    }
+    
 
     // the clock has reached its end, move the player
     void OnRythmMove(BPMinfo bpm)
@@ -508,7 +453,7 @@ public class Player : MonoBehaviour {
                         return;
 
                     dotWasSpawned = 0;
-                    FadeRadius(false);
+                    PlayerDirectionHandle.instance.FadeRadius(false);
                 }
                 // dot0 exists, dot1 doesnt => spawn dot1
                 else if (dot0 != null && dot1 == null)
@@ -519,7 +464,7 @@ public class Player : MonoBehaviour {
                         return;
 
                     dotWasSpawned = 1;
-                    FadeRadius(false);
+                    PlayerDirectionHandle.instance.FadeRadius(false);
                 }
                 // there are no dots, spawn the first dot
                 else
@@ -530,7 +475,7 @@ public class Player : MonoBehaviour {
                         parentDot = spawnDot;
                     dotWasSpawned = 0;
 
-                    FadeRadius(true);
+                    PlayerDirectionHandle.instance.FadeRadius(true);
                 }
             }
 
@@ -553,7 +498,7 @@ public class Player : MonoBehaviour {
                         return;
 
                     dotWasSpawned = 0;
-                    FadeRadius(false);
+                    PlayerDirectionHandle.instance.FadeRadius(false);
 
                 }
                 // dot0 exists, dot1 doesnt => spawn dot1
@@ -573,7 +518,7 @@ public class Player : MonoBehaviour {
                         return;
 
                     dotWasSpawned = 1;
-                    FadeRadius(false);
+                    PlayerDirectionHandle.instance.FadeRadius(false);
                 }
 
                 // there are no dots, spawn the first dot
@@ -587,7 +532,7 @@ public class Player : MonoBehaviour {
 
                     //move the moving kill dot again
 
-                    FadeRadius(true);
+                    PlayerDirectionHandle.instance.FadeRadius(true);
                 }
             }
 
@@ -649,10 +594,10 @@ public class Player : MonoBehaviour {
                 if (newestDot == DotType.Dot1)
                     switchSegmentDirection = true;
                 newestDot = DotType.Dot1;
-                FadeRadius(true);
+                PlayerDirectionHandle.instance.FadeRadius(true);
             }
             else
-                FadeRadius(false);
+                PlayerDirectionHandle.instance.FadeRadius(false);
         }
         else if (!removeDot0 && dot1 != null)
         {
@@ -664,17 +609,17 @@ public class Player : MonoBehaviour {
                 if (newestDot == DotType.Dot0)
                     switchSegmentDirection = true;
                 newestDot = DotType.Dot0;
-                FadeRadius(true);
+                PlayerDirectionHandle.instance.FadeRadius(true);
             }
             else
-                FadeRadius(false);
+                PlayerDirectionHandle.instance.FadeRadius(false);
         }
 
         // both dots are gone => Death/Restart
         if (dot1 == null && dot0 == null)
         {
-            radius = 0;
-            radiusOpacity = 0;
+            PlayerDirectionHandle.instance.radius = 0;
+            PlayerDirectionHandle.instance.radiusOpacity = 0;
             newestDot = DotType.None;
         }
 
@@ -685,7 +630,6 @@ public class Player : MonoBehaviour {
     public void Death()
     {
         allowMove = false;
-        lookHandleSr.gameObject.SetActive(false);
 
         if(newestDot == DotType.Dot0){
             RemoveDot(false);
@@ -696,50 +640,6 @@ public class Player : MonoBehaviour {
             RemoveDot(false);
         }
 
-    }
-
-    void FadeRadius(bool fadeIn, Action onStart = null, Action onComplete = null)
-    {
-        StopCoroutine("FadeRadiusCoroutine");
-        StartCoroutine(FadeRadiusCoroutine(fadeIn, onStart, onComplete));
-    }
-
-    /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
-    IEnumerator FadeRadiusCoroutine(bool fadeIn, Action onStart = null, Action onComplete = null)
-    {
-        //Debug.Log("Radius FadeIn " + fadeIn);
-
-        if (onStart != null)
-        {
-            onStart();
-        }
-
-        float startRadius = radius;
-
-        float elapsedTime = 0f;
-        while (elapsedTime <= radiusFadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            if (fadeIn && radius != maxRadius)
-            {
-                radius = Mathf.SmoothStep(startRadius, maxRadius, (elapsedTime / radiusFadeDuration));
-                radiusOpacity = Mathf.SmoothStep(startRadius, 1, (elapsedTime / radiusFadeDuration));
-            }
-
-            else if (!fadeIn && radius != 0)
-            {
-                radius = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
-                radiusOpacity = Mathf.SmoothStep(startRadius, 0, (elapsedTime / radiusFadeDuration));
-            }
-            yield return null;
-        }
-
-        if (onComplete != null)
-        {
-            onComplete();
-        }
-
-        yield return null;
     }
 }
 

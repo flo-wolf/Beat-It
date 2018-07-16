@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114070200810405826}
   - component: {fileID: 198448179826526378}
   - component: {fileID: 199531002865780302}
+  - component: {fileID: 111513144048270772}
   m_Layer: 0
   m_Name: Player Spawn
   m_TagString: PlayerSpawn
@@ -59,6 +60,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!111 &111513144048270772
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198487069357628}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 5ff07d9ce6ecda440a6a8959a7b53761, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 5ff07d9ce6ecda440a6a8959a7b53761, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114070200810405826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,8 +86,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054519390201c8249a2bfa11f1edaf79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 5
+  type: 6
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
 --- !u!198 &198448179826526378
 ParticleSystem:
@@ -4732,7 +4749,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: e398f24335154d74cbca4a82f4106731, type: 2}
+  - {fileID: 2100000, guid: d88089e8ce29a13478553724a46be969, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4749,11 +4766,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -988434557
-  m_SortingLayer: 7
+  m_SortingLayerID: -399619757
+  m_SortingLayer: 9
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fb85d2438e42b8347a79fc5ddc21c555, type: 3}
-  m_Color: {r: 0.9333334, g: 0.43137258, b: 0.48235297, a: 1}
+  m_Sprite: {fileID: 21300002, guid: e31e2b84eada98b4db165507d701d63c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -46,6 +46,7 @@ public class Game : MonoBehaviour {
 
     private void OnLevelWasLoaded(int level)
     {
+        if (this != instance) return;
         GetLevelNumberFromLevelName();
         Debug.Log("LevelNumber: " + level);
     }
@@ -130,16 +131,6 @@ public class Game : MonoBehaviour {
     {
         SceneManager.LoadScene(instance.levels[level]);
     }
-
-    public IEnumerator C_Restart()
-    {
-        Debug.Log("Restart the level");
-        
-        yield return new WaitForSeconds(levelSwitchDuration*1);
-        
-        yield return null;
-    }
-
 
     private void GetLevelNumberFromLevelName()
     {

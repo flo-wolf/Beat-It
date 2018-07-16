@@ -56,6 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4358082796865724}
   - component: {fileID: 212325727363080220}
+  - component: {fileID: 114784712537482406}
   m_Layer: 0
   m_Name: Radius Handle
   m_TagString: Player
@@ -187,17 +188,30 @@ MonoBehaviour:
   dashOnBeat: 0
   dashOffBeat: 1
   newestDot: 0
-  radiusDrawScale: 0.01
-  radiusFadeDuration: 0.01
-  maxRadius: 5
   tempoUp: 0
   tempoDown: 0
   playerDotPrefab: {fileID: 1371461933542696, guid: b87071e003593024b9f9ee071fe7e6c5,
     type: 2}
   playerSegment: {fileID: 114307798837158290}
   radiusLineRenderer: {fileID: 120002297436473976}
-  lookHandleSr: {fileID: 212325727363080220}
-  lookHandleInnerSr: {fileID: 0}
+  lookDirection: {x: 0, y: 0}
+--- !u!114 &114784712537482406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1603877758770026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ecde6d28cbfd9a42943de32dce220ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sr: {fileID: 212325727363080220}
+  radiusDrawScale: 0.02
+  radiusFadeDuration: 0.01
+  maxRadius: 1000
+  radius: 0
+  radiusOpacity: 0
 --- !u!120 &120002297436473976
 LineRenderer:
   m_ObjectHideFlags: 1

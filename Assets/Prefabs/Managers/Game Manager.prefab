@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeStepDuration: 0.5
   levels:
+  - Level0
   - Level1
-  - Level2
 --- !u!114 &114845624560197398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,5 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b29c2dce419474c953933711eb13ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dotFadeDuration: 1
-  smoothLerp: 0
+  smoothDotFadeLerp: 1
+  out_FadeDotsDuration: 0.5
+  out_cameraToNewSpawnDuration: 1
+  start_ShowPlayerDuration: 0
+  start_FadeDotsDuration: 1
+  start_ShowGoalDuration: 0
+  start_FadeObjectsDuration: 1

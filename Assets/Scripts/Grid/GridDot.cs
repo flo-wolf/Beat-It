@@ -45,7 +45,7 @@ public class GridDot : MonoBehaviour
     {
         switch (a)
         {
-            case LevelTransition.Action.FadeGridDots:
+            case LevelTransition.Action.FadeOutGridDots:
                 StartCoroutine(Fade(false));
                 break;
         }
