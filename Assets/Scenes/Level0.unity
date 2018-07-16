@@ -478,6 +478,8 @@ MonoBehaviour:
   row: 6
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &75427682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -718,6 +720,8 @@ MonoBehaviour:
   row: 6
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &224971072
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -842,6 +846,8 @@ MonoBehaviour:
   row: 6
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &226263695
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6088,6 +6094,8 @@ MonoBehaviour:
   row: 5
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &403190067
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6286,6 +6294,8 @@ MonoBehaviour:
   row: 5
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &478645230
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6318,6 +6328,8 @@ MonoBehaviour:
   row: 5
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &535780807
 GameObject:
   m_ObjectHideFlags: 0
@@ -6427,6 +6439,8 @@ MonoBehaviour:
   row: 7
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &535780812
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6442,148 +6456,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!1001 &538411866
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1012347932}
-    m_Modifications:
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[0]
-      value: 
-      objectReference: {fileID: 2030716940}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[1]
-      value: 
-      objectReference: {fileID: 1012347935}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[2]
-      value: 
-      objectReference: {fileID: 1233661288}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[3]
-      value: 
-      objectReference: {fileID: 1184419242}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[4]
-      value: 
-      objectReference: {fileID: 1233661288}
-    - target: {fileID: 212081504103793396, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300026, guid: b1f8bf3a83298b44ab4426e091a9c5c5,
-        type: 3}
-    - target: {fileID: 212727843248859612, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212727843248859612, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0.11764707
-      objectReference: {fileID: 0}
-    - target: {fileID: 212727843248859612, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.6039216
-      objectReference: {fileID: 0}
-    - target: {fileID: 212727843248859612, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.21960786
-      objectReference: {fileID: 0}
-    - target: {fileID: 212727843248859612, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081504103793396, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 498da142b7d10684692f75f1877a1989, type: 2}
-    - target: {fileID: 212081504103793396, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0.7843138
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081504103793396, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.22352943
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081504103793396, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.23137257
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081504103793396, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 2.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081504103793396, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 2.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081504103793396, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980215587948604, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &563775765
 GameObject:
   m_ObjectHideFlags: 0
@@ -6694,6 +6566,8 @@ MonoBehaviour:
   row: 7
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &563775770
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6748,7 +6622,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 111513144048270772, guid: b14831c3b07e74a44b803628f21c30ea, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b14831c3b07e74a44b803628f21c30ea, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &644445203
@@ -6861,6 +6736,8 @@ MonoBehaviour:
   row: 6
   column: 2
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &644445208
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12057,6 +11934,8 @@ MonoBehaviour:
   row: 7
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &897935158
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12314,8 +12193,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -20, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
-  m_Children:
-  - {fileID: 1771868365}
+  m_Children: []
   m_Father: {fileID: 906457543}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12394,6 +12272,8 @@ MonoBehaviour:
   row: 6
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1012347936
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12639,6 +12519,8 @@ MonoBehaviour:
   row: 6
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1116735332
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12671,6 +12553,8 @@ MonoBehaviour:
   row: 5
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1185450026
 Prefab:
   m_ObjectHideFlags: 0
@@ -12946,6 +12830,8 @@ MonoBehaviour:
   row: 7
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1211730506
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -13186,6 +13072,8 @@ MonoBehaviour:
   row: 5
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1233661289
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -18322,6 +18210,8 @@ MonoBehaviour:
   row: 5
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1344568714
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -23259,6 +23149,8 @@ MonoBehaviour:
   row: 6
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1431733486
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -23429,6 +23321,8 @@ MonoBehaviour:
   row: 6
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1531486283
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -23444,11 +23338,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!4 &1771868365 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-    type: 2}
-  m_PrefabInternal: {fileID: 538411866}
 --- !u!1 &1777351536
 GameObject:
   m_ObjectHideFlags: 0
@@ -23559,6 +23448,8 @@ MonoBehaviour:
   row: 5
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1777351541
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -23683,6 +23574,8 @@ MonoBehaviour:
   row: 7
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &1799051048
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -24037,6 +23930,8 @@ MonoBehaviour:
   row: 7
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &2030716941
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -24161,6 +24056,8 @@ MonoBehaviour:
   row: 7
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!58 &2070413610
 CircleCollider2D:
   m_ObjectHideFlags: 0

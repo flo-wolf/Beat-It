@@ -11,6 +11,7 @@ public class PlayerSpawn : LevelObject {
     private bool playerHasSpawned = false;
     ParticleSystem spawnFeedback;
 
+    private float defaultSize = 0f;
 
     public override void Awake()
     {
@@ -21,26 +22,14 @@ public class PlayerSpawn : LevelObject {
     void Start ()
     {
         instance = this;
+        defaultSize = transform.localScale.x;
+
+        transform.localScale = Vector3.zero;
 
         //anim = GetComponent<Animation>();
         EditPlayerSpawnData.ReportPlayerSpawnPosition(transform.position, Game.level);
 
-        LevelTransition.onLevelTransition.AddListener(OnLevelTransition);
-
         spawnFeedback = GetComponent<ParticleSystem>();
-    }
-
-    void OnLevelTransition(LevelTransition.Action action)
-    {
-        switch (action)
-        {
-            case LevelTransition.Action.SpawnFadeIn:
-                Fade(true);
-                break;
-            case LevelTransition.Action.SpawnFadeOut:
-                Fade(false);
-                break;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,28 +42,14 @@ public class PlayerSpawn : LevelObject {
         }
     }
     
-    private void Fade(bool fadeIn)
+    public void Fade(float duration, bool fadeIn)
     {
-        if (fadeIn)
-        {
-
-            StartCoroutine(C_FadeSize(RythmManager.playerBPM.ToSecs() / 2, true));
-            //anim["Spawn_FadeIn"].speed = 1;
-            //anim["Spawn_FadeIn"].time = 0;
-            //anim.Play("Spawn_FadeIn");
-        }
-        else
-        {
-            StartCoroutine(C_FadeSize(RythmManager.playerBPM.ToSecs() / 2, false));
-            //anim["Spawn_FadeIn"].speed = -1;
-            //anim["Spawn_FadeIn"].time = anim["Spawn_FadeIn"].length;
-            //anim.Play("Spawn_FadeIn");
-        }
+        Debug.Log("FadeInPlayer Spawned");
+        StartCoroutine(C_FadeSize(duration, fadeIn));
     }
 
     IEnumerator C_FadeSize(float duration, bool fadeIn)
     {
-        float startSize = transform.localScale.x;
         float size = 0;
 
         float elapsedTime = 0;
@@ -83,12 +58,12 @@ public class PlayerSpawn : LevelObject {
             elapsedTime += Time.deltaTime;
             if (fadeIn)
             {
-                size = Mathf.SmoothStep(0, startSize, (elapsedTime / duration));
+                size = Mathfx.Berp(0, defaultSize, (elapsedTime / duration));
             }
 
             else
             {
-                size = Mathf.SmoothStep(startSize, 0, (elapsedTime / duration));
+                size = Mathfx.Berp(defaultSize, 0, (elapsedTime / duration));
             }
             transform.localScale = new Vector3(size, size, size);
             yield return null;

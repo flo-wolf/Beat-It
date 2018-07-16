@@ -70,7 +70,7 @@ MonoBehaviour:
   smoothDotFadeLerp: 1
   out_FadeDotsDuration: 0.5
   out_cameraToNewSpawnDuration: 1
-  start_ShowPlayerDuration: 0
-  start_FadeDotsDuration: 1
-  start_ShowGoalDuration: 0
+  start_ShowPlayerDuration: 1
+  start_FadeDotsDuration: 2
+  start_ShowGoalDuration: 1
   start_FadeObjectsDuration: 1

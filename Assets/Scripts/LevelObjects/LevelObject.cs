@@ -53,6 +53,7 @@ public class LevelObject : MonoBehaviour {
 
     IEnumerator C_Fade(bool fadeIn, float duration)
     {
+        Debug.Log("PlayerDot fadeIn: " + fadeIn + " -- name: " + gameObject.name);
         float elapsedTime = 0f;
         Vector3 size = Vector3.zero;
 

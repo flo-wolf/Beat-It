@@ -70,6 +70,7 @@ public class PlayerDot : LevelObject{
     /// interpolates the dots opacity as well as its size
     IEnumerator Fade(bool fadeIn)
     {
+        Debug.Log("PlayerDot fadeIn: " + fadeIn + " -- name: " + gameObject.name);
         fadeDuration = RythmManager.playerBPM.ToSecs() / 2;
         if (fadeIn)
             state = State.Filling;

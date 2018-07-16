@@ -78,9 +78,11 @@ public class LevelTransition : MonoBehaviour {
         Vector3 panStartPos = Grid.FindPlayerGoal().transform.position - Grid.instance.transform.position;
         Vector3 panEndPos = EditPlayerSpawnData.GetNextPlayerSpawnPositon() - Grid.instance.transform.position;
         Grid.Pan(panStartPos, panEndPos, out_cameraToNewSpawnDuration);
-        yield return new WaitForSeconds(out_cameraToNewSpawnDuration / 2);
         onLevelTransition.Invoke(Action.FadeOutRadiusHandle);
+        yield return new WaitForSeconds(out_cameraToNewSpawnDuration / 3);
         onLevelTransition.Invoke(Action.FadeOutGridDots);
+        
+        
         yield return new WaitForSeconds(out_cameraToNewSpawnDuration/2);
         
 
@@ -106,21 +108,34 @@ public class LevelTransition : MonoBehaviour {
     // next level intro
     IEnumerator C_LevelIntro()
     {
+        yield return new WaitForEndOfFrame();
+
+        // prepare showing only the player by making its griddot bigger
+        PlayerSpawn.instance.gridDot.transform.localScale = PlayerSpawn.instance.gridDot.defaultSize;
+        PlayerSpawn.instance.gridDot.wasFadedIn = true;
+
         // show only the player
-        onLevelTransition.Invoke(Action.SpawnFadeIn);
+        PlayerSpawn.instance.Fade(start_ShowPlayerDuration, true);
         yield return new WaitForSeconds(start_ShowPlayerDuration);
 
+        // fade in the grid dots
         Grid.FadeGridDotsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
         yield return new WaitForSeconds(start_FadeDotsDuration);
 
-        Grid.FadeLevelObjectsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
-
+        // fade in the goal
+        PlayerGoal.instance.Fade(start_ShowGoalDuration, true);
         yield return new WaitForSeconds(start_ShowGoalDuration);
 
+        // fade in all other levelobjects
+        Grid.FadeLevelObjectsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeObjectsDuration, 80f, true);
         yield return new WaitForSeconds(start_FadeObjectsDuration);
+
+        // start the game
         Game.SetState(Game.State.Playing);
+
+        // fade out the spawn
         yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs() * 2);
-        onLevelTransition.Invoke(Action.SpawnFadeOut);
+        PlayerSpawn.instance.Fade(start_ShowPlayerDuration, false);
 
         yield return null;
     }
@@ -128,17 +143,23 @@ public class LevelTransition : MonoBehaviour {
     // respawn level intro
     IEnumerator C_LevelIntroRespawn()
     {
-        onLevelTransition.Invoke(Action.SpawnFadeIn);
+        yield return new WaitForEndOfFrame();
+
+        PlayerSpawn.instance.gridDot.Fade(true);
+        PlayerSpawn.instance.gridDot.wasFadedIn = true;
+        PlayerSpawn.instance.Fade(start_ShowPlayerDuration, true);
         yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs());
-        Debug.Log("LevelIntroRespawn");
+
         Grid.FadeGridDotsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
         Grid.FadeLevelObjectsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
 
-        //yield return new WaitForSeconds(start_FadeDotsDuration);
         Game.SetState(Game.State.Playing);
-        yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs()*3);
-        onLevelTransition.Invoke(Action.SpawnFadeOut);
-        yield return null;
         Game.quickSceneLoad = false;
+
+        yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs() * 2);
+        PlayerSpawn.instance.Fade(start_ShowPlayerDuration, false);
+
+
+        yield return null;
     }
 }
