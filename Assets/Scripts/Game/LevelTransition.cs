@@ -145,16 +145,22 @@ public class LevelTransition : MonoBehaviour {
     {
         yield return new WaitForEndOfFrame();
 
-        PlayerSpawn.instance.gridDot.Fade(true);
+        // prepare showing only the player by making its griddot bigger
+        PlayerSpawn.instance.gridDot.transform.localScale = PlayerSpawn.instance.gridDot.defaultSize;
         PlayerSpawn.instance.gridDot.wasFadedIn = true;
+
+        // show only the player
         PlayerSpawn.instance.Fade(start_ShowPlayerDuration, true);
+
         yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs());
 
         Grid.FadeGridDotsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
         Grid.FadeLevelObjectsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
+        yield return new WaitForSeconds(start_FadeDotsDuration);
 
-        Game.SetState(Game.State.Playing);
         Game.quickSceneLoad = false;
+        Game.SetState(Game.State.Playing);
+        
 
         yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs() * 2);
         PlayerSpawn.instance.Fade(start_ShowPlayerDuration, false);
