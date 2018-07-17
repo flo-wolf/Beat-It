@@ -23760,11 +23760,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114845624560197398, guid: 94ce061fe675b87478ca521c48fb6ddd,
-        type: 2}
-      propertyPath: start_ShowPlayerDuration
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94ce061fe675b87478ca521c48fb6ddd, type: 2}
   m_IsPrefabParent: 0

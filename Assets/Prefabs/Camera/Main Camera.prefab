@@ -20,8 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4672238191852316}
   - component: {fileID: 20720245926285118}
-  - component: {fileID: 124655333509758466}
+  - component: {fileID: 114479197705662958}
   - component: {fileID: 81893984784069532}
+  - component: {fileID: 114342971835414954}
+  - component: {fileID: 114616206007654216}
+  - component: {fileID: 114814257459555214}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -51,7 +54,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.03529412, g: 0.07450981, b: 0.105882354, a: 0}
+  m_BackGroundColor: {r: 0.18039216, g: 0.18823531, b: 0.18431373, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -62,7 +65,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -85,10 +88,56 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1306025592115166}
   m_Enabled: 1
---- !u!124 &124655333509758466
-Behaviour:
+--- !u!114 &114342971835414954
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1306025592115166}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39def9e29b6129745993ccd45e3e9c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetChangePerUpdate: 0.005
+--- !u!114 &114479197705662958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1306025592115166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b988e1c180ec6dd4c9baa02846f18f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddingTop: 10
+  paddingRight: 10
+--- !u!114 &114616206007654216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1306025592115166}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 2bffe024db50cfa419a89d8c9933c7c3, type: 2}
+--- !u!114 &114814257459555214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1306025592115166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c0480e73cd4e844bf15d05f5401f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _preset: {fileID: 11400000, guid: 98fb5d239b70b544e96e07d4daa56ef1, type: 2}
+  _camera: {fileID: 0}
+  customAspectRatio: 0
+  _aspectRatio: {x: 4, y: 3}
+  timeScale: 1
