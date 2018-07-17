@@ -153,7 +153,7 @@ MonoBehaviour:
   playerCanMoveOnto: 1
   originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
-  fadeDuration: 0.3
+  fadeDuration: 0.15
   rb: {fileID: 0}
   sr: {fileID: 212090538057330824}
   emptyFillSr: {fileID: 212915313867511076}
@@ -173,7 +173,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d88089e8ce29a13478553724a46be969, type: 2}
   m_StaticBatchInfo:
@@ -193,7 +192,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1484489375
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300002, guid: e31e2b84eada98b4db165507d701d63c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -218,7 +217,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d88089e8ce29a13478553724a46be969, type: 2}
   m_StaticBatchInfo:
@@ -263,7 +261,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 498da142b7d10684692f75f1877a1989, type: 2}
   m_StaticBatchInfo:
@@ -283,7 +280,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1240986219
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.18039216, g: 0.18823531, b: 0.18431373, a: 1}

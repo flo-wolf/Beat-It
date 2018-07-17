@@ -28,9 +28,18 @@ public class NewMovingKillDot : LevelObject
     private float scale = 0f;
     private float opacity = 0f;
 
+    //ParticleSystems
     ParticleSystem killFeedback;
+    public GameObject gridDotParticleSystem;
 
+    //Animation Component
     private Animation deathAnim;
+
+    //To make sure things only get called once in OnTriggerEnter2D
+    int count = 0;
+
+    //40DFFFFF HexColor to color the GridDots the MovingKillDot is moving on
+    Color myColor = new Color32(0x40, 0xDF, 0xFF, 0xFF);
 
     private void Start()
     {
@@ -48,14 +57,56 @@ public class NewMovingKillDot : LevelObject
         listPosition = 0;
 
         lenghtOfList = gridDotList.Count;
+
+        ColorGridDots();
+        AddParticleSystemToGridDots();
     }
 
     void OnRythmMove(BPMinfo bpm)
     {
-        if(bpm.Equals(RythmManager.movingKillDotBPM))
+        if (bpm.Equals(RythmManager.movingKillDotBPM))
         {
-            UpdateLookDirection();
-            MoveToNextDot();
+            if(Player.allowMove)
+            {
+                UpdateLookDirection();
+                MoveToNextDot();
+
+                foreach (GridDot dot in gridDotList)
+                {
+                    ParticleSystem ps = dot.GetComponentInChildren<ParticleSystem>();
+                    ps.Play();
+                }
+            }
+        }
+
+        if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM) || bpm.Equals(RythmManager.movingKillDotBPM))
+        {
+            if (IsTouchingPlayer(false))
+            {
+                Game.SetState(Game.State.DeathOnNextBeat);
+                count = 0;
+            }
+        }
+
+    }
+
+    void AddParticleSystemToGridDots()
+    {
+        foreach (GridDot dot in gridDotList)
+        {
+            GameObject particleSystem = GameObject.Instantiate(gridDotParticleSystem, Vector2.zero, Quaternion.identity);
+            particleSystem.transform.parent = dot.transform;
+            particleSystem.transform.localPosition = Vector3.zero;
+            particleSystem.transform.localScale = gridDotParticleSystem.transform.localScale;
+        }
+    }
+
+    void ColorGridDots()
+    {
+        foreach(GridDot dot in gridDotList)
+        {
+            SpriteRenderer spriteRenderer = dot.GetComponent<SpriteRenderer>();
+            spriteRenderer.color = myColor;
         }
     }
 
@@ -120,6 +171,25 @@ public class NewMovingKillDot : LevelObject
         {
             if (deathAnim != null)
                 deathAnim.Play("MovingKillDotDeathFast");
+
+            if (count < 1)
+            {
+                AudioManager.instance.Play("OnDeathTrigger");
+                PlayParticleSystem();
+                count++;
+            }
+
+            if(Player.dot0 != null && Player.dot0.transform.position == this.transform.position)
+            {
+                SpriteRenderer sr = Player.dot0.GetComponent<SpriteRenderer>();
+                sr.enabled = false;
+            }
+
+            else if(Player.dot1 != null && Player.dot1.transform.position == this.transform.position)
+            {
+                SpriteRenderer sr = Player.dot1.GetComponent<SpriteRenderer>();
+                sr.enabled = false;
+            }
         }
     }
 
