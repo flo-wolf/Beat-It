@@ -383,6 +383,8 @@ MonoBehaviour:
   row: 6
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!4 &115909626 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4160883663687138, guid: a8103e2a69a54314ab0521e6b90f3d3c,
@@ -603,6 +605,8 @@ MonoBehaviour:
   row: 6
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &226263690
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +715,8 @@ MonoBehaviour:
   row: 6
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &273740858
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +880,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1484489375
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -1068,6 +1074,8 @@ MonoBehaviour:
   row: 5
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &463277956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,6 +1256,8 @@ MonoBehaviour:
   row: 5
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!4 &489906513 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4438805839756104, guid: aefd872f18866444d896dbb25f159ec6,
@@ -1270,6 +1280,8 @@ MonoBehaviour:
   row: 5
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &535780807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,6 +1389,8 @@ MonoBehaviour:
   row: 7
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &563775765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,6 +1499,8 @@ MonoBehaviour:
   row: 7
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &609161991
 Prefab:
   m_ObjectHideFlags: 0
@@ -1659,6 +1675,8 @@ MonoBehaviour:
   row: 6
   column: 2
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &714397347
 Prefab:
   m_ObjectHideFlags: 0
@@ -1926,6 +1944,8 @@ MonoBehaviour:
   row: 7
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &906457540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2171,6 +2191,8 @@ MonoBehaviour:
   row: 6
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1050331253
 Prefab:
   m_ObjectHideFlags: 0
@@ -2374,6 +2396,8 @@ MonoBehaviour:
   row: 6
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &1166296000 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1247184371975134, guid: a8103e2a69a54314ab0521e6b90f3d3c,
@@ -2417,8 +2441,8 @@ SpriteMask:
   m_MaskAlphaCutoff: 0.242
   m_FrontSortingLayerID: -1484489375
   m_BackSortingLayerID: -1484489375
-  m_FrontSortingLayer: 3
-  m_BackSortingLayer: 3
+  m_FrontSortingLayer: 4
+  m_BackSortingLayer: 4
   m_FrontSortingOrder: 0
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
@@ -2444,6 +2468,8 @@ MonoBehaviour:
   row: 5
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1185450026
 Prefab:
   m_ObjectHideFlags: 0
@@ -2717,6 +2743,8 @@ MonoBehaviour:
   row: 7
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1232565686
 Prefab:
   m_ObjectHideFlags: 0
@@ -2946,6 +2974,8 @@ MonoBehaviour:
   row: 5
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1273470619
 Prefab:
   m_ObjectHideFlags: 0
@@ -3207,6 +3237,8 @@ MonoBehaviour:
   row: 5
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1424226097
 Prefab:
   m_ObjectHideFlags: 0
@@ -3270,16 +3302,22 @@ Prefab:
         type: 2}
       propertyPath: gridDotList.Array.data[2]
       value: 
-      objectReference: {fileID: 2070413609}
+      objectReference: {fileID: 478645229}
     - target: {fileID: 114083154656122776, guid: 4b9f91abe6b19af47a25b56ea1ca10fe,
         type: 2}
       propertyPath: gridDotList.Array.data[3]
       value: 
-      objectReference: {fileID: 478645229}
+      objectReference: {fileID: 2070413609}
     - target: {fileID: 1743635659404150, guid: 4b9f91abe6b19af47a25b56ea1ca10fe, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114083154656122776, guid: 4b9f91abe6b19af47a25b56ea1ca10fe,
+        type: 2}
+      propertyPath: teleporterDotPrefab
+      value: 
+      objectReference: {fileID: 1956615007488830, guid: c88a13bda5c02a84b9c228b273430411,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b9f91abe6b19af47a25b56ea1ca10fe, type: 2}
   m_IsPrefabParent: 0
@@ -3390,6 +3428,8 @@ MonoBehaviour:
   row: 6
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1457554402
 Prefab:
   m_ObjectHideFlags: 0
@@ -3446,6 +3486,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1247184371975134, guid: a8103e2a69a54314ab0521e6b90f3d3c, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212741883202946784, guid: a8103e2a69a54314ab0521e6b90f3d3c,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3604,6 +3649,8 @@ MonoBehaviour:
   row: 6
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &1777351536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3712,6 +3759,8 @@ MonoBehaviour:
   row: 5
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &1799051043
 GameObject:
   m_ObjectHideFlags: 0
@@ -3819,6 +3868,8 @@ MonoBehaviour:
   row: 7
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &1823521009
 GameObject:
   m_ObjectHideFlags: 0
@@ -4132,6 +4183,8 @@ MonoBehaviour:
   row: 7
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &2070413605
 GameObject:
   m_ObjectHideFlags: 0
@@ -4239,6 +4292,8 @@ MonoBehaviour:
   row: 7
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &2094843321
 Prefab:
   m_ObjectHideFlags: 0
