@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4601149438752846}
   - component: {fileID: 114031855297986546}
+  - component: {fileID: 114845624560197398}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -53,4 +54,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeStepDuration: 0.5
   levels:
+  - Level0
   - Level1
+--- !u!114 &114845624560197398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1439398060897942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b29c2dce419474c953933711eb13ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothDotFadeLerp: 1
+  out_FadeDotsDuration: 0.5
+  out_cameraToNewSpawnDuration: 1
+  start_ShowPlayerDuration: 1
+  start_FadeDotsDuration: 2
+  start_ShowGoalDuration: 1
+  start_FadeObjectsDuration: 1

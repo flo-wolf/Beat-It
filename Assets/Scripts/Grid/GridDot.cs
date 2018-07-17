@@ -15,7 +15,11 @@ public class GridDot : MonoBehaviour
 
     public bool active = true;
 
-    private float defaultSize = 0.5f;
+    [HideInInspector]
+    public Vector3 defaultSize = Vector3.zero;
+
+    [HideInInspector]
+    public bool wasFadedIn = false;
 
     // the object attached to our dot, oqupying it (player or levelobject)
     private LevelObject m_levelObj;
@@ -29,6 +33,7 @@ public class GridDot : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         Game.onGameStateChange.AddListener(GameStateChanged);
+        defaultSize = transform.localScale;
     }
 
     void Start()
@@ -36,12 +41,28 @@ public class GridDot : MonoBehaviour
         anim = GetComponent<Animation>();
         FindLevelObjectChildren();
         AdjustMaterial();
+        
         transform.localScale = Vector3.zero;
+
+        LevelTransition.onLevelTransition.AddListener(OnLevelTransition);
+    }
+
+    void OnLevelTransition(LevelTransition.Action a)
+    {
+        switch (a)
+        {
+            case LevelTransition.Action.FadeOutGridDots:
+                Fade(false);
+                break;
+        }
     }
 
     void FindLevelObjectChildren()
     {
-        levelObject = gameObject.FindComponentInChildWithTag<LevelObject>("LevelObject");
+        levelObject = gameObject.GetComponentInChildren<LevelObject>();
+        //levelObject = gameObject.FindComponentInChildWithTag<LevelObject>("LevelObject");
+        if(levelObject != null)
+            levelObject.gridDot = this;
     }
 
     // Adjust the 
@@ -70,12 +91,24 @@ public class GridDot : MonoBehaviour
             case Game.State.LevelFadein:
                 if (anim)
                     anim.Stop();
-                StartCoroutine(Fade(true));
+                //StartCoroutine(Fade(true));
                 break;
             case Game.State.RestartFade:
                 if (anim)
                     anim.Stop();
-                StartCoroutine(Fade(false));
+                    Fade(false);
+                break;
+
+            case Game.State.NextLevelFade:
+                if (anim)
+                    anim.Stop();
+                //StartCoroutine(Fade(false));
+                break;
+
+            case Game.State.Death:
+                if (anim)
+                    anim.Stop();
+                //StartCoroutine(Fade(false));
                 break;
             case Game.State.Playing:
                 if (anim)
@@ -86,8 +119,23 @@ public class GridDot : MonoBehaviour
         }
     }
 
+    public void Fade(bool fadeIn)
+    {
+        if(fadeIn)
+            StartCoroutine(C_Fade(true));
+        else
+            StartCoroutine(C_Fade(false));
+    }
+
+    public void LevelTransitionFade(bool fadeIn)
+    {
+       if(!wasFadedIn)
+            Fade(fadeIn);
+     //   }
+    }
+
     /// fade the radius in or out by interpolating an opacity value that is used while drawing radius/handle
-    IEnumerator Fade(bool fadeIn)
+    IEnumerator C_Fade(bool fadeIn)
     {
         //Debug.Log("Fade Dots: " + fadeIn);
         // size
@@ -99,13 +147,13 @@ public class GridDot : MonoBehaviour
 
 
         float elapsedTime = 0f;
-        float dur = RythmManager.playerBPM.ToSecs();
+        float dur = RythmManager.playerBPM.ToSecs()/2;
         while (elapsedTime <= dur)
         {
             elapsedTime += Time.deltaTime;
             if (fadeIn)
             {
-                size = Mathf.SmoothStep(0, defaultSize, (elapsedTime / dur));
+                size = Mathf.SmoothStep(0, defaultSize.x, (elapsedTime / dur));
                 transform.localScale = new Vector3(size, size, size);
 
                 //c.a = Mathf.SmoothStep(0, 1, (elapsedTime / dur));

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4975057444259650}
   - component: {fileID: 212727843248859612}
   - component: {fileID: 111133737127777002}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 58343778654337440}
   - component: {fileID: 198862300716822152}
   - component: {fileID: 199884289821721970}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MovingKillDot
   m_TagString: LevelObject
   m_Icon: {fileID: 0}
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   playerCanMoveOnto: 1
+  originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
   fadeDuration: 0.5
   sr: {fileID: 212081504103793396}

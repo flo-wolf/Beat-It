@@ -37,17 +37,19 @@ public class PlayerSegment : Segment {
 
     private void GameStateChanged(Game.State state)
     {
-        if(state == Game.State.Playing)
+        switch (state)
         {
-            touchedKillDot = false;
-            
-
-            lr.endColor = defaultColor;
-            lr.startColor = defaultColor;
-        }
-        else if(state == Game.State.Death)
-        {
-
+            case Game.State.Playing:
+                touchedKillDot = false;
+                lr.endColor = defaultColor;
+                lr.startColor = defaultColor;
+                break;
+            case Game.State.Death:
+                StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs() / 2));
+                break;
+            case Game.State.NextLevelFade:
+                StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs() / 2));
+                break;
         }
     }
 

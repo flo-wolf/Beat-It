@@ -37,7 +37,7 @@ public class Segment : MonoBehaviour {
 
     public void EmptySegment(bool switchDirection, float duration)
     {
-        Debug.Log("EmptySegment " + PlayerSegment.touchedKillDot);
+        //Debug.Log("EmptySegment " + PlayerSegment.touchedKillDot);
         if (PlayerSegment.touchedKillDot)
         {
             PlayerSegment.instance.AdaptKillColor();
@@ -119,6 +119,34 @@ public class Segment : MonoBehaviour {
         if (state == State.Emptying)
             state = State.NoDraw;
 
+        yield return null;
+    }
+
+    public IEnumerator C_FadeOutSegment(float duration)
+    {
+        float elapsedTime = 0f;
+        Color startColor = lineRenderer.startColor;
+        startColor.a = 1;
+        Color endColor = Camera.main.backgroundColor;
+        endColor.a = 1;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1, 0, (elapsedTime / duration));
+            Color currentColor = lineRenderer.startColor;
+            Color lerpColor = Color.Lerp(currentColor, endColor, (elapsedTime / duration));
+
+            //lerpColor.a = alpha;
+
+
+            lineRenderer.startColor = lerpColor;
+            lineRenderer.endColor = lerpColor;
+            yield return null;
+        }
+
+        lineRenderer.startColor = endColor;
+        lineRenderer.endColor = endColor;
         yield return null;
     }
 }

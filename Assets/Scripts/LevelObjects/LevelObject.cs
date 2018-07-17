@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class LevelObject : MonoBehaviour {
 
-    
     public enum Type { Unset, Player, LoopDot, KillDot, MovingKillDot, Rotator, PlayerSpawn, PlayerGoal, TeleporterDot}
 
     [Header("LevelObject Settings")]
@@ -15,9 +14,28 @@ public class LevelObject : MonoBehaviour {
 
     public bool playerCanMoveOnto = true;
 
+    [HideInInspector]
+    public Vector3 originalScale = new Vector3();
+
     // the gridDot this object is tied to (aka placed ontop)
     [HideInInspector]
     public GridDot gridDot;
+
+    public virtual void Awake()
+    {
+        originalScale = transform.localScale;
+        transform.localScale = Vector3.zero;
+    }
+
+    public void FadeIn(float duration)
+    {
+        StartCoroutine(C_Fade(true, duration));
+    }
+
+    public void FadeOut(float duration)
+    {
+        StartCoroutine(C_Fade(false, duration));
+    }
 
     // is a filled playerdot touching the object?
     public bool IsTouchingPlayer(bool playerDotNeedsToBeFilled)
@@ -31,5 +49,23 @@ public class LevelObject : MonoBehaviour {
             if (type != Type.Player && ((Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position)))
             return true;
         return false;
+    }
+
+    IEnumerator C_Fade(bool fadeIn, float duration)
+    {
+        Debug.Log("PlayerDot fadeIn: " + fadeIn + " -- name: " + gameObject.name);
+        float elapsedTime = 0f;
+        Vector3 size = Vector3.zero;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            size = Vector3.Lerp(Vector3.zero, originalScale, (elapsedTime / duration));
+            transform.localScale = size;
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
+        yield return null;
     }
 }

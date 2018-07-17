@@ -12,12 +12,25 @@ public class PlayerGoal : LevelObject
 
     public static bool respawnRemoveDot;
 
-    int count = 0;
+    private bool nextLevelLoads = false;
+
+    private float startSize = 0;
 
     //public static bool respawn = false;
 
+
+    public override void Awake()
+    {
+        // don't delete this, it overrides the levelobjects awake function which would otherwise set this levelobjects scale to 0.
+    }
+
     private void Start()
     {
+        instance = this;
+
+        startSize = transform.localScale.x;
+        transform.localScale = Vector3.zero;
+
         RythmManager.onBPM.AddListener(OnRythmRespawn);
         goalFeedback = GetComponent<ParticleSystem>();
 
@@ -30,14 +43,6 @@ public class PlayerGoal : LevelObject
         Debug.Log("Trigger");
         if (collision.gameObject.CompareTag("Player"))
         {
-            if(count < 1)
-            {
-                AudioManager.instance.Play("ReachedGoal");
-                goalFeedback.Play();
-
-                count++;
-            }
-
             Player.allowMove = false;
             respawnRemoveDot = true;
         }
@@ -47,22 +52,30 @@ public class PlayerGoal : LevelObject
     {
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
         {
-            if (!respawnRemoveDot)
+            if(!respawnRemoveDot)
             {
                 if (Player.dot0 != null && Player.dot0.transform.position == gameObject.transform.parent.position)
                 {
-                    AudioManager.instance.Play("Goal");
+                    //goalFeedback.Play();
+                    
 
-                    Game.SetState(Game.State.Death);
-                    count = 0;
+                    if(nextLevelLoads != true)
+                    {
+                        AudioManager.instance.Play("Goal");
+                        Game.SetState(Game.State.NextLevelFade);
+                    }
+                    nextLevelLoads = true;
                 }
 
                 else if (Player.dot1 != null && Player.dot1.transform.position == gameObject.transform.parent.position)
                 {
-                    AudioManager.instance.Play("Goal");
-
-                    Game.SetState(Game.State.Death);
-                    count = 0;
+                    //goalFeedback.Play();
+                    if (nextLevelLoads != true)
+                    {
+                        AudioManager.instance.Play("Goal");
+                        Game.SetState(Game.State.NextLevelFade);
+                    }
+                    nextLevelLoads = true;
                 }
             }
 
@@ -81,5 +94,47 @@ public class PlayerGoal : LevelObject
                 }
             }
         }
+    }
+
+
+    public void Fade(float duration, bool fadeIn)
+    {
+        if (fadeIn)
+        {
+            StartCoroutine(C_FadeSize(duration, true));
+            //anim["Spawn_FadeIn"].speed = 1;
+            //anim["Spawn_FadeIn"].time = 0;
+            //anim.Play("Spawn_FadeIn");
+        }
+        else
+        {
+            StartCoroutine(C_FadeSize(duration, false));
+            //anim["Spawn_FadeIn"].speed = -1;
+            //anim["Spawn_FadeIn"].time = anim["Spawn_FadeIn"].length;
+            //anim.Play("Spawn_FadeIn");
+        }
+    }
+
+    IEnumerator C_FadeSize(float duration, bool fadeIn)
+    {
+        float size = 0;
+
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            if (fadeIn)
+            {
+                size = Mathfx.BerpExtreme(0, startSize, (elapsedTime / duration));
+            }
+
+            else
+            {
+                size = Mathfx.BerpExtreme(startSize, 0, (elapsedTime / duration));
+            }
+            transform.localScale = new Vector3(size, size, size);
+            yield return null;
+        }
+        yield return null;
     }
 }
