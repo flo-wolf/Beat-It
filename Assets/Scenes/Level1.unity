@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,7 +38,8 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -172,6 +172,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -232,6 +233,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -335,6 +337,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -383,6 +386,8 @@ MonoBehaviour:
   row: 6
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!4 &115909626 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4160883663687138, guid: a8103e2a69a54314ab0521e6b90f3d3c,
@@ -555,6 +560,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -603,6 +609,8 @@ MonoBehaviour:
   row: 6
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &226263690
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +671,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -711,6 +720,8 @@ MonoBehaviour:
   row: 6
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &273740858
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +781,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -855,6 +867,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -874,7 +887,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1484489375
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -885,12 +898,15 @@ LineRenderer:
     widthCurve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
+      - serializedVersion: 3
         time: 0
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1020,6 +1036,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -1068,6 +1085,8 @@ MonoBehaviour:
   row: 5
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &463277956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,6 +1116,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1200,6 +1220,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -1248,6 +1269,8 @@ MonoBehaviour:
   row: 5
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!4 &489906513 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4438805839756104, guid: aefd872f18866444d896dbb25f159ec6,
@@ -1270,6 +1293,8 @@ MonoBehaviour:
   row: 5
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &535780807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,6 +1354,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -1377,6 +1403,8 @@ MonoBehaviour:
   row: 7
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &563775765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,6 +1465,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -1485,6 +1514,8 @@ MonoBehaviour:
   row: 7
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &609161991
 Prefab:
   m_ObjectHideFlags: 0
@@ -1611,6 +1642,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -1659,6 +1691,8 @@ MonoBehaviour:
   row: 6
   column: 2
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &714397347
 Prefab:
   m_ObjectHideFlags: 0
@@ -1878,6 +1912,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -1926,6 +1961,8 @@ MonoBehaviour:
   row: 7
   column: 7
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &906457540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,6 +2160,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -2171,6 +2209,8 @@ MonoBehaviour:
   row: 6
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1050331253
 Prefab:
   m_ObjectHideFlags: 0
@@ -2326,6 +2366,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -2374,6 +2415,8 @@ MonoBehaviour:
   row: 6
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &1166296000 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1247184371975134, guid: a8103e2a69a54314ab0521e6b90f3d3c,
@@ -2392,6 +2435,7 @@ SpriteMask:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2417,8 +2461,8 @@ SpriteMask:
   m_MaskAlphaCutoff: 0.242
   m_FrontSortingLayerID: -1484489375
   m_BackSortingLayerID: -1484489375
-  m_FrontSortingLayer: 3
-  m_BackSortingLayer: 3
+  m_FrontSortingLayer: 4
+  m_BackSortingLayer: 4
   m_FrontSortingOrder: 0
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
@@ -2444,6 +2488,8 @@ MonoBehaviour:
   row: 5
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1185450026
 Prefab:
   m_ObjectHideFlags: 0
@@ -2499,6 +2545,21 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124655333509758466, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114479197705662958, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114342971835414954, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114814257459555214, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: m_Enabled
       value: 0
@@ -2669,6 +2730,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -2717,6 +2779,8 @@ MonoBehaviour:
   row: 7
   column: 3
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1232565686
 Prefab:
   m_ObjectHideFlags: 0
@@ -2898,6 +2962,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -2946,6 +3011,8 @@ MonoBehaviour:
   row: 5
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1273470619
 Prefab:
   m_ObjectHideFlags: 0
@@ -3159,6 +3226,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -3207,6 +3275,8 @@ MonoBehaviour:
   row: 5
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1424226097
 Prefab:
   m_ObjectHideFlags: 0
@@ -3342,6 +3412,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -3390,6 +3461,8 @@ MonoBehaviour:
   row: 6
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &1457554402
 Prefab:
   m_ObjectHideFlags: 0
@@ -3556,6 +3629,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -3604,6 +3678,8 @@ MonoBehaviour:
   row: 6
   column: 9
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &1777351536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3664,6 +3740,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -3712,6 +3789,8 @@ MonoBehaviour:
   row: 5
   column: 5
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &1799051043
 GameObject:
   m_ObjectHideFlags: 0
@@ -3771,6 +3850,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -3819,6 +3899,8 @@ MonoBehaviour:
   row: 7
   column: 6
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &1823521009
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,6 +4166,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -4132,6 +4215,8 @@ MonoBehaviour:
   row: 7
   column: 4
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1 &2070413605
 GameObject:
   m_ObjectHideFlags: 0
@@ -4191,6 +4276,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 745da595cd5714744a040ba555bcbc5b, type: 2}
   m_StaticBatchInfo:
@@ -4239,6 +4325,8 @@ MonoBehaviour:
   row: 7
   column: 8
   active: 1
+  defaultSize: {x: 0, y: 0, z: 0}
+  wasFadedIn: 0
 --- !u!1001 &2094843321
 Prefab:
   m_ObjectHideFlags: 0
