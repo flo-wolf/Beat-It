@@ -7,11 +7,22 @@ public class TeleporterDot : LevelObject
 
     ParticleSystem particleFeedback;
 
-	// Use this for initialization
-	void Start ()
+
+    public override void Awake()
+    {
+        
+    }
+
+
+
+    // Use this for initialization
+    void Start ()
     {
         particleFeedback = GetComponent<ParticleSystem>();
         RythmManager.onBPM.AddListener(OnRythmPlayAudio);
+
+        originalScale = transform.localScale;
+        transform.localScale = Vector3.zero;
 
         Debug.Log("teleporterdot originalscale: " + originalScale);
         /*
