@@ -42,7 +42,7 @@ public class TeleporterDot : LevelObject
 
     void OnRythmPlayAudio(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
+        if (Game.state == Game.State.Playing && (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM)))
         {
             if ((Player.dot0 != null && Player.dot0.transform.position == transform.position) || (Player.dot1 != null && Player.dot1.transform.position == transform.position))
             {

@@ -74,7 +74,7 @@ public class NewMovingKillDot : LevelObject
     {
         if (bpm.Equals(RythmManager.movingKillDotBPM))
         {
-            if(Player.allowMove)
+            if(Player.allowMove && Game.state == Game.State.Playing)
             {
                 MoveToNextDot();
 

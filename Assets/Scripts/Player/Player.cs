@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
     {
         PlayerDirectionHandle.instance.UpdateLookDirection();
         CheckIfSingleDot();
-        Debug.Log("LASTPARENTDOT == " + lastTeleportParentDot);
+        //Debug.Log("LASTPARENTDOT == " + lastTeleportParentDot);
     }
 
     private void GameStateChanged(Game.State newState)
