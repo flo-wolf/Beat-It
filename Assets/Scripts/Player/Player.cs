@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     private float thumbstickTreshhold = 0.03f;
 
     private GridDot spawnDot = null;
-
+    private GridDot lastTeleportParentDot = null;
 
     public static bool allowMove = true;
 
@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
     {
         PlayerDirectionHandle.instance.UpdateLookDirection();
         CheckIfSingleDot();
+        Debug.Log("LASTPARENTDOT == " + lastTeleportParentDot);
     }
 
     private void GameStateChanged(Game.State newState)
@@ -187,7 +188,6 @@ public class Player : MonoBehaviour
                                 AudioManager.instance.Play("HiHat");
                                 AudioManager.instance.Play("Segment");
 
-                                Teleporter.teleportEnabled = true;
                             }
                             // dot 1 is closer to the direction we are aiming at => remove dot0
                             else
@@ -196,7 +196,6 @@ public class Player : MonoBehaviour
                                 AudioManager.instance.Play("HiHat");
                                 AudioManager.instance.Play("Segment");
 
-                                Teleporter.teleportEnabled = true;
                             }
                         }
 
@@ -206,25 +205,37 @@ public class Player : MonoBehaviour
                             {
                                 RemoveDot(false);
                                 AudioManager.instance.Play("Snare");
-                                Teleporter.teleportEnabled = false;
                                 SpawnDot();
                                 RemoveDot(true);
+                                Teleporter.teleportEnabled = false;
                             }
 
                             else if (!Teleporter.dot0OnTeleportPosition)
                             {
                                 RemoveDot(true);
                                 AudioManager.instance.Play("Snare");
-                                Teleporter.teleportEnabled = false;
                                 SpawnDot();
                                 RemoveDot(false);
+                                Teleporter.teleportEnabled = false;
                             }
                         }
                     }
 
                     // if there is only one dot and if the thumbstick actually got pressed into a direction
                     else
-                    {
+                    {  
+                        if(lastTeleportParentDot != null)
+                        {
+                            if(Player.dot0 != null && Player.dot0.transform.position != lastTeleportParentDot.transform.position)
+                            {
+                                Teleporter.teleportEnabled = true;
+                            }
+
+                            else if (Player.dot1 != null && Player.dot1.transform.position != lastTeleportParentDot.transform.position)
+                            {
+                                Teleporter.teleportEnabled = true;
+                            }
+                        }
                         SpawnDot();
                         AudioManager.instance.Play("Kick");
                     }
@@ -275,14 +286,12 @@ public class Player : MonoBehaviour
                                 {
                                     RemoveDot(false);
                                     AudioManager.instance.Play("Snare");
-                                    Teleporter.teleportEnabled = true;
                                 }
                                 // dot 1 is closer to the direction we are aiming at => remove dot0
                                 else
                                 {
                                     RemoveDot(true);
                                     AudioManager.instance.Play("Snare");
-                                    Teleporter.teleportEnabled = true;
                                 }
                             }
 
@@ -292,18 +301,18 @@ public class Player : MonoBehaviour
                                 {
                                     RemoveDot(false);
                                     AudioManager.instance.Play("Snare");
-                                    Teleporter.teleportEnabled = false;
                                     SpawnDot();
                                     RemoveDot(true);
+                                    Teleporter.teleportEnabled = false;
                                 }
 
                                 else if (!Teleporter.dot0OnTeleportPosition)
                                 {
                                     RemoveDot(true);
                                     AudioManager.instance.Play("Snare");
-                                    Teleporter.teleportEnabled = false;
                                     SpawnDot();
                                     RemoveDot(false);
+                                    Teleporter.teleportEnabled = false;
                                 }
                             }
 
@@ -311,10 +320,22 @@ public class Player : MonoBehaviour
 
                         else
                         {
+                            if (lastTeleportParentDot != null)
+                            {
+                                if (Player.dot0 != null && Player.dot0.transform.position != lastTeleportParentDot.transform.position)
+                                {
+                                    Teleporter.teleportEnabled = true;
+                                }
+
+                                else if (Player.dot1 != null && Player.dot1.transform.position != lastTeleportParentDot.transform.position)
+                                {
+                                    Teleporter.teleportEnabled = true;
+                                }
+                            }
+
                             SpawnDot();
                             AudioManager.instance.Play("Kick");
                         }
-
                     }
                 }
             }
@@ -494,11 +515,13 @@ public class Player : MonoBehaviour
                                     int newDot = Teleporter.instance.indexOfElement + 1;
                                     Debug.Log("INDEX NEW DOT" + newDot);
                                     parentDot = Teleporter.instance.gridDotList[newDot];
+                                    lastTeleportParentDot = parentDot;
                                 }
 
                                 else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
                                 {
                                     parentDot = Teleporter.instance.gridDotList[0];
+                                    lastTeleportParentDot = parentDot;
                                 }
                             }
                         }
@@ -518,6 +541,7 @@ public class Player : MonoBehaviour
                                     int newDot = Teleporter.instance.indexOfElement + 1;
                                     Debug.Log("INDEX NEW DOT" + newDot);
                                     parentDot = Teleporter.instance.gridDotList[newDot];
+                                    lastTeleportParentDot = parentDot;
                                 }
 
                                 else if (Teleporter.instance.indexOfElement % 2 != 0)
@@ -525,6 +549,7 @@ public class Player : MonoBehaviour
                                     int newDot = Teleporter.instance.indexOfElement - 1;
                                     Debug.Log("INDEX NEW DOT" + newDot);
                                     parentDot = Teleporter.instance.gridDotList[newDot];
+                                    lastTeleportParentDot = parentDot;
                                 }
                             }
                         }
@@ -555,11 +580,13 @@ public class Player : MonoBehaviour
                                     int newDot = Teleporter.instance.indexOfElement + 1;
                                     Debug.Log("INDEX NEW DOT" + newDot);
                                     parentDot = Teleporter.instance.gridDotList[newDot];
+                                    lastTeleportParentDot = parentDot;
                                 }
 
                                 else if (Teleporter.instance.indexOfElement == (Teleporter.instance.lenghtofList - 1))
                                 {
                                     parentDot = Teleporter.instance.gridDotList[0];
+                                    lastTeleportParentDot = parentDot;
                                 }
                             }
                         }
@@ -579,6 +606,7 @@ public class Player : MonoBehaviour
                                     int newDot = Teleporter.instance.indexOfElement + 1;
                                     Debug.Log("INDEX NEW DOT" + newDot);
                                     parentDot = Teleporter.instance.gridDotList[newDot];
+                                    lastTeleportParentDot = parentDot;
                                 }
 
                                 else if (Teleporter.instance.indexOfElement % 2 != 0)
@@ -586,6 +614,7 @@ public class Player : MonoBehaviour
                                     int newDot = Teleporter.instance.indexOfElement - 1;
                                     Debug.Log("INDEX NEW DOT" + newDot);
                                     parentDot = Teleporter.instance.gridDotList[newDot];
+                                    lastTeleportParentDot = parentDot;
                                 }
                             }
                         }
@@ -637,7 +666,11 @@ public class Player : MonoBehaviour
                 }
             }
 
-            Teleporter.teleporterTouched = false;
+            if(Teleporter.teleporterTouched)
+            {
+                Teleporter.teleporterTouched = false;
+                Debug.Log("TELEPORTER TOUCHED" + Teleporter.teleporterTouched);
+            }
 
             //Debug.Log("activePosition: " + activePosition + " spawnPosition: " + spawnPosition);
 
