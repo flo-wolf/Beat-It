@@ -18,6 +18,9 @@ public class NewMovingKillDot : LevelObject
     int lenghtOfList;
     int listPosition;
 
+    Transform target;
+    float directionIndicatorSpeed = 5f;
+
     //The StartDot where the MovingKD was placed
     GridDot startDot;
 
@@ -62,13 +65,17 @@ public class NewMovingKillDot : LevelObject
         AddParticleSystemToGridDots();
     }
 
+    private void Update()
+    {
+        UpdateLookDirection();
+    }
+
     void OnRythmMove(BPMinfo bpm)
     {
         if (bpm.Equals(RythmManager.movingKillDotBPM))
         {
             if(Player.allowMove)
             {
-                UpdateLookDirection();
                 MoveToNextDot();
 
                 foreach (GridDot dot in gridDotList)
@@ -119,6 +126,7 @@ public class NewMovingKillDot : LevelObject
                 if(listPosition < (lenghtOfList-1))
                 {
                     lookDirection = gridDotList[listPosition + 1].transform.position - this.transform.position;
+                    target = gridDotList[listPosition + 1].transform;
                     lookDirection = lookDirection.normalized;
                     listPosition = listPosition + 1;
                 }
@@ -126,15 +134,21 @@ public class NewMovingKillDot : LevelObject
                 else if(listPosition == (lenghtOfList-1))
                 {
                     lookDirection = gridDotList[0].transform.position - this.transform.position;
+                    target = gridDotList[0].transform;
                     lookDirection = lookDirection.normalized;
                     listPosition = 0;
                 }
+
+                Vector2 direction = target.position - transform.position;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, directionIndicatorSpeed * Time.deltaTime);
 
                 Debug.Log("LIST POSITION" + listPosition);
             }
         }
     }
-    
+
     void MoveToNextDot()
     {
         Remove();
