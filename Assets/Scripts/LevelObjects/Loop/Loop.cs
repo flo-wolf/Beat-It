@@ -24,6 +24,11 @@ public class Loop : MonoBehaviour {
     public List<LoopSegment> segments = new List<LoopSegment>();
     public int loopIndex = 0;
 
+    public float directionIndicatorSpeed = 5f;
+    int lenghtOfList;
+    int indexOfDot;
+    Transform target;
+
     public int GetPrevLoopDot(int currentIndex)
     {
         if (currentIndex - 1 < 0)
@@ -41,12 +46,37 @@ public class Loop : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
-		
+    void Start ()
+    {
+        lenghtOfList = loopDots.Count;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+        RotateLoopDotDirectionIndicator();
 	}
+
+    void RotateLoopDotDirectionIndicator()
+    {
+        foreach(LoopDot dot in loopDots)
+        {
+            indexOfDot = loopDots.IndexOf(dot);
+
+            if(indexOfDot < lenghtOfList -1)
+            {
+                target = loopDots[indexOfDot + 1].transform;
+            }
+
+            else if(indexOfDot == lenghtOfList - 1)
+            {
+                target = loopDots[0].transform;
+            }
+
+            Vector2 direction = target.position - dot.transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            dot.transform.rotation = Quaternion.Slerp(dot.transform.rotation, rotation, directionIndicatorSpeed * Time.deltaTime);
+        }
+    }
 }
