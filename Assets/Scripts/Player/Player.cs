@@ -333,8 +333,8 @@ public class Player : MonoBehaviour
                                 }
                             }
 
-                            SpawnDot();
-                            AudioManager.instance.Play("Kick");
+                            //SpawnDot();
+                            //AudioManager.instance.Play("Kick");
                         }
                     }
                 }
