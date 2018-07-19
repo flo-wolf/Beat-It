@@ -156,6 +156,7 @@ public class LevelTransition : MonoBehaviour {
 
         Grid.FadeGridDotsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
         Grid.FadeLevelObjectsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
+        PlayerGoal.instance.Fade(start_FadeDotsDuration, true);
         yield return new WaitForSeconds(start_FadeDotsDuration);
 
         Game.quickSceneLoad = false;

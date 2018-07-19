@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class TeleporterDot : LevelObject
 {
-    public static TeleporterDot instance;
 
     ParticleSystem particleFeedback;
 
 	// Use this for initialization
 	void Start ()
     {
-        instance = this;
         particleFeedback = GetComponent<ParticleSystem>();
         RythmManager.onBPM.AddListener(OnRythmPlayAudio);
+
+        Debug.Log("teleporterdot originalscale: " + originalScale);
+        /*
+        if(originalScale != Vector3.zero)
+        {
+            transform.localScale = Vector3.zero;
+        }
+        else
+        {
+            originalScale = transform.localScale;
+            transform.localScale = Vector3.zero;
+        }
+        */
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

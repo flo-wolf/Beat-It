@@ -58,7 +58,7 @@ public class Grid : MonoBehaviour
         // dots that have been found and faded already
         List<GameObject> detectedDots = new List<GameObject>();
 
-        Debug.Log("fadedotsgradually");
+        Debug.Log("fade grid dots in gradually");
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
@@ -114,7 +114,7 @@ public class Grid : MonoBehaviour
         // dots that have been found and faded already
         List<GameObject> detectedObjects = new List<GameObject>();
 
-        Debug.Log("fadedotsgradually");
+        Debug.Log("fade level objects in gradually");
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
@@ -134,8 +134,8 @@ public class Grid : MonoBehaviour
                     LevelObject obj = collider.GetComponent<LevelObject>();
                     if (obj != null)
                     {
-                        //Debug.Log("Found a girddot to fade out!");
-                        obj.FadeOut(RythmManager.playerBPM.ToSecs()/2);
+                        Debug.Log("Found a girddot to fade out: " + obj.name);
+                        obj.FadeIn(RythmManager.playerBPM.ToSecs()/2);
                         yield return null;
                     }
                 }
