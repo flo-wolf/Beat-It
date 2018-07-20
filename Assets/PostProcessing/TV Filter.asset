@@ -25,7 +25,7 @@ MonoBehaviour:
     _materialBleeding: {fileID: 0}
     lineCount: 150
     distortion: 0
-    artifact: 0.033
+    artifact: 0.05
     fringing: 0
     bleeding: 0
   _staticFilter:
@@ -35,7 +35,7 @@ MonoBehaviour:
     staticPattern: {fileID: 2800000, guid: 7452eff367e0a4149afd455a45fc9601, type: 3}
     staticMagnitude: 0.04
     staticScale: 1
-    staticOffset: 0.12800008
+    staticOffset: 1.3160055
     staticOffsetX: 0
     dirtPattern: {fileID: 2800000, guid: df0ffcc7ed4d822408d84a34b9d048e0, type: 3}
     dirtMagnitude: 0.02
@@ -68,5 +68,5 @@ MonoBehaviour:
     _enabled: 0
     maskPattern: {fileID: 2800000, guid: 508915631f31d1541821df47a2c2a715, type: 3}
     reflexPattern: {fileID: 0}
-    distortionMagnitude: 0.158
+    distortionMagnitude: 0.746
     reflexMagnitude: 1

@@ -63,6 +63,7 @@ public class Game : MonoBehaviour {
             if(state == State.DeathOnNextBeat)
             {
                 SetState(State.Death);
+                Teleporter.teleportEnabled = true;
             }
         }
     }

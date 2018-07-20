@@ -19,7 +19,8 @@ public class NewMovingKillDot : LevelObject
     int listPosition;
 
     Transform target;
-    float directionIndicatorSpeed = 5f;
+    Transform child;
+    float rotationSpeed = 5f;
 
     //The StartDot where the MovingKD was placed
     GridDot startDot;
@@ -46,6 +47,7 @@ public class NewMovingKillDot : LevelObject
 
     private void Start()
     {
+        child = this.gameObject.transform.GetChild(0);
         RythmManager.onBPM.AddListener(OnRythmMove);
 
         defaultLocalScale = transform.localScale.x;
@@ -68,6 +70,11 @@ public class NewMovingKillDot : LevelObject
     private void Update()
     {
         UpdateLookDirection();
+    }
+
+    private void LateUpdate()
+    {
+        RotateLoopDotDirectionIndicator();
     }
 
     void OnRythmMove(BPMinfo bpm)
@@ -126,32 +133,36 @@ public class NewMovingKillDot : LevelObject
                 if(listPosition < (lenghtOfList-1))
                 {
                     lookDirection = gridDotList[listPosition + 1].transform.position - this.transform.position;
-                    target = gridDotList[listPosition + 1].transform;
                     lookDirection = lookDirection.normalized;
+                    target = gridDotList[listPosition + 1].transform;
                     listPosition = listPosition + 1;
                 }
 
                 else if(listPosition == (lenghtOfList-1))
                 {
                     lookDirection = gridDotList[0].transform.position - this.transform.position;
-                    target = gridDotList[0].transform;
                     lookDirection = lookDirection.normalized;
+                    target = gridDotList[0].transform;
                     listPosition = 0;
                 }
-
-                Vector2 direction = target.position - transform.position;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, directionIndicatorSpeed * Time.deltaTime);
 
                 Debug.Log("LIST POSITION" + listPosition);
             }
         }
     }
 
+    void RotateLoopDotDirectionIndicator()
+    { 
+        Vector2 direction = target.position - this.transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        child.rotation = Quaternion.Slerp(child.rotation, rotation, rotationSpeed * Time.deltaTime);
+    }
+
+
     void MoveToNextDot()
     {
-        Remove();
+        //Remove();
 
         GridDot activeDot = transform.parent.gameObject.GetComponent<GridDot>();
         GridDot nextDot = Grid.GetNearestActiveMovingDot(activeDot, lookDirection);
@@ -159,7 +170,7 @@ public class NewMovingKillDot : LevelObject
         this.transform.parent = nextDot.transform;
         this.transform.localPosition = Vector3.zero;
 
-        Appear();
+        //Appear();
     }
 
     public void Remove()

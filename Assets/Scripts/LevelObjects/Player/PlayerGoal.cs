@@ -16,6 +16,7 @@ public class PlayerGoal : LevelObject
 
     private float startSize = 0;
 
+    int soundCount = 0;
     //public static bool respawn = false;
 
 
@@ -45,6 +46,12 @@ public class PlayerGoal : LevelObject
         {
             Player.allowMove = false;
             respawnRemoveDot = true;
+
+            if(soundCount < 1)
+            {
+                AudioManager.instance.Play("ReachedGoal");
+                soundCount++;
+            }
         }
     }
    
@@ -65,6 +72,7 @@ public class PlayerGoal : LevelObject
                         Game.SetState(Game.State.NextLevelFade);
                     }
                     nextLevelLoads = true;
+                    soundCount = 0;
                 }
 
                 else if (Player.dot1 != null && Player.dot1.transform.position == gameObject.transform.parent.position)
@@ -76,6 +84,7 @@ public class PlayerGoal : LevelObject
                         Game.SetState(Game.State.NextLevelFade);
                     }
                     nextLevelLoads = true;
+                    soundCount = 0;
                 }
             }
 
