@@ -14,7 +14,12 @@ public class Rotator : LevelObject {
     private bool waitForRotation = false;
     private bool nextDot = false;
 
-	void Start ()
+    private void OnEnable()
+    {
+        rotators = new List<Rotator>();
+    }
+
+    void Start ()
     {
         rotators.Add(this);
         RythmManager.onBPM.AddListener(OnRythm);
@@ -22,7 +27,7 @@ public class Rotator : LevelObject {
 
     private void OnRythm(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.rotatorBPM))
+        if (bpm.Equals(RythmManager.rotatorBPM) && Game.state == Game.State.Playing)
         {
             Debug.Log("Ratoator bpm");
             // if are there dots that can be rotated around this rotator, rotate them
@@ -81,7 +86,7 @@ public class Rotator : LevelObject {
     IEnumerator C_Rotate(float totalDuration)
     {
 
-        // divide the duration into three parts. suck in, rotation, suck out.
+        // divide the duration into two parts. suck in, suck out. During both phases the rotator rotates
         float duration = totalDuration / 2;
 
         GridDot[] dotArray = surroundingDots.ToArray();
@@ -96,8 +101,14 @@ public class Rotator : LevelObject {
 
         Vector3 slerpPos = new Vector3();
         Vector3 endPos = new Vector3();
+        Vector3 betweenDotsPos = new Vector3();
 
         // suck in
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation = transform.rotation;
+        endRotation *= Quaternion.Euler(0, 0, -30); // this adds a 90 degrees Y rotation
+
+
         float elapsedTime = 0f;
         float elapsedRotationTime = 0f;
         while (elapsedTime < duration)
@@ -121,16 +132,22 @@ public class Rotator : LevelObject {
                     if (i - 1 >= 0)
                         j--;
                     else
-                        j = dotArray.Length-1;
+                        j = dotArray.Length - 1;
                 }
-                
 
-                endPos = Vector3.Lerp((Vector3)originalPositions[dotArray[j]], transform.position, pullPercentage);
+                betweenDotsPos = Vector3.Lerp((Vector3)originalPositions[dotArray[i]], (Vector3)originalPositions[dotArray[j]], 0.5f);
+                endPos = Vector3.Lerp(betweenDotsPos, transform.position, pullPercentage); // "sucked in" position, 80% of the way from the dotPos towards the rotator center
                 slerpPos = Vector3.Slerp((Vector3)originalPositions[dotArray[i]], endPos, (elapsedTime / duration));
+
                 //Debug.Log("i: " + i + "  --- originalpos: " + (Vector3)originalPositions[dotArray[i]] + "  --- endPos: " + endPos + "  ---- SlerpPos: " + slerpPos  + "  ---- currentPos: " + dotArray[i].transform.position);
                 dotArray[i].transform.transform.position = slerpPos;
 
+
             }
+
+            // rotate the roator dot
+            transform.rotation = Quaternion.Slerp(startRotation, endRotation, (elapsedTime / duration));
+
             yield return null;
         }
 
@@ -143,6 +160,10 @@ public class Rotator : LevelObject {
         }
 
         // shoot out
+        startRotation = transform.rotation;
+        endRotation = transform.rotation;
+        endRotation *= Quaternion.Euler(0, 0, -30); // this adds a 90 degrees Y rotation
+
         elapsedTime = 0f;
         while (elapsedTime < duration)
         {
@@ -173,6 +194,10 @@ public class Rotator : LevelObject {
                 dotArray[i].transform.transform.position = slerpPos;
 
             }
+
+
+            // rotate the roator dot
+            transform.rotation = Quaternion.Slerp(startRotation, endRotation, (elapsedTime/duration));
             yield return null;
         }
 

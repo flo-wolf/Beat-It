@@ -3470,8 +3470,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
-        minScalar: 30
+        scalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -3495,7 +3495,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
         minCurve:
           serializedVersion: 2
           m_Curve:
@@ -3519,7 +3519,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
       cycleCount: 1
       repeatInterval: 0.01
   SizeModule:
@@ -8058,8 +8058,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
-        minScalar: 30
+        scalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -8083,7 +8083,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
         minCurve:
           serializedVersion: 2
           m_Curve:
@@ -8107,7 +8107,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
       cycleCount: 1
       repeatInterval: 0.01
   SizeModule:
@@ -12646,8 +12646,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
-        minScalar: 30
+        scalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -12671,7 +12671,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
         minCurve:
           serializedVersion: 2
           m_Curve:
@@ -12695,7 +12695,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
       cycleCount: 1
       repeatInterval: 0.2
   SizeModule:
@@ -17234,8 +17234,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
-        minScalar: 30
+        scalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -17259,7 +17259,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
         minCurve:
           serializedVersion: 2
           m_Curve:
@@ -17283,7 +17283,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
       cycleCount: 1
       repeatInterval: 0.01
   SizeModule:
@@ -21822,8 +21822,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
-        minScalar: 30
+        scalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -21847,7 +21847,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
         minCurve:
           serializedVersion: 2
           m_Curve:
@@ -21871,7 +21871,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
       cycleCount: 1
       repeatInterval: 0.01
   SizeModule:
@@ -26410,8 +26410,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
-        minScalar: 30
+        scalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -26435,7 +26435,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
         minCurve:
           serializedVersion: 2
           m_Curve:
@@ -26459,7 +26459,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
       cycleCount: 1
       repeatInterval: 0.01
   SizeModule:
@@ -30998,8 +30998,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
-        minScalar: 30
+        scalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -31023,7 +31023,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
         minCurve:
           serializedVersion: 2
           m_Curve:
@@ -31047,7 +31047,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
       cycleCount: 1
       repeatInterval: 0.2
   SizeModule:
@@ -35586,8 +35586,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
-        minScalar: 30
+        scalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -35611,7 +35611,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
         minCurve:
           serializedVersion: 2
           m_Curve:
@@ -35635,7 +35635,7 @@ ParticleSystem:
             outWeight: 0.33333334
           m_PreInfinity: 2
           m_PostInfinity: 2
-          m_RotationOrder: 4
+          m_RotationOrder: 0
       cycleCount: 1
       repeatInterval: 0.01
   SizeModule:
