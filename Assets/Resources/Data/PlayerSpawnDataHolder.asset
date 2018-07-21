@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positions:
   - {x: -28, y: 0, z: 0}
-  - {x: -28, y: 0, z: 0}
+  - {x: -20, y: 0, z: 0}
   - {x: -16, y: -8, z: 0}
   - {x: -24, y: 8, z: 0}
   - {x: -16, y: 8, z: 0}

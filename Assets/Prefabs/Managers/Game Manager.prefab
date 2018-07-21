@@ -54,8 +54,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeStepDuration: 0.5
   levels:
-  - Level0
   - Level1
+  - Level2
+  - Level3
+  - Level4
+  - Level5
+  - Level6
+  - Level7
+  - Level8
+  - Level9
 --- !u!114 &114845624560197398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,7 +77,7 @@ MonoBehaviour:
   smoothDotFadeLerp: 1
   out_FadeDotsDuration: 0.5
   out_cameraToNewSpawnDuration: 1
-  start_ShowPlayerDuration: 1
+  start_ShowPlayerDuration: 2
   start_FadeDotsDuration: 2
   start_ShowGoalDuration: 1
   start_FadeObjectsDuration: 1
