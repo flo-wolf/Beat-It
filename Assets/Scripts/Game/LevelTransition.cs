@@ -79,7 +79,7 @@ public class LevelTransition : MonoBehaviour {
         Vector3 panEndPos = EditPlayerSpawnData.GetNextPlayerSpawnPositon() - Grid.instance.transform.position;
         Grid.Pan(panStartPos, panEndPos, out_cameraToNewSpawnDuration);
         onLevelTransition.Invoke(Action.FadeOutRadiusHandle);
-        yield return new WaitForSeconds(out_cameraToNewSpawnDuration / 3);
+        yield return new WaitForSeconds(out_cameraToNewSpawnDuration / 1.5f);
         onLevelTransition.Invoke(Action.FadeOutGridDots);
         
         
@@ -114,6 +114,11 @@ public class LevelTransition : MonoBehaviour {
         PlayerSpawn.instance.gridDot.transform.localScale = PlayerSpawn.instance.gridDot.defaultSize;
         PlayerSpawn.instance.gridDot.wasFadedIn = true;
 
+        // hide the spawn griddot 
+        SpriteRenderer playerSpawnGridDotSr = PlayerSpawn.instance.gridDot.GetComponent<SpriteRenderer>();
+        if (playerSpawnGridDotSr != null)
+            playerSpawnGridDotSr.enabled = false;
+
         // show only the player
         PlayerSpawn.instance.Fade(start_ShowPlayerDuration, true);
         yield return new WaitForSeconds(start_ShowPlayerDuration);
@@ -132,6 +137,10 @@ public class LevelTransition : MonoBehaviour {
 
         // start the game
         Game.SetState(Game.State.Playing);
+
+        // show the spawn griddot
+        if (playerSpawnGridDotSr != null)
+            playerSpawnGridDotSr.enabled = true;
 
         // fade out the spawn
         yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs() * 2);

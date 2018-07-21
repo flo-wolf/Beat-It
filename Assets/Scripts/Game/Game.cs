@@ -16,7 +16,9 @@ public class Game : MonoBehaviour {
     private static float timestep = 0f;
 
     // level management
-    public static int level = 0;
+    public int startWithIndex = 1;
+
+    public static int level = 1;
     public List<string> levels = new List<string>();
 
     // gamestate
@@ -30,8 +32,6 @@ public class Game : MonoBehaviour {
 
     void Awake()
     {
-        
-
         if (instance == null)
         {
             instance = this;
@@ -40,6 +40,7 @@ public class Game : MonoBehaviour {
         else
             Destroy(gameObject);
 
+        level = startWithIndex;
         GetLevelNumberFromLevelName();
         Debug.Log("LevelNumber: " + level);
     }

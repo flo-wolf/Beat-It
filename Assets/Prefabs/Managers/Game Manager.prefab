@@ -53,7 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeStepDuration: 0.5
+  startWithIndex: 1
   levels:
+  - placeholder
   - Level1
   - Level2
   - Level3
@@ -79,5 +81,5 @@ MonoBehaviour:
   out_cameraToNewSpawnDuration: 1
   start_ShowPlayerDuration: 2
   start_FadeDotsDuration: 2
-  start_ShowGoalDuration: 1
+  start_ShowGoalDuration: 1.5
   start_FadeObjectsDuration: 1
