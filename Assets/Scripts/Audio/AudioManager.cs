@@ -43,6 +43,7 @@ public class AudioManager : MonoBehaviour {
         if (firstStart)
         {
             RythmManager.onBPM.AddListener(RythmCall);
+            Game.onGameStateChange.AddListener(GameStateChanged);
             AudioManager.instance.Play("Background");
             //AudioManager.instance.Play("Radio");
             AudioManager.instance.Play("Piano");
@@ -60,6 +61,18 @@ public class AudioManager : MonoBehaviour {
         {
             playDeathSounds = false;
             Play("Death");
+        }
+    }
+
+    private void GameStateChanged(Game.State newState)
+    {
+        switch (newState)
+        {
+            case Game.State.Playing:
+                AudioManager.instance.SwitchGoalSound(Game.level);
+                break;
+
+            default: break;
         }
     }
 
