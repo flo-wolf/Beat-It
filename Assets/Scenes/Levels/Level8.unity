@@ -2094,7 +2094,7 @@ Prefab:
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: orthographic size
-      value: 23.016722
+      value: 25.159235
       objectReference: {fileID: 0}
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
@@ -2504,16 +2504,16 @@ Prefab:
         type: 2}
       propertyPath: sounds.Array.data[17].clip
       value: 
-      objectReference: {fileID: 8300000, guid: db4d84509287bad43a5321aa0dd55e51, type: 3}
+      objectReference: {fileID: 8300000, guid: 459d83524d8a02e40aa4bc6f38d956ad, type: 3}
     - target: {fileID: 114381555245886250, guid: 0014894de84505844bafcff0e599960f,
         type: 2}
       propertyPath: sounds.Array.data[17].volume
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 114381555245886250, guid: 0014894de84505844bafcff0e599960f,
         type: 2}
       propertyPath: sounds.Array.data[17].pitch
-      value: 1.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114381555245886250, guid: 0014894de84505844bafcff0e599960f,
         type: 2}
