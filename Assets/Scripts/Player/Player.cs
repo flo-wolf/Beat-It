@@ -12,9 +12,10 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
     //Dash bools
     public bool dashOnBeat = false;
+
+    public bool enableJump = false;
 
     // structure
     public static Player instance;           // self reference
@@ -30,8 +31,6 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public DotType newestDot = DotType.None;
-
-
 
     /*
     [Header("Additional Player Controls")]
@@ -127,10 +126,6 @@ public class Player : MonoBehaviour
 
         return true;
     }
-
-
-
-
 
     // the clock has reached its end, move the player
     void OnRythmMove(BPMinfo bpm)

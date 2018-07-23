@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour {
 
     //Here we create an array for instances of our Sound class
     public Sound[] sounds;
+    public AudioClip[] goalSounds;
 
     public static AudioManager instance = null;
     public static bool playDeathSounds = false;
@@ -42,20 +43,13 @@ public class AudioManager : MonoBehaviour {
         if (firstStart)
         {
             RythmManager.onBPM.AddListener(RythmCall);
+            Game.onGameStateChange.AddListener(GameStateChanged);
             AudioManager.instance.Play("Background");
             //AudioManager.instance.Play("Radio");
             AudioManager.instance.Play("Piano");
             firstStart = false;
         }
     }
-
-    /*
-    public void FixedRythmCall(float f)
-    {
-        Play("Bass");
-    }
-    */
-
 
     public void RythmCall(BPMinfo bpmInfo)
     {
@@ -68,18 +62,18 @@ public class AudioManager : MonoBehaviour {
             playDeathSounds = false;
             Play("Death");
         }
-            
+    }
 
-        /*
-        // kick plays on the player bpm
-        if (bpmInfo.Equals(RythmManager.playerBPM))
-            AudioManager.instance.Play("Kick");
+    private void GameStateChanged(Game.State newState)
+    {
+        switch (newState)
+        {
+            case Game.State.Playing:
+                AudioManager.instance.SwitchGoalSound(Game.level);
+                break;
 
-        // snare plays on the half offset player bpm
-        if (bpmInfo.Equals(BPMinfo.ToHalf(RythmManager.playerBPM))) 
-            AudioManager.instance.Play("Snare");
-          
-        */
+            default: break;
+        }
     }
 
     //This enables us to Play an AudioClip just through his name.
@@ -99,5 +93,20 @@ public class AudioManager : MonoBehaviour {
         }
 
         s.source.Play();
+    }
+
+    public void SwitchGoalSound(int levelIndex)
+    {
+        AudioClip activeClip = goalSounds[levelIndex - 1];
+        Sound s = Array.Find(sounds, sound => sound.name == "Goal");
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        s.clip = activeClip;
+        s.source.clip = s.clip;
     }
 }
