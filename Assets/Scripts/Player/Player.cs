@@ -75,6 +75,30 @@ public class Player : MonoBehaviour
 
         // move the player on the beat
         RythmManager.onBPM.AddListener(OnRythmMove);
+
+
+        // math tests
+        Vector3 a = new Vector3(2,2);
+        Vector3 b = new Vector3(1, 1);
+        float x = Vector3.Dot(a, b);
+
+        Vector3 c = (b-a) * Mathf.Cos(90);
+
+
+        AimingAtOldDot(b, a, Vector3.zero);
+        // Math tests -------- x: 0.7853982 kek?
+        Debug.Log("Math tests -------- x: " + x + " c: " + c);
+
+
+        //Math tests --------x: 3 c: (-1.0, -1.9, 0.0)
+        Mathf.Cos(60);
+
+
+
+
+        // PlayerSpawnDataHolder (PlayerSpawnData) pos: (-20.0, 0.0, 0.0) level: 1
+        // cross: a,b tests-------- x: (0.0, 0.0, 0.0)
+
     }
 
     /// Input Handling and Radius Drawing
@@ -223,8 +247,8 @@ public class Player : MonoBehaviour
 
                     // if there is only one dot and if the thumbstick actually got pressed into a direction
                     else
-                    {  
-                        if(lastTeleportParentDot != null)
+
+                    {                          if(lastTeleportParentDot != null)
                         {
                             if(Player.dot0 != null && Player.dot0.transform.position != lastTeleportParentDot.transform.position)
                             {
@@ -315,7 +339,6 @@ public class Player : MonoBehaviour
                                     Teleporter.teleportEnabled = false;
                                 }
                             }
-
                         }
 
                         else
@@ -332,38 +355,18 @@ public class Player : MonoBehaviour
                                     Teleporter.teleportEnabled = true;
                                 }
                             }
-
-                            //SpawnDot();
-                            //AudioManager.instance.Play("Kick");
                         }
                     }
                 }
             }
 
+            // dashing
             else if (dashOnBeat == true)
             {
                 dashOffBeat = false;
 
                 if (bpm.Equals(RythmManager.playerBPM))
                 {
-
-
-                    /* STAY AS ONE DOT, only move forward on controller input
-                    bool thumbstickPushed = true;
-                    Vector2 cntrlInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                    if (Math.Abs(cntrlInput.x) <= thumbstickTreshhold && Math.Abs(cntrlInput.y) <= thumbstickTreshhold)
-                    {
-                        thumbstickPushed = false;
-                        Debug.Log("Dont move");
-                    }
-
-
-
-                    // if there is only one dot and if the thumbstick actually got pressed into a direction
-                    if (thumbstickPushed)
-                    {
-                    */
 
                     // if there are two dots
                     if (dot1 != null && dot0 != null)
@@ -685,6 +688,39 @@ public class Player : MonoBehaviour
             //Instantiate(spawnEffect, newPlayerDot.transform.position, Quaternion.identity);
         }
 
+    }
+
+    // we want to know if our aimposition from the center "newPos" is closer to "oldPos" or to another hexadot.
+    public bool AimingAtOldDot(Vector3 oldPos, Vector3 newPos, Vector3 aimPos)
+    {
+
+
+        // calculate the position of the relative next point in the hexagon
+        Vector3 oldToNewDir = newPos - oldPos; // 1,1
+
+        Vector3 nextHexaDotPos = Vector3.zero;
+        float hexaDegrees = 30f;
+        float x = newPos.x + oldToNewDir.magnitude * Mathf.Cos((2f*Mathf.PI)/(360/hexaDegrees));
+        float y = newPos.y + oldToNewDir.magnitude * Mathf.Sin((2f*Mathf.PI) / (360 / hexaDegrees));
+        nextHexaDotPos.x = x;
+        nextHexaDotPos.y = y;
+
+        Vector3 nextToNewDir = newPos - nextHexaDotPos;
+
+        // calculate the angle between our old-to-newpoint-line and the nextdot
+        float nextOldAngle  = Vector3.Angle(oldToNewDir, nextToNewDir);
+
+        // calculate the angle between our old-to-newpoint-line and the aimposition
+        aimPos = aimPos.normalized;
+        aimPos = aimPos - newPos;
+        float aimPosAngle = Vector3.Angle(oldToNewDir, aimPos);
+
+
+        Debug.Log("nextOldAngle: " + nextOldAngle + " aimPosAngle: " + aimPosAngle + " nextHexaDotPos: " + nextHexaDotPos);
+
+        if (Math.Abs(nextOldAngle) > Math.Abs(aimPosAngle))
+            return true;
+        return false;
     }
 
     /// Retracts the segment towards the new player dot and removes the old one
