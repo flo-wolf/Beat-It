@@ -200,7 +200,6 @@ GameObject:
   - component: {fileID: 75427680}
   - component: {fileID: 75427679}
   - component: {fileID: 75427682}
-  - component: {fileID: 75427683}
   m_Layer: 8
   m_Name: GridDot Row6 Column5
   m_TagString: GridDot
@@ -314,27 +313,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &75427683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 75427677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f30c47c6b2bf9294aa867853a75e7a63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  repeatAmount: 3
-  repeatIntervall: 5
-  waitForNextBPMtoPlay: 0
-  sound:
-    name: hoden
-    clip: {fileID: 8300000, guid: b5a2f09ff019b5b41ba0c6ebfe441c69, type: 3}
-    volume: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
 --- !u!1001 &191563516
 Prefab:
   m_ObjectHideFlags: 0

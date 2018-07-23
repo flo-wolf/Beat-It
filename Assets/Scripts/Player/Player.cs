@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
             // should dash happen on or offbeat?
             if (dashOnBeat == false)
             {
-                if (bpm.Equals(RythmManager.playerBPM) && !playerIsDashing)
+                if (bpm.Equals(RythmManager.playerBPM))
                 {
                         HandleDotRemoval(false);
                 }
@@ -157,23 +157,16 @@ public class Player : MonoBehaviour
                 }
             }
 
-            // dashing
             else if (dashOnBeat == true)
             {
                 if (bpm.Equals(RythmManager.playerBPM) && playerIsDashing)
                 {
-                    if (!playerIsDashing)
-                        HandleDotRemoval(false);
-                    else
                         HandleDotRemoval(true);
                 }
 
                 if (bpm.Equals(RythmManager.playerDashBPM) && !playerIsDashing)
                 {
-                    if (!playerIsDashing)
                         HandleDotRemoval(false);
-                    else
-                        HandleDotRemoval(true);
                 }
             }
         }
