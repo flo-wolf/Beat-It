@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
 
     //Dash bools
     public bool dashOnBeat = false;
-    public bool dashOffBeat = false;
 
     // structure
     public static Player instance;           // self reference
@@ -84,18 +83,6 @@ public class Player : MonoBehaviour
 
         Vector3 c = (b-a) * Mathf.Cos(90);
 
-
-        AimingAtOldDot(b, a, Vector3.zero);
-        // Math tests -------- x: 0.7853982 kek?
-        Debug.Log("Math tests -------- x: " + x + " c: " + c);
-
-
-        //Math tests --------x: 3 c: (-1.0, -1.9, 0.0)
-        Mathf.Cos(60);
-
-
-
-
         // PlayerSpawnDataHolder (PlayerSpawnData) pos: (-20.0, 0.0, 0.0) level: 1
         // cross: a,b tests-------- x: (0.0, 0.0, 0.0)
 
@@ -148,301 +135,191 @@ public class Player : MonoBehaviour
     {
         if (Game.state == Game.State.Playing && allowMove)
         {
-            if (dashOffBeat == true)
+
+            // check if the player is dashing
+            bool playerIsDashing = false;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button5))
+                playerIsDashing = true;
+
+            // should dash happen on or offbeat?
+            if (dashOnBeat == false)
             {
-                dashOnBeat = false;
-
-                if (bpm.Equals(RythmManager.playerBPM))
+                if (bpm.Equals(RythmManager.playerBPM) && !playerIsDashing)
                 {
-                    /* STAY AS ONE DOT, only move forward on controller input
-                    bool thumbstickPushed = true;
-                    Vector2 cntrlInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                    if (Math.Abs(cntrlInput.x) <= thumbstickTreshhold && Math.Abs(cntrlInput.y) <= thumbstickTreshhold)
-                    {
-                        thumbstickPushed = false;
-                        Debug.Log("Dont move");
-                    }
-
-
-
-                    // if there is only one dot and if the thumbstick actually got pressed into a direction
-                    if (thumbstickPushed)
-                    {
-                    */
-
-                    // if there are two dots
-                    if (dot1 != null && dot0 != null)
-                    {
-                        Vector2 aimPos;
-                        float dot0LookLength;
-                        float dot1LookLength;
-
-                        // mouse input
-                        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
-                        {
-                            Debug.Log("mouse");
-                            // get the world mouse position 
-                            Vector2 mousePos = Input.mousePosition;
-                            aimPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-                            // check which point is closest to the lookdirection
-                            dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
-                            dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
-                        }
-
-                        // controller input
-                        else
-                        {
-                            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                            aimPos = controllerInput;
-
-                            // check which point is closest to the lookdirection
-                            dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
-                            dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
-                        }
-
-                        if (!Teleporter.teleporterTouched)
-                        {
-                            // dot 0 is closer to the direction we are aiming at => remove dot1
-                            if (dot0LookLength <= dot1LookLength)
-                            {
-                                RemoveDot(false);
-                                AudioManager.instance.Play("HiHat");
-                                AudioManager.instance.Play("Segment");
-
-                            }
-                            // dot 1 is closer to the direction we are aiming at => remove dot0
-                            else
-                            {
-                                RemoveDot(true);
-                                AudioManager.instance.Play("HiHat");
-                                AudioManager.instance.Play("Segment");
-
-                            }
-                        }
-
-                        else if (Teleporter.teleporterTouched)
-                        {
-                            if (Teleporter.dot0OnTeleportPosition)
-                            {
-                                RemoveDot(false);
-                                AudioManager.instance.Play("Snare");
-                                SpawnDot();
-                                RemoveDot(true);
-                                Teleporter.teleportEnabled = false;
-                            }
-
-                            else if (!Teleporter.dot0OnTeleportPosition)
-                            {
-                                RemoveDot(true);
-                                AudioManager.instance.Play("Snare");
-                                SpawnDot();
-                                RemoveDot(false);
-                                Teleporter.teleportEnabled = false;
-                            }
-                        }
-                    }
-
-                    // if there is only one dot and if the thumbstick actually got pressed into a direction
+                    if (!playerIsDashing)
+                        HandleDotRemoval(false);
                     else
-
-                    {                          if(lastTeleportParentDot != null)
-                        {
-                            if(Player.dot0 != null && Player.dot0.transform.position != lastTeleportParentDot.transform.position)
-                            {
-                                Teleporter.teleportEnabled = true;
-                            }
-
-                            else if (Player.dot1 != null && Player.dot1.transform.position != lastTeleportParentDot.transform.position)
-                            {
-                                Teleporter.teleportEnabled = true;
-                            }
-                        }
-                        SpawnDot();
-                        AudioManager.instance.Play("Kick");
-                    }
-                    //}
-                    // spawn the new dot at the aimed at position
+                        HandleDotRemoval(true);
                 }
 
-                if (bpm.Equals(RythmManager.playerDashBPM))
+                if (bpm.Equals(RythmManager.playerDashBPM) && playerIsDashing)
                 {
-                    if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button5))
-                    {
-                        // if there are two dots
-                        if (dot1 != null && dot0 != null)
-                        {
-                            Vector2 aimPos;
-                            float dot0LookLength;
-                            float dot1LookLength;
-
-                            // mouse input
-                            if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
-                            {
-                                Debug.Log("mouse");
-                                // get the world mouse position 
-                                Vector2 mousePos = Input.mousePosition;
-                                aimPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-                                // check which point is closest to the lookdirection
-                                dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
-                                dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
-                            }
-
-                            // controller input
-                            else
-                            {
-                                Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                                aimPos = controllerInput;
-
-                                // check which point is closest to the lookdirection
-                                dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
-                                dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
-                            }
-
-                            if (!Teleporter.teleporterTouched)
-                            {
-                                // dot 0 is closer to the direction we are aiming at => remove dot1
-                                if (dot0LookLength <= dot1LookLength)
-                                {
-                                    RemoveDot(false);
-                                    AudioManager.instance.Play("Snare");
-                                }
-                                // dot 1 is closer to the direction we are aiming at => remove dot0
-                                else
-                                {
-                                    RemoveDot(true);
-                                    AudioManager.instance.Play("Snare");
-                                }
-                            }
-
-                            else if (Teleporter.teleporterTouched)
-                            {
-                                if (Teleporter.dot0OnTeleportPosition)
-                                {
-                                    RemoveDot(false);
-                                    AudioManager.instance.Play("Snare");
-                                    SpawnDot();
-                                    RemoveDot(true);
-                                    Teleporter.teleportEnabled = false;
-                                }
-
-                                else if (!Teleporter.dot0OnTeleportPosition)
-                                {
-                                    RemoveDot(true);
-                                    AudioManager.instance.Play("Snare");
-                                    SpawnDot();
-                                    RemoveDot(false);
-                                    Teleporter.teleportEnabled = false;
-                                }
-                            }
-                        }
-
-                        else
-                        {
-                            if (lastTeleportParentDot != null)
-                            {
-                                if (Player.dot0 != null && Player.dot0.transform.position != lastTeleportParentDot.transform.position)
-                                {
-                                    Teleporter.teleportEnabled = true;
-                                }
-
-                                else if (Player.dot1 != null && Player.dot1.transform.position != lastTeleportParentDot.transform.position)
-                                {
-                                    Teleporter.teleportEnabled = true;
-                                }
-                            }
-                        }
-                    }
+                    if (!playerIsDashing)
+                        HandleDotRemoval(false);
+                    else
+                        HandleDotRemoval(true);
                 }
             }
 
             // dashing
             else if (dashOnBeat == true)
             {
-                dashOffBeat = false;
-
-                if (bpm.Equals(RythmManager.playerBPM))
+                if (bpm.Equals(RythmManager.playerBPM) && playerIsDashing)
                 {
-
-                    // if there are two dots
-                    if (dot1 != null && dot0 != null)
-                    {
-                        Vector2 aimPos;
-                        float dot0LookLength;
-                        float dot1LookLength;
-
-                        // mouse input
-                        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
-                        {
-                            Debug.Log("mouse");
-                            // get the world mouse position 
-                            Vector2 mousePos = Input.mousePosition;
-                            aimPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-                            // check which point is closest to the lookdirection
-                            dot0LookLength = (aimPos - (Vector2)dot0.transform.position).magnitude;
-                            dot1LookLength = (aimPos - (Vector2)dot1.transform.position).magnitude;
-                        }
-
-                        // controller input
-                        else
-                        {
-
-                            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
-
-                            aimPos = controllerInput;
-
-                            // check which point is closest to the lookdirection
-                            dot0LookLength = ((Vector2)dot0.transform.position - ((Vector2)dot1.transform.position + aimPos)).magnitude;
-                            dot1LookLength = ((Vector2)dot1.transform.position - ((Vector2)dot0.transform.position + aimPos)).magnitude;
-                        }
-
-                        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button5))
-                        {
-                            // dot 0 is closer to the direction we are aiming at => remove dot1
-                            if (dot0LookLength <= dot1LookLength)
-                            {
-                                RemoveDot(false);
-                                SpawnDot();
-                            }
-                            // dot 1 is closer to the direction we are aiming at => remove dot0
-                            else
-                            {
-                                RemoveDot(true);
-                                SpawnDot();
-                            }
-                        }
-
-                        else
-                        {
-                            // dot 0 is closer to the direction we are aiming at => remove dot1
-                            if (dot0LookLength <= dot1LookLength)
-                            {
-                                RemoveDot(false);
-                            }
-                            // dot 1 is closer to the direction we are aiming at => remove dot0
-                            else
-                            {
-                                RemoveDot(true);
-                            }
-                        }
-                    }
-
-                    // if there is only one dot and if the thumbstick actually got pressed into a direction
+                    if (!playerIsDashing)
+                        HandleDotRemoval(false);
                     else
-                    {
-                        SpawnDot();
-                    }
-                    //}
-                    // spawn the new dot at the aimed at position
+                        HandleDotRemoval(true);
+                }
+
+                if (bpm.Equals(RythmManager.playerDashBPM) && !playerIsDashing)
+                {
+                    if (!playerIsDashing)
+                        HandleDotRemoval(false);
+                    else
+                        HandleDotRemoval(true);
                 }
             }
         }
 
+    }
+
+
+
+    // remove the correct dot, considering aimposition, teleporters, dashing...
+    public void HandleDotRemoval(bool dashing)
+    {
+        Vector3 oldPos = Vector3.zero;
+        Vector3 newPos = Vector3.zero;
+
+        // both dots alive
+        if (dot1 != null && dot0 != null)
+        {
+            if (!Teleporter.teleporterTouched)
+            {
+                if (newestDot == DotType.Dot0)
+                {
+                    newPos = dot0.transform.position;
+                    oldPos = dot1.transform.position;
+
+                    bool isAimingAtOldDot = IsAimingAtOldDot(oldPos, newPos);
+                    if (isAimingAtOldDot)
+                        RemoveDot(true);
+                    else
+                        RemoveDot(false);
+
+                }
+                else
+                {
+                    oldPos = dot0.transform.position;
+                    newPos = dot1.transform.position;
+
+                    bool isAimingAtOldDot = IsAimingAtOldDot(oldPos, newPos);
+                    if (isAimingAtOldDot)
+                        RemoveDot(false);
+                    else
+                        RemoveDot(true);
+                }
+                AudioManager.instance.Play("HiHat");
+                AudioManager.instance.Play("Segment");
+
+            }
+            else // teleporter touched
+            {
+                if (Teleporter.dot0OnTeleportPosition)
+                {
+                    RemoveDot(false);
+                    AudioManager.instance.Play("Snare");
+                    SpawnDot();
+                    RemoveDot(true);
+                    Teleporter.teleportEnabled = false;
+                }
+
+                else if (!Teleporter.dot0OnTeleportPosition)
+                {
+                    RemoveDot(true);
+                    AudioManager.instance.Play("Snare");
+                    SpawnDot();
+                    RemoveDot(false);
+                    Teleporter.teleportEnabled = false;
+                }
+            }
+
+
+        }
+
+        // if there is only one dot
+        else
+        {
+            if (lastTeleportParentDot != null)
+            {
+                if (Player.dot0 != null && Player.dot0.transform.position != lastTeleportParentDot.transform.position)
+                {
+                    Teleporter.teleportEnabled = true;
+                }
+
+                else if (Player.dot1 != null && Player.dot1.transform.position != lastTeleportParentDot.transform.position)
+                {
+                    Teleporter.teleportEnabled = true;
+                }
+            }
+
+                SpawnDot();
+                AudioManager.instance.Play("Kick");
+            
+        }
+    }
+
+    // we want to know if our aimposition from the NewestDot is closer to OldestDot or to another hexadot.
+    public bool IsAimingAtOldDot(Vector3 oldPos, Vector3 newPos)
+    { 
+        Vector2 aimPos = Vector2.zero;
+
+        // calculate the aimposition based on the input type
+        // mouse input
+        if (InputDeviceDetector.inputType == InputDeviceDetector.InputType.MouseKeyboard)
+        {
+            Vector2 mousePos = Input.mousePosition;
+            aimPos = Camera.main.ScreenToWorldPoint(mousePos);
+            aimPos = (Vector2)newPos - aimPos;
+
+        }
+
+        // controller input
+        else
+        {
+            Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
+
+            aimPos = controllerInput;
+            aimPos = (Vector2)newPos - aimPos;
+        }
+
+
+        // calculate the position of the relative next point in the hexagon
+        Vector3 oldToNewDir = newPos - oldPos; // 1,1
+
+        Vector3 nextHexaDotPos = Vector3.zero;
+        float hexaDegrees = 30f;
+        float x = newPos.x + oldToNewDir.magnitude * Mathf.Cos((2f * Mathf.PI) / (360 / hexaDegrees));
+        float y = newPos.y + oldToNewDir.magnitude * Mathf.Sin((2f * Mathf.PI) / (360 / hexaDegrees));
+        nextHexaDotPos.x = x;
+        nextHexaDotPos.y = y;
+
+        Vector3 nextToNewDir = newPos - nextHexaDotPos;
+
+        // calculate the angle between our old-to-newpoint-line and the nextdot
+        float nextOldAngle = Vector3.Angle(oldToNewDir, nextToNewDir);
+        nextOldAngle = 30f;
+
+        // calculate the angle between our old-to-newpoint-line and the aimposition
+        float aimPosAngle = Vector3.Angle(oldToNewDir, aimPos);
+
+
+        Debug.Log("nextOldAngle: " + nextOldAngle + " aimPosAngle: " + aimPosAngle + " nextHexaDotPos: " + nextHexaDotPos);
+
+        if (Mathf.Abs(nextOldAngle) > Mathf.Abs(aimPosAngle))
+            return true;
+        return false;
     }
 
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
@@ -690,38 +567,6 @@ public class Player : MonoBehaviour
 
     }
 
-    // we want to know if our aimposition from the center "newPos" is closer to "oldPos" or to another hexadot.
-    public bool AimingAtOldDot(Vector3 oldPos, Vector3 newPos, Vector3 aimPos)
-    {
-
-
-        // calculate the position of the relative next point in the hexagon
-        Vector3 oldToNewDir = newPos - oldPos; // 1,1
-
-        Vector3 nextHexaDotPos = Vector3.zero;
-        float hexaDegrees = 30f;
-        float x = newPos.x + oldToNewDir.magnitude * Mathf.Cos((2f*Mathf.PI)/(360/hexaDegrees));
-        float y = newPos.y + oldToNewDir.magnitude * Mathf.Sin((2f*Mathf.PI) / (360 / hexaDegrees));
-        nextHexaDotPos.x = x;
-        nextHexaDotPos.y = y;
-
-        Vector3 nextToNewDir = newPos - nextHexaDotPos;
-
-        // calculate the angle between our old-to-newpoint-line and the nextdot
-        float nextOldAngle  = Vector3.Angle(oldToNewDir, nextToNewDir);
-
-        // calculate the angle between our old-to-newpoint-line and the aimposition
-        aimPos = aimPos.normalized;
-        aimPos = aimPos - newPos;
-        float aimPosAngle = Vector3.Angle(oldToNewDir, aimPos);
-
-
-        Debug.Log("nextOldAngle: " + nextOldAngle + " aimPosAngle: " + aimPosAngle + " nextHexaDotPos: " + nextHexaDotPos);
-
-        if (Math.Abs(nextOldAngle) > Math.Abs(aimPosAngle))
-            return true;
-        return false;
-    }
 
     /// Retracts the segment towards the new player dot and removes the old one
     public void RemoveDot(bool removeDot0)
