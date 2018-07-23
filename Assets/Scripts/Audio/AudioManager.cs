@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour {
 
     //Here we create an array for instances of our Sound class
     public Sound[] sounds;
+    public AudioClip[] goalSounds;
 
     public static AudioManager instance = null;
     public static bool playDeathSounds = false;
@@ -49,14 +50,6 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    /*
-    public void FixedRythmCall(float f)
-    {
-        Play("Bass");
-    }
-    */
-
-
     public void RythmCall(BPMinfo bpmInfo)
     {
         // bass plays on the level bpm
@@ -68,18 +61,6 @@ public class AudioManager : MonoBehaviour {
             playDeathSounds = false;
             Play("Death");
         }
-            
-
-        /*
-        // kick plays on the player bpm
-        if (bpmInfo.Equals(RythmManager.playerBPM))
-            AudioManager.instance.Play("Kick");
-
-        // snare plays on the half offset player bpm
-        if (bpmInfo.Equals(BPMinfo.ToHalf(RythmManager.playerBPM))) 
-            AudioManager.instance.Play("Snare");
-          
-        */
     }
 
     //This enables us to Play an AudioClip just through his name.
@@ -99,5 +80,20 @@ public class AudioManager : MonoBehaviour {
         }
 
         s.source.Play();
+    }
+
+    public void SwitchGoalSound(int levelIndex)
+    {
+        AudioClip activeClip = goalSounds[levelIndex - 1];
+        Sound s = Array.Find(sounds, sound => sound.name == "Goal");
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        s.clip = activeClip;
+        s.source.clip = s.clip;
     }
 }

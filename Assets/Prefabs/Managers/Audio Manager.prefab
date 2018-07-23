@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1667852584635558}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1667852584635558
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4308261660996986}
   - component: {fileID: 114381555245886250}
@@ -30,7 +30,7 @@ GameObject:
 --- !u!4 &4308261660996986
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667852584635558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -43,7 +43,7 @@ Transform:
 --- !u!114 &114381555245886250
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667852584635558}
   m_Enabled: 1
@@ -83,9 +83,9 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Goal
-    clip: {fileID: 8300000, guid: 76f9089c2893788438fdf2edbee033b0, type: 3}
-    volume: 0.6
-    pitch: 1
+    clip: {fileID: 8300000, guid: 333ae99ccd15a744e9885fb2e4f571e2, type: 3}
+    volume: 0.5
+    pitch: 0.97
     loop: 0
     source: {fileID: 0}
   - name: Death
@@ -113,10 +113,10 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Background
-    clip: {fileID: 8300000, guid: c7047e839ee0ec74eaaa9c3f820298bc, type: 3}
-    volume: 0.05
-    pitch: 0.75
-    loop: 0
+    clip: {fileID: 8300000, guid: 55a7a5e99ea27f94cb9b86214e60bc68, type: 3}
+    volume: 0.02
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
   - name: Radio
     clip: {fileID: 8300000, guid: be14326d0806681439fd429d030d0d45, type: 3}
@@ -142,3 +142,31 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Warp
+    clip: {fileID: 8300000, guid: 76f9089c2893788438fdf2edbee033b0, type: 3}
+    volume: 0.184
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ReachedGoal
+    clip: {fileID: 8300000, guid: 455f3ecb08c288c46915eb34c9e7175e, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: OnDeathTrigger
+    clip: {fileID: 8300000, guid: 459d83524d8a02e40aa4bc6f38d956ad, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  goalSounds:
+  - {fileID: 8300000, guid: 333ae99ccd15a744e9885fb2e4f571e2, type: 3}
+  - {fileID: 8300000, guid: ed28828ab424ece4bbfc068856b16071, type: 3}
+  - {fileID: 8300000, guid: 1cf2c67fc7ee6064cbc737e1e32fcc97, type: 3}
+  - {fileID: 8300000, guid: 2f6f4b70e48bd9946b9fd6c35740a0b1, type: 3}
+  - {fileID: 8300000, guid: e518b6e229f9b264690f0b4a58243352, type: 3}
+  - {fileID: 8300000, guid: 07531c128b52db64e9528aca9880af8b, type: 3}
+  - {fileID: 8300000, guid: 241c6f63de52a5e40b33f23aa5933f85, type: 3}
+  - {fileID: 8300000, guid: 81b471e9737862b468683cfa722a6dd1, type: 3}
+  - {fileID: 8300000, guid: 59e4460ae4499df43a4334531f68dc50, type: 3}
