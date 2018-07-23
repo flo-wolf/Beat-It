@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public bool tempoDown = false;
 
+    public bool enableJump = false;
+
 
     [Header("Components")]
     public GameObject playerDotPrefab;      // needed for creating new playerDots
@@ -146,17 +148,11 @@ public class Player : MonoBehaviour
             {
                 if (bpm.Equals(RythmManager.playerBPM) && !playerIsDashing)
                 {
-                    if (!playerIsDashing)
                         HandleDotRemoval(false);
-                    else
-                        HandleDotRemoval(true);
                 }
 
                 if (bpm.Equals(RythmManager.playerDashBPM) && playerIsDashing)
                 {
-                    if (!playerIsDashing)
-                        HandleDotRemoval(false);
-                    else
                         HandleDotRemoval(true);
                 }
             }
@@ -264,8 +260,8 @@ public class Player : MonoBehaviour
                 }
             }
 
-                SpawnDot();
-                AudioManager.instance.Play("Kick");
+            SpawnDot();
+            AudioManager.instance.Play("Kick");
             
         }
     }

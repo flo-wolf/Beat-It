@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // info class storing bpm event information
+[Serializable]
 public class BPMinfo{
+
 
     public RythmManager.BPM bpm;
     [HideInInspector]
