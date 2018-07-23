@@ -42,8 +42,7 @@ public class Player : MonoBehaviour
     public bool tempoUp = false;
     [HideInInspector]
     public bool tempoDown = false;
-
-    public bool enableJump = false;
+   
 
 
     [Header("Components")]
