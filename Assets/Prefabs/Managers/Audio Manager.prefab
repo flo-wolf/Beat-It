@@ -142,3 +142,14 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  goalSounds:
+  - {fileID: 8300000, guid: 2ea892b7e130daa46bff9432f7446079, type: 3}
+  - {fileID: 8300000, guid: f327f573a304b6249976dc697576d919, type: 3}
+  - {fileID: 8300000, guid: db846fcd1bd0c764aa1667234d7bdf00, type: 3}
+  - {fileID: 8300000, guid: 593fc5e56ce0dda4b84f0db16c99b486, type: 3}
+  - {fileID: 8300000, guid: 593fc5e56ce0dda4b84f0db16c99b486, type: 3}
+  - {fileID: 8300000, guid: e518b6e229f9b264690f0b4a58243352, type: 3}
+  - {fileID: 8300000, guid: b5da4a58afe3162449992f19f1475b1f, type: 3}
+  - {fileID: 8300000, guid: 299dd7ba975799348ac1d4243361082b, type: 3}
+  - {fileID: 8300000, guid: f67b5b90d7dcce74399493841df87463, type: 3}
+  - {fileID: 8300000, guid: 4cc9a86923463054abf4919e46725acb, type: 3}

@@ -258,7 +258,7 @@ public class Grid : MonoBehaviour
         // gather all six sourrounding dots
         List<GridDot> hexDots = new List<GridDot>();
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Y))
         {
             //Double Jump
             // our row is uneven
