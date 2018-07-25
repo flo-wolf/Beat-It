@@ -83,15 +83,15 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Goal
-    clip: {fileID: 8300000, guid: 76f9089c2893788438fdf2edbee033b0, type: 3}
-    volume: 0.6
-    pitch: 1
+    clip: {fileID: 8300000, guid: 241c6f63de52a5e40b33f23aa5933f85, type: 3}
+    volume: 0.5
+    pitch: 0.97
     loop: 0
     source: {fileID: 0}
   - name: Death
-    clip: {fileID: 8300000, guid: 4f2a6f0d0cef67d4fb03a66bfc28ca13, type: 3}
+    clip: {fileID: 8300000, guid: a5f14552a34891f4e8f7fa28b5834057, type: 3}
     volume: 0.5
-    pitch: 1
+    pitch: 0.97
     loop: 0
     source: {fileID: 0}
   - name: Segment
@@ -113,10 +113,10 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Background
-    clip: {fileID: 8300000, guid: c7047e839ee0ec74eaaa9c3f820298bc, type: 3}
-    volume: 0.05
-    pitch: 0.75
-    loop: 0
+    clip: {fileID: 8300000, guid: 55a7a5e99ea27f94cb9b86214e60bc68, type: 3}
+    volume: 0.02
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
   - name: Radio
     clip: {fileID: 8300000, guid: be14326d0806681439fd429d030d0d45, type: 3}
@@ -142,14 +142,36 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Warp
+    clip: {fileID: 8300000, guid: 76f9089c2893788438fdf2edbee033b0, type: 3}
+    volume: 0.184
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ReachedGoal
+    clip: {fileID: 8300000, guid: 455f3ecb08c288c46915eb34c9e7175e, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: OnDeathTrigger
+    clip: {fileID: 8300000, guid: 459d83524d8a02e40aa4bc6f38d956ad, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   goalSounds:
-  - {fileID: 8300000, guid: 2ea892b7e130daa46bff9432f7446079, type: 3}
-  - {fileID: 8300000, guid: f327f573a304b6249976dc697576d919, type: 3}
-  - {fileID: 8300000, guid: db846fcd1bd0c764aa1667234d7bdf00, type: 3}
-  - {fileID: 8300000, guid: 593fc5e56ce0dda4b84f0db16c99b486, type: 3}
-  - {fileID: 8300000, guid: 593fc5e56ce0dda4b84f0db16c99b486, type: 3}
-  - {fileID: 8300000, guid: e518b6e229f9b264690f0b4a58243352, type: 3}
-  - {fileID: 8300000, guid: b5da4a58afe3162449992f19f1475b1f, type: 3}
-  - {fileID: 8300000, guid: 299dd7ba975799348ac1d4243361082b, type: 3}
   - {fileID: 8300000, guid: f67b5b90d7dcce74399493841df87463, type: 3}
+  - {fileID: 8300000, guid: acfb969ac2055924c8e23e486878c164, type: 3}
+  - {fileID: 8300000, guid: 2f6f4b70e48bd9946b9fd6c35740a0b1, type: 3}
+  - {fileID: 8300000, guid: e518b6e229f9b264690f0b4a58243352, type: 3}
+  - {fileID: 8300000, guid: 07531c128b52db64e9528aca9880af8b, type: 3}
+  - {fileID: 8300000, guid: 241c6f63de52a5e40b33f23aa5933f85, type: 3}
+  - {fileID: 8300000, guid: 1cd60700f8300244ea233083394942fa, type: 3}
+  - {fileID: 8300000, guid: 81b471e9737862b468683cfa722a6dd1, type: 3}
+  - {fileID: 8300000, guid: 1cd60700f8300244ea233083394942fa, type: 3}
+  - {fileID: 8300000, guid: 0bde5e49863c372428ddc01b1c803fb9, type: 3}
   - {fileID: 8300000, guid: 4cc9a86923463054abf4919e46725acb, type: 3}
+  - {fileID: 8300000, guid: 59e4460ae4499df43a4334531f68dc50, type: 3}
+  - {fileID: 8300000, guid: 4c7e8cb61efaa664e8b7646cee3a31f3, type: 3}
+  - {fileID: 8300000, guid: b5da4a58afe3162449992f19f1475b1f, type: 3}
