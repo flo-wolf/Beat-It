@@ -86,7 +86,6 @@ public class Game : MonoBehaviour {
             quickSceneLoad = true;
         }
 
-
         if (newState == State.Death) {
             quickSceneLoad = true;
             if (!Player.deathByMovingKillDot)
