@@ -45,6 +45,8 @@ public class NewMovingKillDot : LevelObject
     //2CD0F0 HexColor to color the GridDots the MovingKillDot is moving on
     Color myColor = new Color32(0x2C, 0xD0, 0xF0, 0xFF);
 
+    bool kill;
+
     private void Start()
     {
         child = this.gameObject.transform.GetChild(0);
@@ -97,7 +99,7 @@ public class NewMovingKillDot : LevelObject
 
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM) || bpm.Equals(RythmManager.movingKillDotBPM))
         {
-            if (IsTouchingPlayer(false))
+            if (IsTouchingPlayer(false) || kill)
             {
                 Game.SetState(Game.State.DeathOnNextBeat);
                 count = 0;
@@ -198,6 +200,8 @@ public class NewMovingKillDot : LevelObject
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            kill = true;
+
             if (deathAnim != null)
                 deathAnim.Play("MovingKillDotDeathFast");
 

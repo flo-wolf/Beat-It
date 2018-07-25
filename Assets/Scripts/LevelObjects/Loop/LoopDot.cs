@@ -14,10 +14,6 @@ public class LoopDot : KillDot {
         RythmManager.onBPM.AddListener(OnRythmCount);
     }
 
-    // Update is called once per frame
-    void Update () {
-	}
-
     // a segment has touched this dot => grow animation
     public void SegmentRecieved()
     {

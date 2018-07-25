@@ -189,7 +189,7 @@ MonoBehaviour:
   newestDot: 0
   tempoUp: 0
   tempoDown: 0
-  enableJump: 0
+  enableJump: 1
   playerDotPrefab: {fileID: 1371461933542696, guid: b87071e003593024b9f9ee071fe7e6c5,
     type: 2}
   playerSegment: {fileID: 114307798837158290}

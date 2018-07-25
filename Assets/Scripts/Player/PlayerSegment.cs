@@ -55,7 +55,7 @@ public class PlayerSegment : Segment {
 
     public void AdaptKillColor()
     {
-        Debug.Log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        Debug.Log("--------ADAPT KILL COLOR--------");
         touchedKillDot = true;
         lr.endColor = killColor;
         lr.startColor = killColor;

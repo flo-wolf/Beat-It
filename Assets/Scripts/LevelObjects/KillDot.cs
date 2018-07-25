@@ -33,6 +33,8 @@ public class KillDot : LevelObject {
                 killFeedback.Play();
                 count++;
             }
+
+            kill = true;
         }
     }
     
@@ -49,7 +51,7 @@ public class KillDot : LevelObject {
     {
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
         {
-            if (IsTouchingPlayer(false))
+            if (IsTouchingPlayer(false) || kill)
             {
                 Game.SetState(Game.State.DeathOnNextBeat);
 
