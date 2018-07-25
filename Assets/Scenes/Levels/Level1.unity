@@ -352,6 +352,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 120361600636161970, guid: 85d852ae79d71de4fa9e27ea0426feb2,
         type: 2}
       propertyPath: m_Parameters.colorGradient.key2.r
@@ -376,6 +377,12 @@ Prefab:
         type: 2}
       propertyPath: m_Parameters.colorGradient.m_NumColorKeys
       value: 3
+=======
+    - target: {fileID: 114606964953327214, guid: 85d852ae79d71de4fa9e27ea0426feb2,
+        type: 2}
+      propertyPath: enableJump
+      value: 1
+>>>>>>> 790060a0a72464e77249e7e8ea92e43f0e24f448
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85d852ae79d71de4fa9e27ea0426feb2, type: 2}
@@ -1713,7 +1720,11 @@ Prefab:
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: orthographic size
+<<<<<<< HEAD
       value: 24.875
+=======
+      value: 23.777126
+>>>>>>> 790060a0a72464e77249e7e8ea92e43f0e24f448
       objectReference: {fileID: 0}
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
