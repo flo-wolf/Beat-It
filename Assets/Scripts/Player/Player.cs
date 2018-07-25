@@ -67,6 +67,8 @@ public class Player : MonoBehaviour
 
     public static bool isDashing = false;
 
+    public static bool isJumping = false;
+
 
     /// initialization
     void Start()
@@ -143,8 +145,12 @@ public class Player : MonoBehaviour
 
             // check if the player is dashing
             isDashing = false;
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button5))
+            if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Joystick1Button2))
                 isDashing = true;
+
+            isJumping = false;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button0))
+                isJumping = true;
 
             // should dash happen on or offbeat?
             if (dashOnBeat == false)
@@ -309,7 +315,14 @@ public class Player : MonoBehaviour
 
         Debug.Log("nextOldAngle: " + nextOldAngle + " aimPosAngle: " + aimPosAngle + " nextHexaDotPos: " + nextHexaDotPos);
 
-        if (Mathf.Abs(nextOldAngle) > Mathf.Abs(aimPosAngle))
+        // check if 
+
+        float newDotToAimLength = (newPos - Input.mousePosition).magnitude;
+        float oldDotToAimLength = (oldPos - Input.mousePosition).magnitude;
+        bool aimCloserToNewDot = newDotToAimLength < oldDotToAimLength;
+        Debug.Log("-- AimCloserToNewDot: " + aimCloserToNewDot + " --- newDotToAimLength: " + newDotToAimLength + " ---- oldDotToAimLength: " + oldDotToAimLength);
+
+        if (Mathf.Abs(nextOldAngle) > Mathf.Abs(aimPosAngle) )
             return true;
         return false;
     }
@@ -319,8 +332,10 @@ public class Player : MonoBehaviour
     {
         if (Game.state == Game.State.Playing)
         {
-            // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
-            if (dot0 != null && dot1 != null)
+
+
+                // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
+                if (dot0 != null && dot1 != null)
                 return;
 
             //Debug.Log("Dot0: " + dot0 + " ---- Dot1: " + dot1);
@@ -336,7 +351,7 @@ public class Player : MonoBehaviour
                 // dot1 exists, dot0 doesnt => spawn dot0
                 if (dot1 != null && dot0 == null)
                 {
-                    parentDot = Grid.GetNearestActiveDot(dot1.gridDot, lookDirection);
+                    parentDot = Grid.GetNearestActiveDot(dot1.gridDot, lookDirection, isJumping);
 
                     if (parentDot == null)
                         return;
@@ -347,7 +362,7 @@ public class Player : MonoBehaviour
                 // dot0 exists, dot1 doesnt => spawn dot1
                 else if (dot0 != null && dot1 == null)
                 {
-                    parentDot = Grid.GetNearestActiveDot(dot0.gridDot, lookDirection);
+                    parentDot = Grid.GetNearestActiveDot(dot0.gridDot, lookDirection, isJumping);
 
                     if (parentDot == null)
                         return;

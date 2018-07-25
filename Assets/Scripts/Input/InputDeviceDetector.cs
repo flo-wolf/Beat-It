@@ -112,7 +112,8 @@ public class InputDeviceDetector : MonoBehaviour
     {
         if(inputType == InputType.Controler)
         {
-            return isControlerInput();
+            return (Input.GetAxis("Joystick X") != 0.0f ||
+           Input.GetAxis("Joystick Y") != 0.0f);
         }
         else
         {
