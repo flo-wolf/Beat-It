@@ -186,10 +186,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashOnBeat: 0
-  dashOffBeat: 1
   newestDot: 0
   tempoUp: 0
   tempoDown: 0
+  enableJump: 0
   playerDotPrefab: {fileID: 1371461933542696, guid: b87071e003593024b9f9ee071fe7e6c5,
     type: 2}
   playerSegment: {fileID: 114307798837158290}
@@ -208,7 +208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 212325727363080220}
   radiusDrawScale: 0.02
-  radiusFadeDuration: 0.01
+  radiusFadeDuration: 0.25
+  radiusFadeOutDuration: 0.1
   maxRadius: 1000
   radius: 0
   radiusOpacity: 0

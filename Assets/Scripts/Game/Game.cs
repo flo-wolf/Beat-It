@@ -29,6 +29,8 @@ public class Game : MonoBehaviour {
 
     public static bool quickSceneLoad = false;
 
+    public bool waitForInputBeforePlaying = false;
+
 
     void Awake()
     {
@@ -50,6 +52,7 @@ public class Game : MonoBehaviour {
         if (this != instance) return;
         GetLevelNumberFromLevelName();
         Debug.Log("LevelNumber: " + level);
+        StopCoroutine("C_WaitForInputToPlay");
     }
 
     void Start()
@@ -115,6 +118,11 @@ public class Game : MonoBehaviour {
         {
             LevelTransition.instance.FadeOutLevel();
         }
+
+        else if(newState == State.Playing)
+        {
+            instance.StartCoroutine(instance.C_WaitForInputToPlay());
+        }
     }
 
     public static void LoadNextLevel()
@@ -141,6 +149,22 @@ public class Game : MonoBehaviour {
         string numbersOnly = System.Text.RegularExpressions.Regex.Replace(levelName, "[^0-9]", "");
         int.TryParse(numbersOnly, out parsedLevel);
         level = parsedLevel;
+    }
+
+    IEnumerator C_WaitForInputToPlay()
+    {
+        while(Player.allowMove != true)
+        {
+            if ((InputDeviceDetector.instance.RecievingStartInput() && waitForInputBeforePlaying) || !waitForInputBeforePlaying)
+            {
+                Player.allowMove = true;
+                yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs() * 2);
+                PlayerSpawn.instance.FadeOutSpawn();
+                break;
+            }
+            yield return null;
+        }
+        yield return null;
     }
 
     //public static void Restart()

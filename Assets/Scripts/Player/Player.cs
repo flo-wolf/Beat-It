@@ -62,7 +62,10 @@ public class Player : MonoBehaviour
     private GridDot spawnDot = null;
     private GridDot lastTeleportParentDot = null;
 
-    public static bool allowMove = true;
+    public static bool allowMove = false;
+    private bool inputGiven = false;
+
+    public static bool isDashing = false;
 
 
     /// initialization
@@ -103,7 +106,7 @@ public class Player : MonoBehaviour
         switch (newState)
         {
             case Game.State.Playing:
-                allowMove = true;
+                PlayerDirectionHandle.instance.FadeRadius(true);
                 break;
             case Game.State.Death:
                 Death();
@@ -139,9 +142,9 @@ public class Player : MonoBehaviour
         {
 
             // check if the player is dashing
-            bool playerIsDashing = false;
+            isDashing = false;
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button5))
-                playerIsDashing = true;
+                isDashing = true;
 
             // should dash happen on or offbeat?
             if (dashOnBeat == false)
@@ -151,7 +154,7 @@ public class Player : MonoBehaviour
                         HandleDotRemoval(false);
                 }
 
-                if (bpm.Equals(RythmManager.playerDashBPM) && playerIsDashing)
+                if (bpm.Equals(RythmManager.playerDashBPM) && isDashing)
                 {
                         HandleDotRemoval(true);
                 }
@@ -159,12 +162,12 @@ public class Player : MonoBehaviour
 
             else if (dashOnBeat == true)
             {
-                if (bpm.Equals(RythmManager.playerBPM) && playerIsDashing)
+                if (bpm.Equals(RythmManager.playerBPM) && isDashing)
                 {
                         HandleDotRemoval(true);
                 }
 
-                if (bpm.Equals(RythmManager.playerDashBPM) && !playerIsDashing)
+                if (bpm.Equals(RythmManager.playerDashBPM) && !isDashing)
                 {
                         HandleDotRemoval(false);
                 }
@@ -279,7 +282,7 @@ public class Player : MonoBehaviour
         {
             Vector2 controllerInput = new Vector2(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
 
-            aimPos = controllerInput;
+            aimPos = controllerInput * 20f;
             aimPos = (Vector2)newPos - aimPos;
         }
 
@@ -339,7 +342,7 @@ public class Player : MonoBehaviour
                         return;
 
                     dotWasSpawned = 0;
-                    PlayerDirectionHandle.instance.FadeRadius(false);
+                    PlayerDirectionHandle.instance.FadeRadius(false, null, PlayerDirectionHandle.instance.DelayedDoubleDotFadeIn);
                 }
                 // dot0 exists, dot1 doesnt => spawn dot1
                 else if (dot0 != null && dot1 == null)
@@ -350,7 +353,7 @@ public class Player : MonoBehaviour
                         return;
 
                     dotWasSpawned = 1;
-                    PlayerDirectionHandle.instance.FadeRadius(false);
+                    PlayerDirectionHandle.instance.FadeRadius(false, null, PlayerDirectionHandle.instance.DelayedDoubleDotFadeIn);
                 }
                 // there are no dots, spawn the first dot
                 else

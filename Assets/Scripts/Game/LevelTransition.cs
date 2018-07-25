@@ -142,10 +142,6 @@ public class LevelTransition : MonoBehaviour {
         if (playerSpawnGridDotSr != null)
             playerSpawnGridDotSr.enabled = true;
 
-        // fade out the spawn
-        yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs() * 2);
-        PlayerSpawn.instance.Fade(start_ShowPlayerDuration, false);
-
         yield return null;
     }
 
@@ -170,11 +166,7 @@ public class LevelTransition : MonoBehaviour {
 
         Game.quickSceneLoad = false;
         Game.SetState(Game.State.Playing);
-        
-
-        yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs() * 2);
-        PlayerSpawn.instance.Fade(start_ShowPlayerDuration, false);
-
+       
 
         yield return null;
     }
