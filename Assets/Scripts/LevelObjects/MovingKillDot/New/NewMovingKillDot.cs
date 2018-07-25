@@ -34,7 +34,7 @@ public class NewMovingKillDot : LevelObject
 
     //ParticleSystems
     ParticleSystem killFeedback;
-    public GameObject gridDotParticleSystem;
+    //public GameObject gridDotParticleSystem;
 
     //Animation Component
     private Animation deathAnim;
@@ -42,8 +42,8 @@ public class NewMovingKillDot : LevelObject
     //To make sure things only get called once in OnTriggerEnter2D
     int count = 0;
 
-    //40DFFFFF HexColor to color the GridDots the MovingKillDot is moving on
-    Color myColor = new Color32(0x40, 0xDF, 0xFF, 0xFF);
+    //2CD0F0 HexColor to color the GridDots the MovingKillDot is moving on
+    Color myColor = new Color32(0x2C, 0xD0, 0xF0, 0xFF);
 
     private void Start()
     {
@@ -64,7 +64,7 @@ public class NewMovingKillDot : LevelObject
         lenghtOfList = gridDotList.Count;
 
         ColorGridDots();
-        AddParticleSystemToGridDots();
+        //AddParticleSystemToGridDots();
     }
 
     private void Update()
@@ -85,11 +85,13 @@ public class NewMovingKillDot : LevelObject
             {
                 MoveToNextDot();
 
+                /*
                 foreach (GridDot dot in gridDotList)
                 {
                     ParticleSystem ps = dot.GetComponentInChildren<ParticleSystem>();
                     ps.Play();
                 }
+                */
             }
         }
 
@@ -104,6 +106,7 @@ public class NewMovingKillDot : LevelObject
 
     }
 
+    /*
     void AddParticleSystemToGridDots()
     {
         foreach (GridDot dot in gridDotList)
@@ -114,6 +117,7 @@ public class NewMovingKillDot : LevelObject
             particleSystem.transform.localScale = gridDotParticleSystem.transform.localScale;
         }
     }
+    */
 
     void ColorGridDots()
     {
@@ -156,7 +160,7 @@ public class NewMovingKillDot : LevelObject
         Vector2 direction = target.position - this.transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        child.rotation = Quaternion.Slerp(child.rotation, rotation, rotationSpeed * Time.deltaTime);
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotationSpeed * Time.deltaTime);
     }
 
 
