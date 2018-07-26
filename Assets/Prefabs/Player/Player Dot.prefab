@@ -45,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1953165806431560
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4200125621376782
 Transform:
   m_ObjectHideFlags: 1
@@ -153,12 +153,12 @@ MonoBehaviour:
   playerCanMoveOnto: 1
   originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
-  fadeDuration: 0.15
+  fadeDuration: 0.25
   rb: {fileID: 0}
   sr: {fileID: 212090538057330824}
   emptyFillSr: {fileID: 212915313867511076}
   fillCircleGo: {fileID: 1953165806431560}
-  killMaterial: {fileID: 2100000, guid: 8f61bc16e23aec3479dd3be17ffc29cc, type: 2}
+  killMaterial: {fileID: 2100000, guid: 9474ff88850093444ae9426d07208506, type: 2}
   state: 0
 --- !u!212 &212090538057330824
 SpriteRenderer:
