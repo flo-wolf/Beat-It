@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerDot : LevelObject{
 
     [Header("Settings")]
-    public float fadeDuration = 0.5f;
+    public float fadeDuration = 0.25f;
 
     [Header("Components")]
     public Rigidbody2D rb;
@@ -45,9 +45,14 @@ public class PlayerDot : LevelObject{
     {
         switch (state)
         {
+            case Game.State.DeathOnNextBeat:
+                sr.material = killMaterial;
+                break;
+
             case Game.State.Death:
                 sr.material = killMaterial;
                 break;
+
             default:
                 
                 break;
@@ -65,6 +70,19 @@ public class PlayerDot : LevelObject{
         // update fill amount
         float fillScale = Mathf.Lerp(0, defaultFillCircleSize, PlayerSegment.instance.fillProgress);
         fillCircleGo.transform.localScale = new Vector3(fillScale, fillScale, 1);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag.Equals("LevelObject") )
+        {
+            Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
+            killMaterial.color = otherColor;
+
+            sr.material = killMaterial;
+
+            PlayerSegment.instance.killMaterial.color = otherColor;
+        }
     }
 
     /// interpolates the dots opacity as well as its size

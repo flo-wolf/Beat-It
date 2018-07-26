@@ -172,8 +172,7 @@ MonoBehaviour:
   endDot: {fileID: 0}
   fillProgress: 0
   state: 0
-  movingKillDotMaterial: {fileID: 2100000, guid: 8f61bc16e23aec3479dd3be17ffc29cc,
-    type: 2}
+  killMaterial: {fileID: 2100000, guid: 59a738fd79f083347b89264f4ff4870a, type: 2}
 --- !u!114 &114606964953327214
 MonoBehaviour:
   m_ObjectHideFlags: 1
