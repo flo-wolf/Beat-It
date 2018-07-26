@@ -353,6 +353,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114307798837158290, guid: 85d852ae79d71de4fa9e27ea0426feb2,
+        type: 2}
+      propertyPath: movingKillDotMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d1091e8ff5ce624f9c04d0302bca891, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85d852ae79d71de4fa9e27ea0426feb2, type: 2}
   m_IsPrefabParent: 0
@@ -754,8 +759,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.8897059, g: 0.35277382, b: 0.17009084, a: 1}
-      key1: {r: 0.8901961, g: 0.3529412, b: 0.16862746, a: 1}
+      key0: {r: 0.6431373, g: 0.16862746, b: 0.15294118, a: 1}
+      key1: {r: 0.6431373, g: 0.16862746, b: 0.15294118, a: 1}
       key2: {r: 0, g: 0.9490196, b: 1, a: 1}
       key3: {r: 0, g: 0.9490196, b: 1, a: 1}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1541,20 +1546,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4921703335188692, guid: 321c34b594518794e9bfbf3f8f6e8687, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4921703335188692, guid: 321c34b594518794e9bfbf3f8f6e8687, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.75
-      objectReference: {fileID: 0}
     - target: {fileID: 1499648953682164, guid: 321c34b594518794e9bfbf3f8f6e8687, type: 2}
       propertyPath: m_Name
       value: Loop Dot (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 321c34b594518794e9bfbf3f8f6e8687, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1006635296
@@ -1902,11 +1898,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1777351537}
     m_Modifications:
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2039,7 +2030,7 @@ Prefab:
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: orthographic size
-      value: 24.875
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}

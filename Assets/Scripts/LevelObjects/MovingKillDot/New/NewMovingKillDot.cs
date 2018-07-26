@@ -42,8 +42,8 @@ public class NewMovingKillDot : LevelObject
     //To make sure things only get called once in OnTriggerEnter2D
     int count = 0;
 
-    //2CD0F0 HexColor to color the GridDots the MovingKillDot is moving on
-    Color myColor = new Color32(0x2C, 0xD0, 0xF0, 0xFF);
+    //B2EC2E HexColor to color the GridDots the MovingKillDot is moving on
+    Color myColor = new Color32(0xB2, 0xEC, 0x2E, 0xFF);
 
     private float defaultScale = 1.75f;
 

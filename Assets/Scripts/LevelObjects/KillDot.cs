@@ -25,7 +25,7 @@ public class KillDot : LevelObject {
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger");
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && Game.state != Game.State.NextLevelFade)
         {
             if(count < 1)
             {

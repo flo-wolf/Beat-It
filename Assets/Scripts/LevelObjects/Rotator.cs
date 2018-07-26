@@ -29,7 +29,7 @@ public class Rotator : LevelObject {
 
     private void OnRythm(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.rotatorBPM) && Game.state == Game.State.Playing)
+        if (bpm.Equals(RythmManager.rotatorBPM) && Game.state == Game.State.Playing && Game.state != Game.State.NextLevelFade)
         {
             Debug.Log("Ratoator bpm");
             // if are there dots that can be rotated around this rotator, rotate them

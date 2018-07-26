@@ -427,7 +427,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.96862745, g: 0.85882354, b: 0.23529412, a: 1}
+      maxColor: {r: 0.9254902, g: 0.4392157, b: 0.1764706, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1507,8 +1507,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.96862745, g: 0.85882354, b: 0.23529412, a: 1}
-        key1: {r: 0.96862745, g: 0.85882354, b: 0.23529412, a: 1}
+        key0: {r: 0.9254902, g: 0.4392157, b: 0.1764706, a: 1}
+        key1: {r: 0.9254902, g: 0.4392157, b: 0.1764706, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4863,8 +4863,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2073959925
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_RenderMode: 4
   m_SortMode: 0
@@ -5056,7 +5056,7 @@ SpriteRenderer:
   m_SortingLayer: 9
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300032, guid: b1f8bf3a83298b44ab4426e091a9c5c5, type: 3}
-  m_Color: {r: 0.9264706, g: 0.719753, b: 0.17711937, a: 1}
+  m_Color: {r: 0.9254902, g: 0.4399362, b: 0.17647056, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5097,11 +5097,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -2073959925
+  m_SortingLayer: 9
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300028, guid: b1f8bf3a83298b44ab4426e091a9c5c5, type: 3}
-  m_Color: {r: 0.9254902, g: 0.72156864, b: 0.1764706, a: 1}
+  m_Color: {r: 0.9254902, g: 0.4392157, b: 0.1764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
