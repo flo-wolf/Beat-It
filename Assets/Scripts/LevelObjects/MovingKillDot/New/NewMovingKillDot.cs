@@ -99,7 +99,7 @@ public class NewMovingKillDot : LevelObject
 
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM) || bpm.Equals(RythmManager.movingKillDotBPM))
         {
-            if (IsTouchingPlayer(false) || kill)
+            if ((IsTouchingPlayer(false) || kill) && Game.state == Game.State.Playing)
             {
                 Game.SetState(Game.State.DeathOnNextBeat);
                 count = 0;

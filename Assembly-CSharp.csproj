@@ -126,6 +126,7 @@
     <Compile Include="Assets\Resources\Data\EditPayerSpawnData.cs" />
     <Compile Include="Assets\Resources\Data\PlayerSpawnData.cs" />
     <Compile Include="Assets\RotateTowards.cs" />
+    <Compile Include="Assets\ScreenMask.cs" />
     <Compile Include="Assets\Scripts\Animations\AddAnimation.cs" />
     <Compile Include="Assets\Scripts\Animations\AnimateScreenFX.cs" />
     <Compile Include="Assets\Scripts\Animations\AnimationManager.cs" />
