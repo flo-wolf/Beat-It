@@ -80,13 +80,13 @@ public class Game : MonoBehaviour {
         onGameStateChange.Invoke(state);
 
 
-        if (newState == State.DeathOnNextBeat)
+        if (newState == State.DeathOnNextBeat && oldState == State.Playing)
         {
             Player.allowMove = false;
             quickSceneLoad = true;
         }
 
-        if (newState == State.Death) {
+        if (newState == State.Death && oldState != State.Death && oldState != State.NextLevelFade && oldState != State.RestartFade && oldState != State.None) {
             quickSceneLoad = true;
             if (!Player.deathByMovingKillDot)
             {
