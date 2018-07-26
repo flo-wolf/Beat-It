@@ -170,7 +170,7 @@ public class LoopSegment : Segment {
         if (collision.gameObject.CompareTag("Player") && Game.state == Game.State.Playing)
         {
 
-            if (!PlayerIsOnLoopDot())
+            if (!PlayerIsOnLoopDot() && Player.allowMove)
             {
                 Debug.Log("------- LoopSegment touched by player");
                 PlayerSegment.touchedKillDot = true;
