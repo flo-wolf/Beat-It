@@ -7,6 +7,10 @@ public class AudioManager : MonoBehaviour {
     //Here we create an array for instances of our Sound class
     public Sound[] sounds;
     public AudioClip[] goalSounds;
+    public AudioClip[] deathSounds;
+
+    public static int deathCounter;
+    public int deathCount = 4;
 
     public static AudioManager instance = null;
     public static bool playDeathSounds = false;
@@ -108,5 +112,18 @@ public class AudioManager : MonoBehaviour {
 
         s.clip = activeClip;
         s.source.clip = s.clip;
+    }
+
+    public void PlayRandomDeathSound()
+    {
+        float maxElementIndex = deathSounds.Length - 1;
+        float randomClipNumber = UnityEngine.Random.Range(0f, maxElementIndex);
+
+        AudioClip randomClip = deathSounds[Mathf.RoundToInt(randomClipNumber)];
+        Sound s = Array.Find(sounds, sound => sound.name == "Death");
+
+        s.clip = randomClip;
+        s.source.clip = s.clip;
+        s.source.Play();
     }
 }
