@@ -17,6 +17,7 @@ public class KillDot : LevelObject {
 
     private void Start()
     {
+        jumpTouchedKilldot = false;
         Game.onGameStateChange.AddListener(OnGameStateChange);
         deathAnim = GetComponent<Animation>();
         killFeedback = GetComponent<ParticleSystem>();

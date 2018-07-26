@@ -49,7 +49,8 @@ public class NewMovingKillDot : LevelObject
 
     bool kill;
 
-    bool fading = false;
+    bool fadingOut = false;
+
 
     private void Start()
     {
@@ -105,7 +106,7 @@ public class NewMovingKillDot : LevelObject
 
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM) || bpm.Equals(RythmManager.movingKillDotBPM))
         {
-            if ((IsTouchingPlayer(false) || kill) && Game.state == Game.State.Playing)
+            if (( kill) && Game.state == Game.State.Playing)
             {
                 Game.SetState(Game.State.DeathOnNextBeat);
                 count = 0;
@@ -212,7 +213,7 @@ public class NewMovingKillDot : LevelObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && (IsTouchingPlayer(false)))
+        if (collision.gameObject.CompareTag("Player") && !fadingOut)
         {
             kill = true;
 
@@ -242,7 +243,8 @@ public class NewMovingKillDot : LevelObject
 
     IEnumerator Fade(bool fadeIn, Action onComplete = null)
     {
-        fading = true;
+        if(!fadeIn)
+            fadingOut = true;
         float elapsedTime = 0f;
         float startScale = scale;
         float startOpacity = opacity;
@@ -270,7 +272,7 @@ public class NewMovingKillDot : LevelObject
 
             yield return null;
         }
-        fading = false;
+        fadingOut = false;
 
         if(onComplete != null)
             onComplete();
