@@ -43,7 +43,7 @@ public class Rotator : LevelObject {
                 else Debug.LogError("Not able to rotate, because some sourrounding dots are not available!");
             }
         }
-        if(bpm.Equals(RythmManager.playerBPM) && nextDot)
+        if(bpm.Equals(RythmManager.playerBPM) && nextDot && Game.state == Game.State.Playing)
         {
             nextDot = false;
 
@@ -88,6 +88,7 @@ public class Rotator : LevelObject {
     IEnumerator C_Rotate(float totalDuration)
     {
 
+        yield return new WaitForEndOfFrame();
         // divide the duration into two parts. suck in, suck out. During both phases the rotator rotates
         float duration = totalDuration / 2;
 
