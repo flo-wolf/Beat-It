@@ -60,6 +60,16 @@ public class Game : MonoBehaviour {
         RythmManager.onBPM.AddListener(OnBPM);
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Joystick1Button7) && Game.state == Game.State.Playing)
+        {
+            state = State.None;
+            RestartGame();
+            AudioManager.RestartPiano();
+        }
+    }
+
     public void OnBPM(BPMinfo bpm)
     {
         if(bpm.Equals(RythmManager.playerBPM))
@@ -145,6 +155,11 @@ public class Game : MonoBehaviour {
     public static void RestartLevel()
     {
         SceneManager.LoadScene(instance.levels[level]);
+    }
+
+    public static void RestartGame()
+    {
+        SceneManager.LoadScene(instance.levels[Game.instance.startWithIndex]);
     }
 
     private void GetLevelNumberFromLevelName()

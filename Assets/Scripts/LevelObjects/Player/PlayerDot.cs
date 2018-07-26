@@ -79,8 +79,6 @@ public class PlayerDot : LevelObject{
             Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
             killMaterial.color = otherColor;
 
-            sr.material = killMaterial;
-
             PlayerSegment.instance.killMaterial.color = otherColor;
         }
     }

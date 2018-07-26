@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour {
 
     private static bool firstStart = true;
 
+    private bool pianoHasStarted = false;
+
     // Use this for initialization before Start()
     void Awake()
     {
@@ -50,8 +52,17 @@ public class AudioManager : MonoBehaviour {
             Game.onGameStateChange.AddListener(GameStateChanged);
             AudioManager.instance.Play("Background");
             //AudioManager.instance.Play("Radio");
-            AudioManager.instance.Play("Piano");
             firstStart = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (!pianoHasStarted)
+        {
+            pianoHasStarted = true;
+            AudioManager.RestartPiano();
+
         }
     }
 
@@ -78,6 +89,11 @@ public class AudioManager : MonoBehaviour {
 
             default: break;
         }
+    }
+
+    public static void RestartPiano()
+    {
+        AudioManager.instance.Play("Piano");
     }
 
     //This enables us to Play an AudioClip just through his name.
