@@ -42,7 +42,7 @@ public class PlayerGoal : LevelObject
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger");
-        if (collision.gameObject.CompareTag("Player") && Game.state == Game.State.Playing && Player.allowMove)
+        if (collision.gameObject.CompareTag("Player") && Game.state == Game.State.Playing && Player.allowMove && !KillDot.jumpTouchedKilldot)
         {
             Player.allowMove = false;
             respawnRemoveDot = true;
