@@ -71,7 +71,12 @@ public class PlayerDot : LevelObject{
     IEnumerator Fade(bool fadeIn)
     {
         Debug.Log("PlayerDot fadeIn: " + fadeIn + " -- name: " + gameObject.name);
-        fadeDuration = RythmManager.playerBPM.ToSecs() / 2;
+
+        if (!Player.isDashing)
+            fadeDuration = RythmManager.playerBPM.ToSecs() / 2;
+        else
+            fadeDuration = RythmManager.playerDashBPM.ToSecs() / 2;
+
         if (fadeIn)
             state = State.Filling;
         else

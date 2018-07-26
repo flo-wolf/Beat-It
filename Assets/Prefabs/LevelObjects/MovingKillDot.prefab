@@ -181,9 +181,10 @@ MonoBehaviour:
   playerCanMoveOnto: 1
   originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
-  fadeDuration: 0.5
+  fadeDuration: 0.3
   sr: {fileID: 212081504103793396}
   gridDotList:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -42,7 +42,7 @@ public class PlayerGoal : LevelObject
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger");
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && Game.state == Game.State.Playing && Player.allowMove)
         {
             Player.allowMove = false;
             respawnRemoveDot = true;
@@ -57,7 +57,7 @@ public class PlayerGoal : LevelObject
    
     void OnRythmRespawn(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
+        if ((bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM)) && Game.state == Game.State.Playing && Player.allowMove && KillDot.jumpTouchedKilldot == false)
         {
             if(!respawnRemoveDot)
             {
