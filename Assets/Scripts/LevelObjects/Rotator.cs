@@ -9,10 +9,12 @@ public class Rotator : LevelObject {
 
     public float pullPercentage = 0.2f;
     public bool rotateRight = true;
+    public bool rotateOnBeatOffset = false;
 
     private List<GridDot> surroundingDots = new List<GridDot>();
     private bool waitForRotation = false;
     private bool nextDot = false;
+    
 
     private void OnEnable()
     {

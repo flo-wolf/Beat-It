@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour {
     public void RythmCall(BPMinfo bpmInfo)
     {
         // bass plays on the level bpm
-        if(bpmInfo.Equals(RythmManager.animationBPM))
+        if (bpmInfo.Equals(RythmManager.animationBPM))
             AudioManager.instance.Play("Bass");
 
         if (bpmInfo.Equals(RythmManager.playerBPM) && playDeathSounds)
@@ -116,14 +116,22 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayRandomDeathSound()
     {
-        float maxElementIndex = deathSounds.Length - 1;
-        float randomClipNumber = UnityEngine.Random.Range(0f, maxElementIndex);
+        if(deathSounds.Length == 0)
+        {
+            Debug.Log("NO DEATH SOUNDS IN ARRAY");
+        }
 
-        AudioClip randomClip = deathSounds[Mathf.RoundToInt(randomClipNumber)];
-        Sound s = Array.Find(sounds, sound => sound.name == "Death");
+        else
+        {
+            float maxElementIndex = deathSounds.Length - 1;
+            float randomClipNumber = UnityEngine.Random.Range(0f, maxElementIndex);
 
-        s.clip = randomClip;
-        s.source.clip = s.clip;
-        s.source.Play();
+            AudioClip randomClip = deathSounds[Mathf.RoundToInt(randomClipNumber)];
+            Sound s = Array.Find(sounds, sound => sound.name == "Death");
+
+            s.clip = randomClip;
+            s.source.clip = s.clip;
+            s.source.Play();
+        }
     }
 }
