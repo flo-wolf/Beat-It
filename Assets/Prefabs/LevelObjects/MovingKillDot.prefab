@@ -373,7 +373,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.17254902, g: 0.8156863, b: 0.9411765, a: 1}
+      maxColor: {r: 0.69803923, g: 0.9254902, b: 0.18039216, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1453,8 +1453,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.17254902, g: 0.8156863, b: 0.9411765, a: 1}
-        key1: {r: 0.17254902, g: 0.8156863, b: 0.9411765, a: 1}
+        key0: {r: 0.69803923, g: 0.9254902, b: 0.18039216, a: 1}
+        key1: {r: 0.69803923, g: 0.9254902, b: 0.18039216, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4867,7 +4867,7 @@ SpriteRenderer:
   m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300040, guid: b1f8bf3a83298b44ab4426e091a9c5c5, type: 3}
-  m_Color: {r: 0.17254902, g: 0.8156863, b: 0.9411765, a: 1}
+  m_Color: {r: 0.69803923, g: 0.9254902, b: 0.18039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4912,7 +4912,7 @@ SpriteRenderer:
   m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0dc25210d87d43d4ab35acc5d8cee960, type: 3}
-  m_Color: {r: 0.17254902, g: 0.8156863, b: 0.9411765, a: 1}
+  m_Color: {r: 0.69803923, g: 0.9254902, b: 0.18039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
