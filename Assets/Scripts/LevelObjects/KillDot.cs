@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class KillDot : LevelObject {
 
+    public static bool jumpTouchedKilldot = false;
+
     [HideInInspector]
     public ParticleSystem killFeedback;
 
@@ -33,8 +35,9 @@ public class KillDot : LevelObject {
                 killFeedback.Play();
                 count++;
             }
-
             kill = true;
+            jumpTouchedKilldot = true;
+            Player.allowMove = false;
         }
     }
     
@@ -51,7 +54,7 @@ public class KillDot : LevelObject {
     {
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM))
         {
-            if ((IsTouchingPlayer(false) || kill) && Game.state == Game.State.Playing)
+            if ((kill) && Game.state == Game.State.Playing)
             {
                 Game.SetState(Game.State.DeathOnNextBeat);
 

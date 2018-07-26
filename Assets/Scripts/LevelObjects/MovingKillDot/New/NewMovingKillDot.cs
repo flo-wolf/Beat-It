@@ -49,6 +49,8 @@ public class NewMovingKillDot : LevelObject
 
     bool kill;
 
+    bool fading = false;
+
     private void Start()
     {
         child = this.gameObject.transform.GetChild(0);
@@ -210,7 +212,7 @@ public class NewMovingKillDot : LevelObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && (IsTouchingPlayer(false)))
         {
             kill = true;
 
@@ -240,6 +242,7 @@ public class NewMovingKillDot : LevelObject
 
     IEnumerator Fade(bool fadeIn, Action onComplete = null)
     {
+        fading = true;
         float elapsedTime = 0f;
         float startScale = scale;
         float startOpacity = opacity;
@@ -267,6 +270,7 @@ public class NewMovingKillDot : LevelObject
 
             yield return null;
         }
+        fading = false;
 
         if(onComplete != null)
             onComplete();
