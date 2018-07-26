@@ -37,7 +37,6 @@ public class KillDot : LevelObject {
             }
             kill = true;
             jumpTouchedKilldot = true;
-            Player.allowMove = false;
         }
     }
     

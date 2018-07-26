@@ -57,7 +57,7 @@ public class PlayerGoal : LevelObject
    
     void OnRythmRespawn(BPMinfo bpm)
     {
-        if ((bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM)) && Game.state == Game.State.Playing && Player.allowMove && KillDot.jumpTouchedKilldot == false)
+        if ((bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM)) && Game.state == Game.State.Playing && KillDot.jumpTouchedKilldot == false)
         {
             if(!respawnRemoveDot)
             {
