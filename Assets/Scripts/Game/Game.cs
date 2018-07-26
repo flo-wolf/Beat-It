@@ -92,7 +92,13 @@ public class Game : MonoBehaviour {
             {
                 if (!Player.deathBySegment && !Player.deathByMovingKillDot)
                 {
-                    AudioManager.instance.Play("Death");
+                    AudioManager.deathCounter++;
+
+                    if(AudioManager.deathCounter >= AudioManager.instance.deathCount)
+                    {
+                        AudioManager.instance.PlayRandomDeathSound();
+                        AudioManager.deathCounter = 0;
+                    }
                     //AudioManager.instance.Play("Death2");
                     //
                 }
