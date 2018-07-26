@@ -161,8 +161,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   goalSounds:
-  - {fileID: 8300000, guid: f67b5b90d7dcce74399493841df87463, type: 3}
-  - {fileID: 8300000, guid: acfb969ac2055924c8e23e486878c164, type: 3}
+  - {fileID: 8300000, guid: 2c403c3ea79ca0442bbbe39787e5a609, type: 3}
+  - {fileID: 8300000, guid: 6b1c4fd36712941418c3404b22ca2027, type: 3}
   - {fileID: 8300000, guid: 2f6f4b70e48bd9946b9fd6c35740a0b1, type: 3}
   - {fileID: 8300000, guid: e518b6e229f9b264690f0b4a58243352, type: 3}
   - {fileID: 8300000, guid: 07531c128b52db64e9528aca9880af8b, type: 3}
@@ -170,7 +170,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1cd60700f8300244ea233083394942fa, type: 3}
   - {fileID: 8300000, guid: 81b471e9737862b468683cfa722a6dd1, type: 3}
   - {fileID: 8300000, guid: 1cd60700f8300244ea233083394942fa, type: 3}
-  - {fileID: 8300000, guid: 0bde5e49863c372428ddc01b1c803fb9, type: 3}
+  - {fileID: 8300000, guid: 457c2380e10420345997ae16e20b02f6, type: 3}
   - {fileID: 8300000, guid: 4cc9a86923463054abf4919e46725acb, type: 3}
   - {fileID: 8300000, guid: 59e4460ae4499df43a4334531f68dc50, type: 3}
   - {fileID: 8300000, guid: 4c7e8cb61efaa664e8b7646cee3a31f3, type: 3}
