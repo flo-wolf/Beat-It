@@ -14,6 +14,7 @@ public class PlayerDot : LevelObject{
     public GameObject fillCircleGo;
 
     private Material defaultMaterial;
+    public Color defaultColor;
     public Material killMaterial;
 
     private float fillAmount = 0; // 0 = no fill, empty black;  1 = full fill, white
@@ -34,6 +35,7 @@ public class PlayerDot : LevelObject{
     void Start()
     {
         defaultMaterial = sr.material;
+        sr.material.color = defaultColor;
         defaultLocalScale = transform.localScale.x;
         defaultFillCircleSize = fillCircleGo.transform.localScale.x;
         StartCoroutine(Fade(true));

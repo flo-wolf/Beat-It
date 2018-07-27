@@ -158,6 +158,7 @@ MonoBehaviour:
   sr: {fileID: 212090538057330824}
   emptyFillSr: {fileID: 212915313867511076}
   fillCircleGo: {fileID: 1953165806431560}
+  defaultColor: {r: 0.92941177, g: 0.43137255, b: 0.49803922, a: 1}
   killMaterial: {fileID: 2100000, guid: 9474ff88850093444ae9426d07208506, type: 2}
   state: 0
 --- !u!212 &212090538057330824
