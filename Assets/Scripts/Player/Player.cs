@@ -134,9 +134,6 @@ public class Player : MonoBehaviour
     }
 
 
-
-
-
     // the clock has reached its end, move the player
     void OnRythmMove(BPMinfo bpm)
     {
@@ -332,8 +329,6 @@ public class Player : MonoBehaviour
     {
         if (Game.state == Game.State.Playing)
         {
-
-
                 // only spawn dots of one of the dot slots is free => dont spawn more than the two conencted to the input triggers
                 if (dot0 != null && dot1 != null)
                 return;
@@ -446,7 +441,7 @@ public class Player : MonoBehaviour
                         return;
 
                     dotWasSpawned = 0;
-                    PlayerDirectionHandle.instance.FadeRadius(false);
+                    PlayerDirectionHandle.instance.FadeRadius(true);
 
                 }
 
@@ -511,7 +506,7 @@ public class Player : MonoBehaviour
                         return;
 
                     dotWasSpawned = 1;
-                    PlayerDirectionHandle.instance.FadeRadius(false);
+                    PlayerDirectionHandle.instance.FadeRadius(true);
                 }
 
                 // there are no dots, spawn the first dot
