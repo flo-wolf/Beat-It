@@ -163,6 +163,7 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerSegment.cs" />
     <Compile Include="Assets\Scripts\Player\Segment.cs" />
+    <Compile Include="Assets\TitleFont.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\CVR Shader\OLD TV Filter 3\Resources\Shaders\NoiseShader.shader" />
     <None Include="Assets\CVR Shader\OLD TV Filter 3\Resources\Shaders\CompositeShader.shader" />

@@ -43,9 +43,11 @@ public class PlayerSegment : Segment {
                 lr.endColor = defaultColor;
                 lr.startColor = defaultColor;
                 break;
+            case Game.State.DeathOnNextBeat:
+                AdaptKillColor();
+                break;
             case Game.State.Death:
                 StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs() / 2));
-                //PlayerSegment.instance.AdaptKillColor();
                 break;
             case Game.State.NextLevelFade:
                 StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs() / 2));

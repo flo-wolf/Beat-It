@@ -176,7 +176,7 @@ public class LoopSegment : Segment {
                 PlayerSegment.touchedKillDot = true;
                 Player.allowMove = false;
                 //Player.deathBySegment = true;
-                Game.SetState(Game.State.Death);
+                Game.SetState(Game.State.DeathOnNextBeat);
             }
         }
     }
