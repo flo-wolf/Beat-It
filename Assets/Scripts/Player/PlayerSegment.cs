@@ -9,8 +9,9 @@ public class PlayerSegment : Segment {
     public Material killMaterial;
 
     private Color defaultColor;
+    public Color originalColor;
     private LineRenderer lr;
-    private Color killColor;
+    public Color killColor;
     private PolygonCollider2D collider;
 
     public static bool touchedKillDot = false;
@@ -26,7 +27,7 @@ public class PlayerSegment : Segment {
         lr = GetComponent<LineRenderer>();
         if (lr != null)
         {
-            defaultColor = lr.startColor;
+            defaultColor = originalColor;
             killColor = killMaterial.color;
 
             lr.startColor = defaultColor;

@@ -45,6 +45,10 @@ public class PlayerDot : LevelObject{
     {
         switch (state)
         {
+            case Game.State.Playing:
+                sr.material = defaultMaterial;
+                break;
+
             case Game.State.DeathOnNextBeat:
                 sr.material = killMaterial;
                 break;
@@ -79,7 +83,7 @@ public class PlayerDot : LevelObject{
             Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
             killMaterial.color = otherColor;
 
-            PlayerSegment.instance.killMaterial.color = otherColor;
+            PlayerSegment.instance.killColor = otherColor;
         }
     }
 
