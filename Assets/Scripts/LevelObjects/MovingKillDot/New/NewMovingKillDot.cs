@@ -54,6 +54,7 @@ public class NewMovingKillDot : LevelObject
 
     private void Start()
     {
+        KillDot.jumpTouchedKilldot = false;
         child = this.gameObject.transform.GetChild(0);
         RythmManager.onBPM.AddListener(OnRythmMove);
 

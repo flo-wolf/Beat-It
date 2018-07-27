@@ -48,7 +48,7 @@ public class PlayerDot : LevelObject{
         switch (state)
         {
             case Game.State.Playing:
-                sr.material = defaultMaterial;
+                sr.material.color = defaultColor;
                 break;
 
             case Game.State.DeathOnNextBeat:
@@ -57,6 +57,10 @@ public class PlayerDot : LevelObject{
 
             case Game.State.Death:
                 sr.material = killMaterial;
+                break;
+
+            case Game.State.LevelFadein:
+                sr.material.color = defaultColor;
                 break;
 
             default:
