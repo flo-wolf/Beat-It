@@ -167,9 +167,8 @@ public class LoopSegment : Segment {
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("------- LoopSegment touched by " + collision.name);
-        if (collision.gameObject.CompareTag("Player") && Game.state == Game.State.Playing)
+        if (collision.gameObject.CompareTag("Player") && Game.state == Game.State.Playing && Player.allowMove)
         {
-
             if (!PlayerIsOnLoopDot() && Player.allowMove)
             {
                 Debug.Log("------- LoopSegment touched by player");
