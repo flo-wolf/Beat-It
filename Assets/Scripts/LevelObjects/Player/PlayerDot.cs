@@ -34,8 +34,10 @@ public class PlayerDot : LevelObject{
 
     void Start()
     {
-        defaultMaterial = sr.material;
         sr.material.color = defaultColor;
+        defaultMaterial = sr.material;
+        killMaterial = defaultMaterial;
+
         defaultLocalScale = transform.localScale.x;
         defaultFillCircleSize = fillCircleGo.transform.localScale.x;
         StartCoroutine(Fade(true));
@@ -53,14 +55,6 @@ public class PlayerDot : LevelObject{
 
             case Game.State.DeathOnNextBeat:
                 sr.material = killMaterial;
-                break;
-
-            case Game.State.Death:
-                sr.material = killMaterial;
-                break;
-
-            case Game.State.LevelFadein:
-                sr.material.color = defaultColor;
                 break;
 
             default:
@@ -84,9 +78,10 @@ public class PlayerDot : LevelObject{
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag.Equals("LevelObject") )
+        if(collision.tag.Equals("LevelObject"))
         {
             Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
+            otherColor.a = 1;
             killMaterial.color = otherColor;
 
             PlayerSegment.instance.killColor = otherColor;

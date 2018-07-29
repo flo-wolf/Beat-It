@@ -663,7 +663,6 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1881076672}
-  - {fileID: 561947376}
   m_Father: {fileID: 906457543}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -940,85 +939,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!1001 &480678385
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 273740859}
-    m_Modifications:
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[0]
-      value: 
-      objectReference: {fileID: 1184419242}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[1]
-      value: 
-      objectReference: {fileID: 1233661288}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[2]
-      value: 
-      objectReference: {fileID: 1431733485}
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.data[3]
-      value: 
-      objectReference: {fileID: 1233661288}
-    - target: {fileID: 1980215587948604, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_Name
-      value: MovingKillDot (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-  m_IsPrefabParent: 0
 --- !u!4 &489906513 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4438805839756104, guid: aefd872f18866444d896dbb25f159ec6,
@@ -1169,11 +1089,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!4 &561947376 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-    type: 2}
-  m_PrefabInternal: {fileID: 480678385}
 --- !u!1 &644445203
 GameObject:
   m_ObjectHideFlags: 0
@@ -2124,7 +2039,7 @@ Prefab:
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: orthographic size
-      value: 24.875
+      value: 24.104816
       objectReference: {fileID: 0}
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
