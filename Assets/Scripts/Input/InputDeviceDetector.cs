@@ -107,6 +107,20 @@ public class InputDeviceDetector : MonoBehaviour
         return inputType;
     }
 
+    // used to check for input before the player moves (see game class)
+    public bool RecievingStartInput()
+    {
+        if(inputType == InputType.Controler)
+        {
+            return (Input.GetAxis("Joystick X") != 0.0f ||
+           Input.GetAxis("Joystick Y") != 0.0f);
+        }
+        else
+        {
+            return Input.GetKey(KeyCode.Mouse0);
+        }
+    }
+
     //****************************//
     // Private member methods     //
     //****************************//

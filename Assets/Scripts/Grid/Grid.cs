@@ -252,13 +252,13 @@ public class Grid : MonoBehaviour
     }
 
     // get the nearest dot based on a normalized input (thumbstick to the right => closest active dot on the right)
-	public static GridDot GetNearestActiveDot(GridDot dot, Vector2 direction)
+	public static GridDot GetNearestActiveDot(GridDot dot, Vector2 direction, bool jump = false)
     {
-
+        Vector2 originalDirection = direction;
         // gather all six sourrounding dots
         List<GridDot> hexDots = new List<GridDot>();
 
-        if (Player.instance.enableJump && Input.GetKey(KeyCode.Space))
+        if (jump)
         {
             //Double Jump
             // our row is uneven
@@ -397,7 +397,8 @@ public class Grid : MonoBehaviour
                 }
             }
         }
-
+        if (closestDot == null && jump)
+            return GetNearestActiveDot(dot, originalDirection, false);
         return closestDot;
     }
 

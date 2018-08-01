@@ -9,10 +9,14 @@ public class Rotator : LevelObject {
 
     public float pullPercentage = 0.2f;
     public bool rotateRight = true;
+    public bool rotateOnBeatOffset = false;
 
     private List<GridDot> surroundingDots = new List<GridDot>();
     private bool waitForRotation = false;
     private bool nextDot = false;
+
+
+    
 
     private void OnEnable()
     {
@@ -27,7 +31,7 @@ public class Rotator : LevelObject {
 
     private void OnRythm(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.rotatorBPM) && Game.state == Game.State.Playing)
+        if (bpm.Equals(RythmManager.rotatorBPM) && Game.state == Game.State.Playing && Game.state != Game.State.NextLevelFade)
         {
             Debug.Log("Ratoator bpm");
             // if are there dots that can be rotated around this rotator, rotate them
@@ -41,7 +45,7 @@ public class Rotator : LevelObject {
                 else Debug.LogError("Not able to rotate, because some sourrounding dots are not available!");
             }
         }
-        if(bpm.Equals(RythmManager.playerBPM) && nextDot)
+        if(bpm.Equals(RythmManager.rotatorBPM) && nextDot && Game.state == Game.State.Playing)
         {
             nextDot = false;
 
@@ -86,6 +90,7 @@ public class Rotator : LevelObject {
     IEnumerator C_Rotate(float totalDuration)
     {
 
+        yield return new WaitForEndOfFrame();
         // divide the duration into two parts. suck in, suck out. During both phases the rotator rotates
         float duration = totalDuration / 2;
 

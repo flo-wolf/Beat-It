@@ -7,11 +7,17 @@ public class AudioManager : MonoBehaviour {
     //Here we create an array for instances of our Sound class
     public Sound[] sounds;
     public AudioClip[] goalSounds;
+    public AudioClip[] deathSounds;
+
+    public static int deathCounter;
+    public int deathCount = 4;
 
     public static AudioManager instance = null;
     public static bool playDeathSounds = false;
 
     private static bool firstStart = true;
+
+    private bool pianoHasStarted = false;
 
     // Use this for initialization before Start()
     void Awake()
@@ -46,15 +52,24 @@ public class AudioManager : MonoBehaviour {
             Game.onGameStateChange.AddListener(GameStateChanged);
             AudioManager.instance.Play("Background");
             //AudioManager.instance.Play("Radio");
-            AudioManager.instance.Play("Piano");
             firstStart = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (!pianoHasStarted)
+        {
+            pianoHasStarted = true;
+            AudioManager.RestartPiano();
+
         }
     }
 
     public void RythmCall(BPMinfo bpmInfo)
     {
         // bass plays on the level bpm
-        if(bpmInfo.Equals(RythmManager.animationBPM))
+        if (bpmInfo.Equals(RythmManager.animationBPM))
             AudioManager.instance.Play("Bass");
 
         if (bpmInfo.Equals(RythmManager.playerBPM) && playDeathSounds)
@@ -74,6 +89,11 @@ public class AudioManager : MonoBehaviour {
 
             default: break;
         }
+    }
+
+    public static void RestartPiano()
+    {
+        AudioManager.instance.Play("Piano");
     }
 
     //This enables us to Play an AudioClip just through his name.
@@ -108,5 +128,26 @@ public class AudioManager : MonoBehaviour {
 
         s.clip = activeClip;
         s.source.clip = s.clip;
+    }
+
+    public void PlayRandomDeathSound()
+    {
+        if(deathSounds.Length == 0)
+        {
+            Debug.Log("NO DEATH SOUNDS IN ARRAY");
+        }
+
+        else
+        {
+            float maxElementIndex = deathSounds.Length - 1;
+            float randomClipNumber = UnityEngine.Random.Range(0f, maxElementIndex);
+
+            AudioClip randomClip = deathSounds[Mathf.RoundToInt(randomClipNumber)];
+            Sound s = Array.Find(sounds, sound => sound.name == "Death");
+
+            s.clip = randomClip;
+            s.source.clip = s.clip;
+            s.source.Play();
+        }
     }
 }

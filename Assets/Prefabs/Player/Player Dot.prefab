@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50577110971972302}
   m_Layer: 9
   m_Name: Player Dot
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1953165806431560
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4200125621376782
 Transform:
   m_ObjectHideFlags: 1
@@ -153,12 +153,13 @@ MonoBehaviour:
   playerCanMoveOnto: 1
   originalScale: {x: 0, y: 0, z: 0}
   gridDot: {fileID: 0}
-  fadeDuration: 0.15
+  fadeDuration: 0.25
   rb: {fileID: 0}
   sr: {fileID: 212090538057330824}
   emptyFillSr: {fileID: 212915313867511076}
   fillCircleGo: {fileID: 1953165806431560}
-  killMaterial: {fileID: 2100000, guid: 8f61bc16e23aec3479dd3be17ffc29cc, type: 2}
+  defaultColor: {r: 0.92941177, g: 0.43137255, b: 0.49803922, a: 1}
+  killMaterial: {fileID: 2100000, guid: 9474ff88850093444ae9426d07208506, type: 2}
   state: 0
 --- !u!212 &212090538057330824
 SpriteRenderer:
@@ -173,6 +174,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d88089e8ce29a13478553724a46be969, type: 2}
   m_StaticBatchInfo:
@@ -192,7 +194,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1484489375
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300002, guid: e31e2b84eada98b4db165507d701d63c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -217,6 +219,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d88089e8ce29a13478553724a46be969, type: 2}
   m_StaticBatchInfo:
@@ -236,7 +239,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -988434557
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -261,6 +264,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 498da142b7d10684692f75f1877a1989, type: 2}
   m_StaticBatchInfo:
@@ -280,7 +284,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1240986219
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.18039216, g: 0.18823531, b: 0.18431373, a: 1}

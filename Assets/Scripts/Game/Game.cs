@@ -29,6 +29,8 @@ public class Game : MonoBehaviour {
 
     public static bool quickSceneLoad = false;
 
+    public bool waitForInputBeforePlaying = false;
+
 
     void Awake()
     {
@@ -50,11 +52,22 @@ public class Game : MonoBehaviour {
         if (this != instance) return;
         GetLevelNumberFromLevelName();
         Debug.Log("LevelNumber: " + level);
+        StopCoroutine("C_WaitForInputToPlay");
     }
 
     void Start()
     {
         RythmManager.onBPM.AddListener(OnBPM);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Joystick1Button7) && Game.state == Game.State.Playing)
+        {
+            state = State.None;
+            RestartGame();
+            AudioManager.RestartPiano();
+        }
     }
 
     public void OnBPM(BPMinfo bpm)
@@ -77,20 +90,25 @@ public class Game : MonoBehaviour {
         onGameStateChange.Invoke(state);
 
 
-        if (newState == State.DeathOnNextBeat)
+        if (newState == State.DeathOnNextBeat && oldState == State.Playing)
         {
             Player.allowMove = false;
             quickSceneLoad = true;
         }
 
-
-        if (newState == State.Death) {
+        if (newState == State.Death && oldState != State.Death && oldState != State.NextLevelFade && oldState != State.RestartFade && oldState != State.None) {
             quickSceneLoad = true;
             if (!Player.deathByMovingKillDot)
             {
                 if (!Player.deathBySegment && !Player.deathByMovingKillDot)
                 {
-                    AudioManager.instance.Play("Death");
+                    AudioManager.deathCounter++;
+
+                    if(AudioManager.deathCounter >= AudioManager.instance.deathCount)
+                    {
+                        AudioManager.instance.PlayRandomDeathSound();
+                        AudioManager.deathCounter = 0;
+                    }
                     //AudioManager.instance.Play("Death2");
                     //
                 }
@@ -115,6 +133,11 @@ public class Game : MonoBehaviour {
         {
             LevelTransition.instance.FadeOutLevel();
         }
+
+        else if(newState == State.Playing)
+        {
+            instance.StartCoroutine(instance.C_WaitForInputToPlay());
+        }
     }
 
     public static void LoadNextLevel()
@@ -134,6 +157,12 @@ public class Game : MonoBehaviour {
         SceneManager.LoadScene(instance.levels[level]);
     }
 
+    public static void RestartGame()
+    {
+        SceneManager.LoadScene(instance.levels[Game.instance.startWithIndex]);
+        Player.allowMove = false;
+    }
+
     private void GetLevelNumberFromLevelName()
     {
         int parsedLevel = -1;
@@ -141,6 +170,22 @@ public class Game : MonoBehaviour {
         string numbersOnly = System.Text.RegularExpressions.Regex.Replace(levelName, "[^0-9]", "");
         int.TryParse(numbersOnly, out parsedLevel);
         level = parsedLevel;
+    }
+
+    IEnumerator C_WaitForInputToPlay()
+    {
+        while(Player.allowMove != true)
+        {
+            if ((InputDeviceDetector.instance.RecievingStartInput() && waitForInputBeforePlaying) || !waitForInputBeforePlaying)
+            {
+                Player.allowMove = true;
+                yield return new WaitForSeconds(RythmManager.playerBPM.ToSecs() * 2);
+                PlayerSpawn.instance.FadeOutSpawn();
+                break;
+            }
+            yield return null;
+        }
+        yield return null;
     }
 
     //public static void Restart()

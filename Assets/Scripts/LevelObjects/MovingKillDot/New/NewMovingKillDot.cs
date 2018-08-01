@@ -6,7 +6,7 @@ using UnityEngine;
 public class NewMovingKillDot : LevelObject
 {
     [Header("Settings")]
-    public float fadeDuration = 0.5f;
+    public float fadeDuration = 0.25f;
 
     [Header("Components")]
     public SpriteRenderer sr;
@@ -34,7 +34,7 @@ public class NewMovingKillDot : LevelObject
 
     //ParticleSystems
     ParticleSystem killFeedback;
-    public GameObject gridDotParticleSystem;
+    //public GameObject gridDotParticleSystem;
 
     //Animation Component
     private Animation deathAnim;
@@ -42,16 +42,25 @@ public class NewMovingKillDot : LevelObject
     //To make sure things only get called once in OnTriggerEnter2D
     int count = 0;
 
-    //40DFFFFF HexColor to color the GridDots the MovingKillDot is moving on
-    Color myColor = new Color32(0x40, 0xDF, 0xFF, 0xFF);
+    //B2EC2E HexColor to color the GridDots the MovingKillDot is moving on
+    Color myColor = new Color32(0xB2, 0xEC, 0x2E, 0xFF);
+
+    private float defaultScale = 1.75f;
+
+    bool kill;
+
+    bool fadingOut = false;
+
 
     private void Start()
     {
+        KillDot.jumpTouchedKilldot = false;
         child = this.gameObject.transform.GetChild(0);
         RythmManager.onBPM.AddListener(OnRythmMove);
 
-        defaultLocalScale = transform.localScale.x;
-        StartCoroutine(Fade(true));
+        defaultLocalScale = 1.75f;
+        transform.localScale = Vector3.zero;
+        //StartCoroutine(Fade(true));
 
         killFeedback = GetComponent<ParticleSystem>();
 
@@ -64,7 +73,7 @@ public class NewMovingKillDot : LevelObject
         lenghtOfList = gridDotList.Count;
 
         ColorGridDots();
-        AddParticleSystemToGridDots();
+        //AddParticleSystemToGridDots();
     }
 
     private void Update()
@@ -81,21 +90,24 @@ public class NewMovingKillDot : LevelObject
     {
         if (bpm.Equals(RythmManager.movingKillDotBPM))
         {
-            if(Player.allowMove && Game.state == Game.State.Playing)
+            if(Game.state == Game.State.Playing)
             {
                 MoveToNextDot();
+                //Appear();
 
+                /*
                 foreach (GridDot dot in gridDotList)
                 {
                     ParticleSystem ps = dot.GetComponentInChildren<ParticleSystem>();
                     ps.Play();
                 }
+                */
             }
         }
 
         if (bpm.Equals(RythmManager.playerBPM) || bpm.Equals(RythmManager.playerDashBPM) || bpm.Equals(RythmManager.movingKillDotBPM))
         {
-            if (IsTouchingPlayer(false))
+            if (( kill) && Game.state == Game.State.Playing)
             {
                 Game.SetState(Game.State.DeathOnNextBeat);
                 count = 0;
@@ -104,6 +116,7 @@ public class NewMovingKillDot : LevelObject
 
     }
 
+    /*
     void AddParticleSystemToGridDots()
     {
         foreach (GridDot dot in gridDotList)
@@ -114,6 +127,7 @@ public class NewMovingKillDot : LevelObject
             particleSystem.transform.localScale = gridDotParticleSystem.transform.localScale;
         }
     }
+    */
 
     void ColorGridDots()
     {
@@ -156,31 +170,39 @@ public class NewMovingKillDot : LevelObject
         Vector2 direction = target.position - this.transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        child.rotation = Quaternion.Slerp(child.rotation, rotation, rotationSpeed * Time.deltaTime);
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotationSpeed * Time.deltaTime);
     }
 
 
     void MoveToNextDot()
     {
-        //Remove();
+        RemoveAppear();
 
-        GridDot activeDot = transform.parent.gameObject.GetComponent<GridDot>();
-        GridDot nextDot = Grid.GetNearestActiveMovingDot(activeDot, lookDirection);
-
-        this.transform.parent = nextDot.transform;
-        this.transform.localPosition = Vector3.zero;
-
-        //Appear();
+        
     }
 
-    public void Remove()
+    public void RemoveAppear()
     {
         StopCoroutine("Fade");
-        StartCoroutine(Fade(false));
+        StartCoroutine(Fade(false, NextDotAppear));
+    }
+
+    private void NextDotAppear()
+    {
+        Appear(true);
     }
     
-    public void Appear()
+    private void Appear(bool nextDotAppear = false)
     {
+        if (nextDotAppear)
+        {
+            GridDot activeDot = transform.parent.gameObject.GetComponent<GridDot>();
+            GridDot nextDot = Grid.GetNearestActiveMovingDot(activeDot, lookDirection);
+
+            this.transform.parent = nextDot.transform;
+            this.transform.localPosition = Vector3.zero;
+        }
+ 
         StopCoroutine("Fade");
         StartCoroutine(Fade(true));
     }
@@ -192,8 +214,10 @@ public class NewMovingKillDot : LevelObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !fadingOut)
         {
+            kill = true;
+
             if (deathAnim != null)
                 deathAnim.Play("MovingKillDotDeathFast");
 
@@ -218,8 +242,10 @@ public class NewMovingKillDot : LevelObject
         }
     }
 
-    IEnumerator Fade(bool fadeIn)
+    IEnumerator Fade(bool fadeIn, Action onComplete = null)
     {
+        if(!fadeIn)
+            fadingOut = true;
         float elapsedTime = 0f;
         float startScale = scale;
         float startOpacity = opacity;
@@ -247,6 +273,10 @@ public class NewMovingKillDot : LevelObject
 
             yield return null;
         }
+        fadingOut = false;
+
+        if(onComplete != null)
+            onComplete();
 
         yield return null;
     }

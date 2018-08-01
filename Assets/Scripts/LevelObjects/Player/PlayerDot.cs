@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerDot : LevelObject{
 
     [Header("Settings")]
-    public float fadeDuration = 0.5f;
+    public float fadeDuration = 0.25f;
 
     [Header("Components")]
     public Rigidbody2D rb;
@@ -14,6 +14,7 @@ public class PlayerDot : LevelObject{
     public GameObject fillCircleGo;
 
     private Material defaultMaterial;
+    public Color defaultColor;
     public Material killMaterial;
 
     private float fillAmount = 0; // 0 = no fill, empty black;  1 = full fill, white
@@ -34,6 +35,7 @@ public class PlayerDot : LevelObject{
     void Start()
     {
         defaultMaterial = sr.material;
+        sr.material.color = defaultColor;
         defaultLocalScale = transform.localScale.x;
         defaultFillCircleSize = fillCircleGo.transform.localScale.x;
         StartCoroutine(Fade(true));
@@ -45,9 +47,22 @@ public class PlayerDot : LevelObject{
     {
         switch (state)
         {
+            case Game.State.Playing:
+                sr.material.color = defaultColor;
+                break;
+
+            case Game.State.DeathOnNextBeat:
+                sr.material = killMaterial;
+                break;
+
             case Game.State.Death:
                 sr.material = killMaterial;
                 break;
+
+            case Game.State.LevelFadein:
+                sr.material.color = defaultColor;
+                break;
+
             default:
                 
                 break;
@@ -67,11 +82,27 @@ public class PlayerDot : LevelObject{
         fillCircleGo.transform.localScale = new Vector3(fillScale, fillScale, 1);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag.Equals("LevelObject") )
+        {
+            Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
+            killMaterial.color = otherColor;
+
+            PlayerSegment.instance.killColor = otherColor;
+        }
+    }
+
     /// interpolates the dots opacity as well as its size
     IEnumerator Fade(bool fadeIn)
     {
         Debug.Log("PlayerDot fadeIn: " + fadeIn + " -- name: " + gameObject.name);
-        fadeDuration = RythmManager.playerBPM.ToSecs() / 2;
+
+        if (!Player.isDashing)
+            fadeDuration = RythmManager.playerBPM.ToSecs() / 2;
+        else
+            fadeDuration = RythmManager.playerDashBPM.ToSecs() / 2;
+
         if (fadeIn)
             state = State.Filling;
         else

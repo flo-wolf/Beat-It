@@ -41,6 +41,11 @@ public class PlayerSpawn : LevelObject {
             //spawnFeedback.Play();
         }
     }
+
+    public void FadeOutSpawn()
+    {
+        Fade(LevelTransition.instance.start_ShowPlayerDuration, false);
+    }
     
     public void Fade(float duration, bool fadeIn)
     {

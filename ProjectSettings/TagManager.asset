@@ -14,6 +14,7 @@ TagManager:
   - NonGridContainer
   - Teleporter
   - TeleporterDot
+  - PlayerSegment
   layers:
   - Default
   - TransparentFX

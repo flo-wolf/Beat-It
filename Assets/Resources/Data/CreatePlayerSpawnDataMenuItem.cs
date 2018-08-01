@@ -2,8 +2,11 @@
 using UnityEditor;
 using System.Collections.Generic;
 
+[CreateAssetMenu]
 public static class CreatePlayerSpawnDataMenuItem
 {
+#if UNITY_EDITOR
+
     [MenuItem("Custom/Level Management/Create New PlayerSpawnData Holder")]
     public static void CreateGameLevelHolder()
     {
@@ -17,4 +20,5 @@ public static class CreatePlayerSpawnDataMenuItem
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = playerSpawnDataHolder;
     }
+#endif
 }

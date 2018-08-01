@@ -6,15 +6,15 @@ public class PlayerSegment : Segment {
 
     public static PlayerSegment instance;
 
-    public Material movingKillDotMaterial;
+    public Material killMaterial;
 
     private Color defaultColor;
+    public Color originalColor;
     private LineRenderer lr;
-    private Color killColor;
+    public Color killColor;
     private PolygonCollider2D collider;
 
     public static bool touchedKillDot = false;
-
 
     private void Start()
     {
@@ -27,8 +27,8 @@ public class PlayerSegment : Segment {
         lr = GetComponent<LineRenderer>();
         if (lr != null)
         {
-            defaultColor = lr.startColor;
-            killColor = movingKillDotMaterial.color;
+            defaultColor = originalColor;
+            killColor = killMaterial.color;
 
             lr.startColor = defaultColor;
             lr.endColor = defaultColor;
@@ -44,6 +44,9 @@ public class PlayerSegment : Segment {
                 lr.endColor = defaultColor;
                 lr.startColor = defaultColor;
                 break;
+            case Game.State.DeathOnNextBeat:
+                AdaptKillColor();
+                break;
             case Game.State.Death:
                 StartCoroutine(C_FadeOutSegment(RythmManager.playerBPM.ToSecs() / 2));
                 break;
@@ -55,7 +58,7 @@ public class PlayerSegment : Segment {
 
     public void AdaptKillColor()
     {
-        Debug.Log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        Debug.Log("--------ADAPT KILL COLOR--------");
         touchedKillDot = true;
         lr.endColor = killColor;
         lr.startColor = killColor;
