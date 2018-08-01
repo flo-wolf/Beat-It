@@ -80,11 +80,27 @@ public class PlayerDot : LevelObject{
     {
         if(collision.tag.Equals("LevelObject"))
         {
-            Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
-            otherColor.a = 1;
-            killMaterial.color = otherColor;
+            if(collision.gameObject.name != "MovingKillDot")
+            {
+                Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
+                otherColor.a = 1;
+                killMaterial.color = otherColor;
 
-            PlayerSegment.instance.killColor = otherColor;
+                PlayerSegment.instance.killColor = otherColor;
+            }
+
+            else if(collision.gameObject.name == "MovingKillDot")
+            {
+                NewMovingKillDot movingKillDotScript = collision.gameObject.GetComponent<NewMovingKillDot>();
+                if(!movingKillDotScript.fadingOut)
+                {
+                    Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
+                    otherColor.a = 1;
+                    killMaterial.color = otherColor;
+
+                    PlayerSegment.instance.killColor = otherColor;
+                }
+            }
         }
     }
 

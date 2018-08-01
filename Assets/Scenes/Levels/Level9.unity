@@ -3055,11 +3055,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 224971068}
     m_Modifications:
-    - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
-        type: 2}
-      propertyPath: gridDotList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3091,14 +3086,6 @@ Prefab:
     - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660056388137734, guid: 23414e48f3b3f9c44862bc39cbd23dc8, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 114333721345185478, guid: 23414e48f3b3f9c44862bc39cbd23dc8,
         type: 2}
