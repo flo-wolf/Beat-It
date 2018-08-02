@@ -100,6 +100,7 @@ public class Rotator : LevelObject {
     // rotate 'em
     void RotateSurroundingDots(float duration)
     {
+        if(Game.state == Game.State.Playing)
         StartCoroutine(C_Rotate(duration));
     }
 
@@ -121,8 +122,8 @@ public class Rotator : LevelObject {
             dot.checkPosition = pos;
         }
 
-        
-        for(int i = 0; i < dotArray.Length; i++)
+
+        for (int i = 0; i < dotArray.Length; i++)
         {
             int j = i;
             if (rotateRight)
@@ -142,7 +143,9 @@ public class Rotator : LevelObject {
 
             dotArray[i].checkPosition = (Vector3)originalPositions[dotArray[j]];
         }
-        
+
+        FixGridDots();
+
 
 
         Vector3 slerpPos = new Vector3();
@@ -157,7 +160,7 @@ public class Rotator : LevelObject {
 
         float elapsedTime = 0f;
         float elapsedRotationTime = 0f;
-        while (elapsedTime < duration && Game.state == Game.State.Playing)
+        while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             elapsedRotationTime += Time.deltaTime;
@@ -211,7 +214,7 @@ public class Rotator : LevelObject {
         endRotation *= Quaternion.Euler(0, 0, -30); // this adds a 90 degrees Y rotation
 
         elapsedTime = 0f;
-        while (elapsedTime < duration && Game.state == Game.State.Playing)
+        while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             elapsedRotationTime += Time.deltaTime;
@@ -246,7 +249,6 @@ public class Rotator : LevelObject {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, (elapsedTime/duration));
             yield return null;
         }
-        FixGridDots();
         yield return null;
     }
 
@@ -291,7 +293,7 @@ public class Rotator : LevelObject {
             dotArray[i].row = newRow;
             dotArray[i].column = newColumn;
 
-            dotArray[i].isGettingMoved = false;
+            //dotArray[i].isGettingMoved = false;
 
             Grid.gridDots[newRow, newColumn] = dotArray[i];
 
