@@ -798,6 +798,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114102476381918398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -838,6 +839,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114291193957157382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -925,6 +927,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114610082493336968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -943,6 +946,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114691938041850738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -972,6 +976,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114754442309063516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1001,6 +1006,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114784486260928620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1032,6 +1038,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114873108682477542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1066,6 +1073,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114927258479880608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1095,6 +1103,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!114 &114976527631338846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1113,6 +1122,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!198 &198055612708322258
 ParticleSystem:
   m_ObjectHideFlags: 1

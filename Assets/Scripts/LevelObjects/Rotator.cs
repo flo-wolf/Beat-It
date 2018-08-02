@@ -15,9 +15,8 @@ public class Rotator : LevelObject {
     private bool waitForRotation = false;
     private bool nextDot = false;
 
-
+    private static bool onBeatOffset = false;
     
-
     private void OnEnable()
     {
         rotators = new List<Rotator>();
@@ -27,25 +26,35 @@ public class Rotator : LevelObject {
     {
         rotators.Add(this);
         RythmManager.onBPM.AddListener(OnRythm);
-	}
+        Game.onGameStateChange.AddListener(OnGameStateChange);
+        onBeatOffset = rotateOnBeatOffset;
 
+    }
+
+    private bool skipEverySecond = false;
     private void OnRythm(BPMinfo bpm)
     {
-        if (bpm.Equals(RythmManager.rotatorBPM) && Game.state == Game.State.Playing && Game.state != Game.State.NextLevelFade)
+        if (bpm.Equals(RythmManager.playerBPM) && Game.state == Game.State.Playing && Game.state != Game.State.NextLevelFade)
         {
-            Debug.Log("Ratoator bpm");
-            // if are there dots that can be rotated around this rotator, rotate them
-            if (rotators[currentRotator].Equals(this))
+            if (!skipEverySecond)
             {
-                nextDot = true;
-                if (FindSourroundingDots())
+                // if are there dots that can be rotated around this rotator, rotate them
+                if (rotators[currentRotator].Equals(this))
                 {
-                    waitForRotation = true;
+                    nextDot = true;
+                    if (FindSourroundingDots())
+                    {
+                        waitForRotation = true;
+                    }
+                    else Debug.LogError("Not able to rotate, because some sourrounding dots are not available!");
                 }
-                else Debug.LogError("Not able to rotate, because some sourrounding dots are not available!");
+                skipEverySecond = true;
             }
+            else
+                skipEverySecond = false;
+            
         }
-        if(bpm.Equals(RythmManager.rotatorBPM) && nextDot && Game.state == Game.State.Playing)
+        if (bpm.Equals(RythmManager.playerBPM) && nextDot && Game.state == Game.State.Playing)
         {
             nextDot = false;
 
@@ -61,6 +70,14 @@ public class Rotator : LevelObject {
             else
                 currentRotator = 0;
         }
+        //else if (bpm.Equals(RythmManager.playerBPM) && Game.state == Game.State.Playing)
+            //FixGridDots();
+    }
+
+    void OnGameStateChange(Game.State state)
+    {
+        if (state == Game.State.Playing)
+            onBeatOffset = !onBeatOffset;
     }
 
     // find the dots sourrounding this rotator
@@ -89,8 +106,6 @@ public class Rotator : LevelObject {
 
     IEnumerator C_Rotate(float totalDuration)
     {
-
-        yield return new WaitForEndOfFrame();
         // divide the duration into two parts. suck in, suck out. During both phases the rotator rotates
         float duration = totalDuration / 2;
 
@@ -100,8 +115,34 @@ public class Rotator : LevelObject {
         Hashtable originalPositions = new Hashtable();
         foreach(GridDot dot in surroundingDots)
         {
-            originalPositions.Add(dot, new Vector3(dot.transform.position.x, dot.transform.position.y, 0));
+            dot.isGettingMoved = true;
+            Vector3 pos = new Vector3(dot.transform.position.x, dot.transform.position.y, 0);
+            originalPositions.Add(dot, pos);
+            dot.checkPosition = pos;
         }
+
+        
+        for(int i = 0; i < dotArray.Length; i++)
+        {
+            int j = i;
+            if (rotateRight)
+            {
+                if (i + 1 < dotArray.Length)
+                    j++;
+                else
+                    j = 0;
+            }
+            else
+            {
+                if (i - 1 >= 0)
+                    j--;
+                else
+                    j = dotArray.Length - 1;
+            }
+
+            dotArray[i].checkPosition = (Vector3)originalPositions[dotArray[j]];
+        }
+        
 
 
         Vector3 slerpPos = new Vector3();
@@ -116,7 +157,7 @@ public class Rotator : LevelObject {
 
         float elapsedTime = 0f;
         float elapsedRotationTime = 0f;
-        while (elapsedTime < duration)
+        while (elapsedTime < duration && Game.state == Game.State.Playing)
         {
             elapsedTime += Time.deltaTime;
             elapsedRotationTime += Time.deltaTime;
@@ -170,7 +211,7 @@ public class Rotator : LevelObject {
         endRotation *= Quaternion.Euler(0, 0, -30); // this adds a 90 degrees Y rotation
 
         elapsedTime = 0f;
-        while (elapsedTime < duration)
+        while (elapsedTime < duration && Game.state == Game.State.Playing)
         {
             elapsedTime += Time.deltaTime;
             elapsedRotationTime += Time.deltaTime;
@@ -205,7 +246,6 @@ public class Rotator : LevelObject {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, (elapsedTime/duration));
             yield return null;
         }
-
         FixGridDots();
         yield return null;
     }
@@ -213,7 +253,6 @@ public class Rotator : LevelObject {
     void FixGridDots()
     {
         GridDot[] dotArray = surroundingDots.ToArray();
-        GridDot memoryDot = null;
 
         Hashtable originalRowsColumns = new Hashtable();
 
@@ -252,7 +291,11 @@ public class Rotator : LevelObject {
             dotArray[i].row = newRow;
             dotArray[i].column = newColumn;
 
+            dotArray[i].isGettingMoved = false;
+
             Grid.gridDots[newRow, newColumn] = dotArray[i];
+
+
         }
     }
 }

@@ -366,7 +366,7 @@ public class Grid : MonoBehaviour
             }
         }
 
-        direction = (Vector2)dot.transform.position + direction;
+        direction = (Vector2)dot.checkPosition + direction;
 
         //Debug.Log("Nearest Active - centerDot: " + dot.transform.position + " direction: " + direction);
 
@@ -379,7 +379,7 @@ public class Grid : MonoBehaviour
             if (d != null && d.active && d.gameObject.activeSelf && d.PlayerCanMoveOnto()) 
             {
                 // get distance between the sourrounding hexagon dot and our dot position plus the lookdirection
-                float l = (direction - (Vector2)d.transform.position).magnitude;
+                float l = (direction - (Vector2)d.checkPosition).magnitude;
 
                 // pythagoras fix for row offsets
                 if((dot.row % 2 == 0 && d.row % 2 != 0) || (dot.row % 2 != 0 && d.row % 2 == 0))
@@ -459,7 +459,7 @@ public class Grid : MonoBehaviour
                 hexDots.Add(gridDots[dot.row + 1, dot.column]);
         }
 
-        direction = (Vector2)dot.transform.position + direction;
+        direction = (Vector2)dot.checkPosition + direction;
 
         //Debug.Log("Nearest Active - centerDot: " + dot.transform.position + " direction: " + direction);
 
@@ -472,7 +472,7 @@ public class Grid : MonoBehaviour
             if (d != null && d.active && d.gameObject.activeSelf)
             {
                 // get distance between the sourrounding hexagon dot and our dot position plus the lookdirection
-                float l = (direction - (Vector2)d.transform.position).magnitude;
+                float l = (direction - (Vector2)d.checkPosition).magnitude;
 
                 // pythagoras fix for row offsets
                 if ((dot.row % 2 == 0 && d.row % 2 != 0) || (dot.row % 2 != 0 && d.row % 2 == 0))

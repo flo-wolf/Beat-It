@@ -203,6 +203,8 @@ public class Player : MonoBehaviour
                     else
                         RemoveDot(false);
 
+                    Debug.Log("PLAYER POSITION CALCULATION - IsAimingAtOldDot: " + isAimingAtOldDot);
+
                 }
                 else
                 {
@@ -214,6 +216,8 @@ public class Player : MonoBehaviour
                         RemoveDot(false);
                     else
                         RemoveDot(true);
+
+                    Debug.Log("PLAYER POSITION CALCULATION - IsAimingAtOldDot: " + isAimingAtOldDot);
                 }
                 AudioManager.instance.Play("HiHat");
                 AudioManager.instance.Play("Segment");
@@ -225,7 +229,7 @@ public class Player : MonoBehaviour
                 {
                     RemoveDot(false);
                     AudioManager.instance.Play("Snare");
-                    SpawnDot();
+                    DelayedSpawnDot();
                     RemoveDot(true);
                     Teleporter.teleportEnabled = false;
                 }
@@ -234,7 +238,7 @@ public class Player : MonoBehaviour
                 {
                     RemoveDot(true);
                     AudioManager.instance.Play("Snare");
-                    SpawnDot();
+                    DelayedSpawnDot();
                     RemoveDot(false);
                     Teleporter.teleportEnabled = false;
                 }
@@ -259,7 +263,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            SpawnDot();
+            DelayedSpawnDot();
             AudioManager.instance.Play("Kick");
             
         }
@@ -323,6 +327,20 @@ public class Player : MonoBehaviour
             return true;
         return false;
     }
+
+    void DelayedSpawnDot()
+    {
+        StartCoroutine(C_DelayedSpawnDot());
+    }
+
+    IEnumerator C_DelayedSpawnDot()
+    {
+        yield return new WaitForSeconds(0.05f);
+        SpawnDot();
+
+        yield return null;
+    }
+
 
     /// Creates a new PlayerDot Object at the lookDestination position and draws the connecting segment in between
     void SpawnDot()

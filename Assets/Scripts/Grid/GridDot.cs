@@ -21,6 +21,19 @@ public class GridDot : MonoBehaviour
     [HideInInspector]
     public bool wasFadedIn = false;
 
+    [HideInInspector]
+    public bool isGettingMoved = false;
+
+    [HideInInspector]
+    // position to be checked when searching for suitable griddots (compensates for rotator rotation etc)
+    private Vector3 m_checkPosition = Vector3.zero;
+    public Vector3 checkPosition
+    {
+        get { if (isGettingMoved) return m_checkPosition; else return transform.position; }
+        set { m_checkPosition = value; }
+    }
+
+
     // the object attached to our dot, oqupying it (player or levelobject)
     private LevelObject m_levelObj;
     public LevelObject levelObject

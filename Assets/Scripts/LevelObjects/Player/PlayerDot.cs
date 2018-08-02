@@ -107,12 +107,14 @@ public class PlayerDot : LevelObject{
     /// interpolates the dots opacity as well as its size
     IEnumerator Fade(bool fadeIn)
     {
-        Debug.Log("PlayerDot fadeIn: " + fadeIn + " -- name: " + gameObject.name);
+        //Debug.Log("PlayerDot fadeIn: " + fadeIn + " -- name: " + gameObject.name);
 
         if (!Player.isDashing)
             fadeDuration = RythmManager.playerBPM.ToSecs() / 2;
         else
-            fadeDuration = RythmManager.playerDashBPM.ToSecs() / 2;
+            fadeDuration = RythmManager.playerDashBPM.ToSecs() / 4;
+
+       // Debug.Log("Fade PlayerDot fadeDuration: " + fadeDuration);
 
         if (fadeIn)
             state = State.Filling;

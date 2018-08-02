@@ -74,7 +74,7 @@ MonoBehaviour:
   gridDot: {fileID: 0}
   pullPercentage: 0.5
   rotateRight: 0
-  rotateOnBeatOffset: 0
+  rotateOnBeatOffset: 1
 --- !u!212 &212837835312144232
 SpriteRenderer:
   m_ObjectHideFlags: 1
