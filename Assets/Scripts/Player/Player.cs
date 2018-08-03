@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
                 {
                     RemoveDot(false);
                     AudioManager.instance.Play("Snare");
-                    DelayedSpawnDot();
+                    SpawnDot();
                     RemoveDot(true);
                     Teleporter.teleportEnabled = false;
                 }
@@ -238,7 +238,7 @@ public class Player : MonoBehaviour
                 {
                     RemoveDot(true);
                     AudioManager.instance.Play("Snare");
-                    DelayedSpawnDot();
+                    SpawnDot();
                     RemoveDot(false);
                     Teleporter.teleportEnabled = false;
                 }
