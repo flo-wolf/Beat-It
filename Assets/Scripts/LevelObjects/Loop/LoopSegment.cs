@@ -20,11 +20,12 @@ public class LoopSegment : Segment {
 
     private Color lineRendererColor;
 
-
+    int count = 0;
 
     // Use this for initialization
     void Start ()
     {
+        count = 0;
         colliderEdge = GetComponent<EdgeCollider2D>();
         RythmManager.onBPM.AddListener(OnBPM);
         Game.onGameStateChange.AddListener(GameStateChanged);
@@ -175,6 +176,13 @@ public class LoopSegment : Segment {
                 PlayerSegment.touchedKillDot = true;
                 Player.allowMove = false;
                 //Player.deathBySegment = true;
+
+                if (count < 1)
+                {
+                    AudioManager.instance.Play("OnDeathTrigger");
+                    count++;
+                }
+
                 Game.SetState(Game.State.DeathOnNextBeat);
             }
         }
