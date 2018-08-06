@@ -20,6 +20,12 @@ public class LoopSegment : Segment {
 
     private Color lineRendererColor;
 
+    //Color: EC702D
+    public Color loopDotColor;
+
+    //Color: B42F2A
+    public Color suckedInColor;
+
     int count = 0;
 
     // Use this for initialization
@@ -65,6 +71,12 @@ public class LoopSegment : Segment {
         if (!loop.seperateShootSuck)
         {
             LoopDot currentDot = loop.loopDots[currentLoopIndex];
+            SpriteRenderer srCurrentDot = currentDot.GetComponent<SpriteRenderer>();
+            GameObject grandChild = currentDot.transform.GetChild(0).gameObject;
+            SpriteRenderer arrow = grandChild.GetComponentInChildren<SpriteRenderer>();
+
+            arrow.color = loopDotColor;
+            srCurrentDot.color = loopDotColor;
 
             nextDot = null;
             if (moveUpLoopList)
@@ -81,6 +93,12 @@ public class LoopSegment : Segment {
             if (!segmentShot)
             {
                 LoopDot currentDot = loop.loopDots[currentLoopIndex];
+                SpriteRenderer srCurrentDot = currentDot.GetComponent<SpriteRenderer>();
+                GameObject grandChild = currentDot.transform.GetChild(0).gameObject;
+                SpriteRenderer arrow = grandChild.GetComponentInChildren<SpriteRenderer>();
+
+                arrow.color = loopDotColor;
+                srCurrentDot.color = loopDotColor;
 
                 nextDot = null;
                 if (moveUpLoopList)
@@ -94,6 +112,14 @@ public class LoopSegment : Segment {
             }
             else
             {
+                LoopDot currentDot = loop.loopDots[currentLoopIndex];
+                SpriteRenderer srCurrentDot = currentDot.GetComponent<SpriteRenderer>();
+                GameObject grandChild = currentDot.transform.GetChild(0).gameObject;
+                SpriteRenderer arrow = grandChild.GetComponentInChildren<SpriteRenderer>();
+
+                arrow.color = suckedInColor;
+                srCurrentDot.color = suckedInColor;
+
                 EmptySegment(true, RythmManager.playerBPM.ToSecs());
                 segmentShot = false;
             } 

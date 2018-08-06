@@ -299,6 +299,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &75427682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -472,6 +473,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &224971072
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -598,6 +600,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &226263695
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -701,6 +704,8 @@ MonoBehaviour:
   loop: {fileID: 1823521010}
   currentLoopIndex: 0
   moveUpLoopList: 1
+  loopDotColor: {r: 0.9254902, g: 0.4392157, b: 0.1764706, a: 1}
+  suckedInColor: {r: 0.7075472, g: 0.18269216, b: 0.16353686, a: 1}
 --- !u!120 &400184430
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -935,6 +940,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &403190067
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1140,6 +1146,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &563775770
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1391,6 +1398,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &897935158
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1707,6 +1715,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1012347936
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1876,6 +1885,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1116735332
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2035,7 +2045,7 @@ Prefab:
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: orthographic size
-      value: 24.268116
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
@@ -2411,6 +2421,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1233661289
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2633,6 +2644,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1344568714
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2759,6 +2771,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1431733486
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2931,6 +2944,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1777351541
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3057,6 +3071,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1799051048
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3332,6 +3347,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &2030716941
 CircleCollider2D:
   m_ObjectHideFlags: 0

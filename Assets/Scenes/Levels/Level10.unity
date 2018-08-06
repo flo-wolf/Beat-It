@@ -557,6 +557,8 @@ MonoBehaviour:
   loop: {fileID: 1823521010}
   currentLoopIndex: 0
   moveUpLoopList: 1
+  loopDotColor: {r: 0.9254902, g: 0.4392157, b: 0.1764706, a: 1}
+  suckedInColor: {r: 0.7058824, g: 0.18431373, b: 0.16470589, a: 1}
 --- !u!120 &400184430
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1645,7 +1647,7 @@ Prefab:
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: orthographic size
-      value: 24.104816
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
