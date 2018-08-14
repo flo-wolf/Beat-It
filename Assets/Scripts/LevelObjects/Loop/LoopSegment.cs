@@ -37,7 +37,6 @@ public class LoopSegment : Segment {
         Game.onGameStateChange.AddListener(GameStateChanged);
 
         lineRendererColor = lineRenderer.startColor;
-
     }
 
     private void OnBPM(BPMinfo bpm)
@@ -66,17 +65,39 @@ public class LoopSegment : Segment {
         }
     }
 
+    private void ColorChangeArrow(LoopDot dot, Color color)
+    {
+        GameObject arrowChild = dot.transform.GetChild(1).gameObject;
+        SpriteRenderer srArrow = arrowChild.GetComponentInChildren<SpriteRenderer>();
+
+        srArrow.color = color;
+    }
+
+    private void ColorChangeDot(LoopDot dot, Color color)
+    {
+        SpriteRenderer srCurrentDot = dot.GetComponent<SpriteRenderer>();
+        srCurrentDot.color = color;
+    }
+
+    private void ColorChangeGrandChild(LoopDot dot, Color color)
+    {
+        GameObject grandChild = dot.transform.GetChild(0).gameObject;
+        SpriteRenderer srGrandChild = grandChild.GetComponent<SpriteRenderer>();
+
+        srGrandChild.color = color;
+    }
+
     private void MoveToNextLoopDot()
     {
         if (!loop.seperateShootSuck)
         {
             LoopDot currentDot = loop.loopDots[currentLoopIndex];
-            SpriteRenderer srCurrentDot = currentDot.GetComponent<SpriteRenderer>();
-            GameObject grandChild = currentDot.transform.GetChild(0).gameObject;
-            SpriteRenderer arrow = grandChild.GetComponentInChildren<SpriteRenderer>();
 
-            arrow.color = loopDotColor;
-            srCurrentDot.color = loopDotColor;
+            /*
+            ColorChangeArrow(currentDot, loopDotColor);
+            ColorChangeDot(currentDot, loopDotColor);
+            ColorChangeGrandChild(currentDot, loopDotColor); 
+            */
 
             nextDot = null;
             if (moveUpLoopList)
@@ -93,12 +114,12 @@ public class LoopSegment : Segment {
             if (!segmentShot)
             {
                 LoopDot currentDot = loop.loopDots[currentLoopIndex];
-                SpriteRenderer srCurrentDot = currentDot.GetComponent<SpriteRenderer>();
-                GameObject grandChild = currentDot.transform.GetChild(0).gameObject;
-                SpriteRenderer arrow = grandChild.GetComponentInChildren<SpriteRenderer>();
 
-                arrow.color = loopDotColor;
-                srCurrentDot.color = loopDotColor;
+                /*
+                ColorChangeArrow(currentDot, loopDotColor);
+                ColorChangeDot(currentDot, loopDotColor);
+                ColorChangeGrandChild(currentDot, loopDotColor);
+                */
 
                 nextDot = null;
                 if (moveUpLoopList)
@@ -113,12 +134,12 @@ public class LoopSegment : Segment {
             else
             {
                 LoopDot currentDot = loop.loopDots[currentLoopIndex];
-                SpriteRenderer srCurrentDot = currentDot.GetComponent<SpriteRenderer>();
-                GameObject grandChild = currentDot.transform.GetChild(0).gameObject;
-                SpriteRenderer arrow = grandChild.GetComponentInChildren<SpriteRenderer>();
 
-                arrow.color = suckedInColor;
-                srCurrentDot.color = suckedInColor;
+                /*
+                ColorChangeArrow(currentDot, suckedInColor);
+                ColorChangeDot(currentDot, suckedInColor);
+                ColorChangeGrandChild(currentDot, suckedInColor);
+                */
 
                 EmptySegment(true, RythmManager.playerBPM.ToSecs());
                 segmentShot = false;

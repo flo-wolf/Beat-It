@@ -92,4 +92,13 @@ public class PlayerSegment : Segment {
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag.Equals("LevelObject"))
+        {
+            Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
+            otherColor.a = 1;
+            killColor = otherColor;
+        }
+    }
 }
