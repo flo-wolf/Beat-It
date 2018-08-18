@@ -42,23 +42,26 @@ public class TeleporterDot : LevelObject
     {
         Debug.Log("Trigger");
         if (collision.gameObject.CompareTag("Player"))
-        {          
-            if (Teleporter.teleportEnabled)
+        {    
+            if(Player.dot0.transform.position == this.transform.position || Player.dot1.transform.position == this.transform.position)
             {
-                Teleporter.teleporterTouched = true;
-                Debug.Log("TELEPORTER TOUCHED" + Teleporter.teleporterTouched);
-
-                if (Player.dot0.transform.position == this.transform.position)
+                if (Teleporter.teleportEnabled)
                 {
-                    Teleporter.dot0OnTeleportPosition = true;
-                }
+                    Teleporter.teleporterTouched = true;
+                    Debug.Log("TELEPORTER TOUCHED" + Teleporter.teleporterTouched);
 
-                else
-                {
-                    Teleporter.dot0OnTeleportPosition = false;
+                    if (Player.dot0.transform.position == this.transform.position)
+                    {
+                        Teleporter.dot0OnTeleportPosition = true;
+                    }
+
+                    else
+                    {
+                        Teleporter.dot0OnTeleportPosition = false;
+                    }
                 }
+                Debug.Log("PLAYER ON TELEPORTERDOT");
             }
-            Debug.Log("PLAYER ON TELEPORTERDOT");
         }
     }
 
