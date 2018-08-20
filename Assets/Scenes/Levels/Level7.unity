@@ -353,6 +353,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &75427682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -521,6 +522,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &224971072
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -647,6 +649,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &226263695
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -858,6 +861,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &563775770
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1032,6 +1036,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &644445208
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1416,6 +1421,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1012347936
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1631,6 +1637,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1116735332
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2052,6 +2059,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1344568714
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2179,6 +2187,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1431733486
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2351,6 +2360,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1531486283
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2536,6 +2546,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1777351541
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2662,6 +2673,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1799051048
 CircleCollider2D:
   m_ObjectHideFlags: 0
