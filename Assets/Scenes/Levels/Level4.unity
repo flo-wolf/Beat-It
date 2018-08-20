@@ -298,6 +298,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &75427682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -313,6 +314,48 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!1001 &141557060
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &191563516
 Prefab:
   m_ObjectHideFlags: 0
@@ -466,6 +509,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &224971072
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -593,6 +637,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &226263695
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -762,6 +807,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &403190067
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -962,6 +1008,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &478645230
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1094,6 +1141,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &563775770
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1332,6 +1380,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &897935158
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1604,6 +1653,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1012347936
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1773,6 +1823,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1116735332
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1865,7 +1916,7 @@ Prefab:
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: orthographic size
-      value: 24.268116
+      value: 24.875
       objectReference: {fileID: 0}
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
@@ -2357,6 +2408,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1233661289
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2531,6 +2583,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1344568714
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2657,6 +2710,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1431733486
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2946,6 +3000,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1777351541
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3072,6 +3127,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1799051048
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3298,6 +3354,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &2030716941
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3424,6 +3481,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &2070413610
 CircleCollider2D:
   m_ObjectHideFlags: 0

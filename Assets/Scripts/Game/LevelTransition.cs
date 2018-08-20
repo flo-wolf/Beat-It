@@ -77,15 +77,18 @@ public class LevelTransition : MonoBehaviour {
 
         Vector3 panStartPos = Grid.FindPlayerGoal().transform.position - Grid.instance.transform.position;
         Vector3 panEndPos = EditPlayerSpawnData.GetNextPlayerSpawnPositon() - Grid.instance.transform.position;
+
+        
+
         Grid.Pan(panStartPos, panEndPos, out_cameraToNewSpawnDuration);
         onLevelTransition.Invoke(Action.FadeOutRadiusHandle);
         yield return new WaitForSeconds(out_cameraToNewSpawnDuration / 1.5f);
         onLevelTransition.Invoke(Action.FadeOutGridDots);
-        
-        
-        yield return new WaitForSeconds(out_cameraToNewSpawnDuration/2);
-        
 
+        LevelProgress.instance.Hightlight(out_FadeDotsDuration + out_cameraToNewSpawnDuration / 2);
+        yield return new WaitForSeconds(out_cameraToNewSpawnDuration/2);
+
+        
         yield return new WaitForSeconds(out_FadeDotsDuration);
         Game.LoadNextLevel();
 
@@ -99,6 +102,7 @@ public class LevelTransition : MonoBehaviour {
 
         //yield return new WaitForSeconds(out_cameraToNewSpawnDuration);
         onLevelTransition.Invoke(Action.FadeOutRadiusHandle);
+        //LevelProgress.instance.FadeOutAll(out_FadeDotsDuration);
         yield return new WaitForSeconds(out_FadeDotsDuration);
         
         Game.RestartLevel();
@@ -133,7 +137,12 @@ public class LevelTransition : MonoBehaviour {
 
         // fade in all other levelobjects
         Grid.FadeLevelObjectsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeObjectsDuration, 80f, true);
+
+        if(!LevelProgress.fadedIn)
+            LevelProgress.instance.FadeInAll(start_FadeObjectsDuration);
+
         yield return new WaitForSeconds(start_FadeObjectsDuration);
+
 
         // start the game
         Game.SetState(Game.State.Playing);
@@ -162,6 +171,7 @@ public class LevelTransition : MonoBehaviour {
         Grid.FadeGridDotsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
         Grid.FadeLevelObjectsGradually(Grid.FindPlayerSpawn().transform.position, start_FadeDotsDuration, 80f, true);
         PlayerGoal.instance.Fade(start_FadeDotsDuration, true);
+        //LevelProgress.instance.FadeInAll(start_FadeDotsDuration);
         yield return new WaitForSeconds(start_FadeDotsDuration);
 
         Game.quickSceneLoad = false;

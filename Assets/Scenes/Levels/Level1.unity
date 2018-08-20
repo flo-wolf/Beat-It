@@ -360,6 +360,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &75427682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -528,6 +529,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &224971072
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -654,6 +656,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &226263695
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -780,6 +783,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &403190067
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -980,6 +984,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &478645230
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1111,6 +1116,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &563775770
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1307,8 +1313,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 897356688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.8, y: 19.1, z: 0}
-  m_LocalScale: {x: 3.6789498, y: 3.6789498, z: 3.6789498}
+  m_LocalPosition: {x: -27.62, y: 19.89, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
@@ -1534,6 +1540,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1012347936
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1703,6 +1710,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1116735332
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1795,7 +1803,7 @@ Prefab:
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
       propertyPath: orthographic size
-      value: 24.104816
+      value: 24.875
       objectReference: {fileID: 0}
     - target: {fileID: 20720245926285118, guid: 18f600b766aaef34991ab2ad8d5e7ab9,
         type: 2}
@@ -2235,6 +2243,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &1431733486
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2295,6 +2304,63 @@ MonoBehaviour:
   customAspectRatio: 0
   _aspectRatio: {x: 4, y: 3}
   timeScale: 1
+--- !u!1001 &1739010295
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706334503642068, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391659414518312, guid: 7a124a7d0df718a4384b91082eb59cab,
+        type: 2}
+      propertyPath: defaultColor.r
+      value: 0.254717
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391659414518312, guid: 7a124a7d0df718a4384b91082eb59cab,
+        type: 2}
+      propertyPath: defaultColor.g
+      value: 0.254717
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391659414518312, guid: 7a124a7d0df718a4384b91082eb59cab,
+        type: 2}
+      propertyPath: defaultColor.b
+      value: 0.254717
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7a124a7d0df718a4384b91082eb59cab, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1834507855
 Prefab:
   m_ObjectHideFlags: 0
@@ -2542,6 +2608,7 @@ MonoBehaviour:
   active: 1
   defaultSize: {x: 0, y: 0, z: 0}
   wasFadedIn: 0
+  isGettingMoved: 0
 --- !u!58 &2030716941
 CircleCollider2D:
   m_ObjectHideFlags: 0
