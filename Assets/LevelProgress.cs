@@ -40,6 +40,17 @@ public class LevelProgress : MonoBehaviour {
         StartCoroutine(C_FadeAll(false, duration));
     }
 
+    public void FadeOutAllInstantly()
+    {
+
+        for (int i = 0; i < levelIndicators.Length; i++)
+        {
+                levelIndicators[i].FadeOut(0f, false);
+        }
+
+        fadedIn = false;
+    }
+
     public void Hightlight(float duration)
     {
         highlight = Game.level - 1;

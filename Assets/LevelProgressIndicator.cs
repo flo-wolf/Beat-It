@@ -42,7 +42,7 @@ public class LevelProgressIndicator : MonoBehaviour {
         Color startColor = LevelProgress.instance.defaultColor;
         startColor = sr.color;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < duration || elapsedTime == 0f)
         {
             elapsedTime += Time.deltaTime;
 
@@ -83,7 +83,7 @@ public class LevelProgressIndicator : MonoBehaviour {
         }
         else highlight = false;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < duration || elapsedTime == 0f)
         {
             elapsedTime += Time.deltaTime;
 

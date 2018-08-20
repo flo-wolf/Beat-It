@@ -159,6 +159,7 @@ public class Game : MonoBehaviour {
 
     public static void RestartGame()
     {
+        LevelProgress.instance.FadeOutAllInstantly();
         SceneManager.LoadScene(instance.levels[Game.instance.startWithIndex]);
         Player.allowMove = false;
     }
