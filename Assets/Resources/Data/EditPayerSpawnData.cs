@@ -17,7 +17,7 @@ public static class EditPlayerSpawnData
     public static void ReportPlayerSpawnPosition(Vector3 position, int level)
     {
         PlayerSpawnData data = ReadPlayerSpawnData();
-        Debug.Log(data + " pos: " + position +  " level: " + level);
+        //Debug.Log(data + " pos: " + position +  " level: " + level);
         if (data != null)
             data.SetPosition(position, level);
     }
